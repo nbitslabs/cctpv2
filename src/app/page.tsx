@@ -1,7 +1,5 @@
 "use client";
-
 import { useEffect, useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -17,7 +15,6 @@ import {
   SupportedChainId,
   SUPPORTED_CHAINS,
   CHAIN_TO_CHAIN_NAME,
-  CHAIN_IDS_TO_USDC_ADDRESSES,
 } from "@/lib/chains";
 import { ProgressSteps } from "@/components/progress-step";
 import { TransferLog } from "@/components/transfer-log";
@@ -30,33 +27,28 @@ import { useAppKitAccount } from "@reown/appkit/react";
 import { useSwitchChain } from "wagmi";
 import { toast } from "sonner";
 import { SwitchChainError } from "viem";
+import { usdcAddress } from "@/lib/wagmi/generated";
 
 export default function Home() {
   const { switchChainAsync } = useSwitchChain();
   const { isConnected } = useAppKitAccount();
   const { currentStep, logs, error, executeTransfer, reset } =
     useCrossChainTransfer();
-  const [sourceChain, setSourceChain] = useState<SupportedChainId>(
-    SupportedChainId.ETH_SEPOLIA
-  );
-  const [destinationChain, setDestinationChain] = useState<SupportedChainId>(
-    SupportedChainId.AVAX_FUJI
-  );
+  const [sourceChain, setSourceChain] = useState(SupportedChainId.ETH_SEPOLIA);
+  const [destChain, setDestChain] = useState(SupportedChainId.AVAX_FUJI);
   const [amount, setAmount] = useState("");
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [isTransferring, setIsTransferring] = useState(false);
   const [showFinalTime, setShowFinalTime] = useState(false);
   const [transferType, setTransferType] = useState<"fast" | "standard">("fast");
-  const { data: balance } = useErc20Amount(
-    CHAIN_IDS_TO_USDC_ADDRESSES[sourceChain]
-  );
+  const { data: balance } = useErc20Amount(usdcAddress[sourceChain]);
 
   const handleStartTransfer = async () => {
     setIsTransferring(true);
     setShowFinalTime(false);
     setElapsedSeconds(0);
 
-    await executeTransfer(sourceChain, destinationChain, amount, transferType);
+    await executeTransfer(sourceChain, destChain, amount, transferType);
     setIsTransferring(false);
     setShowFinalTime(true);
   };
@@ -74,7 +66,7 @@ export default function Home() {
     );
 
     if (newDestinationChain) {
-      setDestinationChain(newDestinationChain);
+      setDestChain(newDestinationChain);
     }
   }, [sourceChain, showFinalTime]);
 
@@ -130,8 +122,8 @@ export default function Home() {
             <div className="space-y-2">
               <Label>Destination Chain</Label>
               <Select
-                value={String(destinationChain)}
-                onValueChange={(value) => setDestinationChain(Number(value))}
+                value={String(destChain)}
+                onValueChange={(value) => setDestChain(Number(value))}
                 disabled={!sourceChain}
               >
                 <SelectTrigger>

@@ -3,17 +3,14 @@
 import { useState } from "react";
 import { TransactionExecutionError, parseUnits, Address } from "viem";
 import axios from "axios";
-import {
-  SupportedChainId,
-  CHAIN_IDS_TO_USDC_ADDRESSES,
-  DESTINATION_DOMAINS,
-} from "@/lib/chains";
+import { SupportedChainId, DESTINATION_DOMAINS } from "@/lib/chains";
 import { toast } from "sonner";
 import {
   readUsdcAllowance,
   readUsdcDecimals,
   simulateMessageTransmitterReceiveMessage,
   tokenMessagerAddress,
+  usdcAddress,
   useWriteUsdcApprove,
   writeMessageTransmitterReceiveMessage,
   writeTokenMessagerDepositForBurn,
@@ -157,7 +154,7 @@ const burnUSDC = async (
       amount,
       DESTINATION_DOMAINS[destinationChainId],
       mintRecipient,
-      CHAIN_IDS_TO_USDC_ADDRESSES[sourceChainId],
+      usdcAddress[sourceChainId],
       "0x0000000000000000000000000000000000000000000000000000000000000000",
       maxFee,
       finalityThreshold,

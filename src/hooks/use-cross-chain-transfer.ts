@@ -1,25 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { TransactionExecutionError, parseUnits, Address } from "viem";
-import axios from "axios";
-import { SupportedChainId, DESTINATION_DOMAINS } from "@/lib/chains";
 import { toast } from "sonner";
-import {
-  readUsdcAllowance,
-  readUsdcDecimals,
-  simulateMessageTransmitterReceiveMessage,
-  tokenMessagerAddress,
-  usdcAddress,
-  useWriteUsdcApprove,
-  writeMessageTransmitterReceiveMessage,
-  writeTokenMessagerDepositForBurn,
-} from "@/lib/wagmi/generated";
-import { getAccount, getChainId, switchChain } from "wagmi/actions";
-import { wagmiConfig } from "@/lib/wagmi/config";
 import { AttestationMessage } from "../../global.types";
-
-export type SupportedSourceChainId = keyof typeof tokenMessagerAddress;
+import { getAttestation } from "@/lib/cctp/attestation";
+import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
+import {
+  CctpNetworkAdapter,
+  CctpNetworkAdapterId,
+  CctpTransferType,
+  networkAdapters,
+} from "@/lib/cctp/networks";
 
 export type TransferStep =
   | "idle"
@@ -34,7 +25,14 @@ export function useCrossChainTransfer() {
   const [currentStep, setCurrentStep] = useState<TransferStep>("idle");
   const [logs, setLogs] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const { writeContractAsync: writeUsdcApprove } = useWriteUsdcApprove();
+  const { activeNetwork, setActiveNetwork } = useActiveNetwork();
+  const {
+    readAllowanceForTokenMessager,
+    writeApproveForTokenMessager,
+    writeTokenMessagerDepositForBurn,
+    simulateMessageTransmitterReceiveMessage,
+    writeMessageTransmitterReceiveMessage,
+  } = activeNetwork;
 
   const addLog = (message: string) =>
     setLogs((prev) => [
@@ -43,61 +41,58 @@ export function useCrossChainTransfer() {
     ]);
 
   const executeTransfer = async (
-    sourceChainId: SupportedSourceChainId,
-    destinationChainId: SupportedSourceChainId,
+    destinationChainId: CctpNetworkAdapterId,
     amount: string,
-    transferType: "fast" | "standard"
+    transferType: CctpTransferType
   ) => {
     try {
-      const usdcDecimals = await readUsdcDecimals(wagmiConfig, {});
-      const numericAmount = parseUnits(amount, usdcDecimals);
-      const { address } = getAccount(wagmiConfig);
-      if (!address) return;
-      const defaultDestination = address;
+      const allowance = await readAllowanceForTokenMessager();
+      const numericAmount = Number(amount);
+      addLog(`Allowance: ${allowance.formatted}`);
+      addLog(`Amount: ${numericAmount}`);
 
-      const usdcApproval = await readUsdcAllowance(wagmiConfig, {
-        args: [tokenMessagerAddress[sourceChainId], address],
-      });
-
-      if (usdcApproval < numericAmount) {
+      if (numericAmount > allowance.formatted) {
         setCurrentStep("approving");
         await toast
-          .promise(
-            writeUsdcApprove({
-              args: [tokenMessagerAddress[sourceChainId], numericAmount],
-            }),
-            {
-              loading: "Approving USDC...",
-              success: "USDC approved!",
-              error: "Approval failed",
-            }
-          )
+          .promise(writeApproveForTokenMessager(numericAmount), {
+            loading: "Approving USDC...",
+            success: "USDC approved!",
+            error: "Approval failed",
+          })
           .unwrap();
       }
 
       setCurrentStep("burning");
-      const burnTx = await burnUSDC(
-        sourceChainId,
+      const destination = networkAdapters.find(
+        (n) => n.id === destinationChainId
+      );
+      if (!destination) throw new Error("Destination network not found");
+
+      const burnTx = await writeTokenMessagerDepositForBurn(
         numericAmount,
-        destinationChainId,
-        defaultDestination,
-        transferType
+        destination.domain,
+        { transferType }
       );
 
       addLog(`Burn Tx: ${burnTx}`);
       setCurrentStep("waiting-attestation");
-      const attestation = await retrieveAttestation(burnTx, sourceChainId);
-
-      // const minBalance = parseEther("0.01"); // 0.01 native token
-      // const balance = await getBalance(wagmiConfig.getClient(), {
-      //   address: defaultDestination,
-      // });
-      // if (balance < minBalance) {
-      //   throw new Error("Insufficient native token for gas fees");
-      // }
+      const attestation = await retrieveAttestation(
+        burnTx,
+        activeNetwork.domain
+      );
 
       setCurrentStep("minting");
-      const mintTx = await mintUSDC(destinationChainId, attestation, addLog);
+      await setActiveNetwork(destinationChainId);
+
+      const simulationResult = await simulateMessageTransmitterReceiveMessage(
+        attestation.message,
+        attestation.attestation
+      );
+      if (!simulationResult) throw new Error("Simulation failed");
+      const mintTx = await writeMessageTransmitterReceiveMessage(
+        attestation.message,
+        attestation.attestation
+      );
       addLog(`Mint Tx: ${mintTx}`);
 
       setCurrentStep("completed");
@@ -124,54 +119,14 @@ export function useCrossChainTransfer() {
   };
 }
 
-async function getAttestation(
-  sourceChainId: SupportedSourceChainId,
-  burnTx: Address
-): Promise<AttestationMessage> {
-  const destinationDomain = DESTINATION_DOMAINS[sourceChainId as number];
-  const url = `https://iris-api-sandbox.circle.com/v2/messages/${destinationDomain}`;
-  const response = await axios.get(url, {
-    params: { transactionHash: burnTx },
-  });
-  return response.data?.messages?.[0];
-}
-
-const burnUSDC = async (
-  sourceChainId: SupportedSourceChainId,
-  amount: bigint,
-  destinationChainId: SupportedSourceChainId,
-  destinationAddress: string,
-  transferType: "fast" | "standard"
-) => {
-  const finalityThreshold = transferType === "fast" ? 1000 : 2000;
-  const maxFee = amount - 1n;
-  const mintRecipient = `0x${destinationAddress
-    .replace(/^0x/, "")
-    .padStart(64, "0")}` as const;
-
-  const tx = await writeTokenMessagerDepositForBurn(wagmiConfig, {
-    args: [
-      amount,
-      DESTINATION_DOMAINS[destinationChainId],
-      mintRecipient,
-      usdcAddress[sourceChainId],
-      "0x0000000000000000000000000000000000000000000000000000000000000000",
-      maxFee,
-      finalityThreshold,
-    ],
-  });
-
-  return tx;
-};
-
 const retrieveAttestation = async (
-  transactionHash: Address,
-  sourceChainId: SupportedSourceChainId
+  transactionHash: string,
+  sourceChainDomain: CctpNetworkAdapter["domain"]
 ) => {
   return new Promise<AttestationMessage>((resolve, reject) => {
     let timeout: NodeJS.Timeout;
     const interval = setInterval(async () => {
-      const response = await getAttestation(sourceChainId, transactionHash);
+      const response = await getAttestation(sourceChainDomain, transactionHash);
 
       if (response.status === "complete") {
         clearInterval(interval);
@@ -185,50 +140,7 @@ const retrieveAttestation = async (
         clearInterval(interval);
         reject(new Error("Timeout waiting for attestation"));
       },
-      2 * 60 * 1000
+      5 * 60 * 1000
     );
   });
-};
-
-const mintUSDC = async (
-  destinationChainId: SupportedChainId,
-  attestation: AttestationMessage,
-  addLog: (message: string) => void
-) => {
-  const MAX_RETRIES = 3;
-  let retries = 0;
-
-  while (retries < MAX_RETRIES) {
-    try {
-      const chainId = getChainId(wagmiConfig);
-      if (chainId !== destinationChainId) {
-        await switchChain(wagmiConfig, { chainId: destinationChainId });
-      }
-
-      const simulationResult = await simulateMessageTransmitterReceiveMessage(
-        wagmiConfig,
-        { args: [attestation.message, attestation.attestation] }
-      );
-
-      if (!simulationResult.result) throw new Error("Simulation failed");
-
-      // // Add 20% buffer to gas estimate
-      // const gasWithBuffer = (gasEstimate * 120n) / 100n;
-      // addLog(`Gas Used: ${formatUnits(gasWithBuffer, 9)} Gwei`);
-
-      const tx = await writeMessageTransmitterReceiveMessage(wagmiConfig, {
-        args: [attestation.message, attestation.attestation],
-      });
-
-      return tx;
-    } catch (err) {
-      if (err instanceof TransactionExecutionError && retries < MAX_RETRIES) {
-        retries++;
-        addLog(`Retry ${retries}/${MAX_RETRIES}...`);
-        await new Promise((resolve) => setTimeout(resolve, 2000 * retries));
-        continue;
-      }
-      throw err;
-    }
-  }
 };

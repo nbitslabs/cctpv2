@@ -4,6 +4,7 @@ import "./globals.css";
 import AppkitProvider from "@/lib/wagmi/AppkitProvider";
 import { Toaster } from "@/components/ui/sonner";
 import React from "react";
+import { ActiveNetworkProvider } from "@/lib/cctp/providers/ActiveNetworkProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,7 +20,9 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} antialiased`}>
-        <AppkitProvider>{children}</AppkitProvider>
+        <AppkitProvider>
+          <ActiveNetworkProvider>{children}</ActiveNetworkProvider>
+        </AppkitProvider>
         <Toaster
           style={{ "--width": "20rem" } as never}
           toastOptions={{

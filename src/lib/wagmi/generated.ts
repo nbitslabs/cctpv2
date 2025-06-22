@@ -16,15 +16,6 @@ import {
 // messageTransmitter
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- */
 export const messageTransmitterAbi = [
   {
     type: 'constructor',
@@ -499,34 +490,9 @@ export const messageTransmitterAbi = [
   },
 ] as const
 
-/**
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- */
-export const messageTransmitterAddress = {
-  43113: '0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275',
-  57054: '0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275',
-  59141: '0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275',
-  80002: '0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275',
-  84532: '0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275',
-  421614: '0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275',
-  11155111: '0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275',
-} as const
+export const messageTransmitterAddress =
+  '0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275' as const
 
-/**
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- */
 export const messageTransmitterConfig = {
   address: messageTransmitterAddress,
   abi: messageTransmitterAbi,
@@ -536,14 +502,6 @@ export const messageTransmitterConfig = {
 // tokenMessager
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- */
 export const tokenMessagerAbi = [
   {
     type: 'constructor',
@@ -1097,31 +1055,9 @@ export const tokenMessagerAbi = [
   },
 ] as const
 
-/**
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- */
-export const tokenMessagerAddress = {
-  43113: '0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA',
-  57054: '0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA',
-  59141: '0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA',
-  84532: '0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA',
-  421614: '0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA',
-  11155111: '0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA',
-} as const
+export const tokenMessagerAddress =
+  '0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA' as const
 
-/**
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- */
 export const tokenMessagerConfig = {
   address: tokenMessagerAddress,
   abi: tokenMessagerAbi,
@@ -1132,6 +1068,8 @@ export const tokenMessagerConfig = {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -1139,6 +1077,7 @@ export const tokenMessagerConfig = {
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const usdcAbi = [
   {
@@ -1238,6 +1177,8 @@ export const usdcAbi = [
 ] as const
 
 /**
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -1245,8 +1186,11 @@ export const usdcAbi = [
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const usdcAddress = {
+  1301: '0x31d0220469e10c4E71834a79b1f276d740d3768F',
+  4801: '0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88',
   43113: '0x5425890298aed601595a70AB815c96711a31Bc65',
   57054: '0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6',
   59141: '0xFEce4462D57bD51A6A552365A011b95f0E16d9B7',
@@ -1254,9 +1198,12 @@ export const usdcAddress = {
   84532: '0x036CbD53842c5426634e7929541eC2318f3dCF7e',
   421614: '0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d',
   11155111: '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238',
+  11155420: '0x5fd84259d66Cd46123540766Be93DFE6D43130D7',
 } as const
 
 /**
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -1264,6 +1211,7 @@ export const usdcAddress = {
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const usdcConfig = { address: usdcAddress, abi: usdcAbi } as const
 
@@ -1273,14 +1221,6 @@ export const usdcConfig = { address: usdcAddress, abi: usdcAbi } as const
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitter = /*#__PURE__*/ createReadContract({
   abi: messageTransmitterAbi,
@@ -1289,14 +1229,6 @@ export const readMessageTransmitter = /*#__PURE__*/ createReadContract({
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"NONCE_USED"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterNonceUsed = /*#__PURE__*/ createReadContract(
   {
@@ -1308,14 +1240,6 @@ export const readMessageTransmitterNonceUsed = /*#__PURE__*/ createReadContract(
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"attesterManager"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterAttesterManager =
   /*#__PURE__*/ createReadContract({
@@ -1326,14 +1250,6 @@ export const readMessageTransmitterAttesterManager =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"getEnabledAttester"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterGetEnabledAttester =
   /*#__PURE__*/ createReadContract({
@@ -1344,14 +1260,6 @@ export const readMessageTransmitterGetEnabledAttester =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"getNumEnabledAttesters"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterGetNumEnabledAttesters =
   /*#__PURE__*/ createReadContract({
@@ -1362,14 +1270,6 @@ export const readMessageTransmitterGetNumEnabledAttesters =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"initializedVersion"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterInitializedVersion =
   /*#__PURE__*/ createReadContract({
@@ -1380,14 +1280,6 @@ export const readMessageTransmitterInitializedVersion =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"isEnabledAttester"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterIsEnabledAttester =
   /*#__PURE__*/ createReadContract({
@@ -1398,14 +1290,6 @@ export const readMessageTransmitterIsEnabledAttester =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"localDomain"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterLocalDomain =
   /*#__PURE__*/ createReadContract({
@@ -1416,14 +1300,6 @@ export const readMessageTransmitterLocalDomain =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"maxMessageBodySize"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterMaxMessageBodySize =
   /*#__PURE__*/ createReadContract({
@@ -1434,14 +1310,6 @@ export const readMessageTransmitterMaxMessageBodySize =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"owner"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterOwner = /*#__PURE__*/ createReadContract({
   abi: messageTransmitterAbi,
@@ -1451,14 +1319,6 @@ export const readMessageTransmitterOwner = /*#__PURE__*/ createReadContract({
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"paused"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterPaused = /*#__PURE__*/ createReadContract({
   abi: messageTransmitterAbi,
@@ -1468,14 +1328,6 @@ export const readMessageTransmitterPaused = /*#__PURE__*/ createReadContract({
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"pauser"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterPauser = /*#__PURE__*/ createReadContract({
   abi: messageTransmitterAbi,
@@ -1485,14 +1337,6 @@ export const readMessageTransmitterPauser = /*#__PURE__*/ createReadContract({
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"pendingOwner"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterPendingOwner =
   /*#__PURE__*/ createReadContract({
@@ -1503,14 +1347,6 @@ export const readMessageTransmitterPendingOwner =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"rescuer"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterRescuer = /*#__PURE__*/ createReadContract({
   abi: messageTransmitterAbi,
@@ -1520,14 +1356,6 @@ export const readMessageTransmitterRescuer = /*#__PURE__*/ createReadContract({
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"signatureThreshold"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterSignatureThreshold =
   /*#__PURE__*/ createReadContract({
@@ -1538,14 +1366,6 @@ export const readMessageTransmitterSignatureThreshold =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"usedNonces"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterUsedNonces =
   /*#__PURE__*/ createReadContract({
@@ -1556,14 +1376,6 @@ export const readMessageTransmitterUsedNonces =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"version"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const readMessageTransmitterVersion = /*#__PURE__*/ createReadContract({
   abi: messageTransmitterAbi,
@@ -1573,14 +1385,6 @@ export const readMessageTransmitterVersion = /*#__PURE__*/ createReadContract({
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitter = /*#__PURE__*/ createWriteContract({
   abi: messageTransmitterAbi,
@@ -1589,14 +1393,6 @@ export const writeMessageTransmitter = /*#__PURE__*/ createWriteContract({
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"acceptOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterAcceptOwnership =
   /*#__PURE__*/ createWriteContract({
@@ -1607,14 +1403,6 @@ export const writeMessageTransmitterAcceptOwnership =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"disableAttester"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterDisableAttester =
   /*#__PURE__*/ createWriteContract({
@@ -1625,14 +1413,6 @@ export const writeMessageTransmitterDisableAttester =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"enableAttester"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterEnableAttester =
   /*#__PURE__*/ createWriteContract({
@@ -1643,14 +1423,6 @@ export const writeMessageTransmitterEnableAttester =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"initialize"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterInitialize =
   /*#__PURE__*/ createWriteContract({
@@ -1661,14 +1433,6 @@ export const writeMessageTransmitterInitialize =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"pause"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterPause = /*#__PURE__*/ createWriteContract({
   abi: messageTransmitterAbi,
@@ -1678,14 +1442,6 @@ export const writeMessageTransmitterPause = /*#__PURE__*/ createWriteContract({
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"receiveMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterReceiveMessage =
   /*#__PURE__*/ createWriteContract({
@@ -1696,14 +1452,6 @@ export const writeMessageTransmitterReceiveMessage =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"rescueERC20"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterRescueErc20 =
   /*#__PURE__*/ createWriteContract({
@@ -1714,14 +1462,6 @@ export const writeMessageTransmitterRescueErc20 =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"sendMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterSendMessage =
   /*#__PURE__*/ createWriteContract({
@@ -1732,14 +1472,6 @@ export const writeMessageTransmitterSendMessage =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"setMaxMessageBodySize"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterSetMaxMessageBodySize =
   /*#__PURE__*/ createWriteContract({
@@ -1750,14 +1482,6 @@ export const writeMessageTransmitterSetMaxMessageBodySize =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"setSignatureThreshold"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterSetSignatureThreshold =
   /*#__PURE__*/ createWriteContract({
@@ -1768,14 +1492,6 @@ export const writeMessageTransmitterSetSignatureThreshold =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"transferOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterTransferOwnership =
   /*#__PURE__*/ createWriteContract({
@@ -1786,14 +1502,6 @@ export const writeMessageTransmitterTransferOwnership =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"unpause"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterUnpause = /*#__PURE__*/ createWriteContract(
   {
@@ -1805,14 +1513,6 @@ export const writeMessageTransmitterUnpause = /*#__PURE__*/ createWriteContract(
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"updateAttesterManager"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterUpdateAttesterManager =
   /*#__PURE__*/ createWriteContract({
@@ -1823,14 +1523,6 @@ export const writeMessageTransmitterUpdateAttesterManager =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"updatePauser"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterUpdatePauser =
   /*#__PURE__*/ createWriteContract({
@@ -1841,14 +1533,6 @@ export const writeMessageTransmitterUpdatePauser =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"updateRescuer"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const writeMessageTransmitterUpdateRescuer =
   /*#__PURE__*/ createWriteContract({
@@ -1859,14 +1543,6 @@ export const writeMessageTransmitterUpdateRescuer =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitter = /*#__PURE__*/ createSimulateContract({
   abi: messageTransmitterAbi,
@@ -1875,14 +1551,6 @@ export const simulateMessageTransmitter = /*#__PURE__*/ createSimulateContract({
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"acceptOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterAcceptOwnership =
   /*#__PURE__*/ createSimulateContract({
@@ -1893,14 +1561,6 @@ export const simulateMessageTransmitterAcceptOwnership =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"disableAttester"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterDisableAttester =
   /*#__PURE__*/ createSimulateContract({
@@ -1911,14 +1571,6 @@ export const simulateMessageTransmitterDisableAttester =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"enableAttester"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterEnableAttester =
   /*#__PURE__*/ createSimulateContract({
@@ -1929,14 +1581,6 @@ export const simulateMessageTransmitterEnableAttester =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"initialize"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterInitialize =
   /*#__PURE__*/ createSimulateContract({
@@ -1947,14 +1591,6 @@ export const simulateMessageTransmitterInitialize =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"pause"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterPause =
   /*#__PURE__*/ createSimulateContract({
@@ -1965,14 +1601,6 @@ export const simulateMessageTransmitterPause =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"receiveMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterReceiveMessage =
   /*#__PURE__*/ createSimulateContract({
@@ -1983,14 +1611,6 @@ export const simulateMessageTransmitterReceiveMessage =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"rescueERC20"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterRescueErc20 =
   /*#__PURE__*/ createSimulateContract({
@@ -2001,14 +1621,6 @@ export const simulateMessageTransmitterRescueErc20 =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"sendMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterSendMessage =
   /*#__PURE__*/ createSimulateContract({
@@ -2019,14 +1631,6 @@ export const simulateMessageTransmitterSendMessage =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"setMaxMessageBodySize"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterSetMaxMessageBodySize =
   /*#__PURE__*/ createSimulateContract({
@@ -2037,14 +1641,6 @@ export const simulateMessageTransmitterSetMaxMessageBodySize =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"setSignatureThreshold"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterSetSignatureThreshold =
   /*#__PURE__*/ createSimulateContract({
@@ -2055,14 +1651,6 @@ export const simulateMessageTransmitterSetSignatureThreshold =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"transferOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterTransferOwnership =
   /*#__PURE__*/ createSimulateContract({
@@ -2073,14 +1661,6 @@ export const simulateMessageTransmitterTransferOwnership =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"unpause"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterUnpause =
   /*#__PURE__*/ createSimulateContract({
@@ -2091,14 +1671,6 @@ export const simulateMessageTransmitterUnpause =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"updateAttesterManager"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterUpdateAttesterManager =
   /*#__PURE__*/ createSimulateContract({
@@ -2109,14 +1681,6 @@ export const simulateMessageTransmitterUpdateAttesterManager =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"updatePauser"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterUpdatePauser =
   /*#__PURE__*/ createSimulateContract({
@@ -2127,14 +1691,6 @@ export const simulateMessageTransmitterUpdatePauser =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"updateRescuer"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const simulateMessageTransmitterUpdateRescuer =
   /*#__PURE__*/ createSimulateContract({
@@ -2145,14 +1701,6 @@ export const simulateMessageTransmitterUpdateRescuer =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2162,14 +1710,6 @@ export const watchMessageTransmitterEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"AttesterDisabled"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterAttesterDisabledEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2180,14 +1720,6 @@ export const watchMessageTransmitterAttesterDisabledEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"AttesterEnabled"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterAttesterEnabledEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2198,14 +1730,6 @@ export const watchMessageTransmitterAttesterEnabledEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"AttesterManagerUpdated"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterAttesterManagerUpdatedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2216,14 +1740,6 @@ export const watchMessageTransmitterAttesterManagerUpdatedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"Initialized"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterInitializedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2234,14 +1750,6 @@ export const watchMessageTransmitterInitializedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"MaxMessageBodySizeUpdated"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterMaxMessageBodySizeUpdatedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2252,14 +1760,6 @@ export const watchMessageTransmitterMaxMessageBodySizeUpdatedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"MessageReceived"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterMessageReceivedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2270,14 +1770,6 @@ export const watchMessageTransmitterMessageReceivedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"MessageSent"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterMessageSentEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2288,14 +1780,6 @@ export const watchMessageTransmitterMessageSentEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"OwnershipTransferStarted"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterOwnershipTransferStartedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2306,14 +1790,6 @@ export const watchMessageTransmitterOwnershipTransferStartedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"OwnershipTransferred"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterOwnershipTransferredEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2324,14 +1800,6 @@ export const watchMessageTransmitterOwnershipTransferredEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"Pause"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterPauseEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2342,14 +1810,6 @@ export const watchMessageTransmitterPauseEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"PauserChanged"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterPauserChangedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2360,14 +1820,6 @@ export const watchMessageTransmitterPauserChangedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"RescuerChanged"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterRescuerChangedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2378,14 +1830,6 @@ export const watchMessageTransmitterRescuerChangedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"SignatureThresholdUpdated"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterSignatureThresholdUpdatedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2396,14 +1840,6 @@ export const watchMessageTransmitterSignatureThresholdUpdatedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"Unpause"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const watchMessageTransmitterUnpauseEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -2414,13 +1850,6 @@ export const watchMessageTransmitterUnpauseEvent =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link tokenMessagerAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const readTokenMessager = /*#__PURE__*/ createReadContract({
   abi: tokenMessagerAbi,
@@ -2429,13 +1858,6 @@ export const readTokenMessager = /*#__PURE__*/ createReadContract({
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"denylister"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const readTokenMessagerDenylister = /*#__PURE__*/ createReadContract({
   abi: tokenMessagerAbi,
@@ -2445,13 +1867,6 @@ export const readTokenMessagerDenylister = /*#__PURE__*/ createReadContract({
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"feeRecipient"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const readTokenMessagerFeeRecipient = /*#__PURE__*/ createReadContract({
   abi: tokenMessagerAbi,
@@ -2461,13 +1876,6 @@ export const readTokenMessagerFeeRecipient = /*#__PURE__*/ createReadContract({
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"initializedVersion"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const readTokenMessagerInitializedVersion =
   /*#__PURE__*/ createReadContract({
@@ -2478,13 +1886,6 @@ export const readTokenMessagerInitializedVersion =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"isDenylisted"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const readTokenMessagerIsDenylisted = /*#__PURE__*/ createReadContract({
   abi: tokenMessagerAbi,
@@ -2494,13 +1895,6 @@ export const readTokenMessagerIsDenylisted = /*#__PURE__*/ createReadContract({
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"localMessageTransmitter"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const readTokenMessagerLocalMessageTransmitter =
   /*#__PURE__*/ createReadContract({
@@ -2511,13 +1905,6 @@ export const readTokenMessagerLocalMessageTransmitter =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"localMinter"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const readTokenMessagerLocalMinter = /*#__PURE__*/ createReadContract({
   abi: tokenMessagerAbi,
@@ -2527,13 +1914,6 @@ export const readTokenMessagerLocalMinter = /*#__PURE__*/ createReadContract({
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"messageBodyVersion"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const readTokenMessagerMessageBodyVersion =
   /*#__PURE__*/ createReadContract({
@@ -2544,13 +1924,6 @@ export const readTokenMessagerMessageBodyVersion =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"owner"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const readTokenMessagerOwner = /*#__PURE__*/ createReadContract({
   abi: tokenMessagerAbi,
@@ -2560,13 +1933,6 @@ export const readTokenMessagerOwner = /*#__PURE__*/ createReadContract({
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"pendingOwner"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const readTokenMessagerPendingOwner = /*#__PURE__*/ createReadContract({
   abi: tokenMessagerAbi,
@@ -2576,13 +1942,6 @@ export const readTokenMessagerPendingOwner = /*#__PURE__*/ createReadContract({
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"remoteTokenMessengers"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const readTokenMessagerRemoteTokenMessengers =
   /*#__PURE__*/ createReadContract({
@@ -2593,13 +1952,6 @@ export const readTokenMessagerRemoteTokenMessengers =
 
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"rescuer"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const readTokenMessagerRescuer = /*#__PURE__*/ createReadContract({
   abi: tokenMessagerAbi,
@@ -2609,13 +1961,6 @@ export const readTokenMessagerRescuer = /*#__PURE__*/ createReadContract({
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessager = /*#__PURE__*/ createWriteContract({
   abi: tokenMessagerAbi,
@@ -2624,13 +1969,6 @@ export const writeTokenMessager = /*#__PURE__*/ createWriteContract({
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"acceptOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerAcceptOwnership =
   /*#__PURE__*/ createWriteContract({
@@ -2641,13 +1979,6 @@ export const writeTokenMessagerAcceptOwnership =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"addLocalMinter"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerAddLocalMinter =
   /*#__PURE__*/ createWriteContract({
@@ -2658,13 +1989,6 @@ export const writeTokenMessagerAddLocalMinter =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"addRemoteTokenMessenger"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerAddRemoteTokenMessenger =
   /*#__PURE__*/ createWriteContract({
@@ -2675,13 +1999,6 @@ export const writeTokenMessagerAddRemoteTokenMessenger =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"denylist"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerDenylist = /*#__PURE__*/ createWriteContract({
   abi: tokenMessagerAbi,
@@ -2691,13 +2008,6 @@ export const writeTokenMessagerDenylist = /*#__PURE__*/ createWriteContract({
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"depositForBurn"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerDepositForBurn =
   /*#__PURE__*/ createWriteContract({
@@ -2708,13 +2018,6 @@ export const writeTokenMessagerDepositForBurn =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"depositForBurnWithHook"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerDepositForBurnWithHook =
   /*#__PURE__*/ createWriteContract({
@@ -2725,13 +2028,6 @@ export const writeTokenMessagerDepositForBurnWithHook =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"handleReceiveFinalizedMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerHandleReceiveFinalizedMessage =
   /*#__PURE__*/ createWriteContract({
@@ -2742,13 +2038,6 @@ export const writeTokenMessagerHandleReceiveFinalizedMessage =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"handleReceiveUnfinalizedMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerHandleReceiveUnfinalizedMessage =
   /*#__PURE__*/ createWriteContract({
@@ -2759,13 +2048,6 @@ export const writeTokenMessagerHandleReceiveUnfinalizedMessage =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"initialize"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerInitialize = /*#__PURE__*/ createWriteContract({
   abi: tokenMessagerAbi,
@@ -2775,13 +2057,6 @@ export const writeTokenMessagerInitialize = /*#__PURE__*/ createWriteContract({
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"removeLocalMinter"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerRemoveLocalMinter =
   /*#__PURE__*/ createWriteContract({
@@ -2792,13 +2067,6 @@ export const writeTokenMessagerRemoveLocalMinter =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"removeRemoteTokenMessenger"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerRemoveRemoteTokenMessenger =
   /*#__PURE__*/ createWriteContract({
@@ -2809,13 +2077,6 @@ export const writeTokenMessagerRemoveRemoteTokenMessenger =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"rescueERC20"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerRescueErc20 = /*#__PURE__*/ createWriteContract({
   abi: tokenMessagerAbi,
@@ -2825,13 +2086,6 @@ export const writeTokenMessagerRescueErc20 = /*#__PURE__*/ createWriteContract({
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"setFeeRecipient"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerSetFeeRecipient =
   /*#__PURE__*/ createWriteContract({
@@ -2842,13 +2096,6 @@ export const writeTokenMessagerSetFeeRecipient =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"transferOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerTransferOwnership =
   /*#__PURE__*/ createWriteContract({
@@ -2859,13 +2106,6 @@ export const writeTokenMessagerTransferOwnership =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"unDenylist"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerUnDenylist = /*#__PURE__*/ createWriteContract({
   abi: tokenMessagerAbi,
@@ -2875,13 +2115,6 @@ export const writeTokenMessagerUnDenylist = /*#__PURE__*/ createWriteContract({
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"updateDenylister"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerUpdateDenylister =
   /*#__PURE__*/ createWriteContract({
@@ -2892,13 +2125,6 @@ export const writeTokenMessagerUpdateDenylister =
 
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"updateRescuer"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const writeTokenMessagerUpdateRescuer =
   /*#__PURE__*/ createWriteContract({
@@ -2909,13 +2135,6 @@ export const writeTokenMessagerUpdateRescuer =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessager = /*#__PURE__*/ createSimulateContract({
   abi: tokenMessagerAbi,
@@ -2924,13 +2143,6 @@ export const simulateTokenMessager = /*#__PURE__*/ createSimulateContract({
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"acceptOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerAcceptOwnership =
   /*#__PURE__*/ createSimulateContract({
@@ -2941,13 +2153,6 @@ export const simulateTokenMessagerAcceptOwnership =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"addLocalMinter"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerAddLocalMinter =
   /*#__PURE__*/ createSimulateContract({
@@ -2958,13 +2163,6 @@ export const simulateTokenMessagerAddLocalMinter =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"addRemoteTokenMessenger"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerAddRemoteTokenMessenger =
   /*#__PURE__*/ createSimulateContract({
@@ -2975,13 +2173,6 @@ export const simulateTokenMessagerAddRemoteTokenMessenger =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"denylist"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerDenylist =
   /*#__PURE__*/ createSimulateContract({
@@ -2992,13 +2183,6 @@ export const simulateTokenMessagerDenylist =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"depositForBurn"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerDepositForBurn =
   /*#__PURE__*/ createSimulateContract({
@@ -3009,13 +2193,6 @@ export const simulateTokenMessagerDepositForBurn =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"depositForBurnWithHook"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerDepositForBurnWithHook =
   /*#__PURE__*/ createSimulateContract({
@@ -3026,13 +2203,6 @@ export const simulateTokenMessagerDepositForBurnWithHook =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"handleReceiveFinalizedMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerHandleReceiveFinalizedMessage =
   /*#__PURE__*/ createSimulateContract({
@@ -3043,13 +2213,6 @@ export const simulateTokenMessagerHandleReceiveFinalizedMessage =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"handleReceiveUnfinalizedMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerHandleReceiveUnfinalizedMessage =
   /*#__PURE__*/ createSimulateContract({
@@ -3060,13 +2223,6 @@ export const simulateTokenMessagerHandleReceiveUnfinalizedMessage =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"initialize"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerInitialize =
   /*#__PURE__*/ createSimulateContract({
@@ -3077,13 +2233,6 @@ export const simulateTokenMessagerInitialize =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"removeLocalMinter"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerRemoveLocalMinter =
   /*#__PURE__*/ createSimulateContract({
@@ -3094,13 +2243,6 @@ export const simulateTokenMessagerRemoveLocalMinter =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"removeRemoteTokenMessenger"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerRemoveRemoteTokenMessenger =
   /*#__PURE__*/ createSimulateContract({
@@ -3111,13 +2253,6 @@ export const simulateTokenMessagerRemoveRemoteTokenMessenger =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"rescueERC20"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerRescueErc20 =
   /*#__PURE__*/ createSimulateContract({
@@ -3128,13 +2263,6 @@ export const simulateTokenMessagerRescueErc20 =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"setFeeRecipient"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerSetFeeRecipient =
   /*#__PURE__*/ createSimulateContract({
@@ -3145,13 +2273,6 @@ export const simulateTokenMessagerSetFeeRecipient =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"transferOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerTransferOwnership =
   /*#__PURE__*/ createSimulateContract({
@@ -3162,13 +2283,6 @@ export const simulateTokenMessagerTransferOwnership =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"unDenylist"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerUnDenylist =
   /*#__PURE__*/ createSimulateContract({
@@ -3179,13 +2293,6 @@ export const simulateTokenMessagerUnDenylist =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"updateDenylister"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerUpdateDenylister =
   /*#__PURE__*/ createSimulateContract({
@@ -3196,13 +2303,6 @@ export const simulateTokenMessagerUpdateDenylister =
 
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"updateRescuer"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const simulateTokenMessagerUpdateRescuer =
   /*#__PURE__*/ createSimulateContract({
@@ -3213,13 +2313,6 @@ export const simulateTokenMessagerUpdateRescuer =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: tokenMessagerAbi,
@@ -3228,13 +2321,6 @@ export const watchTokenMessagerEvent = /*#__PURE__*/ createWatchContractEvent({
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"Denylisted"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerDenylistedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3245,13 +2331,6 @@ export const watchTokenMessagerDenylistedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"DenylisterChanged"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerDenylisterChangedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3262,13 +2341,6 @@ export const watchTokenMessagerDenylisterChangedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"DepositForBurn"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerDepositForBurnEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3279,13 +2351,6 @@ export const watchTokenMessagerDepositForBurnEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"FeeRecipientSet"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerFeeRecipientSetEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3296,13 +2361,6 @@ export const watchTokenMessagerFeeRecipientSetEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"Initialized"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerInitializedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3313,13 +2371,6 @@ export const watchTokenMessagerInitializedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"LocalMinterAdded"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerLocalMinterAddedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3330,13 +2381,6 @@ export const watchTokenMessagerLocalMinterAddedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"LocalMinterRemoved"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerLocalMinterRemovedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3347,13 +2391,6 @@ export const watchTokenMessagerLocalMinterRemovedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"MintAndWithdraw"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerMintAndWithdrawEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3364,13 +2401,6 @@ export const watchTokenMessagerMintAndWithdrawEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"OwnershipTransferStarted"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerOwnershipTransferStartedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3381,13 +2411,6 @@ export const watchTokenMessagerOwnershipTransferStartedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"OwnershipTransferred"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerOwnershipTransferredEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3398,13 +2421,6 @@ export const watchTokenMessagerOwnershipTransferredEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"RemoteTokenMessengerAdded"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerRemoteTokenMessengerAddedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3415,13 +2431,6 @@ export const watchTokenMessagerRemoteTokenMessengerAddedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"RemoteTokenMessengerRemoved"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerRemoteTokenMessengerRemovedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3432,13 +2441,6 @@ export const watchTokenMessagerRemoteTokenMessengerRemovedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"RescuerChanged"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerRescuerChangedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3449,13 +2451,6 @@ export const watchTokenMessagerRescuerChangedEvent =
 
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"UnDenylisted"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const watchTokenMessagerUnDenylistedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3467,6 +2462,8 @@ export const watchTokenMessagerUnDenylistedEvent =
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link usdcAbi}__
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3474,6 +2471,7 @@ export const watchTokenMessagerUnDenylistedEvent =
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const readUsdc = /*#__PURE__*/ createReadContract({
   abi: usdcAbi,
@@ -3483,6 +2481,8 @@ export const readUsdc = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"allowance"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3490,6 +2490,7 @@ export const readUsdc = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const readUsdcAllowance = /*#__PURE__*/ createReadContract({
   abi: usdcAbi,
@@ -3500,6 +2501,8 @@ export const readUsdcAllowance = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"balanceOf"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3507,6 +2510,7 @@ export const readUsdcAllowance = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const readUsdcBalanceOf = /*#__PURE__*/ createReadContract({
   abi: usdcAbi,
@@ -3517,6 +2521,8 @@ export const readUsdcBalanceOf = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"decimals"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3524,6 +2530,7 @@ export const readUsdcBalanceOf = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const readUsdcDecimals = /*#__PURE__*/ createReadContract({
   abi: usdcAbi,
@@ -3534,6 +2541,8 @@ export const readUsdcDecimals = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"name"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3541,6 +2550,7 @@ export const readUsdcDecimals = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const readUsdcName = /*#__PURE__*/ createReadContract({
   abi: usdcAbi,
@@ -3551,6 +2561,8 @@ export const readUsdcName = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"symbol"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3558,6 +2570,7 @@ export const readUsdcName = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const readUsdcSymbol = /*#__PURE__*/ createReadContract({
   abi: usdcAbi,
@@ -3568,6 +2581,8 @@ export const readUsdcSymbol = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"totalSupply"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3575,6 +2590,7 @@ export const readUsdcSymbol = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const readUsdcTotalSupply = /*#__PURE__*/ createReadContract({
   abi: usdcAbi,
@@ -3585,6 +2601,8 @@ export const readUsdcTotalSupply = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link usdcAbi}__
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3592,6 +2610,7 @@ export const readUsdcTotalSupply = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const writeUsdc = /*#__PURE__*/ createWriteContract({
   abi: usdcAbi,
@@ -3601,6 +2620,8 @@ export const writeUsdc = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"approve"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3608,6 +2629,7 @@ export const writeUsdc = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const writeUsdcApprove = /*#__PURE__*/ createWriteContract({
   abi: usdcAbi,
@@ -3618,6 +2640,8 @@ export const writeUsdcApprove = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"transfer"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3625,6 +2649,7 @@ export const writeUsdcApprove = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const writeUsdcTransfer = /*#__PURE__*/ createWriteContract({
   abi: usdcAbi,
@@ -3635,6 +2660,8 @@ export const writeUsdcTransfer = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"transferFrom"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3642,6 +2669,7 @@ export const writeUsdcTransfer = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const writeUsdcTransferFrom = /*#__PURE__*/ createWriteContract({
   abi: usdcAbi,
@@ -3652,6 +2680,8 @@ export const writeUsdcTransferFrom = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link usdcAbi}__
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3659,6 +2689,7 @@ export const writeUsdcTransferFrom = /*#__PURE__*/ createWriteContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const simulateUsdc = /*#__PURE__*/ createSimulateContract({
   abi: usdcAbi,
@@ -3668,6 +2699,8 @@ export const simulateUsdc = /*#__PURE__*/ createSimulateContract({
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"approve"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3675,6 +2708,7 @@ export const simulateUsdc = /*#__PURE__*/ createSimulateContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const simulateUsdcApprove = /*#__PURE__*/ createSimulateContract({
   abi: usdcAbi,
@@ -3685,6 +2719,8 @@ export const simulateUsdcApprove = /*#__PURE__*/ createSimulateContract({
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"transfer"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3692,6 +2728,7 @@ export const simulateUsdcApprove = /*#__PURE__*/ createSimulateContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const simulateUsdcTransfer = /*#__PURE__*/ createSimulateContract({
   abi: usdcAbi,
@@ -3702,6 +2739,8 @@ export const simulateUsdcTransfer = /*#__PURE__*/ createSimulateContract({
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"transferFrom"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3709,6 +2748,7 @@ export const simulateUsdcTransfer = /*#__PURE__*/ createSimulateContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const simulateUsdcTransferFrom = /*#__PURE__*/ createSimulateContract({
   abi: usdcAbi,
@@ -3719,6 +2759,8 @@ export const simulateUsdcTransferFrom = /*#__PURE__*/ createSimulateContract({
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link usdcAbi}__
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3726,6 +2768,7 @@ export const simulateUsdcTransferFrom = /*#__PURE__*/ createSimulateContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const watchUsdcEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: usdcAbi,
@@ -3735,6 +2778,8 @@ export const watchUsdcEvent = /*#__PURE__*/ createWatchContractEvent({
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link usdcAbi}__ and `eventName` set to `"Approval"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3742,6 +2787,7 @@ export const watchUsdcEvent = /*#__PURE__*/ createWatchContractEvent({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const watchUsdcApprovalEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: usdcAbi,
@@ -3752,6 +2798,8 @@ export const watchUsdcApprovalEvent = /*#__PURE__*/ createWatchContractEvent({
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link usdcAbi}__ and `eventName` set to `"Transfer"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -3759,6 +2807,7 @@ export const watchUsdcApprovalEvent = /*#__PURE__*/ createWatchContractEvent({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const watchUsdcTransferEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: usdcAbi,
@@ -3772,14 +2821,6 @@ export const watchUsdcTransferEvent = /*#__PURE__*/ createWatchContractEvent({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitter = /*#__PURE__*/ createUseReadContract({
   abi: messageTransmitterAbi,
@@ -3788,14 +2829,6 @@ export const useReadMessageTransmitter = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"NONCE_USED"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterNonceUsed =
   /*#__PURE__*/ createUseReadContract({
@@ -3806,14 +2839,6 @@ export const useReadMessageTransmitterNonceUsed =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"attesterManager"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterAttesterManager =
   /*#__PURE__*/ createUseReadContract({
@@ -3824,14 +2849,6 @@ export const useReadMessageTransmitterAttesterManager =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"getEnabledAttester"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterGetEnabledAttester =
   /*#__PURE__*/ createUseReadContract({
@@ -3842,14 +2859,6 @@ export const useReadMessageTransmitterGetEnabledAttester =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"getNumEnabledAttesters"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterGetNumEnabledAttesters =
   /*#__PURE__*/ createUseReadContract({
@@ -3860,14 +2869,6 @@ export const useReadMessageTransmitterGetNumEnabledAttesters =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"initializedVersion"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterInitializedVersion =
   /*#__PURE__*/ createUseReadContract({
@@ -3878,14 +2879,6 @@ export const useReadMessageTransmitterInitializedVersion =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"isEnabledAttester"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterIsEnabledAttester =
   /*#__PURE__*/ createUseReadContract({
@@ -3896,14 +2889,6 @@ export const useReadMessageTransmitterIsEnabledAttester =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"localDomain"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterLocalDomain =
   /*#__PURE__*/ createUseReadContract({
@@ -3914,14 +2899,6 @@ export const useReadMessageTransmitterLocalDomain =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"maxMessageBodySize"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterMaxMessageBodySize =
   /*#__PURE__*/ createUseReadContract({
@@ -3932,14 +2909,6 @@ export const useReadMessageTransmitterMaxMessageBodySize =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"owner"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterOwner =
   /*#__PURE__*/ createUseReadContract({
@@ -3950,14 +2919,6 @@ export const useReadMessageTransmitterOwner =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"paused"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterPaused =
   /*#__PURE__*/ createUseReadContract({
@@ -3968,14 +2929,6 @@ export const useReadMessageTransmitterPaused =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"pauser"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterPauser =
   /*#__PURE__*/ createUseReadContract({
@@ -3986,14 +2939,6 @@ export const useReadMessageTransmitterPauser =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"pendingOwner"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterPendingOwner =
   /*#__PURE__*/ createUseReadContract({
@@ -4004,14 +2949,6 @@ export const useReadMessageTransmitterPendingOwner =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"rescuer"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterRescuer =
   /*#__PURE__*/ createUseReadContract({
@@ -4022,14 +2959,6 @@ export const useReadMessageTransmitterRescuer =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"signatureThreshold"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterSignatureThreshold =
   /*#__PURE__*/ createUseReadContract({
@@ -4040,14 +2969,6 @@ export const useReadMessageTransmitterSignatureThreshold =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"usedNonces"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterUsedNonces =
   /*#__PURE__*/ createUseReadContract({
@@ -4058,14 +2979,6 @@ export const useReadMessageTransmitterUsedNonces =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"version"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useReadMessageTransmitterVersion =
   /*#__PURE__*/ createUseReadContract({
@@ -4076,14 +2989,6 @@ export const useReadMessageTransmitterVersion =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitter = /*#__PURE__*/ createUseWriteContract({
   abi: messageTransmitterAbi,
@@ -4092,14 +2997,6 @@ export const useWriteMessageTransmitter = /*#__PURE__*/ createUseWriteContract({
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"acceptOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterAcceptOwnership =
   /*#__PURE__*/ createUseWriteContract({
@@ -4110,14 +3007,6 @@ export const useWriteMessageTransmitterAcceptOwnership =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"disableAttester"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterDisableAttester =
   /*#__PURE__*/ createUseWriteContract({
@@ -4128,14 +3017,6 @@ export const useWriteMessageTransmitterDisableAttester =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"enableAttester"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterEnableAttester =
   /*#__PURE__*/ createUseWriteContract({
@@ -4146,14 +3027,6 @@ export const useWriteMessageTransmitterEnableAttester =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"initialize"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterInitialize =
   /*#__PURE__*/ createUseWriteContract({
@@ -4164,14 +3037,6 @@ export const useWriteMessageTransmitterInitialize =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"pause"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterPause =
   /*#__PURE__*/ createUseWriteContract({
@@ -4182,14 +3047,6 @@ export const useWriteMessageTransmitterPause =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"receiveMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterReceiveMessage =
   /*#__PURE__*/ createUseWriteContract({
@@ -4200,14 +3057,6 @@ export const useWriteMessageTransmitterReceiveMessage =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"rescueERC20"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterRescueErc20 =
   /*#__PURE__*/ createUseWriteContract({
@@ -4218,14 +3067,6 @@ export const useWriteMessageTransmitterRescueErc20 =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"sendMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterSendMessage =
   /*#__PURE__*/ createUseWriteContract({
@@ -4236,14 +3077,6 @@ export const useWriteMessageTransmitterSendMessage =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"setMaxMessageBodySize"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterSetMaxMessageBodySize =
   /*#__PURE__*/ createUseWriteContract({
@@ -4254,14 +3087,6 @@ export const useWriteMessageTransmitterSetMaxMessageBodySize =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"setSignatureThreshold"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterSetSignatureThreshold =
   /*#__PURE__*/ createUseWriteContract({
@@ -4272,14 +3097,6 @@ export const useWriteMessageTransmitterSetSignatureThreshold =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"transferOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterTransferOwnership =
   /*#__PURE__*/ createUseWriteContract({
@@ -4290,14 +3107,6 @@ export const useWriteMessageTransmitterTransferOwnership =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"unpause"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterUnpause =
   /*#__PURE__*/ createUseWriteContract({
@@ -4308,14 +3117,6 @@ export const useWriteMessageTransmitterUnpause =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"updateAttesterManager"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterUpdateAttesterManager =
   /*#__PURE__*/ createUseWriteContract({
@@ -4326,14 +3127,6 @@ export const useWriteMessageTransmitterUpdateAttesterManager =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"updatePauser"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterUpdatePauser =
   /*#__PURE__*/ createUseWriteContract({
@@ -4344,14 +3137,6 @@ export const useWriteMessageTransmitterUpdatePauser =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"updateRescuer"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWriteMessageTransmitterUpdateRescuer =
   /*#__PURE__*/ createUseWriteContract({
@@ -4362,14 +3147,6 @@ export const useWriteMessageTransmitterUpdateRescuer =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitter =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4379,14 +3156,6 @@ export const useSimulateMessageTransmitter =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"acceptOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterAcceptOwnership =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4397,14 +3166,6 @@ export const useSimulateMessageTransmitterAcceptOwnership =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"disableAttester"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterDisableAttester =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4415,14 +3176,6 @@ export const useSimulateMessageTransmitterDisableAttester =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"enableAttester"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterEnableAttester =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4433,14 +3186,6 @@ export const useSimulateMessageTransmitterEnableAttester =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"initialize"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterInitialize =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4451,14 +3196,6 @@ export const useSimulateMessageTransmitterInitialize =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"pause"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterPause =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4469,14 +3206,6 @@ export const useSimulateMessageTransmitterPause =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"receiveMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterReceiveMessage =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4487,14 +3216,6 @@ export const useSimulateMessageTransmitterReceiveMessage =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"rescueERC20"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterRescueErc20 =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4505,14 +3226,6 @@ export const useSimulateMessageTransmitterRescueErc20 =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"sendMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterSendMessage =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4523,14 +3236,6 @@ export const useSimulateMessageTransmitterSendMessage =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"setMaxMessageBodySize"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterSetMaxMessageBodySize =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4541,14 +3246,6 @@ export const useSimulateMessageTransmitterSetMaxMessageBodySize =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"setSignatureThreshold"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterSetSignatureThreshold =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4559,14 +3256,6 @@ export const useSimulateMessageTransmitterSetSignatureThreshold =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"transferOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterTransferOwnership =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4577,14 +3266,6 @@ export const useSimulateMessageTransmitterTransferOwnership =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"unpause"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterUnpause =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4595,14 +3276,6 @@ export const useSimulateMessageTransmitterUnpause =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"updateAttesterManager"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterUpdateAttesterManager =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4613,14 +3286,6 @@ export const useSimulateMessageTransmitterUpdateAttesterManager =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"updatePauser"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterUpdatePauser =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4631,14 +3296,6 @@ export const useSimulateMessageTransmitterUpdatePauser =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link messageTransmitterAbi}__ and `functionName` set to `"updateRescuer"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useSimulateMessageTransmitterUpdateRescuer =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4649,14 +3306,6 @@ export const useSimulateMessageTransmitterUpdateRescuer =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4666,14 +3315,6 @@ export const useWatchMessageTransmitterEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"AttesterDisabled"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterAttesterDisabledEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4684,14 +3325,6 @@ export const useWatchMessageTransmitterAttesterDisabledEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"AttesterEnabled"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterAttesterEnabledEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4702,14 +3335,6 @@ export const useWatchMessageTransmitterAttesterEnabledEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"AttesterManagerUpdated"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterAttesterManagerUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4720,14 +3345,6 @@ export const useWatchMessageTransmitterAttesterManagerUpdatedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"Initialized"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterInitializedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4738,14 +3355,6 @@ export const useWatchMessageTransmitterInitializedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"MaxMessageBodySizeUpdated"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterMaxMessageBodySizeUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4756,14 +3365,6 @@ export const useWatchMessageTransmitterMaxMessageBodySizeUpdatedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"MessageReceived"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterMessageReceivedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4774,14 +3375,6 @@ export const useWatchMessageTransmitterMessageReceivedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"MessageSent"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterMessageSentEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4792,14 +3385,6 @@ export const useWatchMessageTransmitterMessageSentEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"OwnershipTransferStarted"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterOwnershipTransferStartedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4810,14 +3395,6 @@ export const useWatchMessageTransmitterOwnershipTransferStartedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"OwnershipTransferred"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterOwnershipTransferredEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4828,14 +3405,6 @@ export const useWatchMessageTransmitterOwnershipTransferredEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"Pause"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterPauseEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4846,14 +3415,6 @@ export const useWatchMessageTransmitterPauseEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"PauserChanged"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterPauserChangedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4864,14 +3425,6 @@ export const useWatchMessageTransmitterPauserChangedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"RescuerChanged"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterRescuerChangedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4882,14 +3435,6 @@ export const useWatchMessageTransmitterRescuerChangedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"SignatureThresholdUpdated"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterSignatureThresholdUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4900,14 +3445,6 @@ export const useWatchMessageTransmitterSignatureThresholdUpdatedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link messageTransmitterAbi}__ and `eventName` set to `"Unpause"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Polygon Amoy Polygon Scan__](https://amoy.polygonscan.com/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xe737e5cebeeba77efe34d4aa090756590b1ce275)
  */
 export const useWatchMessageTransmitterUnpauseEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4918,13 +3455,6 @@ export const useWatchMessageTransmitterUnpauseEvent =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenMessagerAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useReadTokenMessager = /*#__PURE__*/ createUseReadContract({
   abi: tokenMessagerAbi,
@@ -4933,13 +3463,6 @@ export const useReadTokenMessager = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"denylister"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useReadTokenMessagerDenylister =
   /*#__PURE__*/ createUseReadContract({
@@ -4950,13 +3473,6 @@ export const useReadTokenMessagerDenylister =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"feeRecipient"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useReadTokenMessagerFeeRecipient =
   /*#__PURE__*/ createUseReadContract({
@@ -4967,13 +3483,6 @@ export const useReadTokenMessagerFeeRecipient =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"initializedVersion"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useReadTokenMessagerInitializedVersion =
   /*#__PURE__*/ createUseReadContract({
@@ -4984,13 +3493,6 @@ export const useReadTokenMessagerInitializedVersion =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"isDenylisted"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useReadTokenMessagerIsDenylisted =
   /*#__PURE__*/ createUseReadContract({
@@ -5001,13 +3503,6 @@ export const useReadTokenMessagerIsDenylisted =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"localMessageTransmitter"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useReadTokenMessagerLocalMessageTransmitter =
   /*#__PURE__*/ createUseReadContract({
@@ -5018,13 +3513,6 @@ export const useReadTokenMessagerLocalMessageTransmitter =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"localMinter"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useReadTokenMessagerLocalMinter =
   /*#__PURE__*/ createUseReadContract({
@@ -5035,13 +3523,6 @@ export const useReadTokenMessagerLocalMinter =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"messageBodyVersion"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useReadTokenMessagerMessageBodyVersion =
   /*#__PURE__*/ createUseReadContract({
@@ -5052,13 +3533,6 @@ export const useReadTokenMessagerMessageBodyVersion =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"owner"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useReadTokenMessagerOwner = /*#__PURE__*/ createUseReadContract({
   abi: tokenMessagerAbi,
@@ -5068,13 +3542,6 @@ export const useReadTokenMessagerOwner = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"pendingOwner"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useReadTokenMessagerPendingOwner =
   /*#__PURE__*/ createUseReadContract({
@@ -5085,13 +3552,6 @@ export const useReadTokenMessagerPendingOwner =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"remoteTokenMessengers"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useReadTokenMessagerRemoteTokenMessengers =
   /*#__PURE__*/ createUseReadContract({
@@ -5102,13 +3562,6 @@ export const useReadTokenMessagerRemoteTokenMessengers =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"rescuer"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useReadTokenMessagerRescuer = /*#__PURE__*/ createUseReadContract({
   abi: tokenMessagerAbi,
@@ -5118,13 +3571,6 @@ export const useReadTokenMessagerRescuer = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessager = /*#__PURE__*/ createUseWriteContract({
   abi: tokenMessagerAbi,
@@ -5133,13 +3579,6 @@ export const useWriteTokenMessager = /*#__PURE__*/ createUseWriteContract({
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"acceptOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerAcceptOwnership =
   /*#__PURE__*/ createUseWriteContract({
@@ -5150,13 +3589,6 @@ export const useWriteTokenMessagerAcceptOwnership =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"addLocalMinter"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerAddLocalMinter =
   /*#__PURE__*/ createUseWriteContract({
@@ -5167,13 +3599,6 @@ export const useWriteTokenMessagerAddLocalMinter =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"addRemoteTokenMessenger"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerAddRemoteTokenMessenger =
   /*#__PURE__*/ createUseWriteContract({
@@ -5184,13 +3609,6 @@ export const useWriteTokenMessagerAddRemoteTokenMessenger =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"denylist"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerDenylist =
   /*#__PURE__*/ createUseWriteContract({
@@ -5201,13 +3619,6 @@ export const useWriteTokenMessagerDenylist =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"depositForBurn"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerDepositForBurn =
   /*#__PURE__*/ createUseWriteContract({
@@ -5218,13 +3629,6 @@ export const useWriteTokenMessagerDepositForBurn =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"depositForBurnWithHook"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerDepositForBurnWithHook =
   /*#__PURE__*/ createUseWriteContract({
@@ -5235,13 +3639,6 @@ export const useWriteTokenMessagerDepositForBurnWithHook =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"handleReceiveFinalizedMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerHandleReceiveFinalizedMessage =
   /*#__PURE__*/ createUseWriteContract({
@@ -5252,13 +3649,6 @@ export const useWriteTokenMessagerHandleReceiveFinalizedMessage =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"handleReceiveUnfinalizedMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerHandleReceiveUnfinalizedMessage =
   /*#__PURE__*/ createUseWriteContract({
@@ -5269,13 +3659,6 @@ export const useWriteTokenMessagerHandleReceiveUnfinalizedMessage =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"initialize"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerInitialize =
   /*#__PURE__*/ createUseWriteContract({
@@ -5286,13 +3669,6 @@ export const useWriteTokenMessagerInitialize =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"removeLocalMinter"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerRemoveLocalMinter =
   /*#__PURE__*/ createUseWriteContract({
@@ -5303,13 +3679,6 @@ export const useWriteTokenMessagerRemoveLocalMinter =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"removeRemoteTokenMessenger"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerRemoveRemoteTokenMessenger =
   /*#__PURE__*/ createUseWriteContract({
@@ -5320,13 +3689,6 @@ export const useWriteTokenMessagerRemoveRemoteTokenMessenger =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"rescueERC20"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerRescueErc20 =
   /*#__PURE__*/ createUseWriteContract({
@@ -5337,13 +3699,6 @@ export const useWriteTokenMessagerRescueErc20 =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"setFeeRecipient"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerSetFeeRecipient =
   /*#__PURE__*/ createUseWriteContract({
@@ -5354,13 +3709,6 @@ export const useWriteTokenMessagerSetFeeRecipient =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"transferOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerTransferOwnership =
   /*#__PURE__*/ createUseWriteContract({
@@ -5371,13 +3719,6 @@ export const useWriteTokenMessagerTransferOwnership =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"unDenylist"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerUnDenylist =
   /*#__PURE__*/ createUseWriteContract({
@@ -5388,13 +3729,6 @@ export const useWriteTokenMessagerUnDenylist =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"updateDenylister"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerUpdateDenylister =
   /*#__PURE__*/ createUseWriteContract({
@@ -5405,13 +3739,6 @@ export const useWriteTokenMessagerUpdateDenylister =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"updateRescuer"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWriteTokenMessagerUpdateRescuer =
   /*#__PURE__*/ createUseWriteContract({
@@ -5422,13 +3749,6 @@ export const useWriteTokenMessagerUpdateRescuer =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessager = /*#__PURE__*/ createUseSimulateContract(
   { abi: tokenMessagerAbi, address: tokenMessagerAddress },
@@ -5436,13 +3756,6 @@ export const useSimulateTokenMessager = /*#__PURE__*/ createUseSimulateContract(
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"acceptOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerAcceptOwnership =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5453,13 +3766,6 @@ export const useSimulateTokenMessagerAcceptOwnership =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"addLocalMinter"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerAddLocalMinter =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5470,13 +3776,6 @@ export const useSimulateTokenMessagerAddLocalMinter =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"addRemoteTokenMessenger"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerAddRemoteTokenMessenger =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5487,13 +3786,6 @@ export const useSimulateTokenMessagerAddRemoteTokenMessenger =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"denylist"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerDenylist =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5504,13 +3796,6 @@ export const useSimulateTokenMessagerDenylist =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"depositForBurn"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerDepositForBurn =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5521,13 +3806,6 @@ export const useSimulateTokenMessagerDepositForBurn =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"depositForBurnWithHook"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerDepositForBurnWithHook =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5538,13 +3816,6 @@ export const useSimulateTokenMessagerDepositForBurnWithHook =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"handleReceiveFinalizedMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerHandleReceiveFinalizedMessage =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5555,13 +3826,6 @@ export const useSimulateTokenMessagerHandleReceiveFinalizedMessage =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"handleReceiveUnfinalizedMessage"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerHandleReceiveUnfinalizedMessage =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5572,13 +3836,6 @@ export const useSimulateTokenMessagerHandleReceiveUnfinalizedMessage =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"initialize"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerInitialize =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5589,13 +3846,6 @@ export const useSimulateTokenMessagerInitialize =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"removeLocalMinter"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerRemoveLocalMinter =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5606,13 +3856,6 @@ export const useSimulateTokenMessagerRemoveLocalMinter =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"removeRemoteTokenMessenger"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerRemoveRemoteTokenMessenger =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5623,13 +3866,6 @@ export const useSimulateTokenMessagerRemoveRemoteTokenMessenger =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"rescueERC20"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerRescueErc20 =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5640,13 +3876,6 @@ export const useSimulateTokenMessagerRescueErc20 =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"setFeeRecipient"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerSetFeeRecipient =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5657,13 +3886,6 @@ export const useSimulateTokenMessagerSetFeeRecipient =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"transferOwnership"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerTransferOwnership =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5674,13 +3896,6 @@ export const useSimulateTokenMessagerTransferOwnership =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"unDenylist"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerUnDenylist =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5691,13 +3906,6 @@ export const useSimulateTokenMessagerUnDenylist =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"updateDenylister"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerUpdateDenylister =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5708,13 +3916,6 @@ export const useSimulateTokenMessagerUpdateDenylister =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link tokenMessagerAbi}__ and `functionName` set to `"updateRescuer"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useSimulateTokenMessagerUpdateRescuer =
   /*#__PURE__*/ createUseSimulateContract({
@@ -5725,13 +3926,6 @@ export const useSimulateTokenMessagerUpdateRescuer =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5741,13 +3935,6 @@ export const useWatchTokenMessagerEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"Denylisted"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerDenylistedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5758,13 +3945,6 @@ export const useWatchTokenMessagerDenylistedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"DenylisterChanged"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerDenylisterChangedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5775,13 +3955,6 @@ export const useWatchTokenMessagerDenylisterChangedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"DepositForBurn"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerDepositForBurnEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5792,13 +3965,6 @@ export const useWatchTokenMessagerDepositForBurnEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"FeeRecipientSet"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerFeeRecipientSetEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5809,13 +3975,6 @@ export const useWatchTokenMessagerFeeRecipientSetEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"Initialized"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerInitializedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5826,13 +3985,6 @@ export const useWatchTokenMessagerInitializedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"LocalMinterAdded"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerLocalMinterAddedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5843,13 +3995,6 @@ export const useWatchTokenMessagerLocalMinterAddedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"LocalMinterRemoved"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerLocalMinterRemovedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5860,13 +4005,6 @@ export const useWatchTokenMessagerLocalMinterRemovedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"MintAndWithdraw"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerMintAndWithdrawEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5877,13 +4015,6 @@ export const useWatchTokenMessagerMintAndWithdrawEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"OwnershipTransferStarted"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerOwnershipTransferStartedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5894,13 +4025,6 @@ export const useWatchTokenMessagerOwnershipTransferStartedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"OwnershipTransferred"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerOwnershipTransferredEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5911,13 +4035,6 @@ export const useWatchTokenMessagerOwnershipTransferredEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"RemoteTokenMessengerAdded"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerRemoteTokenMessengerAddedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5928,13 +4045,6 @@ export const useWatchTokenMessagerRemoteTokenMessengerAddedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"RemoteTokenMessengerRemoved"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerRemoteTokenMessengerRemovedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5945,13 +4055,6 @@ export const useWatchTokenMessagerRemoteTokenMessengerRemovedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"RescuerChanged"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerRescuerChangedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5962,13 +4065,6 @@ export const useWatchTokenMessagerRescuerChangedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link tokenMessagerAbi}__ and `eventName` set to `"UnDenylisted"`
- *
- * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
- * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa)
  */
 export const useWatchTokenMessagerUnDenylistedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -5980,6 +4076,8 @@ export const useWatchTokenMessagerUnDenylistedEvent =
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link usdcAbi}__
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -5987,6 +4085,7 @@ export const useWatchTokenMessagerUnDenylistedEvent =
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useReadUsdc = /*#__PURE__*/ createUseReadContract({
   abi: usdcAbi,
@@ -5996,6 +4095,8 @@ export const useReadUsdc = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"allowance"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6003,6 +4104,7 @@ export const useReadUsdc = /*#__PURE__*/ createUseReadContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useReadUsdcAllowance = /*#__PURE__*/ createUseReadContract({
   abi: usdcAbi,
@@ -6013,6 +4115,8 @@ export const useReadUsdcAllowance = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"balanceOf"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6020,6 +4124,7 @@ export const useReadUsdcAllowance = /*#__PURE__*/ createUseReadContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useReadUsdcBalanceOf = /*#__PURE__*/ createUseReadContract({
   abi: usdcAbi,
@@ -6030,6 +4135,8 @@ export const useReadUsdcBalanceOf = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"decimals"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6037,6 +4144,7 @@ export const useReadUsdcBalanceOf = /*#__PURE__*/ createUseReadContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useReadUsdcDecimals = /*#__PURE__*/ createUseReadContract({
   abi: usdcAbi,
@@ -6047,6 +4155,8 @@ export const useReadUsdcDecimals = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"name"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6054,6 +4164,7 @@ export const useReadUsdcDecimals = /*#__PURE__*/ createUseReadContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useReadUsdcName = /*#__PURE__*/ createUseReadContract({
   abi: usdcAbi,
@@ -6064,6 +4175,8 @@ export const useReadUsdcName = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"symbol"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6071,6 +4184,7 @@ export const useReadUsdcName = /*#__PURE__*/ createUseReadContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useReadUsdcSymbol = /*#__PURE__*/ createUseReadContract({
   abi: usdcAbi,
@@ -6081,6 +4195,8 @@ export const useReadUsdcSymbol = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"totalSupply"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6088,6 +4204,7 @@ export const useReadUsdcSymbol = /*#__PURE__*/ createUseReadContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useReadUsdcTotalSupply = /*#__PURE__*/ createUseReadContract({
   abi: usdcAbi,
@@ -6098,6 +4215,8 @@ export const useReadUsdcTotalSupply = /*#__PURE__*/ createUseReadContract({
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link usdcAbi}__
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6105,6 +4224,7 @@ export const useReadUsdcTotalSupply = /*#__PURE__*/ createUseReadContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useWriteUsdc = /*#__PURE__*/ createUseWriteContract({
   abi: usdcAbi,
@@ -6114,6 +4234,8 @@ export const useWriteUsdc = /*#__PURE__*/ createUseWriteContract({
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"approve"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6121,6 +4243,7 @@ export const useWriteUsdc = /*#__PURE__*/ createUseWriteContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useWriteUsdcApprove = /*#__PURE__*/ createUseWriteContract({
   abi: usdcAbi,
@@ -6131,6 +4254,8 @@ export const useWriteUsdcApprove = /*#__PURE__*/ createUseWriteContract({
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"transfer"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6138,6 +4263,7 @@ export const useWriteUsdcApprove = /*#__PURE__*/ createUseWriteContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useWriteUsdcTransfer = /*#__PURE__*/ createUseWriteContract({
   abi: usdcAbi,
@@ -6148,6 +4274,8 @@ export const useWriteUsdcTransfer = /*#__PURE__*/ createUseWriteContract({
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"transferFrom"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6155,6 +4283,7 @@ export const useWriteUsdcTransfer = /*#__PURE__*/ createUseWriteContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useWriteUsdcTransferFrom = /*#__PURE__*/ createUseWriteContract({
   abi: usdcAbi,
@@ -6165,6 +4294,8 @@ export const useWriteUsdcTransferFrom = /*#__PURE__*/ createUseWriteContract({
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link usdcAbi}__
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6172,6 +4303,7 @@ export const useWriteUsdcTransferFrom = /*#__PURE__*/ createUseWriteContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useSimulateUsdc = /*#__PURE__*/ createUseSimulateContract({
   abi: usdcAbi,
@@ -6181,6 +4313,8 @@ export const useSimulateUsdc = /*#__PURE__*/ createUseSimulateContract({
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"approve"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6188,6 +4322,7 @@ export const useSimulateUsdc = /*#__PURE__*/ createUseSimulateContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useSimulateUsdcApprove = /*#__PURE__*/ createUseSimulateContract({
   abi: usdcAbi,
@@ -6198,6 +4333,8 @@ export const useSimulateUsdcApprove = /*#__PURE__*/ createUseSimulateContract({
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"transfer"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6205,6 +4342,7 @@ export const useSimulateUsdcApprove = /*#__PURE__*/ createUseSimulateContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useSimulateUsdcTransfer = /*#__PURE__*/ createUseSimulateContract({
   abi: usdcAbi,
@@ -6215,6 +4353,8 @@ export const useSimulateUsdcTransfer = /*#__PURE__*/ createUseSimulateContract({
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link usdcAbi}__ and `functionName` set to `"transferFrom"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6222,6 +4362,7 @@ export const useSimulateUsdcTransfer = /*#__PURE__*/ createUseSimulateContract({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useSimulateUsdcTransferFrom =
   /*#__PURE__*/ createUseSimulateContract({
@@ -6233,6 +4374,8 @@ export const useSimulateUsdcTransferFrom =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link usdcAbi}__
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6240,6 +4383,7 @@ export const useSimulateUsdcTransferFrom =
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useWatchUsdcEvent = /*#__PURE__*/ createUseWatchContractEvent({
   abi: usdcAbi,
@@ -6249,6 +4393,8 @@ export const useWatchUsdcEvent = /*#__PURE__*/ createUseWatchContractEvent({
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link usdcAbi}__ and `eventName` set to `"Approval"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6256,6 +4402,7 @@ export const useWatchUsdcEvent = /*#__PURE__*/ createUseWatchContractEvent({
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useWatchUsdcApprovalEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -6267,6 +4414,8 @@ export const useWatchUsdcApprovalEvent =
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link usdcAbi}__ and `eventName` set to `"Transfer"`
  *
+ * - [__View Contract on Unichain Sepolia Uniscan__](https://sepolia.uniscan.xyz/address/0x31d0220469e10c4E71834a79b1f276d740d3768F)
+ * - [__View Contract on World Chain Sepolia Worldscan Sepolia__](https://sepolia.worldscan.org/address/0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88)
  * - [__View Contract on Avalanche Fuji Snow Trace__](https://testnet.snowtrace.io/address/0x5425890298aed601595a70AB815c96711a31Bc65)
  * - [__View Contract on Sonic Blaze Testnet Sonic Blaze Testnet Explorer__](https://testnet.sonicscan.org/address/0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6)
  * - [__View Contract on Linea Sepolia Testnet Etherscan__](https://sepolia.lineascan.build/address/0xFEce4462D57bD51A6A552365A011b95f0E16d9B7)
@@ -6274,6 +4423,7 @@ export const useWatchUsdcApprovalEvent =
  * - [__View Contract on Base Sepolia Basescan__](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e)
  * - [__View Contract on Arbitrum Sepolia Arbiscan__](https://sepolia.arbiscan.io/address/0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d)
  * - [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0x1c7d4b196cb0c7b01d743fbc6116a902379c7238)
+ * - [__View Contract on Op Sepolia Blockscout__](https://optimism-sepolia.blockscout.com/address/0x5fd84259d66Cd46123540766Be93DFE6D43130D7)
  */
 export const useWatchUsdcTransferEvent =
   /*#__PURE__*/ createUseWatchContractEvent({

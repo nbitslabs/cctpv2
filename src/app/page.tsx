@@ -11,44 +11,66 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import {
-  SupportedChainId,
-  SUPPORTED_CHAINS,
-  CHAIN_TO_CHAIN_NAME,
-} from "@/lib/chains";
+import { SupportedChainId, supportedChains } from "@/lib/constants";
 import { ProgressSteps } from "@/components/progress-step";
 import { TransferLog } from "@/components/transfer-log";
 import { Timer } from "@/components/timer";
 import { TransferTypeSelector } from "@/components/transfer-type";
 import { useCrossChainTransfer } from "@/hooks/use-cross-chain-transfer";
-import { useErc20Amount } from "@/lib/wagmi/hooks/erc20";
 import { formatNumber } from "@/lib/utils";
 import { useAppKitAccount } from "@reown/appkit/react";
-import { useSwitchChain } from "wagmi";
 import { toast } from "sonner";
 import { SwitchChainError } from "viem";
-import { usdcAddress } from "@/lib/wagmi/generated";
+import {
+  CctpNetworkAdapterId,
+  CctpTransferType,
+  findNetworkAdapter,
+} from "@/lib/cctp/networks";
+import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
+import {
+  useMyNativeBalance,
+  useMyUsdcBalance,
+  useNativeBalance,
+  useUsdcBalance,
+} from "@/hooks/useBalance";
+import { Loader2 } from "lucide-react";
 
 export default function Home() {
-  const { switchChainAsync } = useSwitchChain();
   const { isConnected } = useAppKitAccount();
   const { currentStep, logs, error, executeTransfer, reset } =
     useCrossChainTransfer();
-  const [sourceChain, setSourceChain] = useState(SupportedChainId.ETH_SEPOLIA);
-  const [destChain, setDestChain] = useState(SupportedChainId.AVAX_FUJI);
+  const { activeNetwork, setActiveNetwork } = useActiveNetwork();
+  const sourceChain = activeNetwork.id;
+
+  const [destChain, setDestChain] = useState<CctpNetworkAdapterId>();
   const [amount, setAmount] = useState("");
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [isTransferring, setIsTransferring] = useState(false);
   const [showFinalTime, setShowFinalTime] = useState(false);
-  const [transferType, setTransferType] = useState<"fast" | "standard">("fast");
-  const { data: balance } = useErc20Amount(usdcAddress[sourceChain]);
+  const [transferType, setTransferType] = useState<CctpTransferType>(
+    CctpTransferType.Fast
+  );
+  const myUsdcBalance = useMyUsdcBalance();
+  const destUsdcBalance = useUsdcBalance(destChain);
+  const sourceNativeCurrency = activeNetwork.nativeCurrency;
+
+  const myNativeBalance = useMyNativeBalance();
+  const destNativeBalance = useNativeBalance(destChain);
+  const destNativeCurrency = findNetworkAdapter(destChain)?.nativeCurrency;
 
   const handleStartTransfer = async () => {
+    if (!destChain) {
+      toast.error("Please select a destination chain");
+      return;
+    }
+
     setIsTransferring(true);
     setShowFinalTime(false);
     setElapsedSeconds(0);
-
-    await executeTransfer(sourceChain, destChain, amount, transferType);
+    await executeTransfer(destChain, amount, transferType);
+    [myUsdcBalance, destUsdcBalance, myNativeBalance, destNativeBalance].map(
+      (balance) => balance.refetch()
+    );
     setIsTransferring(false);
     setShowFinalTime(true);
   };
@@ -61,12 +83,8 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const newDestinationChain = SUPPORTED_CHAINS.find(
-      (chainId) => chainId !== sourceChain
-    );
-
-    if (newDestinationChain) {
-      setDestChain(newDestinationChain);
+    if (destChain === sourceChain) {
+      setDestChain(undefined);
     }
   }, [sourceChain, showFinalTime]);
 
@@ -87,7 +105,7 @@ export default function Home() {
               onChange={setTransferType}
             />
             <p className="text-sm text-muted-foreground">
-              {transferType === "fast"
+              {transferType === CctpTransferType.Fast
                 ? "Faster transfers with lower finality threshold (1000 blocks)"
                 : "Standard transfers with higher finality (2000 blocks)"}
             </p>
@@ -98,9 +116,9 @@ export default function Home() {
               <Select
                 value={String(sourceChain)}
                 onValueChange={async (value) => {
+                  const chainId = Number(value) as SupportedChainId;
                   try {
-                    await switchChainAsync({ chainId: Number(value) });
-                    setSourceChain(Number(value));
+                    setActiveNetwork(chainId);
                   } catch (error) {
                     toast.error((error as SwitchChainError).details as string);
                   }
@@ -110,39 +128,69 @@ export default function Home() {
                   <SelectValue placeholder="Select source chain" />
                 </SelectTrigger>
                 <SelectContent>
-                  {SUPPORTED_CHAINS.map((chainId) => (
-                    <SelectItem key={chainId} value={String(chainId)}>
-                      {CHAIN_TO_CHAIN_NAME[chainId]}
+                  {supportedChains.map((chain) => (
+                    <SelectItem key={chain.id} value={String(chain.id)}>
+                      {chain.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
+              <p className="text-sm text-muted-foreground">
+                {myUsdcBalance.isLoading ? (
+                  <Loader2 className="animate-spin inline-block size-3" />
+                ) : (
+                  formatNumber(myUsdcBalance.data?.formatted ?? 0)
+                )}{" "}
+                USDC •{" "}
+                {myNativeBalance.isLoading ? (
+                  <Loader2 className="animate-spin inline-block size-3" />
+                ) : (
+                  formatNumber(myNativeBalance.data?.formatted ?? 0)
+                )}{" "}
+                {sourceNativeCurrency.symbol}
+              </p>
             </div>
 
             <div className="space-y-2">
               <Label>Destination Chain</Label>
               <Select
                 value={String(destChain)}
-                onValueChange={(value) => setDestChain(Number(value))}
+                onValueChange={(value) =>
+                  setDestChain(Number(value) as SupportedChainId)
+                }
                 disabled={!sourceChain}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select destination chain" />
                 </SelectTrigger>
                 <SelectContent>
-                  {SUPPORTED_CHAINS.filter(
-                    (chainId) => chainId !== sourceChain
-                  ).map((chainId) => (
-                    <SelectItem key={chainId} value={String(chainId)}>
-                      {CHAIN_TO_CHAIN_NAME[chainId]}
-                    </SelectItem>
-                  ))}
+                  {supportedChains
+                    .filter((chain) => chain.id !== sourceChain)
+                    .map((chain) => (
+                      <SelectItem key={chain.id} value={String(chain.id)}>
+                        {chain.name}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
+              <p className="text-sm text-muted-foreground">
+                {destUsdcBalance.isLoading ? (
+                  <Loader2 className="animate-spin inline-block size-3" />
+                ) : (
+                  formatNumber(destUsdcBalance.data?.formatted ?? 0)
+                )}{" "}
+                USDC •{" "}
+                {destNativeBalance.isLoading ? (
+                  <Loader2 className="animate-spin inline-block size-3" />
+                ) : (
+                  formatNumber(destNativeBalance.data?.formatted ?? 0)
+                )}{" "}
+                {destNativeCurrency?.symbol}
+              </p>
             </div>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-2 text-center sm:w-1/2 sm:mx-auto">
             <Label>Amount (USDC)</Label>
             <Input
               type="number"
@@ -150,13 +198,45 @@ export default function Home() {
               onChange={(e) => setAmount(e.target.value)}
               placeholder="Enter amount"
               min="0"
-              max={balance}
+              max={myUsdcBalance.data?.formatted}
               step="any"
+              className="text-2xl font-bold text-center h-auto"
             />
             <p className="text-sm text-muted-foreground">
-              {formatNumber(balance)} available
+              {myUsdcBalance.isLoading ? (
+                <Loader2 className="animate-spin inline-block size-3" />
+              ) : (
+                formatNumber(myUsdcBalance.data?.formatted ?? 0)
+              )}{" "}
+              available
+              <Button
+                variant={"ghost"}
+                size={"sm"}
+                onClick={() => setAmount(myUsdcBalance.data?.raw ?? "0")}
+                className="ml-1"
+              >
+                Max
+              </Button>
             </p>
           </div>
+
+          <div className="flex justify-center gap-4">
+            <Button
+              onClick={handleStartTransfer}
+              disabled={isTransferring || currentStep === "completed"}
+            >
+              {currentStep === "completed"
+                ? "Transfer Complete"
+                : "Start Transfer"}
+            </Button>
+
+            {(currentStep === "completed" || currentStep === "error") && (
+              <Button variant="outline" onClick={handleReset}>
+                Reset
+              </Button>
+            )}
+          </div>
+          {error && <div className="text-red-500 text-center">{error}</div>}
 
           <div className="text-center">
             {showFinalTime ? (
@@ -181,25 +261,6 @@ export default function Home() {
           <ProgressSteps currentStep={currentStep} />
 
           <TransferLog logs={logs} />
-
-          {error && <div className="text-red-500 text-center">{error}</div>}
-
-          <div className="flex justify-center gap-4">
-            <Button
-              onClick={handleStartTransfer}
-              disabled={isTransferring || currentStep === "completed"}
-            >
-              {currentStep === "completed"
-                ? "Transfer Complete"
-                : "Start Transfer"}
-            </Button>
-
-            {(currentStep === "completed" || currentStep === "error") && (
-              <Button variant="outline" onClick={handleReset}>
-                Reset
-              </Button>
-            )}
-          </div>
         </CardContent>
       </Card>
     </div>

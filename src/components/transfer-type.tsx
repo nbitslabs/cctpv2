@@ -1,19 +1,22 @@
 "use client";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CctpTransferType } from "@/lib/cctp/networks";
 
 export function TransferTypeSelector({
   value,
   onChange,
 }: {
-  value: "fast" | "standard";
-  onChange: (value: "fast" | "standard") => void;
+  value: CctpTransferType;
+  onChange: (value: CctpTransferType) => void;
 }) {
   return (
-    <Tabs value={value} onValueChange={(v) => onChange(v as "fast" | "standard")}>
+    <Tabs value={value} onValueChange={(v) => onChange(v as CctpTransferType)}>
       <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="fast">🚀 V2 Fast</TabsTrigger>
-        <TabsTrigger value="standard">🛡️ V1 Standard</TabsTrigger>
+        <TabsTrigger value={CctpTransferType.Fast}>🚀 V2 Fast</TabsTrigger>
+        <TabsTrigger value={CctpTransferType.Standard}>
+          🛡️ V1 Standard
+        </TabsTrigger>
       </TabsList>
     </Tabs>
   );

@@ -1,17 +1,9 @@
+import { AppKitNetwork } from "@reown/appkit/networks";
 import {
-  AppKitNetwork,
-  arbitrumSepolia,
-  avalancheFuji,
-  baseSepolia,
-  lineaSepolia,
-  optimismSepolia,
-  polygonAmoy,
-  sepolia,
-  sonicBlazeTestnet,
-  unichainSepolia,
-  worldchainSepolia,
-} from "@reown/appkit/networks";
-import { CctpNetworkAdapter, CctpTransferType } from "./type";
+  CctpFunctionOpts,
+  CctpNetworkAdapter,
+  CctpV2TransferType,
+} from "./type";
 import {
   readUsdcAllowance,
   simulateMessageTransmitterReceiveMessage,
@@ -19,15 +11,28 @@ import {
   writeTokenMessagerDepositForBurn,
   writeUsdcApprove,
 } from "../../wagmi/generated";
-import { wagmiConfig } from "../../wagmi/config";
+import {
+  chainsByDomain,
+  wagmiConfig,
+  usdcAddresses,
+  tokenMessagerV1Addresses,
+  CctpV1SupportedChainId,
+  CctpV2SupportedChainId,
+  messageTransmitterV1Addresses,
+  tokenMessagerV2Addresses,
+  messageTransmitterV2Addresses,
+} from "../../wagmi/config";
 import {
   getAccount,
   getPublicClient,
+  getWalletClient,
   readContract,
   switchChain,
   waitForTransactionReceipt,
 } from "wagmi/actions";
-import { Address, erc20Abi, formatUnits, parseUnits } from "viem";
+import { Address, Chain, erc20Abi, formatUnits, parseUnits } from "viem";
+import { addChain } from "viem/actions";
+import { defaultCctpOpts } from "./constants";
 
 function getEvmNetworkAdapter(
   network: AppKitNetwork,
@@ -41,127 +46,107 @@ function getEvmNetworkAdapter(
   };
 }
 
-const supportedEvmChains = [
-  sepolia,
-  avalancheFuji,
-  optimismSepolia,
-  arbitrumSepolia,
-  baseSepolia,
-  polygonAmoy,
-  unichainSepolia,
-  lineaSepolia,
-  sonicBlazeTestnet,
-  worldchainSepolia,
-] satisfies [AppKitNetwork, ...AppKitNetwork[]];
-type SupportedChainId = (typeof supportedEvmChains)[number]["id"];
+const {
+  "0": _mainnet,
+  "1": _avalanche,
+  "2": _optimism,
+  "3": _arbitrum,
+  "4": _base,
+  "7": _polygon,
+  "10": _unichain,
+  "11": _linea,
+  "13": _sonic,
+  "14": _worldchain,
+} = chainsByDomain;
 
 // [sonicBlazeTestnet.id]: "0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6",
 // [lineaSepolia.id]: "0xFEce4462D57bD51A6A552365A011b95f0E16d9B7",
 
 // https://developers.circle.com/stablecoins/supported-domains
 const evmChains: Array<
-  Pick<
-    CctpNetworkAdapter,
-    "domain" | "supportV1" | "supportV2" | "usdcAddress"
-  > & {
+  Pick<CctpNetworkAdapter, "domain"> & {
     chain: AppKitNetwork;
+    supportV1: boolean;
+    supportV2: boolean;
   }
 > = [
-  {
-    chain: sepolia,
-    domain: 0,
-    supportV1: true,
-    supportV2: true,
-    usdcAddress: "0x1c7d4b196cb0c7b01d743fbc6116a902379c7238",
-  },
-  {
-    chain: avalancheFuji,
-    domain: 1,
-    supportV1: true,
-    supportV2: true,
-    usdcAddress: "0x5425890298aed601595a70AB815c96711a31Bc65",
-  },
-  {
-    chain: optimismSepolia,
-    domain: 2,
-    supportV1: true,
-    supportV2: true,
-    usdcAddress: "0x5fd84259d66Cd46123540766Be93DFE6D43130D7",
-  },
-  {
-    chain: arbitrumSepolia,
-    domain: 3,
-    supportV1: true,
-    supportV2: true,
-    usdcAddress: "0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d",
-  },
+  { chain: _mainnet, domain: 0, supportV1: true, supportV2: true },
+  { chain: _avalanche, domain: 1, supportV1: true, supportV2: true },
+  { chain: _optimism, domain: 2, supportV1: true, supportV2: true },
+  { chain: _arbitrum, domain: 3, supportV1: true, supportV2: true },
   // noble: 4
   // solana: 5
-  {
-    chain: baseSepolia,
-    domain: 6,
-    supportV1: true,
-    supportV2: true,
-    usdcAddress: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
-  },
-  {
-    chain: polygonAmoy,
-    domain: 7,
-    supportV1: true,
-    supportV2: false,
-    usdcAddress: "0x41e94eb019c0762f9bfcf9fb1e58725bfb0e7582",
-  },
+  { chain: _base, domain: 6, supportV1: true, supportV2: true },
+  { chain: _polygon, domain: 7, supportV1: true, supportV2: false },
   // sui: 8
   // aptos: 9
-  {
-    chain: unichainSepolia,
-    domain: 10,
-    supportV1: true,
-    supportV2: true,
-    usdcAddress: "0x31d0220469e10c4E71834a79b1f276d740d3768F",
-  },
-  {
-    chain: lineaSepolia,
-    domain: 11,
-    supportV1: true,
-    supportV2: true,
-    usdcAddress: "0xFEce4462D57bD51A6A552365A011b95f0E16d9B7",
-  },
+  { chain: _unichain, domain: 10, supportV1: true, supportV2: true },
+  { chain: _linea, domain: 11, supportV1: true, supportV2: true },
   // codex: 12
-  {
-    chain: sonicBlazeTestnet,
-    domain: 13,
-    supportV1: false,
-    supportV2: true,
-    usdcAddress: "0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6",
-  },
-  {
-    chain: worldchainSepolia,
-    domain: 14,
-    supportV1: false,
-    supportV2: true,
-    usdcAddress: "0x66145f38cBAC35Ca6F1Dfb4914dF98F1614aeA88",
-  },
+  { chain: _sonic, domain: 13, supportV1: false, supportV2: true },
+  { chain: _worldchain, domain: 14, supportV1: false, supportV2: true },
 ];
 
 const USDC_DECIMALS = 6;
 
 export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
-  const tokenMessagerAddress = "0x8fe6b999dc680ccfdd5bf7eb0974218be2542daa";
-  const messageTransmitterAddress =
-    "0xe737e5cebeeba77efe34d4aa090756590b1ce275";
+  const chainId = Number(chain.id);
+  const usdcAddress = usdcAddresses[
+    chainId as keyof typeof usdcAddresses
+  ] as Address;
 
-  const readConfig = {
-    chainId: Number(chain.id),
-  } as const;
+  const readConfig = { chainId: Number(chain.id) } as const;
   const publicClient = getPublicClient(wagmiConfig, readConfig);
+
+  function requestChainIfNeeded<T>(func: () => Promise<T>) {
+    return async () => {
+      try {
+        return func();
+      } catch (error) {
+        if (
+          (error as Error).message.includes(`Network ${chain.id} not found`)
+        ) {
+          const client = await getWalletClient(wagmiConfig);
+          await addChain(client, { chain: chain as Chain });
+          return func();
+        }
+        throw error;
+      }
+    };
+  }
+
+  function getTokenMessagerAddress(cctpOpts: CctpFunctionOpts) {
+    return cctpOpts.version === "v1"
+      ? tokenMessagerV1Addresses[chainId as CctpV1SupportedChainId]
+      : tokenMessagerV2Addresses[chainId as CctpV2SupportedChainId];
+  }
+
+  function getMessageTransmitterAddress(cctpOpts: CctpFunctionOpts) {
+    return cctpOpts.version === "v1"
+      ? messageTransmitterV1Addresses[chainId as CctpV1SupportedChainId]
+      : messageTransmitterV2Addresses[chainId as CctpV2SupportedChainId];
+  }
+
   return getEvmNetworkAdapter(chain, {
     ...config,
-    tokenMessagerAddress,
-    messageTransmitterAddress,
+    usdcAddress,
     nativeCurrency: chain.nativeCurrency,
+    v1: {
+      support: config.supportV1,
+      tokenMessagerAddress:
+        tokenMessagerV1Addresses[chainId as CctpV1SupportedChainId],
+      messageTransmitterAddress:
+        messageTransmitterV1Addresses[chainId as CctpV1SupportedChainId],
+    },
+    v2: {
+      support: config.supportV2,
+      tokenMessagerAddress:
+        tokenMessagerV2Addresses[chainId as CctpV2SupportedChainId],
+      messageTransmitterAddress:
+        messageTransmitterV2Addresses[chainId as CctpV2SupportedChainId],
+    },
 
-    readNativeBalance: async () => {
+    readNativeBalance: requestChainIfNeeded(async () => {
       if (!publicClient) throw new Error("No public client found");
 
       const { address } = getAccount(wagmiConfig);
@@ -173,9 +158,9 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
         raw,
         formatted: Number(raw),
       };
-    },
+    }),
 
-    readUsdcBalance: async () => {
+    readUsdcBalance: requestChainIfNeeded(async () => {
       if (!publicClient) throw new Error("No public client found");
 
       const { address } = getAccount(wagmiConfig);
@@ -183,7 +168,7 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
 
       const balance = await readContract(wagmiConfig, {
         ...readConfig,
-        address: config.usdcAddress as Address,
+        address: usdcAddress,
         abi: erc20Abi,
         functionName: "balanceOf",
         args: [address],
@@ -193,13 +178,14 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
         raw,
         formatted: Number(raw),
       };
-    },
+    }),
 
-    readAllowanceForTokenMessager: async () => {
+    readAllowanceForTokenMessager: async (cctpOpts = defaultCctpOpts) => {
       const { address } = getAccount(wagmiConfig);
       if (!address) throw new Error("No account found");
       const allowance = await readUsdcAllowance(wagmiConfig, {
-        args: [tokenMessagerAddress, address],
+        address: usdcAddress,
+        args: [getTokenMessagerAddress(cctpOpts), address],
       });
       const raw = formatUnits(allowance, USDC_DECIMALS);
       return {
@@ -208,12 +194,14 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
       };
     },
 
-    async writeApproveForTokenMessager(amount) {
+    async writeApproveForTokenMessager(amount, cctpOpts = defaultCctpOpts) {
+      const tokenMessagerAddress = getTokenMessagerAddress(cctpOpts);
       const { isConnected } = getAccount(wagmiConfig);
       if (!isConnected) throw new Error("No account found");
       const tx = await writeUsdcApprove(wagmiConfig, {
+        address: usdcAddress,
         args: [
-          tokenMessagerAddress,
+          getTokenMessagerAddress(cctpOpts),
           parseUnits(amount.toString(), USDC_DECIMALS),
         ],
       });
@@ -224,31 +212,34 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
     async writeTokenMessagerDepositForBurn(
       amount,
       destinationDomain,
-      options = {}
+      options = {},
+      cctpOpts = defaultCctpOpts
     ) {
+      const tokenMessagerAddress = getTokenMessagerAddress(cctpOpts);
       let {
-        transferType = CctpTransferType.Fast,
+        transferType = CctpV2TransferType.Fast,
         maxFee,
         finalityThreshold,
         mintRecipient = getAccount(wagmiConfig).address,
       } = options;
 
       if (!mintRecipient) throw new Error("No mint recipient found");
-      if (!config.supportV2) transferType = CctpTransferType.Standard;
+      if (!config.supportV2) transferType = CctpV2TransferType.Standard;
 
       const rawAmount = parseUnits(amount.toString(), USDC_DECIMALS);
 
       maxFee = maxFee ?? rawAmount - 1n;
       finalityThreshold =
         finalityThreshold ??
-        (transferType === CctpTransferType.Fast ? 1000 : 2000);
+        (transferType === CctpV2TransferType.Fast ? 1000 : 2000);
 
       const tx = await writeTokenMessagerDepositForBurn(wagmiConfig, {
+        address: tokenMessagerAddress,
         args: [
           rawAmount,
           destinationDomain,
           getMintRecipient(mintRecipient),
-          config.usdcAddress as Address,
+          usdcAddress,
           "0x0000000000000000000000000000000000000000000000000000000000000000",
           maxFee,
           finalityThreshold,
@@ -258,25 +249,39 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
       return tx;
     },
 
-    async simulateMessageTransmitterReceiveMessage(message, attestation) {
+    async simulateMessageTransmitterReceiveMessage(
+      message,
+      attestation,
+      cctpOpts = defaultCctpOpts
+    ) {
+      const messageTransmitterAddress = getMessageTransmitterAddress(cctpOpts);
       const { result } = await simulateMessageTransmitterReceiveMessage(
         wagmiConfig,
-        { args: [message as Address, attestation as Address] }
+        {
+          address: messageTransmitterAddress,
+          args: [message as Address, attestation as Address],
+        }
       );
       return result;
     },
 
-    async writeMessageTransmitterReceiveMessage(message, attestation) {
+    async writeMessageTransmitterReceiveMessage(
+      message,
+      attestation,
+      cctpOpts = defaultCctpOpts
+    ) {
+      const messageTransmitterAddress = getMessageTransmitterAddress(cctpOpts);
       const tx = await writeMessageTransmitterReceiveMessage(wagmiConfig, {
+        address: messageTransmitterAddress,
         args: [message as Address, attestation as Address],
       });
       await waitForTransactionReceipt(wagmiConfig, { hash: tx });
       return tx;
     },
 
-    switchNetwork: async () => {
-      await switchChain(wagmiConfig, { chainId: Number(chain.id) });
-    },
+    switchNetwork: requestChainIfNeeded(async () => {
+      await switchChain(wagmiConfig, { chainId });
+    }),
   });
 });
 

@@ -6,7 +6,10 @@ export async function getAttestation(
   sourceDomain: CctpNetworkAdapter["domain"],
   burnTx: string
 ): Promise<AttestationMessage> {
-  const url = `https://iris-api-sandbox.circle.com/v2/messages/${sourceDomain}`;
+  const IS_TESTNET = process.env.NEXT_PUBLIC_TESTNET === "true";
+  const url = IS_TESTNET
+    ? `https://iris-api-sandbox.circle.com/v2/messages/${sourceDomain}`
+    : `https://iris-api.circle.com/v2/messages/${sourceDomain}`;
   const response = await axios.get(url, {
     params: { transactionHash: burnTx },
   });

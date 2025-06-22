@@ -1,15 +1,25 @@
 type TxHash = string;
 
-export enum CctpTransferType {
+export enum CctpV2TransferType {
   Standard = "standard",
   Fast = "fast",
 }
 
+type CctpNetworkVersion =
+  | {
+      support: true;
+      tokenMessagerAddress: string;
+      messageTransmitterAddress: string;
+    }
+  | { support: false };
+
+export type CctpFunctionOpts = {
+  version: "v1" | "v2";
+};
+
 export interface CctpNetworkAdapter {
   id: number | string;
   name: string;
-  supportV1: boolean;
-  supportV2: boolean;
   domain: number;
   type: "evm";
   nativeCurrency: {
@@ -19,16 +29,20 @@ export interface CctpNetworkAdapter {
   };
 
   usdcAddress: string;
-  tokenMessagerAddress: string;
-  messageTransmitterAddress: string;
+
+  v1: CctpNetworkVersion;
+  v2: CctpNetworkVersion;
 
   readNativeBalance: () => Promise<{ raw: string; formatted: number }>;
   readUsdcBalance: () => Promise<{ raw: string; formatted: number }>;
-  readAllowanceForTokenMessager: () => Promise<{
+  readAllowanceForTokenMessager: (cctpOpts?: CctpFunctionOpts) => Promise<{
     raw: string;
     formatted: number;
   }>;
-  writeApproveForTokenMessager: (amount: number) => Promise<TxHash>;
+  writeApproveForTokenMessager: (
+    amount: number,
+    cctpOpts?: CctpFunctionOpts
+  ) => Promise<TxHash>;
   writeTokenMessagerDepositForBurn: (
     amount: number,
     destinationDomain: CctpNetworkAdapter["domain"],
@@ -36,16 +50,19 @@ export interface CctpNetworkAdapter {
       mintRecipient?: string;
       maxFee?: bigint;
       finalityThreshold?: number;
-      transferType?: CctpTransferType;
-    }
+      transferType?: CctpV2TransferType;
+    },
+    cctpOpts?: CctpFunctionOpts
   ) => Promise<TxHash>;
   simulateMessageTransmitterReceiveMessage: (
     message: string,
-    attestation: string
+    attestation: string,
+    cctpOpts?: CctpFunctionOpts
   ) => Promise<boolean>;
   writeMessageTransmitterReceiveMessage: (
     message: string,
-    attestation: string
+    attestation: string,
+    cctpOpts?: CctpFunctionOpts
   ) => Promise<TxHash>;
   switchNetwork: () => Promise<void>;
 }

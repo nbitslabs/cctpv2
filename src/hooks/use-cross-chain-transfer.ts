@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
-import { AttestationMessage } from "../../global.types";
-import { getAttestation } from "@/lib/cctp/attestation";
+import { AttestationMessage, getAttestation } from "@/lib/cctp/attestation";
 import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
 import {
   CctpNetworkAdapter,
   CctpNetworkAdapterId,
-  CctpTransferType,
-  networkAdapters,
+  CctpV2TransferType,
+  findNetworkAdapter,
 } from "@/lib/cctp/networks";
 
 export type TransferStep =
@@ -43,7 +42,7 @@ export function useCrossChainTransfer() {
   const executeTransfer = async (
     destinationChainId: CctpNetworkAdapterId,
     amount: string,
-    transferType: CctpTransferType
+    transferType: CctpV2TransferType
   ) => {
     try {
       const allowance = await readAllowanceForTokenMessager();
@@ -63,9 +62,7 @@ export function useCrossChainTransfer() {
       }
 
       setCurrentStep("burning");
-      const destination = networkAdapters.find(
-        (n) => n.id === destinationChainId
-      );
+      const destination = findNetworkAdapter(destinationChainId);
       if (!destination) throw new Error("Destination network not found");
 
       const burnTx = await writeTokenMessagerDepositForBurn(

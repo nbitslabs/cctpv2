@@ -6,8 +6,6 @@ import {
   CctpNetworkAdapterId,
   networkAdapters,
 } from "../networks";
-import { switchChain } from "wagmi/actions";
-import { wagmiConfig } from "@/lib/wagmi/config";
 
 export type ActiveNetworkContextType = {
   activeNetwork: CctpNetworkAdapter;
@@ -35,9 +33,7 @@ export function ActiveNetworkProvider({ children }: React.PropsWithChildren) {
     const network = networkAdapters.find((adapter) => adapter.id === networkId);
     if (!network) throw new Error(`Network ${networkId} not found`);
 
-    if (network.type === "evm") {
-      await switchChain(wagmiConfig, { chainId: Number(networkId) });
-    }
+    await network.switchNetwork();
     setActiveNetworkState(network);
   };
 

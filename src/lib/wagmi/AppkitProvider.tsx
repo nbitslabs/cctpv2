@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useState, type ReactNode } from "react";
 import { WagmiProvider, type Config } from "wagmi";
 import { metadata, projectId, wagmiAdapter, networks } from "./config";
-import { sepolia } from "viem/chains";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 // Set up queryClient
@@ -25,7 +24,7 @@ function AppkitProvider({ children }: { children: ReactNode }) {
         adapters: [wagmiAdapter],
         projectId,
         networks,
-        defaultNetwork: sepolia,
+        defaultNetwork: networks[0],
         metadata,
         themeMode: "light",
       })

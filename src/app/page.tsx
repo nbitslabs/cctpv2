@@ -11,7 +11,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { SupportedChainId, supportedChains } from "@/lib/constants";
 import { ProgressSteps } from "@/components/progress-step";
 import { TransferLog } from "@/components/transfer-log";
 import { Timer } from "@/components/timer";
@@ -23,8 +22,9 @@ import { toast } from "sonner";
 import { SwitchChainError } from "viem";
 import {
   CctpNetworkAdapterId,
-  CctpTransferType,
+  CctpV2TransferType,
   findNetworkAdapter,
+  networkAdapters,
 } from "@/lib/cctp/networks";
 import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
 import {
@@ -47,14 +47,14 @@ export default function Home() {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [isTransferring, setIsTransferring] = useState(false);
   const [showFinalTime, setShowFinalTime] = useState(false);
-  const [transferType, setTransferType] = useState<CctpTransferType>(
-    CctpTransferType.Fast
+  const [transferType, setTransferType] = useState<CctpV2TransferType>(
+    CctpV2TransferType.Fast
   );
   const myUsdcBalance = useMyUsdcBalance();
-  const destUsdcBalance = useUsdcBalance(destChain);
+  const myNativeBalance = useMyNativeBalance();
   const sourceNativeCurrency = activeNetwork.nativeCurrency;
 
-  const myNativeBalance = useMyNativeBalance();
+  const destUsdcBalance = useUsdcBalance(destChain);
   const destNativeBalance = useNativeBalance(destChain);
   const destNativeCurrency = findNetworkAdapter(destChain)?.nativeCurrency;
 
@@ -83,9 +83,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (destChain === sourceChain) {
-      setDestChain(undefined);
-    }
+    if (destChain === sourceChain) setDestChain(undefined);
   }, [sourceChain, showFinalTime]);
 
   return (
@@ -105,7 +103,7 @@ export default function Home() {
               onChange={setTransferType}
             />
             <p className="text-sm text-muted-foreground">
-              {transferType === CctpTransferType.Fast
+              {transferType === CctpV2TransferType.Fast
                 ? "Faster transfers with lower finality threshold (1000 blocks)"
                 : "Standard transfers with higher finality (2000 blocks)"}
             </p>
@@ -116,9 +114,8 @@ export default function Home() {
               <Select
                 value={String(sourceChain)}
                 onValueChange={async (value) => {
-                  const chainId = Number(value) as SupportedChainId;
                   try {
-                    setActiveNetwork(chainId);
+                    setActiveNetwork(value);
                   } catch (error) {
                     toast.error((error as SwitchChainError).details as string);
                   }
@@ -128,7 +125,7 @@ export default function Home() {
                   <SelectValue placeholder="Select source chain" />
                 </SelectTrigger>
                 <SelectContent>
-                  {supportedChains.map((chain) => (
+                  {networkAdapters.map((chain) => (
                     <SelectItem key={chain.id} value={String(chain.id)}>
                       {chain.name}
                     </SelectItem>
@@ -145,9 +142,16 @@ export default function Home() {
                 {myNativeBalance.isLoading ? (
                   <Loader2 className="animate-spin inline-block size-3" />
                 ) : (
-                  formatNumber(myNativeBalance.data?.formatted ?? 0)
+                  formatNumber(myNativeBalance.data?.formatted ?? 0, {
+                    maximumFractionDigits: 4,
+                  })
                 )}{" "}
                 {sourceNativeCurrency.symbol}
+              </p>
+              <p className="text-xs text-red-600">
+                {[myUsdcBalance.error?.message, myNativeBalance.error?.message]
+                  .filter(Boolean)
+                  .join(", ")}
               </p>
             </div>
 
@@ -155,16 +159,14 @@ export default function Home() {
               <Label>Destination Chain</Label>
               <Select
                 value={String(destChain)}
-                onValueChange={(value) =>
-                  setDestChain(Number(value) as SupportedChainId)
-                }
+                onValueChange={(value) => setDestChain(value)}
                 disabled={!sourceChain}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select destination chain" />
                 </SelectTrigger>
                 <SelectContent>
-                  {supportedChains
+                  {networkAdapters
                     .filter((chain) => chain.id !== sourceChain)
                     .map((chain) => (
                       <SelectItem key={chain.id} value={String(chain.id)}>
@@ -183,9 +185,19 @@ export default function Home() {
                 {destNativeBalance.isLoading ? (
                   <Loader2 className="animate-spin inline-block size-3" />
                 ) : (
-                  formatNumber(destNativeBalance.data?.formatted ?? 0)
+                  formatNumber(destNativeBalance.data?.formatted ?? 0, {
+                    maximumFractionDigits: 4,
+                  })
                 )}{" "}
                 {destNativeCurrency?.symbol}
+              </p>
+              <p className="text-xs text-red-600">
+                {[
+                  destUsdcBalance.error?.message,
+                  destNativeBalance.error?.message,
+                ]
+                  .filter(Boolean)
+                  .join(", ")}
               </p>
             </div>
           </div>

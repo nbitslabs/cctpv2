@@ -57,7 +57,9 @@ export default function TransactionHistory({
   return (
     <div className="space-y-4">
       <Table>
-        <TableCaption>A list of your recent transactions.</TableCaption>
+        <TableCaption className="sr-only">
+          A list of your recent transactions.
+        </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Hash</TableHead>
@@ -115,20 +117,19 @@ export default function TransactionHistory({
         </TableBody>
       </Table>
       <Pagination>
-        <PaginationContent>
+        <PaginationContent className="text-sm">
+          <Button
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+            variant="ghost"
+            size={"iconSm"}
+          >
+            <ChevronLeft />
+          </Button>
           <PaginationItem>
-            <Button
-              onClick={handlePreviousPage}
-              disabled={currentPage === 1}
-              variant="ghost"
-            >
-              <ChevronLeft className="h-4 w-4" />
-              <span>Previous</span>
-            </Button>
-          </PaginationItem>
-          <PaginationItem>
-            <span className="p-2">
-              Page {currentPage} of {totalPages}
+            <span className="p-1 pb-2 text-muted-foreground">
+              Page <strong className="text-primary">{currentPage}</strong> of{" "}
+              {totalPages}
             </span>
           </PaginationItem>
           <PaginationItem>
@@ -136,9 +137,9 @@ export default function TransactionHistory({
               onClick={handleNextPage}
               disabled={currentPage === totalPages}
               variant="ghost"
+              size={"iconSm"}
             >
-              <span>Next</span>
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight />
             </Button>
           </PaginationItem>
         </PaginationContent>

@@ -3,7 +3,7 @@
 ## TODO
 
 - [x] Supports Mint only (provides Burn tx hash)
-- [ ] History of Trades
+- [x] History of Trades
 - [ ] Support Solana
 - [ ] Support Aptos
 - [ ] Supports CCTP V1

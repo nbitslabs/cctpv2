@@ -40,44 +40,50 @@ export function useCrossChainTransfer() {
     ]);
 
   const executeTransfer = async (
-    destinationChainId: CctpNetworkAdapterId,
-    amount: string,
-    transferType: CctpV2TransferType
+    params: { destinationChainId: CctpNetworkAdapterId } & (
+      | { amount: string; transferType: CctpV2TransferType }
+      | { burnTxHash: string }
+    )
   ) => {
+    const { destinationChainId } = params;
     try {
-      const allowance = await readAllowanceForTokenMessager();
-      const numericAmount = Number(amount);
-      addLog(`Allowance: ${allowance.formatted}`);
-      addLog(`Amount: ${numericAmount}`);
+      let burnTx: string;
+      if ("burnTxHash" in params) {
+        burnTx = params.burnTxHash;
+      } else {
+        const { amount, transferType } = params;
+        const allowance = await readAllowanceForTokenMessager();
+        const numericAmount = Number(amount);
+        addLog(`Allowance: ${allowance.formatted}`);
+        addLog(`Amount: ${numericAmount}`);
 
-      if (numericAmount > allowance.formatted) {
-        setCurrentStep("approving");
-        await toast
-          .promise(writeApproveForTokenMessager(numericAmount), {
-            loading: "Approving USDC...",
-            success: "USDC approved!",
-            error: "Approval failed",
-          })
-          .unwrap();
+        if (numericAmount > allowance.formatted) {
+          setCurrentStep("approving");
+          await toast
+            .promise(writeApproveForTokenMessager(numericAmount), {
+              loading: "Approving USDC...",
+              success: "USDC approved!",
+              error: "Approval failed",
+            })
+            .unwrap();
+        }
+
+        setCurrentStep("burning");
+        const destination = findNetworkAdapter(destinationChainId);
+        if (!destination) throw new Error("Destination network not found");
+
+        burnTx = await writeTokenMessagerDepositForBurn(
+          numericAmount,
+          destination.domain,
+          { transferType }
+        );
+        addLog(`Burn Tx: ${burnTx}`);
       }
-
-      setCurrentStep("burning");
-      const destination = findNetworkAdapter(destinationChainId);
-      if (!destination) throw new Error("Destination network not found");
-
-      const burnTx = await writeTokenMessagerDepositForBurn(
-        numericAmount,
-        destination.domain,
-        { transferType }
-      );
-
-      addLog(`Burn Tx: ${burnTx}`);
       setCurrentStep("waiting-attestation");
       const attestation = await retrieveAttestation(
         burnTx,
         activeNetwork.domain
       );
-
       setCurrentStep("minting");
       await setActiveNetwork(destinationChainId);
 
@@ -120,7 +126,12 @@ const retrieveAttestation = async (
   transactionHash: string,
   sourceChainDomain: CctpNetworkAdapter["domain"]
 ) => {
-  return new Promise<AttestationMessage>((resolve, reject) => {
+  return new Promise<AttestationMessage>(async (resolve, reject) => {
+    const response = await getAttestation(sourceChainDomain, transactionHash);
+    if (response.status === "complete") {
+      resolve(response);
+    }
+
     let timeout: NodeJS.Timeout;
     const interval = setInterval(async () => {
       const response = await getAttestation(sourceChainDomain, transactionHash);

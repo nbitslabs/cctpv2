@@ -16,7 +16,7 @@ import { TransferLog } from "@/components/transfer-log";
 import { Timer } from "@/components/timer";
 import { TransferTypeSelector } from "@/components/transfer-type";
 import { useCrossChainTransfer } from "@/hooks/use-cross-chain-transfer";
-import { formatNumber } from "@/lib/utils";
+import { cn, formatNumber, shortenAddress } from "@/lib/utils";
 import { useAppKitAccount } from "@reown/appkit/react";
 import { toast } from "sonner";
 import { SwitchChainError } from "viem";
@@ -34,6 +34,8 @@ import {
   useUsdcBalance,
 } from "@/hooks/useBalance";
 import { Loader2 } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Link from "next/link";
 
 export default function Home() {
   const { isConnected } = useAppKitAccount();
@@ -43,6 +45,8 @@ export default function Home() {
   const sourceChain = activeNetwork.id;
 
   const [destChain, setDestChain] = useState<CctpNetworkAdapterId>();
+  const [method, setMethod] = useState<"mintOnly" | "transfer">("transfer");
+  const isMintOnly = method === "mintOnly";
   const [amount, setAmount] = useState("");
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [isTransferring, setIsTransferring] = useState(false);
@@ -50,6 +54,7 @@ export default function Home() {
   const [transferType, setTransferType] = useState<CctpV2TransferType>(
     CctpV2TransferType.Fast
   );
+  const [burnTxHash, setBurnTxHash] = useState<string>();
   const myUsdcBalance = useMyUsdcBalance();
   const myNativeBalance = useMyNativeBalance();
   const sourceNativeCurrency = activeNetwork.nativeCurrency;
@@ -67,7 +72,22 @@ export default function Home() {
     setIsTransferring(true);
     setShowFinalTime(false);
     setElapsedSeconds(0);
-    await executeTransfer(destChain, amount, transferType);
+    if (isMintOnly) {
+      if (!burnTxHash) {
+        toast.error("Please enter a burn tx hash");
+        return;
+      }
+      await executeTransfer({
+        destinationChainId: destChain,
+        burnTxHash: burnTxHash,
+      });
+    } else {
+      await executeTransfer({
+        destinationChainId: destChain,
+        amount,
+        transferType,
+      });
+    }
     [myUsdcBalance, destUsdcBalance, myNativeBalance, destNativeBalance].map(
       (balance) => balance.refetch()
     );
@@ -97,17 +117,36 @@ export default function Home() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label>Transfer Type</Label>
-            <TransferTypeSelector
-              value={transferType}
-              onChange={setTransferType}
-            />
+            <Label>Transfer Method</Label>
+            <Tabs
+              value={method}
+              onValueChange={(v) => setMethod(v as "mintOnly" | "transfer")}
+            >
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value={"mintOnly"}>Mint Only</TabsTrigger>
+                <TabsTrigger value={"transfer"}>Transfer</TabsTrigger>
+              </TabsList>
+            </Tabs>
             <p className="text-sm text-muted-foreground">
-              {transferType === CctpV2TransferType.Fast
-                ? "Faster transfers with lower finality threshold (1000 blocks)"
-                : "Standard transfers with higher finality (2000 blocks)"}
+              {method === "mintOnly"
+                ? "Provides a burn transaction hash to mint on the destination chain"
+                : "Transfer and mint from the origin to the destination"}
             </p>
           </div>
+          {!isMintOnly && (
+            <div className="space-y-2">
+              <Label>Transfer Type</Label>
+              <TransferTypeSelector
+                value={transferType}
+                onChange={setTransferType}
+              />
+              <p className="text-sm text-muted-foreground">
+                {transferType === CctpV2TransferType.Fast
+                  ? "Faster transfers with lower finality threshold (1000 blocks)"
+                  : "Standard transfers with higher finality (2000 blocks)"}
+              </p>
+            </div>
+          )}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>Source Chain</Label>
@@ -202,34 +241,71 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="space-y-2 text-center sm:w-1/2 sm:mx-auto">
-            <Label>Amount (USDC)</Label>
-            <Input
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="Enter amount"
-              min="0"
-              max={myUsdcBalance.data?.formatted}
-              step="any"
-              className="text-2xl font-bold text-center h-auto"
-            />
-            <p className="text-sm text-muted-foreground">
-              {myUsdcBalance.isLoading ? (
-                <Loader2 className="animate-spin inline-block size-3" />
-              ) : (
-                formatNumber(myUsdcBalance.data?.formatted ?? 0)
-              )}{" "}
-              available
-              <Button
-                variant={"ghost"}
-                size={"sm"}
-                onClick={() => setAmount(myUsdcBalance.data?.raw ?? "0")}
-                className="ml-1"
-              >
-                Max
-              </Button>
-            </p>
+          <div
+            className={cn(
+              "space-y-2 text-center sm:w-1/2 sm:mx-auto",
+              isMintOnly && "sm:w-full"
+            )}
+          >
+            {isMintOnly ? (
+              <>
+                {" "}
+                <Label>Burn Tx Hash</Label>
+                <Input
+                  value={burnTxHash}
+                  onChange={(e) => setBurnTxHash(e.target.value)}
+                  placeholder="Enter burn tx hash"
+                  className="text-2xl font-bold text-center h-auto"
+                />
+                <p className="text-sm text-muted-foreground">
+                  Check your burn transaction here{" "}
+                  <Button
+                    variant={"link"}
+                    size={"sm"}
+                    asChild
+                    className="pr-0 pl-1 text-sm"
+                  >
+                    <Link
+                      href={`${activeNetwork.explorer?.url}/tx/${burnTxHash}`}
+                      target="_blank"
+                    >
+                      {burnTxHash && shortenAddress(burnTxHash)}
+                    </Link>
+                  </Button>
+                  . This will mint the USDC on the destination chain.
+                </p>
+              </>
+            ) : (
+              <>
+                <Label>Amount (USDC)</Label>
+                <Input
+                  type="number"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder="Enter amount"
+                  min="0"
+                  max={myUsdcBalance.data?.formatted}
+                  step="any"
+                  className="text-2xl font-bold text-center h-auto"
+                />
+                <p className="text-sm text-muted-foreground">
+                  {myUsdcBalance.isLoading ? (
+                    <Loader2 className="animate-spin inline-block size-3" />
+                  ) : (
+                    formatNumber(myUsdcBalance.data?.formatted ?? 0)
+                  )}{" "}
+                  available
+                  <Button
+                    variant={"ghost"}
+                    size={"sm"}
+                    onClick={() => setAmount(myUsdcBalance.data?.raw ?? "0")}
+                    className="ml-1"
+                  >
+                    Max
+                  </Button>
+                </p>
+              </>
+            )}
           </div>
 
           <div className="flex justify-center gap-4">

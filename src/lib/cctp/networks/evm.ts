@@ -146,6 +146,8 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
         messageTransmitterV2Addresses[chainId as CctpV2SupportedChainId],
     },
 
+    explorer: chain.blockExplorers?.default,
+
     readNativeBalance: requestChainIfNeeded(async () => {
       if (!publicClient) throw new Error("No public client found");
 
@@ -280,6 +282,8 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
     },
 
     switchNetwork: requestChainIfNeeded(async () => {
+      console.log("switchNetwork", chainId);
+
       await switchChain(wagmiConfig, { chainId });
     }),
   });

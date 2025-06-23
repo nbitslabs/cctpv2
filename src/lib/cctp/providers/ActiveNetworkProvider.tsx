@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import {
   CctpNetworkAdapter,
   CctpNetworkAdapterId,
+  findNetworkAdapter,
   networkAdapters,
 } from "../networks";
 
@@ -30,9 +31,8 @@ export function ActiveNetworkProvider({ children }: React.PropsWithChildren) {
   const [activeNetwork, setActiveNetworkState] = useState<CctpNetworkAdapter>();
 
   const setActiveNetwork = async (networkId: CctpNetworkAdapterId) => {
-    const network = networkAdapters.find((adapter) => adapter.id === networkId);
+    const network = findNetworkAdapter(networkId);
     if (!network) throw new Error(`Network ${networkId} not found`);
-
     await network.switchNetwork();
     setActiveNetworkState(network);
   };

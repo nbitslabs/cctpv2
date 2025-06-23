@@ -27,7 +27,7 @@ export interface CctpNetworkAdapter {
     decimals: number;
     name: string;
   };
-
+  explorer?: { name: string; url: string };
   usdcAddress: string;
 
   v1: CctpNetworkVersion;

@@ -1,13 +1,12 @@
-# CCTP Sample App
+# CCTP V2
 
-This sample application demonstrates Cross-Chain Transfer Protocol (CCTP) step-by-step capabilities on testnet networks. The app showcases CCTP functionality across multiple testnets:
+## TODO
 
-- Ethereum Sepolia
-- Avalanche Fuji C-Chain
-- Base Sepolia
-- Linea Sepolia
-- Arbitrum Sepolia
-- Sonic Blaze
+- [ ] Supports Mint only (provides Burn tx hash)
+- [ ] History of Trades
+- [ ] Support Solana
+- [ ] Support Aptos
+- [ ] Supports CCTP V1
 
 ## Getting Started
 

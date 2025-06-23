@@ -2,14 +2,16 @@ import { Address } from "viem";
 import { CctpNetworkAdapter } from "./networks";
 import axios from "axios";
 
+const apiUrl =
+  process.env.NEXT_PUBLIC_TESTNET === "true"
+    ? "https://iris-api-sandbox.circle.com/v2"
+    : "https://iris-api.circle.com/v2";
+
 export async function getAttestation(
   sourceDomain: CctpNetworkAdapter["domain"],
   burnTx: string
 ): Promise<AttestationMessage> {
-  const IS_TESTNET = process.env.NEXT_PUBLIC_TESTNET === "true";
-  const url = IS_TESTNET
-    ? `https://iris-api-sandbox.circle.com/v2/messages/${sourceDomain}`
-    : `https://iris-api.circle.com/v2/messages/${sourceDomain}`;
+  const url = `${apiUrl}/messages/${sourceDomain}`;
   const response = await axios.get(url, {
     params: { transactionHash: burnTx },
   });

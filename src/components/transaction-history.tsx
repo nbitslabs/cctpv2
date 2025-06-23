@@ -1,6 +1,11 @@
 "use client";
 
 import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
   Table,
   TableBody,
   TableCaption,
@@ -36,6 +41,7 @@ export default function TransactionHistory({
 }) {
   const { address } = useAppKitAccount();
   const [currentPage, setCurrentPage] = useState(1);
+  const [isOpen, setIsOpen] = useState(false);
 
   const totalPages = Math.ceil(transactions.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -55,95 +61,104 @@ export default function TransactionHistory({
   }
 
   return (
-    <div className="space-y-4">
-      <Table>
-        <TableCaption className="sr-only">
-          A list of your recent transactions.
-        </TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Hash</TableHead>
-            <TableHead>From</TableHead>
-            <TableHead>To</TableHead>
-            <TableHead className="text-right">Value</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {isLoading ? (
-            <TableRow>
-              <TableCell colSpan={4} className="text-center">
-                <Loader2 className="h-4 w-4 animate-spin" />
-              </TableCell>
-            </TableRow>
-          ) : (
-            currentTransactions.map((tx) => {
-              const fromMe = tx.from.toLowerCase() === address?.toLowerCase();
-              return (
-                <TableRow key={tx.uniqueId}>
-                  <TableCell className="font-medium">
-                    <a
-                      href={`${explorerUrl}/tx/${tx.hash}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={cn(
-                        "hover:underline flex items-center gap-1",
-                        fromMe ? "text-red-600" : "text-green-600"
-                      )}
-                    >
-                      {fromMe ? (
-                        <ArrowUp className="size-4" />
-                      ) : (
-                        <ArrowDown className="size-4" />
-                      )}
-                      {`${tx.hash.slice(0, 6)}...${tx.hash.slice(-4)}`}
-                    </a>
-                  </TableCell>
-                  <TableCell>{`${tx.from.slice(0, 6)}...${tx.from.slice(
-                    -4
-                  )}`}</TableCell>
-                  <TableCell>{`${tx.to.slice(0, 6)}...${tx.to.slice(
-                    -4
-                  )}`}</TableCell>
-                  <TableCell className="text-right">
-                    {formatNumber(tx.value, { maximumFractionDigits: 4 })}{" "}
-                    <small className="text-muted-foreground align-sub">
-                      {tx.asset}
-                    </small>
+    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+      <CollapsibleTrigger className="flex items-center gap-0 font-semibold text-sm">
+        Transaction History
+        <ChevronRight className={cn("size-4", isOpen && "rotate-90")} />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <div className="space-y-4">
+          <Table>
+            <TableCaption className="sr-only">
+              A list of your recent transactions.
+            </TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Hash</TableHead>
+                <TableHead>From</TableHead>
+                <TableHead>To</TableHead>
+                <TableHead className="text-right">Value</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {isLoading ? (
+                <TableRow>
+                  <TableCell colSpan={4} className="text-center">
+                    <Loader2 className="h-4 w-4 animate-spin" />
                   </TableCell>
                 </TableRow>
-              );
-            })
-          )}
-        </TableBody>
-      </Table>
-      <Pagination>
-        <PaginationContent className="text-sm">
-          <Button
-            onClick={handlePreviousPage}
-            disabled={currentPage === 1}
-            variant="ghost"
-            size={"iconSm"}
-          >
-            <ChevronLeft />
-          </Button>
-          <PaginationItem>
-            <span className="p-1 pb-2 text-muted-foreground">
-              Page <strong className="text-primary">{currentPage}</strong> of{" "}
-              {totalPages}
-            </span>
-          </PaginationItem>
-          <PaginationItem>
-            <Button
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-              variant="ghost"
-              size={"iconSm"}
-            >
-              <ChevronRight />
-            </Button>
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-    </div>
+              ) : (
+                currentTransactions.map((tx) => {
+                  const fromMe =
+                    tx.from.toLowerCase() === address?.toLowerCase();
+                  return (
+                    <TableRow key={tx.uniqueId}>
+                      <TableCell className="font-medium">
+                        <a
+                          href={`${explorerUrl}/tx/${tx.hash}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={cn(
+                            "hover:underline flex items-center gap-1",
+                            fromMe ? "text-red-600" : "text-green-600"
+                          )}
+                        >
+                          {fromMe ? (
+                            <ArrowUp className="size-4" />
+                          ) : (
+                            <ArrowDown className="size-4" />
+                          )}
+                          {`${tx.hash.slice(0, 6)}...${tx.hash.slice(-4)}`}
+                        </a>
+                      </TableCell>
+                      <TableCell>{`${tx.from.slice(0, 6)}...${tx.from.slice(
+                        -4
+                      )}`}</TableCell>
+                      <TableCell>{`${tx.to.slice(0, 6)}...${tx.to.slice(
+                        -4
+                      )}`}</TableCell>
+                      <TableCell className="text-right">
+                        {formatNumber(tx.value, { maximumFractionDigits: 4 })}{" "}
+                        <small className="text-muted-foreground align-sub">
+                          {tx.asset}
+                        </small>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
+              )}
+            </TableBody>
+          </Table>
+          <Pagination>
+            <PaginationContent className="text-sm">
+              <Button
+                onClick={handlePreviousPage}
+                disabled={currentPage === 1}
+                variant="ghost"
+                size={"iconSm"}
+              >
+                <ChevronLeft />
+              </Button>
+              <PaginationItem>
+                <span className="p-1 pb-2 text-muted-foreground">
+                  Page <strong className="text-primary">{currentPage}</strong>{" "}
+                  of {totalPages}
+                </span>
+              </PaginationItem>
+              <PaginationItem>
+                <Button
+                  onClick={handleNextPage}
+                  disabled={currentPage === totalPages}
+                  variant="ghost"
+                  size={"iconSm"}
+                >
+                  <ChevronRight />
+                </Button>
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
   );
 }

@@ -16,8 +16,8 @@ import { TransferLog } from "@/components/transfer-log";
 import { Timer } from "@/components/timer";
 import { TransferTypeSelector } from "@/components/transfer-type";
 import { useCrossChainTransfer } from "@/hooks/use-cross-chain-transfer";
-import { cn, formatNumber, shortenAddress } from "@/lib/utils";
-import { useAppKitAccount } from "@reown/appkit/react";
+import { cn, formatNumber } from "@/lib/utils";
+import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 import { toast } from "sonner";
 import { SwitchChainError } from "viem";
 import {
@@ -33,19 +33,15 @@ import {
   useNativeBalance,
   useUsdcBalance,
 } from "@/hooks/useBalance";
-import { ChevronRight, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { getAccountTransactions } from "@/lib/alchemy/account";
 import TransactionHistory from "@/components/transaction-history";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 
 export default function Home() {
+  const { open } = useAppKit();
   const { isConnected, address } = useAppKitAccount();
   const { currentStep, logs, error, executeTransfer, reset } =
     useCrossChainTransfer();
@@ -85,6 +81,8 @@ export default function Home() {
   });
 
   const handleStartTransfer = async () => {
+    if (!isConnected) return open();
+
     if (!destChain) {
       toast.error("Please select a destination chain");
       return;
@@ -192,40 +190,39 @@ export default function Home() {
                   ))}
                 </SelectContent>
               </Select>
-              <p className="text-sm text-muted-foreground">
-                {myUsdcBalance.isLoading ? (
-                  <Loader2 className="animate-spin inline-block size-3" />
-                ) : (
-                  formatNumber(myUsdcBalance.data?.formatted ?? 0)
-                )}{" "}
-                USDC •{" "}
-                {myNativeBalance.isLoading ? (
-                  <Loader2 className="animate-spin inline-block size-3" />
-                ) : (
-                  formatNumber(myNativeBalance.data?.formatted ?? 0, {
-                    maximumFractionDigits: 4,
-                  })
-                )}{" "}
-                {sourceNativeCurrency.symbol}
-              </p>
-              <p className="text-xs text-red-600">
-                {[myUsdcBalance.error?.message, myNativeBalance.error?.message]
-                  .filter(Boolean)
-                  .join(", ")}
-              </p>
-              <Collapsible>
-                <CollapsibleTrigger className="flex items-center gap-0 font-semibold text-sm">
-                  <ChevronRight className="size-4" />
-                  Transaction History
-                </CollapsibleTrigger>
-                <CollapsibleContent>
+              {address && (
+                <>
+                  <p className="text-sm text-muted-foreground">
+                    {myUsdcBalance.isLoading ? (
+                      <Loader2 className="animate-spin inline-block size-3" />
+                    ) : (
+                      formatNumber(myUsdcBalance.data?.formatted ?? 0)
+                    )}{" "}
+                    USDC •{" "}
+                    {myNativeBalance.isLoading ? (
+                      <Loader2 className="animate-spin inline-block size-3" />
+                    ) : (
+                      formatNumber(myNativeBalance.data?.formatted ?? 0, {
+                        maximumFractionDigits: 4,
+                      })
+                    )}{" "}
+                    {sourceNativeCurrency.symbol}
+                  </p>
+                  <p className="text-xs text-red-600">
+                    {[
+                      myUsdcBalance.error?.message,
+                      myNativeBalance.error?.message,
+                    ]
+                      .filter(Boolean)
+                      .join(", ")}
+                  </p>
                   <TransactionHistory
                     transactions={originTranfers.data}
                     isLoading={originTranfers.isLoading}
                     explorerUrl={activeNetwork.explorer?.url ?? ""}
                   />
-                </CollapsibleContent>
-              </Collapsible>
+                </>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -248,43 +245,40 @@ export default function Home() {
                     ))}
                 </SelectContent>
               </Select>
-              <p className="text-sm text-muted-foreground">
-                {destUsdcBalance.isLoading ? (
-                  <Loader2 className="animate-spin inline-block size-3" />
-                ) : (
-                  formatNumber(destUsdcBalance.data?.formatted ?? 0)
-                )}{" "}
-                USDC •{" "}
-                {destNativeBalance.isLoading ? (
-                  <Loader2 className="animate-spin inline-block size-3" />
-                ) : (
-                  formatNumber(destNativeBalance.data?.formatted ?? 0, {
-                    maximumFractionDigits: 4,
-                  })
-                )}{" "}
-                {destNativeCurrency?.symbol}
-              </p>
-              <p className="text-xs text-red-600">
-                {[
-                  destUsdcBalance.error?.message,
-                  destNativeBalance.error?.message,
-                ]
-                  .filter(Boolean)
-                  .join(", ")}
-              </p>
-              <Collapsible>
-                <CollapsibleTrigger className="flex items-center gap-0 font-semibold text-sm">
-                  <ChevronRight className="size-4" />
-                  Transaction History
-                </CollapsibleTrigger>
-                <CollapsibleContent>
+
+              {destChain && (
+                <>
+                  <p className="text-sm text-muted-foreground">
+                    {destUsdcBalance.isLoading ? (
+                      <Loader2 className="animate-spin inline-block size-3" />
+                    ) : (
+                      formatNumber(destUsdcBalance.data?.formatted ?? 0)
+                    )}{" "}
+                    USDC •{" "}
+                    {destNativeBalance.isLoading ? (
+                      <Loader2 className="animate-spin inline-block size-3" />
+                    ) : (
+                      formatNumber(destNativeBalance.data?.formatted ?? 0, {
+                        maximumFractionDigits: 4,
+                      })
+                    )}{" "}
+                    {destNativeCurrency?.symbol}
+                  </p>
+                  <p className="text-xs text-red-600">
+                    {[
+                      destUsdcBalance.error?.message,
+                      destNativeBalance.error?.message,
+                    ]
+                      .filter(Boolean)
+                      .join(", ")}
+                  </p>
                   <TransactionHistory
                     transactions={destTransfers.data}
                     isLoading={destTransfers.isLoading}
                     explorerUrl={destination?.explorer?.url ?? ""}
                   />
-                </CollapsibleContent>
-              </Collapsible>
+                </>
+              )}
             </div>
           </div>
 
@@ -304,23 +298,19 @@ export default function Home() {
                   placeholder="Enter burn tx hash"
                   className="text-2xl font-bold text-center h-auto"
                 />
-                <p className="text-sm text-muted-foreground">
-                  Check your burn transaction here{" "}
-                  <Button
-                    variant={"link"}
-                    size={"sm"}
-                    asChild
-                    className="pr-0 pl-1 text-sm"
-                  >
+                {burnTxHash && (
+                  <p className="text-sm text-muted-foreground">
+                    Check your burn transaction on{" "}
                     <Link
                       href={`${activeNetwork.explorer?.url}/tx/${burnTxHash}`}
                       target="_blank"
+                      className="text-primary font-bold"
                     >
-                      {burnTxHash && shortenAddress(burnTxHash)}
+                      {activeNetwork.explorer?.name}
                     </Link>
-                  </Button>
-                  . This will mint the USDC on the destination chain.
-                </p>
+                    . This will mint the USDC on the destination chain.
+                  </p>
+                )}
               </>
             ) : (
               <>
@@ -335,22 +325,24 @@ export default function Home() {
                   step="any"
                   className="text-2xl font-bold text-center h-auto"
                 />
-                <p className="text-sm text-muted-foreground">
-                  {myUsdcBalance.isLoading ? (
-                    <Loader2 className="animate-spin inline-block size-3" />
-                  ) : (
-                    formatNumber(myUsdcBalance.data?.formatted ?? 0)
-                  )}{" "}
-                  available
-                  <Button
-                    variant={"ghost"}
-                    size={"sm"}
-                    onClick={() => setAmount(myUsdcBalance.data?.raw ?? "0")}
-                    className="ml-1"
-                  >
-                    Max
-                  </Button>
-                </p>
+                {address && (
+                  <p className="text-sm text-muted-foreground">
+                    {myUsdcBalance.isLoading ? (
+                      <Loader2 className="animate-spin inline-block size-3" />
+                    ) : (
+                      formatNumber(myUsdcBalance.data?.formatted ?? 0)
+                    )}{" "}
+                    available
+                    <Button
+                      variant={"ghost"}
+                      size={"sm"}
+                      onClick={() => setAmount(myUsdcBalance.data?.raw ?? "0")}
+                      className="ml-1"
+                    >
+                      Max
+                    </Button>
+                  </p>
+                )}
               </>
             )}
           </div>

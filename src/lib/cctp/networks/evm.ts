@@ -282,8 +282,6 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
     },
 
     switchNetwork: requestChainIfNeeded(async () => {
-      console.log("switchNetwork", chainId);
-
       await switchChain(wagmiConfig, { chainId });
     }),
   });

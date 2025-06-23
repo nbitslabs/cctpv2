@@ -2,7 +2,7 @@
 
 ## TODO
 
-- [ ] Supports Mint only (provides Burn tx hash)
+- [x] Supports Mint only (provides Burn tx hash)
 - [ ] History of Trades
 - [ ] Support Solana
 - [ ] Support Aptos

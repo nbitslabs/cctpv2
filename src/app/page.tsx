@@ -33,12 +33,20 @@ import {
   useNativeBalance,
   useUsdcBalance,
 } from "@/hooks/useBalance";
-import { Loader2 } from "lucide-react";
+import { ChevronRight, Loader2 } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import { getAccountTransactions } from "@/lib/alchemy/account";
+import TransactionHistory from "@/components/transaction-history";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 export default function Home() {
-  const { isConnected } = useAppKitAccount();
+  const { isConnected, address } = useAppKitAccount();
   const { currentStep, logs, error, executeTransfer, reset } =
     useCrossChainTransfer();
   const { activeNetwork, setActiveNetwork } = useActiveNetwork();
@@ -61,7 +69,20 @@ export default function Home() {
 
   const destUsdcBalance = useUsdcBalance(destChain);
   const destNativeBalance = useNativeBalance(destChain);
-  const destNativeCurrency = findNetworkAdapter(destChain)?.nativeCurrency;
+  const destination = findNetworkAdapter(destChain);
+  const destNativeCurrency = destination?.nativeCurrency;
+
+  const originTranfers = useQuery({
+    queryKey: ["transfers", sourceChain, address],
+    queryFn: () => getAccountTransactions(sourceChain, address!),
+    enabled: !!address,
+  });
+
+  const destTransfers = useQuery({
+    queryKey: ["transfers", destChain, address],
+    queryFn: () => getAccountTransactions(destChain!, address!),
+    enabled: !!address && !!destChain,
+  });
 
   const handleStartTransfer = async () => {
     if (!destChain) {
@@ -108,7 +129,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
-      <Card className="max-w-3xl mx-auto">
+      <Card className="max-w-5xl mx-auto">
         <CardHeader className="items-center">
           <CardTitle className="text-center">
             Cross-Chain USDC Transfer
@@ -192,6 +213,19 @@ export default function Home() {
                   .filter(Boolean)
                   .join(", ")}
               </p>
+              <Collapsible>
+                <CollapsibleTrigger className="flex items-center gap-0 font-semibold text-sm">
+                  <ChevronRight className="size-4" />
+                  Transaction History
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <TransactionHistory
+                    transactions={originTranfers.data}
+                    isLoading={originTranfers.isLoading}
+                    explorerUrl={activeNetwork.explorer?.url ?? ""}
+                  />
+                </CollapsibleContent>
+              </Collapsible>
             </div>
 
             <div className="space-y-2">
@@ -238,6 +272,19 @@ export default function Home() {
                   .filter(Boolean)
                   .join(", ")}
               </p>
+              <Collapsible>
+                <CollapsibleTrigger className="flex items-center gap-0 font-semibold text-sm">
+                  <ChevronRight className="size-4" />
+                  Transaction History
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <TransactionHistory
+                    transactions={destTransfers.data}
+                    isLoading={destTransfers.isLoading}
+                    explorerUrl={destination?.explorer?.url ?? ""}
+                  />
+                </CollapsibleContent>
+              </Collapsible>
             </div>
           </div>
 

@@ -106,6 +106,7 @@ export default function Home() {
       setShowFinalTime(false);
       setElapsedSeconds(0);
       await executeTransfer({
+        sourceChainId: sourceChain,
         destinationChainId: destChain,
         burnTxHash: burnTxHash,
       });
@@ -118,6 +119,7 @@ export default function Home() {
       setShowFinalTime(false);
       setElapsedSeconds(0);
       await executeTransfer({
+        sourceChainId: sourceChain,
         destinationChainId: destChain,
         amount,
         transferType,
@@ -143,6 +145,15 @@ export default function Home() {
   useEffect(() => {
     if (destChain === sourceChain) setDestChain(undefined);
   }, [sourceChain, showFinalTime]);
+
+  useEffect(() => {
+    if (currentStep === "waiting-attestation") {
+      originTranfers.refetch();
+    }
+    if (currentStep === "completed") {
+      destTransfers.refetch();
+    }
+  }, [currentStep]);
 
   return (
     <div className="min-h-screen bg-primary/10 p-8">

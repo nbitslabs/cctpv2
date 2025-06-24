@@ -40,12 +40,16 @@ export function useCrossChainTransfer() {
     ]);
 
   const executeTransfer = async (
-    params: { destinationChainId: CctpNetworkAdapterId } & (
+    params: {
+      sourceChainId: CctpNetworkAdapterId;
+      destinationChainId: CctpNetworkAdapterId;
+    } & (
       | { amount: string; transferType: CctpV2TransferType }
       | { burnTxHash: string }
     )
   ) => {
-    const { destinationChainId } = params;
+    const { sourceChainId, destinationChainId } = params;
+    await setActiveNetwork(sourceChainId);
     try {
       let burnTx: string;
       if ("burnTxHash" in params) {

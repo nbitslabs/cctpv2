@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -16,10 +17,9 @@ import { TransferLog } from "@/components/transfer-log";
 import { Timer } from "@/components/timer";
 import { TransferTypeSelector } from "@/components/transfer-type";
 import { useCrossChainTransfer } from "@/hooks/use-cross-chain-transfer";
-import { cn, formatNumber } from "@/lib/utils";
+import { cn, formatNumber, shortenAddress } from "@/lib/utils";
 import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 import { toast } from "sonner";
-import { SwitchChainError } from "viem";
 import {
   CctpNetworkAdapterId,
   CctpV2TransferType,
@@ -28,7 +28,6 @@ import {
 } from "@/lib/cctp/networks";
 import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
 import {
-  useMyNativeBalance,
   useMyUsdcBalance,
   useNativeBalance,
   useUsdcBalance,
@@ -39,15 +38,20 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { getAccountTransactions } from "@/lib/alchemy/account";
 import TransactionHistory from "@/components/transaction-history";
+import ExternalLink from "@/components/ui2/ExternalLink";
+import { NumericFormat } from "react-number-format";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function Home() {
   const { open } = useAppKit();
   const { isConnected, address } = useAppKitAccount();
   const { currentStep, logs, error, executeTransfer, reset } =
     useCrossChainTransfer();
-  const { activeNetwork, setActiveNetwork } = useActiveNetwork();
-  const sourceChain = activeNetwork.id;
+  const { activeNetwork } = useActiveNetwork();
 
+  const [sourceChain, setSourceChain] = useState<CctpNetworkAdapterId>(
+    activeNetwork.id
+  );
   const [destChain, setDestChain] = useState<CctpNetworkAdapterId>();
   const [method, setMethod] = useState<"mintOnly" | "transfer">("transfer");
   const isMintOnly = method === "mintOnly";
@@ -60,8 +64,12 @@ export default function Home() {
   );
   const [burnTxHash, setBurnTxHash] = useState<string>();
   const myUsdcBalance = useMyUsdcBalance();
-  const myNativeBalance = useMyNativeBalance();
-  const sourceNativeCurrency = activeNetwork.nativeCurrency;
+  const [understand, setUnderstand] = useState(false);
+
+  const sourceUsdcBalance = useUsdcBalance(sourceChain);
+  const sourceNativeBalance = useNativeBalance(sourceChain);
+  const source = findNetworkAdapter(sourceChain);
+  const sourceNativeCurrency = source?.nativeCurrency;
 
   const destUsdcBalance = useUsdcBalance(destChain);
   const destNativeBalance = useNativeBalance(destChain);
@@ -80,36 +88,47 @@ export default function Home() {
     enabled: !!address && !!destChain,
   });
 
+  const hasZeroNativeBalanceOnSource =
+    !sourceNativeBalance.isLoading && !sourceNativeBalance.data?.formatted;
+  const hasZeroNativeBalanceOnDestination =
+    destChain &&
+    !destNativeBalance.isLoading &&
+    !destNativeBalance.data?.formatted;
+
   const handleStartTransfer = async () => {
     if (!isConnected) return open();
+    if (!destChain) return toast.error("Please select a destination chain");
 
-    if (!destChain) {
-      toast.error("Please select a destination chain");
-      return;
-    }
-
-    setIsTransferring(true);
-    setShowFinalTime(false);
-    setElapsedSeconds(0);
     if (isMintOnly) {
-      if (!burnTxHash) {
-        toast.error("Please enter a burn tx hash");
-        return;
-      }
+      if (!burnTxHash) return toast.error("Please enter a burn tx hash");
+
+      setIsTransferring(true);
+      setShowFinalTime(false);
+      setElapsedSeconds(0);
       await executeTransfer({
         destinationChainId: destChain,
         burnTxHash: burnTxHash,
       });
     } else {
+      if (!amount) return toast.error("Please enter an amount");
+      if (Number(amount) > Number(myUsdcBalance.data?.formatted))
+        return toast.error("Insufficient balance");
+
+      setIsTransferring(true);
+      setShowFinalTime(false);
+      setElapsedSeconds(0);
       await executeTransfer({
         destinationChainId: destChain,
         amount,
         transferType,
       });
     }
-    [myUsdcBalance, destUsdcBalance, myNativeBalance, destNativeBalance].map(
-      (balance) => balance.refetch()
-    );
+    [
+      myUsdcBalance,
+      destUsdcBalance,
+      sourceNativeBalance,
+      destNativeBalance,
+    ].map((balance) => balance.refetch());
     setIsTransferring(false);
     setShowFinalTime(true);
   };
@@ -126,16 +145,33 @@ export default function Home() {
   }, [sourceChain, showFinalTime]);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-primary/10 p-8">
       <Card className="max-w-5xl mx-auto">
         <CardHeader className="items-center">
           <CardTitle className="text-center">
             Cross-Chain USDC Transfer
           </CardTitle>
-          {isConnected ? <appkit-account-button /> : <appkit-connect-button />}
+          {isConnected ? (
+            <>
+              <appkit-account-button />
+              <p className="flex justify-center gap-1">
+                You are connected to{" "}
+                <ExternalLink
+                  href={`${activeNetwork.explorer?.url}/address/${address}`}
+                  className="text-primary"
+                >
+                  {address && shortenAddress(address)}
+                </ExternalLink>
+                on{" "}
+                <strong className="text-primary">{activeNetwork.name}</strong>
+              </p>
+            </>
+          ) : (
+            <appkit-connect-button />
+          )}
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex justify-between gap-2">
+          <div className="flex flex-col sm:flex-row justify-between gap-2">
             <div>
               <Label>Transfer Method</Label>
               <p className="text-sm text-muted-foreground">
@@ -155,7 +191,7 @@ export default function Home() {
             </Tabs>
           </div>
           {!isMintOnly && (
-            <div className="flex justify-between gap-2">
+            <div className="flex flex-col sm:flex-row justify-between gap-2">
               <div className="space-y-2">
                 <Label>Transfer Type</Label>
                 <p className="text-sm text-muted-foreground">
@@ -175,13 +211,7 @@ export default function Home() {
               <Label>Source Chain</Label>
               <Select
                 value={String(sourceChain)}
-                onValueChange={async (value) => {
-                  try {
-                    setActiveNetwork(value);
-                  } catch (error) {
-                    toast.error((error as SwitchChainError).details as string);
-                  }
-                }}
+                onValueChange={setSourceChain}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select source chain" />
@@ -197,28 +227,20 @@ export default function Home() {
               {address && (
                 <>
                   <p className="text-sm text-muted-foreground">
-                    {myUsdcBalance.isLoading ? (
+                    {sourceUsdcBalance.isLoading ? (
                       <Loader2 className="animate-spin inline-block size-3" />
                     ) : (
-                      formatNumber(myUsdcBalance.data?.formatted ?? 0)
+                      formatNumber(sourceUsdcBalance.data?.formatted ?? 0)
                     )}{" "}
                     USDC •{" "}
-                    {myNativeBalance.isLoading ? (
+                    {sourceNativeBalance.isLoading ? (
                       <Loader2 className="animate-spin inline-block size-3" />
                     ) : (
-                      formatNumber(myNativeBalance.data?.formatted ?? 0, {
+                      formatNumber(sourceNativeBalance.data?.formatted ?? 0, {
                         maximumFractionDigits: 4,
                       })
                     )}{" "}
-                    {sourceNativeCurrency.symbol}
-                  </p>
-                  <p className="text-xs text-red-600">
-                    {[
-                      myUsdcBalance.error?.message,
-                      myNativeBalance.error?.message,
-                    ]
-                      .filter(Boolean)
-                      .join(", ")}
+                    {sourceNativeCurrency?.symbol}
                   </p>
                   <TransactionHistory
                     transactions={originTranfers.data}
@@ -241,7 +263,9 @@ export default function Home() {
                 </SelectTrigger>
                 <SelectContent>
                   {networkAdapters
-                    .filter((chain) => chain.id !== sourceChain)
+                    .filter(
+                      (chain) => chain.id.toString() !== sourceChain.toString()
+                    )
                     .map((chain) => (
                       <SelectItem key={chain.id} value={String(chain.id)}>
                         {chain.name}
@@ -295,12 +319,12 @@ export default function Home() {
             {isMintOnly ? (
               <>
                 {" "}
-                <Label>Burn Tx Hash</Label>
+                <Label>Burn Transaction Hash</Label>
                 <Input
                   value={burnTxHash}
                   onChange={(e) => setBurnTxHash(e.target.value)}
-                  placeholder="Enter burn tx hash"
-                  className="text-2xl font-bold text-center h-auto"
+                  placeholder="0x..."
+                  className="text-xl font-bold text-center h-12"
                 />
                 {burnTxHash && (
                   <p className="text-sm text-muted-foreground">
@@ -319,15 +343,15 @@ export default function Home() {
             ) : (
               <>
                 <Label>Amount (USDC)</Label>
-                <Input
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
+                <NumericFormat
+                  id={"input-amount"}
+                  name={"input-amount"}
                   placeholder="Enter amount"
-                  min="0"
-                  max={myUsdcBalance.data?.formatted}
-                  step="any"
-                  className="text-2xl font-bold text-center h-auto"
+                  value={amount}
+                  onValueChange={(values) => setAmount(values.value)}
+                  className="appearance-none border border-input rounded-md bg-transparent font-bold text-center text-xl outline-none w-full autofill:shadow-[inset_0_0_0px_1000px_rgb(245,245,245)] h-10 transition-colors placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
+                  thousandSeparator=","
+                  allowNegative={false}
                 />
                 {address && (
                   <p className="text-sm text-muted-foreground">
@@ -350,11 +374,58 @@ export default function Home() {
               </>
             )}
           </div>
+          {error && <div className="text-red-500 text-center">{error}</div>}
 
+          <Alert className="bg-primary/5 max-w-xl mx-auto">
+            <AlertTitle className="uppercase text-primary">
+              Be aware!
+            </AlertTitle>
+            <AlertDescription>
+              <ul className="list-disc list-inside">
+                <li>
+                  After burn, the transaction may take a while to complete. You
+                  always can check it under <strong>Transaction History</strong>{" "}
+                  of the source chain, then use <strong>Mint Only</strong>{" "}
+                  option to mint the USDC on the destination chain.
+                </li>
+                {hasZeroNativeBalanceOnSource && (
+                  <li className="text-destructive">
+                    You need some{" "}
+                    <strong>{sourceNativeCurrency?.symbol}</strong> on the{" "}
+                    <strong>{source?.name}</strong> to pay for the burn action.
+                  </li>
+                )}
+                {hasZeroNativeBalanceOnDestination && (
+                  <li className="text-destructive">
+                    You need some <strong>{destNativeCurrency?.symbol}</strong>{" "}
+                    on the <strong>{destination?.name}</strong> to receive the
+                    USDC.
+                  </li>
+                )}
+              </ul>
+            </AlertDescription>
+          </Alert>
+
+          <Label
+            htmlFor="understand"
+            className="flex items-center justify-center gap-2"
+          >
+            <Checkbox
+              id="understand"
+              className="border-primary/50"
+              checked={understand}
+              onCheckedChange={(checked) =>
+                setUnderstand(checked === "indeterminate" ? false : checked)
+              }
+            />
+            I have read all the warnings and understand the risks.
+          </Label>
           <div className="flex justify-center gap-4">
             <Button
               onClick={handleStartTransfer}
-              disabled={isTransferring || currentStep === "completed"}
+              disabled={
+                isTransferring || currentStep === "completed" || !understand
+              }
             >
               {currentStep === "completed"
                 ? "Transfer Complete"
@@ -367,7 +438,6 @@ export default function Home() {
               </Button>
             )}
           </div>
-          {error && <div className="text-red-500 text-center">{error}</div>}
 
           <div className="text-center">
             {showFinalTime ? (
@@ -394,6 +464,17 @@ export default function Home() {
           <TransferLog logs={logs} />
         </CardContent>
       </Card>
+      <footer className="text-center text-sm text-muted-foreground mt-4">
+        <p>
+          Built with ❤️ by{" "}
+          <ExternalLink
+            href="https://github.com/thanhhoa214"
+            className="text-primary font-semibold"
+          >
+            thanhhoa214 🇻🇳
+          </ExternalLink>
+        </p>
+      </footer>
     </div>
   );
 }

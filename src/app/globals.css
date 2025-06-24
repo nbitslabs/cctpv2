@@ -52,8 +52,6 @@
   --sidebar-accent-foreground: oklch(0.3353 0.0132 2.7676);
   --sidebar-border: oklch(0.9296 0.037 38.6868);
   --sidebar-ring: oklch(0.7357 0.1641 34.7091);
-  --font-sans: "Funnel Sans", sans-serif;
-  --font-serif: "Funnel Display", serif;
   --font-mono: Ubuntu Mono, monospace;
   --radius: 0.625rem;
   --shadow-2xs: 0px 6px 12px -3px hsl(0 0% 0% / 0.04);

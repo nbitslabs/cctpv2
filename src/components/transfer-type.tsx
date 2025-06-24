@@ -15,7 +15,7 @@ export function TransferTypeSelector({
       value={value}
       onValueChange={(v) => onChange(v as CctpV2TransferType)}
     >
-      <TabsList className="grid w-full grid-cols-2">
+      <TabsList className="grid w-fit grid-cols-2">
         <TabsTrigger value={CctpV2TransferType.Fast}>🚀 V2 Fast</TabsTrigger>
         <TabsTrigger value={CctpV2TransferType.Standard}>
           🛡️ V1 Standard

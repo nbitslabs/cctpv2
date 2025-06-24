@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Funnel_Display, Funnel_Sans } from "next/font/google";
 import "./globals.css";
 import AppkitProvider from "@/lib/wagmi/AppkitProvider";
 import { Toaster } from "@/components/ui/sonner";
 import React from "react";
 import { ActiveNetworkProvider } from "@/lib/cctp/providers/ActiveNetworkProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const funnelSans = Funnel_Sans({
+  variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+const funnelDisplay = Funnel_Display({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -19,7 +25,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} antialiased`}>
+      <body
+        className={`${funnelSans.variable} ${funnelDisplay.variable} antialiased`}
+      >
         <AppkitProvider>
           <ActiveNetworkProvider>{children}</ActiveNetworkProvider>
         </AppkitProvider>

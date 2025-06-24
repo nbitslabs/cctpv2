@@ -134,36 +134,40 @@ export default function Home() {
           </CardTitle>
           {isConnected ? <appkit-account-button /> : <appkit-connect-button />}
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="space-y-2">
-            <Label>Transfer Method</Label>
+        <CardContent className="space-y-4">
+          <div className="flex justify-between gap-2">
+            <div>
+              <Label>Transfer Method</Label>
+              <p className="text-sm text-muted-foreground">
+                {method === "mintOnly"
+                  ? "Provides a burn transaction hash to mint on the destination chain"
+                  : "Transfer and mint from the origin to the destination"}
+              </p>
+            </div>
             <Tabs
               value={method}
               onValueChange={(v) => setMethod(v as "mintOnly" | "transfer")}
             >
-              <TabsList className="grid w-full grid-cols-2">
+              <TabsList className="grid w-fit grid-cols-2">
                 <TabsTrigger value={"mintOnly"}>Mint Only</TabsTrigger>
                 <TabsTrigger value={"transfer"}>Transfer</TabsTrigger>
               </TabsList>
             </Tabs>
-            <p className="text-sm text-muted-foreground">
-              {method === "mintOnly"
-                ? "Provides a burn transaction hash to mint on the destination chain"
-                : "Transfer and mint from the origin to the destination"}
-            </p>
           </div>
           {!isMintOnly && (
-            <div className="space-y-2">
-              <Label>Transfer Type</Label>
+            <div className="flex justify-between gap-2">
+              <div className="space-y-2">
+                <Label>Transfer Type</Label>
+                <p className="text-sm text-muted-foreground">
+                  {transferType === CctpV2TransferType.Fast
+                    ? "Faster transfers with lower finality threshold (1000 blocks)"
+                    : "Standard transfers with higher finality (2000 blocks)"}
+                </p>
+              </div>
               <TransferTypeSelector
                 value={transferType}
                 onChange={setTransferType}
               />
-              <p className="text-sm text-muted-foreground">
-                {transferType === CctpV2TransferType.Fast
-                  ? "Faster transfers with lower finality threshold (1000 blocks)"
-                  : "Standard transfers with higher finality (2000 blocks)"}
-              </p>
             </div>
           )}
           <div className="grid grid-cols-2 gap-4">

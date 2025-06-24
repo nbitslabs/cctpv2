@@ -40,7 +40,6 @@ export async function getAccountTransactions(
         fromAddress: i === 1 ? address : undefined,
         withMetadata: false,
         excludeZeroValue: true,
-        maxCount: "0x3e8",
         category: ["erc20"],
         order: "desc",
       },
@@ -59,5 +58,7 @@ export async function getAccountTransactions(
   return [
     ...toAddressResponse.data.result.transfers,
     ...fromAddressResponse.data.result.transfers,
-  ].toSorted((a, b) => Number(b.blockNum) - Number(a.blockNum));
+  ]
+    .filter((transfer) => ["USDC", "ETH"].includes(transfer.asset))
+    .toSorted((a, b) => Number(b.blockNum) - Number(a.blockNum));
 }

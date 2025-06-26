@@ -1,38 +1,48 @@
 import { CctpNetworkAdapterId, findNetworkAdapter } from "@/lib/cctp/networks";
 import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
+import { useAppKitAccount } from "@reown/appkit/react";
 import { useQuery } from "@tanstack/react-query";
+import { Address } from "viem";
 
-export function useUsdcBalance(networkAdapterId?: CctpNetworkAdapterId) {
+export function useUsdcBalance(
+  networkAdapterId?: CctpNetworkAdapterId,
+  address?: string
+) {
   return useQuery({
-    queryKey: ["balance", "usdc", networkAdapterId],
+    queryKey: ["balance", "usdc", networkAdapterId, address],
     queryFn: () => {
       const network = findNetworkAdapter(networkAdapterId);
       if (!network) throw new Error(`Network ${networkAdapterId} not found`);
 
-      return network.readUsdcBalance();
+      return network.readUsdcBalance(address as Address);
     },
-    enabled: !!networkAdapterId,
+    enabled: !!networkAdapterId && !!address,
   });
 }
 
 export function useMyUsdcBalance() {
+  const { address } = useAppKitAccount();
   const { activeNetwork } = useActiveNetwork();
-  return useUsdcBalance(activeNetwork.id);
+  return useUsdcBalance(activeNetwork.id, address);
 }
 
-export function useNativeBalance(networkAdapterId?: CctpNetworkAdapterId) {
+export function useNativeBalance(
+  networkAdapterId?: CctpNetworkAdapterId,
+  address?: string
+) {
   return useQuery({
-    queryKey: ["balance", "native", networkAdapterId],
+    queryKey: ["balance", "native", networkAdapterId, address],
     queryFn: () => {
       const network = findNetworkAdapter(networkAdapterId);
       if (!network) throw new Error(`Network ${networkAdapterId} not found`);
-      return network.readNativeBalance();
+      return network.readNativeBalance(address!);
     },
-    enabled: !!networkAdapterId,
+    enabled: !!networkAdapterId && !!address,
   });
 }
 
 export function useMyNativeBalance() {
+  const { address } = useAppKitAccount();
   const { activeNetwork } = useActiveNetwork();
-  return useNativeBalance(activeNetwork.id);
+  return useNativeBalance(activeNetwork.id, address);
 }

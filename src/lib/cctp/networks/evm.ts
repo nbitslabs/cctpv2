@@ -131,20 +131,8 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
     ...config,
     usdcAddress,
     nativeCurrency: chain.nativeCurrency,
-    v1: {
-      support: config.supportV1,
-      tokenMessagerAddress:
-        tokenMessagerV1Addresses[chainId as CctpV1SupportedChainId],
-      messageTransmitterAddress:
-        messageTransmitterV1Addresses[chainId as CctpV1SupportedChainId],
-    },
-    v2: {
-      support: config.supportV2,
-      tokenMessagerAddress:
-        tokenMessagerV2Addresses[chainId as CctpV2SupportedChainId],
-      messageTransmitterAddress:
-        messageTransmitterV2Addresses[chainId as CctpV2SupportedChainId],
-    },
+    v1: { support: config.supportV1 },
+    v2: { support: config.supportV2 },
 
     explorer: chain.blockExplorers?.default,
 
@@ -182,12 +170,14 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
       };
     }),
 
-    readAllowanceForTokenMessager: async (cctpOpts = defaultCctpOpts) => {
-      const { address } = getAccount(wagmiConfig);
+    readAllowanceForTokenMessager: async (
+      address,
+      cctpOpts = defaultCctpOpts
+    ) => {
       if (!address) throw new Error("No account found");
       const allowance = await readUsdcAllowance(wagmiConfig, {
         address: usdcAddress,
-        args: [getTokenMessagerAddress(cctpOpts), address],
+        args: [getTokenMessagerAddress(cctpOpts), address as Address],
       });
       const raw = formatUnits(allowance, USDC_DECIMALS);
       return {
@@ -203,7 +193,7 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
       const tx = await writeUsdcApprove(wagmiConfig, {
         address: usdcAddress,
         args: [
-          getTokenMessagerAddress(cctpOpts),
+          tokenMessagerAddress,
           parseUnits(amount.toString(), USDC_DECIMALS),
         ],
       });

@@ -1,9 +1,12 @@
 "use server";
 import axios from "axios";
-import type { CctpNetworkAdapterId } from "../cctp/networks";
+import {
+  findNetworkAdapter,
+  type CctpNetworkAdapterId,
+} from "../cctp/networks";
 import type { Alchemy } from "./type";
 
-const alchemyApiKey = process.env.ALCHEMY_API_KEY;
+const alchemyApiKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
 
 export async function getAlchemyChains() {
   const response = await axios.get<Alchemy.ChainsResponse>(
@@ -16,13 +19,20 @@ export async function getAccountTransactions(
   networkId: CctpNetworkAdapterId,
   address: string
 ) {
+  const network = findNetworkAdapter(networkId);
+  if (network?.type === "solana") return [];
+
   const chains = await getAlchemyChains();
   const chain = chains.find(
     (chain) => chain.networkChainId?.toString() === networkId.toString()
   );
-  if (!chain) throw new Error(`Network ${networkId} not found`);
+  if (!chain) {
+    console.log(`Network ${networkId} not found`);
+    return [];
+  }
+  const kebabCaseId = chain.kebabCaseId;
 
-  const url = `https://${chain.kebabCaseId}.g.alchemy.com/v2/${alchemyApiKey}`;
+  const url = `https://${kebabCaseId}.g.alchemy.com/v2/${alchemyApiKey}`;
   const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",

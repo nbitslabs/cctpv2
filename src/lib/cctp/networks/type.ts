@@ -5,13 +5,7 @@ export enum CctpV2TransferType {
   Fast = "fast",
 }
 
-type CctpNetworkVersion =
-  | {
-      support: true;
-      tokenMessagerAddress: string;
-      messageTransmitterAddress: string;
-    }
-  | { support: false };
+type CctpNetworkVersion = { support: boolean };
 
 export type CctpFunctionOpts = {
   version: "v1" | "v2";
@@ -21,7 +15,7 @@ export interface CctpNetworkAdapter {
   id: number | string;
   name: string;
   domain: number;
-  type: "evm";
+  type: "evm" | "solana";
   nativeCurrency: {
     symbol: string;
     decimals: number;
@@ -33,9 +27,16 @@ export interface CctpNetworkAdapter {
   v1: CctpNetworkVersion;
   v2: CctpNetworkVersion;
 
-  readNativeBalance: () => Promise<{ raw: string; formatted: number }>;
-  readUsdcBalance: () => Promise<{ raw: string; formatted: number }>;
-  readAllowanceForTokenMessager: (cctpOpts?: CctpFunctionOpts) => Promise<{
+  readNativeBalance: (
+    address: string
+  ) => Promise<{ raw: string; formatted: number }>;
+  readUsdcBalance: (
+    address: string
+  ) => Promise<{ raw: string; formatted: number }>;
+  readAllowanceForTokenMessager: (
+    address: string,
+    cctpOpts?: CctpFunctionOpts
+  ) => Promise<{
     raw: string;
     formatted: number;
   }>;

@@ -10,6 +10,7 @@ import {
   CctpV2TransferType,
   findNetworkAdapter,
 } from "@/lib/cctp/networks";
+import { useAppKitAccount } from "@reown/appkit/react";
 
 export type TransferStep =
   | "idle"
@@ -32,6 +33,7 @@ export function useCrossChainTransfer() {
     simulateMessageTransmitterReceiveMessage,
     writeMessageTransmitterReceiveMessage,
   } = activeNetwork;
+  const { address } = useAppKitAccount();
 
   const addLog = (message: string) =>
     setLogs((prev) => [
@@ -48,6 +50,7 @@ export function useCrossChainTransfer() {
       | { burnTxHash: string }
     )
   ) => {
+    if (!address) throw new Error("No account found");
     const { sourceChainId, destinationChainId } = params;
     await setActiveNetwork(sourceChainId);
     try {
@@ -56,7 +59,7 @@ export function useCrossChainTransfer() {
         burnTx = params.burnTxHash;
       } else {
         const { amount, transferType } = params;
-        const allowance = await readAllowanceForTokenMessager();
+        const allowance = await readAllowanceForTokenMessager(address);
         const numericAmount = Number(amount);
         addLog(`Allowance: ${allowance.formatted}`);
         addLog(`Amount: ${numericAmount}`);

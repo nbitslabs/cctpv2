@@ -41,6 +41,7 @@ import TransactionHistory from "@/components/transaction-history";
 import ExternalLink from "@/components/ui2/ExternalLink";
 import { NumericFormat } from "react-number-format";
 import { Checkbox } from "@/components/ui/checkbox";
+import { solana } from "@reown/appkit/networks";
 
 export default function Home() {
   const { open } = useAppKit();
@@ -49,10 +50,6 @@ export default function Home() {
     useCrossChainTransfer();
   const { activeNetwork } = useActiveNetwork();
 
-  const [sourceChain, setSourceChain] = useState<CctpNetworkAdapterId>(
-    activeNetwork.id
-  );
-  const [destChain, setDestChain] = useState<CctpNetworkAdapterId>();
   const [method, setMethod] = useState<"mintOnly" | "transfer">("transfer");
   const isMintOnly = method === "mintOnly";
   const [amount, setAmount] = useState("");
@@ -66,26 +63,31 @@ export default function Home() {
   const myUsdcBalance = useMyUsdcBalance();
   const [understand, setUnderstand] = useState(false);
 
-  const sourceUsdcBalance = useUsdcBalance(sourceChain);
-  const sourceNativeBalance = useNativeBalance(sourceChain);
+  const [sourceChain, setSourceChain] = useState<CctpNetworkAdapterId>(
+    activeNetwork.id
+  );
+  const sourceUsdcBalance = useUsdcBalance(sourceChain, address);
+  const sourceNativeBalance = useNativeBalance(sourceChain, address);
   const source = findNetworkAdapter(sourceChain);
   const sourceNativeCurrency = source?.nativeCurrency;
-
-  const destUsdcBalance = useUsdcBalance(destChain);
-  const destNativeBalance = useNativeBalance(destChain);
-  const destination = findNetworkAdapter(destChain);
-  const destNativeCurrency = destination?.nativeCurrency;
-
   const originTranfers = useQuery({
     queryKey: ["transfers", sourceChain, address],
     queryFn: () => getAccountTransactions(sourceChain, address!),
     enabled: !!address,
   });
 
+  const [destAddress, setDestAddress] = useState("");
+  const [destChain, setDestChain] = useState<CctpNetworkAdapterId | undefined>(
+    solana.id
+  );
+  const destUsdcBalance = useUsdcBalance(destChain, destAddress);
+  const destNativeBalance = useNativeBalance(destChain, destAddress);
+  const destination = findNetworkAdapter(destChain);
+  const destNativeCurrency = destination?.nativeCurrency;
   const destTransfers = useQuery({
-    queryKey: ["transfers", destChain, address],
-    queryFn: () => getAccountTransactions(destChain!, address!),
-    enabled: !!address && !!destChain,
+    queryKey: ["transfers", destChain, destAddress],
+    queryFn: () => getAccountTransactions(destChain!, destAddress!),
+    enabled: !!destAddress && !!destChain,
   });
 
   const hasZeroNativeBalanceOnSource =
@@ -147,13 +149,17 @@ export default function Home() {
   }, [sourceChain, showFinalTime]);
 
   useEffect(() => {
-    if (currentStep === "waiting-attestation") {
-      originTranfers.refetch();
-    }
-    if (currentStep === "completed") {
-      destTransfers.refetch();
-    }
+    if (currentStep === "waiting-attestation") originTranfers.refetch();
+    if (currentStep === "completed") destTransfers.refetch();
   }, [currentStep]);
+
+  useEffect(() => {
+    if (!source || !destination) return;
+
+    if ([destination, source].every(({ type }) => type === "evm")) {
+      if (!destAddress && address) setDestAddress(address);
+    } else setDestAddress("");
+  }, [source, destination]);
 
   return (
     <div className="min-h-screen bg-primary/10 p-8">
@@ -235,6 +241,15 @@ export default function Home() {
                   ))}
                 </SelectContent>
               </Select>
+              <div>
+                <Label>Your Address</Label>
+                <Input
+                  value={address}
+                  placeholder="0x..."
+                  readOnly
+                  className="text-sm bg-primary/5"
+                />
+              </div>
               {address && (
                 <>
                   <p className="text-sm text-muted-foreground">
@@ -285,6 +300,19 @@ export default function Home() {
                 </SelectContent>
               </Select>
 
+              <div>
+                <Label>Destination Address</Label>
+                <Input
+                  value={destAddress}
+                  onChange={(e) => setDestAddress(e.target.value)}
+                  placeholder={
+                    destination?.type === "evm"
+                      ? "Ethereum address"
+                      : "Solana address"
+                  }
+                  className="text-sm"
+                />
+              </div>
               {destChain && (
                 <>
                   <p className="text-sm text-muted-foreground">
@@ -388,10 +416,10 @@ export default function Home() {
           {error && <div className="text-red-500 text-center">{error}</div>}
 
           <Alert className="bg-primary/5 max-w-xl mx-auto">
-            <AlertTitle className="uppercase text-primary">
+            <AlertTitle className="uppercase text-destructive">
               Be aware!
             </AlertTitle>
-            <AlertDescription>
+            <AlertDescription className="text-foreground">
               <ul className="list-disc list-inside">
                 <li>
                   After burn, the transaction may take a while to complete. You

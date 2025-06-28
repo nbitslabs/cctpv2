@@ -1,4 +1,8 @@
-import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
+import {
+  useAppKit,
+  useAppKitAccount,
+  useAppKitConnections,
+} from "@reown/appkit/react";
 import {
   appendTransactionMessageInstruction,
   createTransactionMessage,
@@ -15,8 +19,7 @@ import {
   getDepositForBurnInstructionAsync,
   TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS,
 } from "@/lib/solana/tools/codama/generated/token_messenger_minter_v2";
-import { Address, toBytes } from "viem";
-import { bs58 } from "@coral-xyz/anchor/dist/cjs/utils/bytes";
+import { Address } from "viem";
 import { findNetworkAdapter } from "@/lib/cctp/networks";
 import { getATA2 } from "@/lib/solana/my-utils";
 import { getDepositForBurnPdasV2 } from "@/lib/solana/v2/utilsV2";
@@ -24,11 +27,8 @@ import { createSolanaClient } from "gill";
 import { pipe } from "codama";
 import { useWalletAccountTransactionSigner } from "@solana/react";
 import { UiWalletAccount, useWallets } from "@wallet-standard/react";
-
-const evmAddressToBytes32 = (address: string): string =>
-  `0x000000000000000000000000${address.replace("0x", "")}`;
-const evmAddressToSolana = (evmAddress: Address) =>
-  solAddress(bs58.encode(toBytes(evmAddressToBytes32(evmAddress))));
+import { Button } from "./ui/button";
+import { evmAddressToSolana } from "@/lib/solana/utils";
 const solanaUsdcAddress = solAddress(usdcAddresses[solana.id]);
 
 export default function SolanaWalletInteraction() {
@@ -42,26 +42,20 @@ export default function SolanaWalletInteraction() {
       {!isConnected ? (
         <button onClick={() => open()}>Connect Solana Wallet</button>
       ) : (
-        selected && (
-          <SignMessageButton account={selected.accounts[0]} text="Hello" />
-        )
+        selected && <SignMessageButton account={selected.accounts[0]} />
       )}
     </div>
   );
 }
 
-function SignMessageButton({
-  account,
-  text,
-}: {
-  account: UiWalletAccount;
-  text: string;
-}) {
+function SignMessageButton({ account }: { account: UiWalletAccount }) {
   const { isConnected, address } = useAppKitAccount();
   const messageSigner = useWalletAccountTransactionSigner(
     account,
     "solana:mainnet"
   );
+  const { connections } = useAppKitConnections();
+  console.log(connections);
 
   const handleSend = async () => {
     if (!isConnected || !address) return;
@@ -77,20 +71,6 @@ function SignMessageButton({
     const blockhash = await rpc.getLatestBlockhash().send();
     const destination = findNetworkAdapter(mainnet.id);
     if (!destination) throw new Error("Destination not found");
-
-    // const signer: TransactionSigner = {
-    //   address: messageSigner.address,
-    //   async signAndSendTransactions(transactions, config) {
-    //     console.log({ transactions, config });
-
-    //     const result = await messageSigner.signAndSendTransactions(
-    //       transactions,
-    //       config
-    //     );
-
-    //     return result;
-    //   },
-    // };
     const signer = messageSigner;
 
     const amount = 1000000n;
@@ -140,7 +120,8 @@ function SignMessageButton({
 
     const signedTx = await signTransactionMessageWithSigners(txMessage);
     const sig = await sendAndConfirmTransaction(signedTx);
+    console.log({ sig });
   };
 
-  return;
+  return <Button onClick={handleSend}>Handle Send</Button>;
 }

@@ -43,16 +43,14 @@ export const getDepositForBurnPdasV2 = async (
     localToken,
     remoteTokenMessengerKey,
     authorityPda,
-  ] = (
-    await Promise.all([
-      messageTransmitterAccountPromise,
-      tokenMessengerAccountPromise,
-      tokenMinterAccountPromise,
-      localTokenPromise,
-      remoteTokenMessengerKeyPromise,
-      authorityPdaPromise,
-    ])
-  ).map((pda) => pda.pda);
+  ] = await Promise.all([
+    messageTransmitterAccountPromise,
+    tokenMessengerAccountPromise,
+    tokenMinterAccountPromise,
+    localTokenPromise,
+    remoteTokenMessengerKeyPromise,
+    authorityPdaPromise,
+  ]);
 
   return {
     messageTransmitterAccount,

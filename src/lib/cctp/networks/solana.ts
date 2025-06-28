@@ -5,11 +5,9 @@ import {
   CctpV2TransferType,
 } from "./type";
 import { usdcAddresses } from "@/lib/wagmi/config";
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { lamportsToSol } from "gill";
 import { address as solAddress } from "@solana/kit";
 import { createSolanaRpc } from "@solana/kit";
-import { bs58 } from "@coral-xyz/anchor/dist/cjs/utils/bytes";
-import { Address, hexToBytes } from "viem";
 import { getATA2 } from "@/lib/solana/my-utils";
 
 const rpc = createSolanaRpc(
@@ -34,7 +32,7 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
         .getBalance(solAddress(address))
         .send();
 
-      const formatted = Number(lamports) / LAMPORTS_PER_SOL;
+      const formatted = Number(lamportsToSol(lamports));
       return { raw: formatted.toString(), formatted };
     },
 
@@ -112,9 +110,3 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
     },
   },
 ];
-
-const evmAddressToSolana = (evmAddress: Address): string =>
-  bs58.encode(hexToBytes(evmAddress));
-
-const evmAddressToBytes32 = (address: string): string =>
-  `0x000000000000000000000000${address.replace("0x", "")}`;

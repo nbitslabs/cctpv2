@@ -66,8 +66,8 @@ export async function getAccountTransactions(
   ]);
 
   return [
-    ...toAddressResponse.data.result.transfers,
-    ...fromAddressResponse.data.result.transfers,
+    ...toAddressResponse.data.result?.transfers,
+    ...fromAddressResponse.data.result?.transfers,
   ]
     .filter((transfer) => ["USDC", "ETH"].includes(transfer.asset))
     .toSorted((a, b) => Number(b.blockNum) - Number(a.blockNum));

@@ -7,25 +7,14 @@ import {
 import { usdcAddresses } from "@/lib/wagmi/config";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { address as solAddress } from "@solana/kit";
-import {
-  createSolanaRpc,
-  createSolanaRpcSubscriptions,
-  sendAndConfirmTransactionFactory,
-} from "@solana/kit";
-
-import { TOKEN_PROGRAM_ADDRESS } from "@solana-program/token";
-import { findAssociatedTokenPda } from "@solana-program/token-2022";
+import { createSolanaRpc } from "@solana/kit";
+import { bs58 } from "@coral-xyz/anchor/dist/cjs/utils/bytes";
+import { Address, hexToBytes } from "viem";
+import { getATA2 } from "@/lib/solana/my-utils";
 
 const rpc = createSolanaRpc(
   `https://solana-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`
 );
-const rpcSubscriptions = createSolanaRpcSubscriptions(
-  `wss://solana-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`
-);
-const sendAndConfirmTransaction = sendAndConfirmTransactionFactory({
-  rpc,
-  rpcSubscriptions,
-});
 
 const solanaUsdcAddress = usdcAddresses[solana.id];
 export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
@@ -50,13 +39,9 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
     },
 
     async readUsdcBalance(address: string) {
-      const [tokenAccount] = await findAssociatedTokenPda({
-        mint: solAddress(solanaUsdcAddress),
-        owner: solAddress(address),
-        tokenProgram: TOKEN_PROGRAM_ADDRESS,
-      });
+      const tokenAccount = await getATA2(solanaUsdcAddress, address);
       const { value: tokenAccountInfo } = await rpc
-        .getTokenAccountBalance(tokenAccount)
+        .getTokenAccountBalance(solAddress(tokenAccount.toString()))
         .send();
       const raw = tokenAccountInfo.uiAmountString;
 
@@ -85,7 +70,7 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
 
     async writeTokenMessagerDepositForBurn(
       _amount: number,
-      _destinationDomain: number,
+      destinationDomain: number,
       _options?: {
         mintRecipient?: string;
         maxFee?: bigint;
@@ -94,8 +79,13 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
       },
       _cctpOpts?: CctpFunctionOpts
     ) {
-      // TODO: Implement CCTP deposit for burn on Solana
-      throw new Error("Not implemented: CCTP deposit for burn on Solana");
+      const { anchorProvider } = _cctpOpts || {};
+      if (!anchorProvider) throw new Error("Anchor provider is required");
+
+      const { mintRecipient, maxFee, finalityThreshold, transferType } =
+        _options || {};
+      if (!mintRecipient) throw new Error("No mint recipient found");
+      return "";
     },
 
     async simulateMessageTransmitterReceiveMessage(
@@ -122,3 +112,9 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
     },
   },
 ];
+
+const evmAddressToSolana = (evmAddress: Address): string =>
+  bs58.encode(hexToBytes(evmAddress));
+
+const evmAddressToBytes32 = (address: string): string =>
+  `0x000000000000000000000000${address.replace("0x", "")}`;

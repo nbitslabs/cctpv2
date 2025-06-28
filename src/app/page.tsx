@@ -4,13 +4,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { ProgressSteps } from "@/components/progress-step";
 import { TransferLog } from "@/components/transfer-log";
@@ -20,28 +13,20 @@ import { useCrossChainTransfer } from "@/hooks/use-cross-chain-transfer";
 import { cn, formatNumber, shortenAddress } from "@/lib/utils";
 import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 import { toast } from "sonner";
-import {
-  CctpNetworkAdapterId,
-  CctpV2TransferType,
-  findNetworkAdapter,
-  networkAdapters,
-} from "@/lib/cctp/networks";
+import { CctpNetworkAdapterId, CctpV2TransferType } from "@/lib/cctp/networks";
 import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
-import {
-  useMyUsdcBalance,
-  useNativeBalance,
-  useUsdcBalance,
-} from "@/hooks/useBalance";
+import { useMyUsdcBalance } from "@/hooks/useBalance";
 import { Loader2 } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { getAccountTransactions } from "@/lib/alchemy/account";
-import TransactionHistory from "@/components/transaction-history";
 import ExternalLink from "@/components/ui2/ExternalLink";
 import { NumericFormat } from "react-number-format";
 import { Checkbox } from "@/components/ui/checkbox";
 import { solana } from "@reown/appkit/networks";
+import NetworkAdapterSelect, {
+  useNetworkAdapterBalance,
+} from "@/components/ChainSelect";
+import SolanaWalletInteraction from "@/components/SolanaWalletInteraction";
 
 export default function Home() {
   const { open } = useAppKit();
@@ -66,29 +51,25 @@ export default function Home() {
   const [sourceChain, setSourceChain] = useState<CctpNetworkAdapterId>(
     activeNetwork.id
   );
-  const sourceUsdcBalance = useUsdcBalance(sourceChain, address);
-  const sourceNativeBalance = useNativeBalance(sourceChain, address);
-  const source = findNetworkAdapter(sourceChain);
-  const sourceNativeCurrency = source?.nativeCurrency;
-  const originTranfers = useQuery({
-    queryKey: ["transfers", sourceChain, address],
-    queryFn: () => getAccountTransactions(sourceChain, address!),
-    enabled: !!address,
-  });
+  const {
+    usdcBalance: sourceUsdcBalance,
+    nativeBalance: sourceNativeBalance,
+    nativeCurrency: sourceNativeCurrency,
+    transfers: originTranfers,
+    networkAdapter: sourceAdapter,
+  } = useNetworkAdapterBalance(sourceChain, address);
 
   const [destAddress, setDestAddress] = useState("");
   const [destChain, setDestChain] = useState<CctpNetworkAdapterId | undefined>(
     solana.id
   );
-  const destUsdcBalance = useUsdcBalance(destChain, destAddress);
-  const destNativeBalance = useNativeBalance(destChain, destAddress);
-  const destination = findNetworkAdapter(destChain);
-  const destNativeCurrency = destination?.nativeCurrency;
-  const destTransfers = useQuery({
-    queryKey: ["transfers", destChain, destAddress],
-    queryFn: () => getAccountTransactions(destChain!, destAddress!),
-    enabled: !!destAddress && !!destChain,
-  });
+  const {
+    nativeBalance: destNativeBalance,
+    usdcBalance: destUsdcBalance,
+    nativeCurrency: destNativeCurrency,
+    transfers: destTransfers,
+    networkAdapter: destAdapter,
+  } = useNetworkAdapterBalance(destChain, destAddress);
 
   const hasZeroNativeBalanceOnSource =
     !sourceNativeBalance.isLoading && !sourceNativeBalance.data?.formatted;
@@ -128,7 +109,7 @@ export default function Home() {
       });
     }
     [
-      myUsdcBalance,
+      sourceUsdcBalance,
       destUsdcBalance,
       sourceNativeBalance,
       destNativeBalance,
@@ -154,12 +135,12 @@ export default function Home() {
   }, [currentStep]);
 
   useEffect(() => {
-    if (!source || !destination) return;
+    if (!sourceAdapter || !destAdapter) return;
 
-    if ([destination, source].every(({ type }) => type === "evm")) {
+    if ([destAdapter, sourceAdapter].every(({ type }) => type === "evm")) {
       if (!destAddress && address) setDestAddress(address);
     } else setDestAddress("");
-  }, [source, destination]);
+  }, [sourceAdapter, destAdapter]);
 
   return (
     <div className="min-h-screen bg-primary/10 p-8">
@@ -188,6 +169,7 @@ export default function Home() {
           )}
         </CardHeader>
         <CardContent className="space-y-4">
+          <SolanaWalletInteraction />
           <div className="flex flex-col sm:flex-row justify-between gap-2">
             <div>
               <Label>Transfer Method</Label>
@@ -224,129 +206,20 @@ export default function Home() {
             </div>
           )}
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label>Source Chain</Label>
-              <Select
-                value={String(sourceChain)}
-                onValueChange={setSourceChain}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select source chain" />
-                </SelectTrigger>
-                <SelectContent>
-                  {networkAdapters.map((chain) => (
-                    <SelectItem key={chain.id} value={String(chain.id)}>
-                      {chain.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <div>
-                <Label>Your Address</Label>
-                <Input
-                  value={address}
-                  placeholder="0x..."
-                  readOnly
-                  className="text-sm bg-primary/5"
-                />
-              </div>
-              {address && (
-                <>
-                  <p className="text-sm text-muted-foreground">
-                    {sourceUsdcBalance.isLoading ? (
-                      <Loader2 className="animate-spin inline-block size-3" />
-                    ) : (
-                      formatNumber(sourceUsdcBalance.data?.formatted ?? 0)
-                    )}{" "}
-                    USDC •{" "}
-                    {sourceNativeBalance.isLoading ? (
-                      <Loader2 className="animate-spin inline-block size-3" />
-                    ) : (
-                      formatNumber(sourceNativeBalance.data?.formatted ?? 0, {
-                        maximumFractionDigits: 4,
-                      })
-                    )}{" "}
-                    {sourceNativeCurrency?.symbol}
-                  </p>
-                  <TransactionHistory
-                    transactions={originTranfers.data}
-                    isLoading={originTranfers.isLoading}
-                    explorerUrl={activeNetwork.explorer?.url ?? ""}
-                  />
-                </>
-              )}
-            </div>
+            <NetworkAdapterSelect
+              label="Source Chain"
+              chainId={sourceChain}
+              setChainId={setSourceChain}
+              address={address ?? ""}
+            />
 
-            <div className="space-y-2">
-              <Label>Destination Chain</Label>
-              <Select
-                value={String(destChain)}
-                onValueChange={(value) => setDestChain(value)}
-                disabled={!sourceChain}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select destination chain" />
-                </SelectTrigger>
-                <SelectContent>
-                  {networkAdapters
-                    .filter(
-                      (chain) => chain.id.toString() !== sourceChain.toString()
-                    )
-                    .map((chain) => (
-                      <SelectItem key={chain.id} value={String(chain.id)}>
-                        {chain.name}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
-
-              <div>
-                <Label>Destination Address</Label>
-                <Input
-                  value={destAddress}
-                  onChange={(e) => setDestAddress(e.target.value)}
-                  placeholder={
-                    destination?.type === "evm"
-                      ? "Ethereum address"
-                      : "Solana address"
-                  }
-                  className="text-sm"
-                />
-              </div>
-              {destChain && (
-                <>
-                  <p className="text-sm text-muted-foreground">
-                    {destUsdcBalance.isLoading ? (
-                      <Loader2 className="animate-spin inline-block size-3" />
-                    ) : (
-                      formatNumber(destUsdcBalance.data?.formatted ?? 0)
-                    )}{" "}
-                    USDC •{" "}
-                    {destNativeBalance.isLoading ? (
-                      <Loader2 className="animate-spin inline-block size-3" />
-                    ) : (
-                      formatNumber(destNativeBalance.data?.formatted ?? 0, {
-                        maximumFractionDigits: 4,
-                      })
-                    )}{" "}
-                    {destNativeCurrency?.symbol}
-                  </p>
-                  <p className="text-xs text-red-600">
-                    {[
-                      destUsdcBalance.error?.message,
-                      destNativeBalance.error?.message,
-                    ]
-                      .filter(Boolean)
-                      .join(", ")}
-                  </p>
-                  <TransactionHistory
-                    transactions={destTransfers.data}
-                    isLoading={destTransfers.isLoading}
-                    explorerUrl={destination?.explorer?.url ?? ""}
-                  />
-                </>
-              )}
-            </div>
+            <NetworkAdapterSelect
+              label="Destination Chain"
+              chainId={destChain ?? solana.id}
+              setChainId={setDestChain}
+              address={destAddress}
+              setAddress={setDestAddress}
+            />
           </div>
 
           <div
@@ -431,13 +304,14 @@ export default function Home() {
                   <li className="text-destructive">
                     You need some{" "}
                     <strong>{sourceNativeCurrency?.symbol}</strong> on the{" "}
-                    <strong>{source?.name}</strong> to pay for the burn action.
+                    <strong>{sourceAdapter?.name}</strong> to pay for the burn
+                    action.
                   </li>
                 )}
                 {hasZeroNativeBalanceOnDestination && (
                   <li className="text-destructive">
                     You need some <strong>{destNativeCurrency?.symbol}</strong>{" "}
-                    on the <strong>{destination?.name}</strong> to receive the
+                    on the <strong>{destAdapter?.name}</strong> to receive the
                     USDC.
                   </li>
                 )}

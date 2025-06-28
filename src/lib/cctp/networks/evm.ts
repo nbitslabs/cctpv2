@@ -1,9 +1,5 @@
 import { AppKitNetwork } from "@reown/appkit/networks";
-import {
-  CctpFunctionOpts,
-  CctpNetworkAdapter,
-  CctpV2TransferType,
-} from "./type";
+import { CctpNetworkAdapter, CctpV2TransferType } from "./type";
 import {
   readUsdcAllowance,
   simulateMessageTransmitterReceiveMessage,
@@ -11,17 +7,7 @@ import {
   writeTokenMessagerDepositForBurn,
   writeUsdcApprove,
 } from "../../wagmi/generated";
-import {
-  chainsByDomain,
-  wagmiConfig,
-  usdcAddresses,
-  tokenMessagerV1Addresses,
-  CctpV1SupportedChainId,
-  CctpV2SupportedChainId,
-  messageTransmitterV1Addresses,
-  tokenMessagerV2Addresses,
-  messageTransmitterV2Addresses,
-} from "../../wagmi/config";
+import { chainsByDomain, wagmiConfig, usdcAddresses } from "../../wagmi/config";
 import {
   getAccount,
   getPublicClient,
@@ -33,6 +19,7 @@ import {
 import { Address, Chain, erc20Abi, formatUnits, parseUnits } from "viem";
 import { addChain } from "viem/actions";
 import { defaultCctpOpts } from "./constants";
+import { getTokenMessagerAddress, getMessageTransmitterAddress } from "./util";
 
 function getEvmNetworkAdapter(
   network: AppKitNetwork,
@@ -115,18 +102,6 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
     };
   }
 
-  function getTokenMessagerAddress(cctpOpts: CctpFunctionOpts) {
-    return cctpOpts.version === "v1"
-      ? tokenMessagerV1Addresses[chainId as CctpV1SupportedChainId]
-      : tokenMessagerV2Addresses[chainId as CctpV2SupportedChainId];
-  }
-
-  function getMessageTransmitterAddress(cctpOpts: CctpFunctionOpts) {
-    return cctpOpts.version === "v1"
-      ? messageTransmitterV1Addresses[chainId as CctpV1SupportedChainId]
-      : messageTransmitterV2Addresses[chainId as CctpV2SupportedChainId];
-  }
-
   return getEvmNetworkAdapter(chain, {
     ...config,
     usdcAddress,
@@ -177,7 +152,10 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
       if (!address) throw new Error("No account found");
       const allowance = await readUsdcAllowance(wagmiConfig, {
         address: usdcAddress,
-        args: [getTokenMessagerAddress(cctpOpts), address as Address],
+        args: [
+          getTokenMessagerAddress(cctpOpts, chainId) as Address,
+          address as Address,
+        ],
       });
       const raw = formatUnits(allowance, USDC_DECIMALS);
       return {
@@ -187,7 +165,10 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
     },
 
     async writeApproveForTokenMessager(amount, cctpOpts = defaultCctpOpts) {
-      const tokenMessagerAddress = getTokenMessagerAddress(cctpOpts);
+      const tokenMessagerAddress = getTokenMessagerAddress(
+        cctpOpts,
+        chainId
+      ) as Address;
       const { isConnected } = getAccount(wagmiConfig);
       if (!isConnected) throw new Error("No account found");
       const tx = await writeUsdcApprove(wagmiConfig, {
@@ -195,7 +176,7 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
         args: [
           tokenMessagerAddress,
           parseUnits(amount.toString(), USDC_DECIMALS),
-        ],
+        ] as const,
       });
       await waitForTransactionReceipt(wagmiConfig, { hash: tx });
       return tx;
@@ -207,7 +188,10 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
       options = {},
       cctpOpts = defaultCctpOpts
     ) {
-      const tokenMessagerAddress = getTokenMessagerAddress(cctpOpts);
+      const tokenMessagerAddress = getTokenMessagerAddress(
+        cctpOpts,
+        chainId
+      ) as Address;
       let {
         transferType = CctpV2TransferType.Fast,
         maxFee,
@@ -246,7 +230,10 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
       attestation,
       cctpOpts = defaultCctpOpts
     ) {
-      const messageTransmitterAddress = getMessageTransmitterAddress(cctpOpts);
+      const messageTransmitterAddress = getMessageTransmitterAddress(
+        cctpOpts,
+        chainId
+      ) as Address;
       const { result } = await simulateMessageTransmitterReceiveMessage(
         wagmiConfig,
         {
@@ -262,7 +249,10 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
       attestation,
       cctpOpts = defaultCctpOpts
     ) {
-      const messageTransmitterAddress = getMessageTransmitterAddress(cctpOpts);
+      const messageTransmitterAddress = getMessageTransmitterAddress(
+        cctpOpts,
+        chainId
+      ) as Address;
       const tx = await writeMessageTransmitterReceiveMessage(wagmiConfig, {
         address: messageTransmitterAddress,
         args: [message as Address, attestation as Address],
@@ -277,6 +267,6 @@ export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
   });
 });
 
-function getMintRecipient(destinationAddress: string): Address {
-  return `0x${destinationAddress.replace(/^0x/, "").padStart(64, "0")}`;
+function getMintRecipient(destinationAddress: string) {
+  return `0x${destinationAddress.replace(/^0x/, "").padStart(64, "0")}` satisfies Address;
 }

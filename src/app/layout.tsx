@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Funnel_Display, Funnel_Sans } from "next/font/google";
 import "./globals.css";
-import AppkitProvider from "@/lib/wagmi/AppkitProvider";
 import { Toaster } from "@/components/ui/sonner";
 import React from "react";
-import { ActiveNetworkProvider } from "@/lib/cctp/providers/ActiveNetworkProvider";
+import Providers from "./Providers";
 
 const funnelSans = Funnel_Sans({
   variable: "--font-sans",
@@ -28,9 +27,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
       <body
         className={`${funnelSans.variable} ${funnelDisplay.variable} antialiased`}
       >
-        <AppkitProvider>
-          <ActiveNetworkProvider>{children}</ActiveNetworkProvider>
-        </AppkitProvider>
+        <Providers>{children}</Providers>
         <Toaster
           style={{ "--width": "20rem" } as never}
           toastOptions={{

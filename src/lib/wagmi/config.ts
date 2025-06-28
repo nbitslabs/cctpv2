@@ -32,7 +32,6 @@ import {
   worldchainSepolia,
   type AppKitNetwork,
 } from "@reown/appkit/networks";
-import { Address } from "viem";
 
 // Get projectId from https://cloud.reown.com
 export const projectId = "1c6462fb2a1793e314522f2a4b9637d9";
@@ -74,6 +73,7 @@ export const chainsByDomain = IS_TESTNET
       "2": optimism,
       "3": arbitrum,
       "4": base,
+      "5": solana,
       "7": polygon,
       "10": unichain,
       "11": linea,
@@ -166,6 +166,7 @@ export const tokenMessagerV1Addresses = {
   [base.id]: "0x1682Ae6375C4E4A97e4B583BC394c861A46D8962",
   [polygon.id]: "0x9daF8c91AEFAE50b9c0E69629D3F6Ca40cA3B3FE",
   [unichain.id]: "0x4e744b28E787c3aD0e810eD65A24461D4ac5a762",
+  [solana.id]: "CCTPiPYPc6AsJuwueEnWgSgucamXDZwBd53dQ11YiKX3",
   // Testnets
   [sepolia.id]: "0x9f3B8679c73C2Fef8b59B4f3444d4e156fb70AA5",
   [avalancheFuji.id]: "0xeb08f243E5d3FCFF26A9E38Ae5520A669f4019d0",
@@ -174,7 +175,7 @@ export const tokenMessagerV1Addresses = {
   [baseSepolia.id]: "0x9f3B8679c73C2Fef8b59B4f3444d4e156fb70AA5",
   [polygonAmoy.id]: "0x9f3B8679c73C2Fef8b59B4f3444d4e156fb70AA5",
   [unichainSepolia.id]: "0x8ed94B8dAd2Dc5453862ea5e316A8e71AAed9782",
-} satisfies Record<number, Address>;
+};
 export type CctpV1SupportedChainId = keyof typeof tokenMessagerV1Addresses;
 
 export const tokenMessagerV2Addresses = {
@@ -187,6 +188,7 @@ export const tokenMessagerV2Addresses = {
   [linea.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
   [sonic.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
   [worldchain.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
+  [solana.id]: "CCTPV2vPZJS2u2BBsUoscuikbYjnpFmbFsvVuJdgUMQe",
   // Testnets
   [sepolia.id]: "0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA",
   [avalancheFuji.id]: "0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA",
@@ -199,7 +201,7 @@ export const tokenMessagerV2Addresses = {
   // Codex Testnet	0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA
   [sonicBlazeTestnet.id]: "0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA",
   [worldchainSepolia.id]: "0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA",
-} satisfies Record<number, Address>;
+};
 export type CctpV2SupportedChainId = keyof typeof tokenMessagerV2Addresses;
 
 export const messageTransmitterV1Addresses = {
@@ -211,6 +213,7 @@ export const messageTransmitterV1Addresses = {
   [base.id]: "0xAD09780d193884d503182aD4588450C416D6F9D4",
   [polygon.id]: "0xF3be9355363857F3e001be68856A2f96b4C39Ba9",
   [unichain.id]: "0x353bE9E2E38AB1D19104534e4edC21c643Df86f4",
+  [solana.id]: "CCTPmbSD7gX1bxKPAmg77w8oFzNFpaQiQUWD43TKaecd",
   // Testnets
   [sepolia.id]: "0x7865fAfC2db2093669d92c0F33AeEF291086BEFD",
   [avalancheFuji.id]: "0xa9fB1b3009DCb79E2fe346c16a604B8Fa8aE0a79",
@@ -219,7 +222,7 @@ export const messageTransmitterV1Addresses = {
   [baseSepolia.id]: "0x7865fAfC2db2093669d92c0F33AeEF291086BEFD",
   [polygonAmoy.id]: "0x7865fAfC2db2093669d92c0F33AeEF291086BEFD",
   [unichainSepolia.id]: "0xbc498c326533d675cf571B90A2Ced265ACb7d086",
-} satisfies Record<number, Address>;
+};
 
 export const messageTransmitterV2Addresses = {
   // Mainnets
@@ -231,6 +234,7 @@ export const messageTransmitterV2Addresses = {
   [linea.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
   [sonic.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
   [worldchain.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
+  [solana.id]: "CCTPV2Sm4AdWt5296sk4P66VBZ7bEhcARwFaaS9YPbeC",
   // Testnets
   [sepolia.id]: "0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275",
   [avalancheFuji.id]: "0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275",
@@ -243,4 +247,4 @@ export const messageTransmitterV2Addresses = {
   // Codex Testnet	12	0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275
   [sonicBlazeTestnet.id]: "0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275",
   [worldchainSepolia.id]: "0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275",
-} satisfies Record<number, Address>;
+};

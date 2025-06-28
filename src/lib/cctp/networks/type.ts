@@ -1,3 +1,6 @@
+import type { AnchorProvider } from "@coral-xyz/anchor";
+import type { Connection } from "@solana/web3.js";
+
 type TxHash = string;
 
 export enum CctpV2TransferType {
@@ -9,6 +12,8 @@ type CctpNetworkVersion = { support: boolean };
 
 export type CctpFunctionOpts = {
   version: "v1" | "v2";
+  solanaConnection: Connection;
+  anchorProvider: AnchorProvider;
 };
 
 export interface CctpNetworkAdapter {

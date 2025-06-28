@@ -24,7 +24,6 @@ import { createSolanaClient } from "gill";
 import { pipe } from "codama";
 import { useWalletAccountTransactionSigner } from "@solana/react";
 import { UiWalletAccount, useWallets } from "@wallet-standard/react";
-import { Button } from "./ui/button";
 
 const evmAddressToBytes32 = (address: string): string =>
   `0x000000000000000000000000${address.replace("0x", "")}`;
@@ -143,5 +142,5 @@ function SignMessageButton({
     const sig = await sendAndConfirmTransaction(signedTx);
   };
 
-  return <Button onClick={handleSend}>Handle Send</Button>;
+  return;
 }

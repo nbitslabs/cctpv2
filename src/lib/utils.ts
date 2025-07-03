@@ -45,3 +45,32 @@ export function parseNumber(value: number | string) {
   if (typeof value === "string") value = Number(value);
   return Math.trunc(value * correction) / correction;
 }
+
+export function intervalAsyncWithTimeout<T>(
+  interval: number,
+  timeout: number,
+  trigger: () => void,
+  conditionToResolve: () => boolean | undefined
+) {
+  return new Promise<boolean>((resolve, reject) => {
+    let timeoutId;
+    timeoutId = setTimeout(() => {
+      clearInterval(intervalId);
+      reject(new Error("Network switch timeout"));
+    }, timeout);
+
+    const intervalId = setInterval(async () => {
+      const result = conditionToResolve();
+      if (result !== undefined) {
+        clearInterval(intervalId);
+        clearTimeout(timeoutId);
+        resolve(result);
+      }
+    }, interval);
+
+    trigger();
+  });
+}
+
+export const delay = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));

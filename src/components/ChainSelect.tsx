@@ -26,6 +26,7 @@ export interface NetworkAdapterSelectProps {
   address: string;
   setAddress?: (address: string) => void;
   label: string;
+  exceptAdapterIds?: CctpNetworkAdapterId[];
 }
 
 export function useNetworkAdapterBalance(
@@ -53,6 +54,7 @@ export default function NetworkAdapterSelect({
   address,
   setAddress,
   label,
+  exceptAdapterIds,
 }: NetworkAdapterSelectProps) {
   const {
     networkAdapter,
@@ -70,11 +72,13 @@ export default function NetworkAdapterSelect({
           <SelectValue placeholder="Select chain" />
         </SelectTrigger>
         <SelectContent>
-          {networkAdapters.map((chain) => (
-            <SelectItem key={chain.id} value={String(chain.id)}>
-              {chain.name}
-            </SelectItem>
-          ))}
+          {networkAdapters
+            .filter((chain) => !exceptAdapterIds?.includes(chain.id))
+            .map((chain) => (
+              <SelectItem key={chain.id} value={String(chain.id)}>
+                {chain.name}
+              </SelectItem>
+            ))}
         </SelectContent>
       </Select>
       <div>
@@ -82,8 +86,8 @@ export default function NetworkAdapterSelect({
         <Input
           value={address}
           onChange={(e) => setAddress?.(e.target.value)}
-          placeholder={`Enter ${networkAdapter?.type.toUpperCase()} address...`}
-          readOnly
+          placeholder={`Enter address...`}
+          readOnly={!setAddress}
           className={cn("text-sm", !setAddress && "bg-primary/5")}
         />
       </div>

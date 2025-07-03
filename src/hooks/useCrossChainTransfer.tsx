@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { toast } from "sonner";
-import { AttestationMessage, getAttestation } from "@/lib/cctp/attestation";
+import {
+  AttestationMessage,
+  AttestationMessageSuccess,
+  getAttestation,
+} from "@/lib/cctp/attestation";
 import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
 import {
   CctpNetworkAdapter,
@@ -11,6 +14,8 @@ import {
   findNetworkAdapter,
 } from "@/lib/cctp/networks";
 import { useAppKitAccount } from "@reown/appkit/react";
+import ExternalLink from "@/components/ui2/ExternalLink";
+import { TransactionSigner } from "gill";
 
 export type TransferStep =
   | "idle"
@@ -23,19 +28,12 @@ export type TransferStep =
 
 export function useCrossChainTransfer() {
   const [currentStep, setCurrentStep] = useState<TransferStep>("idle");
-  const [logs, setLogs] = useState<string[]>([]);
+  const [logs, setLogs] = useState<React.ReactNode[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const { activeNetwork, setActiveNetwork } = useActiveNetwork();
-  const {
-    readAllowanceForTokenMessager,
-    writeApproveForTokenMessager,
-    writeTokenMessagerDepositForBurn,
-    simulateMessageTransmitterReceiveMessage,
-    writeMessageTransmitterReceiveMessage,
-  } = activeNetwork;
+  const { setActiveNetwork } = useActiveNetwork();
   const { address } = useAppKitAccount();
 
-  const addLog = (message: string) =>
+  const addLog = (message: React.ReactNode) =>
     setLogs((prev) => [
       ...prev,
       `[${new Date().toLocaleTimeString()}] ${message}`,
@@ -45,6 +43,8 @@ export function useCrossChainTransfer() {
     params: {
       sourceChainId: CctpNetworkAdapterId;
       destinationChainId: CctpNetworkAdapterId;
+      mintRecipient: string;
+      solanaSigner?: TransactionSigner;
     } & (
       | { amount: string; transferType: CctpV2TransferType }
       | { burnTxHash: string }
@@ -52,61 +52,71 @@ export function useCrossChainTransfer() {
   ) => {
     if (!address) throw new Error("No account found");
     const { sourceChainId, destinationChainId } = params;
-    await setActiveNetwork(sourceChainId);
+    const sourceNetwork = await setActiveNetwork(sourceChainId);
+    const { writeTokenMessagerDepositForBurn, domain: sourceDomain } =
+      sourceNetwork;
     try {
       let burnTx: string;
       if ("burnTxHash" in params) {
         burnTx = params.burnTxHash;
       } else {
         const { amount, transferType } = params;
-        const allowance = await readAllowanceForTokenMessager(address);
         const numericAmount = Number(amount);
-        addLog(`Allowance: ${allowance.formatted}`);
-        addLog(`Amount: ${numericAmount}`);
-
-        if (numericAmount > allowance.formatted) {
-          setCurrentStep("approving");
-          await toast
-            .promise(writeApproveForTokenMessager(numericAmount), {
-              loading: "Approving USDC...",
-              success: "USDC approved!",
-              error: "Approval failed",
-            })
-            .unwrap();
-        }
 
         setCurrentStep("burning");
         const destination = findNetworkAdapter(destinationChainId);
         if (!destination) throw new Error("Destination network not found");
 
         burnTx = await writeTokenMessagerDepositForBurn(
-          numericAmount,
-          destination.domain,
-          { transferType }
+          {
+            address,
+            amount: numericAmount,
+            destination,
+            transferType,
+            mintRecipient: params.mintRecipient,
+          },
+          { version: "v2", solanaSigner: params.solanaSigner }
         );
-        addLog(`Burn Tx: ${burnTx}`);
+        addLog(
+          `Burn Tx: ${burnTx} (${sourceNetwork.explorer?.url}/tx/${burnTx})`
+        );
       }
       setCurrentStep("waiting-attestation");
-      const attestation = await retrieveAttestation(
-        burnTx,
-        activeNetwork.domain
-      );
+      addLog("Waiting for attestation...");
+      const attestation = await retrieveAttestation(burnTx, sourceDomain);
       setCurrentStep("minting");
-      await setActiveNetwork(destinationChainId);
+      const destinationNetwork = await setActiveNetwork(destinationChainId);
+      const {
+        simulateMessageTransmitterReceiveMessage,
+        writeMessageTransmitterReceiveMessage,
+      } = destinationNetwork;
 
       const simulationResult = await simulateMessageTransmitterReceiveMessage(
         attestation.message,
         attestation.attestation
       );
       if (!simulationResult) throw new Error("Simulation failed");
+      addLog("Waiting for mint approval...");
       const mintTx = await writeMessageTransmitterReceiveMessage(
         attestation.message,
         attestation.attestation
       );
-      addLog(`Mint Tx: ${mintTx}`);
+      addLog(
+        <>
+          Mint Tx: {mintTx}.{" "}
+          <ExternalLink
+            href={`${destinationNetwork.explorer?.url}/tx/${mintTx}`}
+            className="text-primary"
+          >
+            View on {destinationNetwork.explorer?.name}
+          </ExternalLink>
+        </>
+      );
 
       setCurrentStep("completed");
     } catch (error) {
+      console.log(error);
+
       setCurrentStep("error");
       addLog(
         `Error: ${error instanceof Error ? error.message : "Unknown error"}`
@@ -133,15 +143,33 @@ const retrieveAttestation = async (
   transactionHash: string,
   sourceChainDomain: CctpNetworkAdapter["domain"]
 ) => {
-  return new Promise<AttestationMessage>(async (resolve, reject) => {
-    const response = await getAttestation(sourceChainDomain, transactionHash);
+  return new Promise<AttestationMessageSuccess>(async (resolve, reject) => {
+    const response = await getAttestation(
+      sourceChainDomain,
+      transactionHash
+    ).catch(
+      (e) =>
+        ({
+          status: "error",
+          error: e.message,
+        }) satisfies AttestationMessage
+    );
     if (response.status === "complete") {
       resolve(response);
     }
 
     let timeout: NodeJS.Timeout;
     const interval = setInterval(async () => {
-      const response = await getAttestation(sourceChainDomain, transactionHash);
+      const response = await getAttestation(
+        sourceChainDomain,
+        transactionHash
+      ).catch(
+        (e) =>
+          ({
+            status: "error",
+            error: e.message,
+          }) satisfies AttestationMessage
+      );
 
       if (response.status === "complete") {
         clearInterval(interval);

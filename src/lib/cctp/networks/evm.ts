@@ -13,12 +13,11 @@ import {
   getPublicClient,
   getWalletClient,
   readContract,
-  switchChain,
   waitForTransactionReceipt,
 } from "wagmi/actions";
 import { Address, Chain, erc20Abi, formatUnits, parseUnits } from "viem";
 import { addChain } from "viem/actions";
-import { defaultCctpOpts } from "./constants";
+import { defaultCctpOpts, USDC_DECIMALS } from "./constants";
 import { getTokenMessagerAddress, getMessageTransmitterAddress } from "./util";
 
 function getEvmNetworkAdapter(
@@ -74,198 +73,172 @@ const evmChains: Array<
   { chain: _worldchain, domain: 14, supportV1: false, supportV2: true },
 ];
 
-const USDC_DECIMALS = 6;
+export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
+  ({ chain, ...config }) => {
+    const chainId = Number(chain.id);
+    const usdcAddress = usdcAddresses[
+      chainId as keyof typeof usdcAddresses
+    ] as Address;
 
-export const evmNetworkAdapters = evmChains.map(({ chain, ...config }) => {
-  const chainId = Number(chain.id);
-  const usdcAddress = usdcAddresses[
-    chainId as keyof typeof usdcAddresses
-  ] as Address;
+    const readConfig = { chainId: Number(chain.id) } as const;
+    const publicClient = getPublicClient(wagmiConfig, readConfig);
 
-  const readConfig = { chainId: Number(chain.id) } as const;
-  const publicClient = getPublicClient(wagmiConfig, readConfig);
-
-  function requestChainIfNeeded<T>(func: () => Promise<T>) {
-    return async () => {
-      try {
-        return func();
-      } catch (error) {
-        if (
-          (error as Error).message.includes(`Network ${chain.id} not found`)
-        ) {
-          const client = await getWalletClient(wagmiConfig);
-          await addChain(client, { chain: chain as Chain });
-          return func();
+    function requestChainIfNeeded<T, D extends unknown[]>(
+      func: (...args: D) => Promise<T>
+    ) {
+      return async (...args: D) => {
+        try {
+          return func(...args);
+        } catch (error) {
+          if (
+            (error as Error).message.includes(`Network ${chain.id} not found`)
+          ) {
+            const client = await getWalletClient(wagmiConfig);
+            await addChain(client, { chain: chain as Chain });
+            return func(...args);
+          }
+          throw error;
         }
-        throw error;
-      }
-    };
-  }
-
-  return getEvmNetworkAdapter(chain, {
-    ...config,
-    usdcAddress,
-    nativeCurrency: chain.nativeCurrency,
-    v1: { support: config.supportV1 },
-    v2: { support: config.supportV2 },
-
-    explorer: chain.blockExplorers?.default,
-
-    readNativeBalance: requestChainIfNeeded(async () => {
-      if (!publicClient) throw new Error("No public client found");
-
-      const { address } = getAccount(wagmiConfig);
-      if (!address) throw new Error("No account found");
-
-      const balance = await publicClient.getBalance({ address });
-      const raw = formatUnits(balance, chain.nativeCurrency.decimals);
-      return {
-        raw,
-        formatted: Number(raw),
       };
-    }),
+    }
 
-    readUsdcBalance: requestChainIfNeeded(async () => {
+    const readUsdcBalance = requestChainIfNeeded(async (address) => {
       if (!publicClient) throw new Error("No public client found");
-
-      const { address } = getAccount(wagmiConfig);
-      if (!address) throw new Error("No account found");
 
       const balance = await readContract(wagmiConfig, {
         ...readConfig,
         address: usdcAddress,
         abi: erc20Abi,
         functionName: "balanceOf",
-        args: [address],
+        args: [address as Address],
       });
       const raw = formatUnits(balance, USDC_DECIMALS);
       return {
         raw,
         formatted: Number(raw),
       };
-    }),
+    });
 
-    readAllowanceForTokenMessager: async (
-      address,
-      cctpOpts = defaultCctpOpts
-    ) => {
-      if (!address) throw new Error("No account found");
-      const allowance = await readUsdcAllowance(wagmiConfig, {
-        address: usdcAddress,
-        args: [
-          getTokenMessagerAddress(cctpOpts, chainId) as Address,
-          address as Address,
-        ],
-      });
-      const raw = formatUnits(allowance, USDC_DECIMALS);
-      return {
-        raw,
-        formatted: Number(raw),
-      };
-    },
+    return getEvmNetworkAdapter(chain, {
+      ...config,
+      usdcAddress,
+      nativeCurrency: chain.nativeCurrency,
+      v1: { support: config.supportV1 },
+      v2: { support: config.supportV2 },
 
-    async writeApproveForTokenMessager(amount, cctpOpts = defaultCctpOpts) {
-      const tokenMessagerAddress = getTokenMessagerAddress(
-        cctpOpts,
-        chainId
-      ) as Address;
-      const { isConnected } = getAccount(wagmiConfig);
-      if (!isConnected) throw new Error("No account found");
-      const tx = await writeUsdcApprove(wagmiConfig, {
-        address: usdcAddress,
-        args: [
-          tokenMessagerAddress,
-          parseUnits(amount.toString(), USDC_DECIMALS),
-        ] as const,
-      });
-      await waitForTransactionReceipt(wagmiConfig, { hash: tx });
-      return tx;
-    },
+      explorer: chain.blockExplorers?.default,
+      readUsdcBalance,
+      readNativeBalance: requestChainIfNeeded(async (address) => {
+        if (!publicClient) throw new Error("No public client found");
 
-    async writeTokenMessagerDepositForBurn(
-      amount,
-      destinationDomain,
-      options = {},
-      cctpOpts = defaultCctpOpts
-    ) {
-      const tokenMessagerAddress = getTokenMessagerAddress(
-        cctpOpts,
-        chainId
-      ) as Address;
-      let {
-        transferType = CctpV2TransferType.Fast,
-        maxFee,
-        finalityThreshold,
-        mintRecipient = getAccount(wagmiConfig).address,
-      } = options;
+        const balance = await publicClient.getBalance({
+          address: address as Address,
+        });
+        const raw = formatUnits(balance, chain.nativeCurrency.decimals);
+        return {
+          raw,
+          formatted: Number(raw),
+        };
+      }),
 
-      if (!mintRecipient) throw new Error("No mint recipient found");
-      if (!config.supportV2) transferType = CctpV2TransferType.Standard;
+      async writeTokenMessagerDepositForBurn(
+        { address, amount, destination, ...options },
+        cctpOpts = defaultCctpOpts
+      ) {
+        const tokenMessagerAddress = getTokenMessagerAddress(
+          cctpOpts,
+          chainId
+        ) as Address;
+        const allowance = await readUsdcAllowance(wagmiConfig, {
+          address: usdcAddress,
+          args: [tokenMessagerAddress, address as Address],
+        });
+        const formattedAllowance = Number(
+          formatUnits(allowance, USDC_DECIMALS)
+        );
 
-      const rawAmount = parseUnits(amount.toString(), USDC_DECIMALS);
+        if (amount > formattedAllowance) {
+          const tx = await writeUsdcApprove(wagmiConfig, {
+            address: usdcAddress,
+            args: [
+              tokenMessagerAddress,
+              parseUnits(amount.toString(), USDC_DECIMALS),
+            ],
+          });
+          await waitForTransactionReceipt(wagmiConfig, { hash: tx });
+        }
 
-      maxFee = maxFee ?? rawAmount - 1n;
-      finalityThreshold =
-        finalityThreshold ??
-        (transferType === CctpV2TransferType.Fast ? 1000 : 2000);
-
-      const tx = await writeTokenMessagerDepositForBurn(wagmiConfig, {
-        address: tokenMessagerAddress,
-        args: [
-          rawAmount,
-          destinationDomain,
-          getMintRecipient(mintRecipient),
-          usdcAddress,
-          "0x0000000000000000000000000000000000000000000000000000000000000000",
+        let {
+          transferType = CctpV2TransferType.Fast,
           maxFee,
           finalityThreshold,
-        ],
-      });
-      await waitForTransactionReceipt(wagmiConfig, { hash: tx });
-      return tx;
-    },
+          mintRecipient = getAccount(wagmiConfig).address,
+        } = options;
 
-    async simulateMessageTransmitterReceiveMessage(
-      message,
-      attestation,
-      cctpOpts = defaultCctpOpts
-    ) {
-      const messageTransmitterAddress = getMessageTransmitterAddress(
-        cctpOpts,
-        chainId
-      ) as Address;
-      const { result } = await simulateMessageTransmitterReceiveMessage(
-        wagmiConfig,
-        {
+        if (!mintRecipient) throw new Error("No mint recipient found");
+        if (!config.supportV2) transferType = CctpV2TransferType.Standard;
+
+        const rawAmount = parseUnits(amount.toString(), USDC_DECIMALS);
+
+        maxFee = maxFee ?? rawAmount - 1n;
+        finalityThreshold =
+          finalityThreshold ??
+          (transferType === CctpV2TransferType.Fast ? 1000 : 2000);
+
+        const tx = await writeTokenMessagerDepositForBurn(wagmiConfig, {
+          address: tokenMessagerAddress,
+          args: [
+            rawAmount,
+            destination.domain,
+            getMintRecipient(mintRecipient),
+            usdcAddress,
+            "0x0000000000000000000000000000000000000000000000000000000000000000",
+            maxFee,
+            finalityThreshold,
+          ],
+        });
+        await waitForTransactionReceipt(wagmiConfig, { hash: tx });
+        return tx;
+      },
+
+      async simulateMessageTransmitterReceiveMessage(
+        message,
+        attestation,
+        cctpOpts = defaultCctpOpts
+      ) {
+        const messageTransmitterAddress = getMessageTransmitterAddress(
+          cctpOpts,
+          chainId
+        ) as Address;
+        const { result } = await simulateMessageTransmitterReceiveMessage(
+          wagmiConfig,
+          {
+            address: messageTransmitterAddress,
+            args: [message as Address, attestation as Address],
+          }
+        );
+        return result;
+      },
+
+      async writeMessageTransmitterReceiveMessage(
+        message,
+        attestation,
+        cctpOpts = defaultCctpOpts
+      ) {
+        const messageTransmitterAddress = getMessageTransmitterAddress(
+          cctpOpts,
+          chainId
+        ) as Address;
+        const tx = await writeMessageTransmitterReceiveMessage(wagmiConfig, {
           address: messageTransmitterAddress,
           args: [message as Address, attestation as Address],
-        }
-      );
-      return result;
-    },
-
-    async writeMessageTransmitterReceiveMessage(
-      message,
-      attestation,
-      cctpOpts = defaultCctpOpts
-    ) {
-      const messageTransmitterAddress = getMessageTransmitterAddress(
-        cctpOpts,
-        chainId
-      ) as Address;
-      const tx = await writeMessageTransmitterReceiveMessage(wagmiConfig, {
-        address: messageTransmitterAddress,
-        args: [message as Address, attestation as Address],
-      });
-      await waitForTransactionReceipt(wagmiConfig, { hash: tx });
-      return tx;
-    },
-
-    switchNetwork: requestChainIfNeeded(async () => {
-      await switchChain(wagmiConfig, { chainId });
-    }),
-  });
-});
+        });
+        await waitForTransactionReceipt(wagmiConfig, { hash: tx });
+        return tx;
+      },
+    });
+  }
+);
 
 function getMintRecipient(destinationAddress: string) {
   return `0x${destinationAddress.replace(/^0x/, "").padStart(64, "0")}` satisfies Address;

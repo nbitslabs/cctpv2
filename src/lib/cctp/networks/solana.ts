@@ -5,19 +5,41 @@ import {
   CctpV2TransferType,
 } from "./type";
 import { usdcAddresses } from "@/lib/wagmi/config";
-import { lamportsToSol } from "gill";
-import { address as solAddress } from "@solana/kit";
-import { createSolanaRpc } from "@solana/kit";
+import { createSolanaClient, lamportsToSol } from "gill";
 import { getATA2 } from "@/lib/solana/my-utils";
+import { getTokenMessagerAddress } from "./util";
+import { defaultCctpOpts, USDC_DECIMALS } from "./constants";
+import {
+  DepositForBurnArgs,
+  getDepositForBurnInstructionAsync,
+} from "@/lib/solana/tools/codama/generated/token_messenger_minter_v2";
+import {
+  Address,
+  address as solAddress,
+  generateKeyPairSigner,
+  pipe,
+  createTransactionMessage,
+  setTransactionMessageLifetimeUsingBlockhash,
+  setTransactionMessageFeePayer,
+  appendTransactionMessageInstruction,
+  signTransactionMessageWithSigners,
+} from "@solana/kit";
+import { Address as EvmAddress, parseUnits, toBytes } from "viem";
+import { evmAddressToSolana } from "@/lib/solana/utils";
+import {
+  getDepositForBurnPdasV2,
+  getDepositForBurnPdasV2MessageTransmitterAccount,
+} from "@/lib/solana/v2/utilsV2";
+import { getReclaimEventAccountInstruction } from "@/lib/solana/tools/codama/generated/message_transmitter_v2";
 
-const rpc = createSolanaRpc(
-  `https://solana-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`
-);
-
-const solanaUsdcAddress = usdcAddresses[solana.id];
+const { rpc, sendAndConfirmTransaction } = createSolanaClient({
+  urlOrMoniker: `https://wispy-icy-liquid.solana-mainnet.quiknode.pro/1b10c09ce4cbf223215490fc24ad0fb398e470a4/`,
+});
+const solanaChainId = solana.id;
+const solanaUsdcAddress = solAddress(usdcAddresses[solanaChainId]);
 export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
   {
-    id: solana.id,
+    id: solanaChainId,
     name: solana.name,
     domain: 5,
     type: "solana",
@@ -46,44 +68,98 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
       return { raw, formatted: Number(raw) };
     },
 
-    async readAllowanceForTokenMessager(
-      address: string,
-      _cctpOpts?: CctpFunctionOpts
-    ) {
-      // SPL tokens do not have ERC20-style allowance by default
-      // You can implement delegate logic if needed
-      return { raw: "0", formatted: 0 };
-    },
-
-    async writeApproveForTokenMessager(
-      _amount: number,
-      _cctpOpts?: CctpFunctionOpts
-    ) {
-      // TODO: Implement SPL Token approveChecked logic if needed
-      // This would require the owner's Keypair and delegate address
-      throw new Error(
-        "Not implemented: SPL Token approveChecked requires wallet context"
-      );
-    },
-
     async writeTokenMessagerDepositForBurn(
-      _amount: number,
-      destinationDomain: number,
-      _options?: {
-        mintRecipient?: string;
-        maxFee?: bigint;
-        finalityThreshold?: number;
-        transferType?: CctpV2TransferType;
-      },
-      _cctpOpts?: CctpFunctionOpts
+      { address, amount, destination, mintRecipient, ...options },
+      cctpOpts = defaultCctpOpts
     ) {
-      const { anchorProvider } = _cctpOpts || {};
-      if (!anchorProvider) throw new Error("Anchor provider is required");
+      const tokenMessagerAddress = getTokenMessagerAddress(
+        cctpOpts,
+        solanaChainId
+      ) as Address;
+      let {
+        transferType = CctpV2TransferType.Fast,
+        maxFee,
+        finalityThreshold,
+      } = options;
 
-      const { mintRecipient, maxFee, finalityThreshold, transferType } =
-        _options || {};
-      if (!mintRecipient) throw new Error("No mint recipient found");
-      return "";
+      const { solanaSigner } = cctpOpts || {};
+      if (!solanaSigner) throw new Error("Solana signer is required");
+
+      const rawAmount = parseUnits(amount.toString(), USDC_DECIMALS);
+
+      maxFee = maxFee ?? rawAmount - 1n;
+      finalityThreshold =
+        finalityThreshold ??
+        (transferType === CctpV2TransferType.Fast ? 1000 : 2000);
+
+      const myAddress = solAddress(address);
+
+      const mintRecipientAddress = (
+        destination.type === "evm"
+          ? evmAddressToSolana(mintRecipient as EvmAddress)
+          : mintRecipient
+      ) as Address;
+
+      const destTokenMessagerAddress = getTokenMessagerAddress(
+        cctpOpts,
+        destination.id
+      );
+      const destinationTokenMessagerAddress =
+        destination.type === "evm"
+          ? evmAddressToSolana(destTokenMessagerAddress as EvmAddress)
+          : destTokenMessagerAddress;
+
+      const args: DepositForBurnArgs = {
+        burnToken: solanaUsdcAddress,
+        amount: rawAmount,
+        depositor: solAddress(address),
+        mintRecipient: mintRecipientAddress,
+        destinationDomain: destination.domain,
+        destinationTokenMessenger: destinationTokenMessagerAddress as Address,
+        destinationCaller: mintRecipientAddress,
+        maxFee,
+        minFinalityThreshold: finalityThreshold,
+        hookData: new Uint8Array(),
+      };
+      const userTokenAccount = await getATA2(solanaUsdcAddress, myAddress);
+
+      const pdas = await getDepositForBurnPdasV2(
+        solanaUsdcAddress,
+        destination.domain
+      );
+      const messageSentEventAccount = await generateKeyPairSigner();
+      const instruction = await getDepositForBurnInstructionAsync({
+        params: args,
+        owner: solanaSigner,
+        eventRentPayer: solanaSigner,
+        burnTokenAccount: userTokenAccount,
+        burnTokenMint: solanaUsdcAddress,
+        messageSentEventData: messageSentEventAccount,
+        messageTransmitter: pdas.messageTransmitterAccount,
+        tokenMessenger: pdas.tokenMessengerAccount,
+        remoteTokenMessenger: pdas.remoteTokenMessengerKey,
+        tokenMinter: pdas.tokenMinterAccount,
+        program: tokenMessagerAddress,
+      });
+      const blockhashResponse = await rpc.getLatestBlockhash().send();
+
+      const txMessage = pipe(
+        createTransactionMessage({ version: 0 }),
+        (m) =>
+          setTransactionMessageLifetimeUsingBlockhash(
+            blockhashResponse.value,
+            m
+          ),
+        (m) => setTransactionMessageFeePayer(solanaSigner.address, m),
+        (m) => appendTransactionMessageInstruction(instruction, m)
+      );
+      const signedTx = await signTransactionMessageWithSigners(txMessage);
+      const sig = await sendAndConfirmTransaction({
+        ...signedTx,
+        lifetimeConstraint: blockhashResponse.value,
+      });
+
+      return sig.toString();
     },
 
     async simulateMessageTransmitterReceiveMessage(
@@ -104,9 +180,45 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
       throw new Error("Not implemented: CCTP receive message on Solana");
     },
 
-    async switchNetwork() {
-      // Not applicable for Solana
-      return;
+    hooks: {
+      async solanaClaimEventAccount(
+        { sentEventAccount, message, attestation },
+        cctpOpts
+      ) {
+        const { solanaSigner } = cctpOpts || {};
+        if (!solanaSigner) throw new Error("Solana signer is required");
+
+        const messageTransmitterAccount =
+          await getDepositForBurnPdasV2MessageTransmitterAccount();
+        const reclaimInstruction = getReclaimEventAccountInstruction({
+          messageSentEventData: sentEventAccount,
+          messageTransmitter: messageTransmitterAccount,
+          payee: solanaSigner,
+          params: {
+            attestation: toBytes(attestation),
+            destinationMessage: toBytes(message),
+          },
+        });
+
+        const blockhashResponse = await rpc.getLatestBlockhash().send();
+        const txMessage = pipe(
+          createTransactionMessage({ version: 0 }),
+          (m) =>
+            setTransactionMessageLifetimeUsingBlockhash(
+              blockhashResponse.value,
+              m
+            ),
+          (m) => setTransactionMessageFeePayer(solanaSigner.address, m),
+          (m) => appendTransactionMessageInstruction(reclaimInstruction, m)
+        );
+        const signedTx = await signTransactionMessageWithSigners(txMessage);
+        const sig = await sendAndConfirmTransaction({
+          ...signedTx,
+          lifetimeConstraint: blockhashResponse.value,
+        });
+
+        return sig;
+      },
     },
   },
 ];

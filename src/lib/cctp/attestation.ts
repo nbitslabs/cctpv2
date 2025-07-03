@@ -18,7 +18,13 @@ export async function getAttestation(
   return response.data?.messages?.[0];
 }
 
-export interface AttestationMessage {
+export type AttestationMessage =
+  | AttestationMessageSuccess
+  | {
+      status: "error";
+      error: string;
+    };
+export type AttestationMessageSuccess = {
   // Only available after status='complete'
   attestation: Address;
   message: Address;
@@ -26,7 +32,7 @@ export interface AttestationMessage {
   cctpVersion: number;
   status: "complete" | "pending_confirmations";
   decodedMessage: AttestationDecodedMessage | null;
-}
+};
 
 type AttestationDomain = `${number}`;
 interface AttestationDecodedMessage {

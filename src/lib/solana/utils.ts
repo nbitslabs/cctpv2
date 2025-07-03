@@ -1,4 +1,3 @@
-import { bs58 } from "@coral-xyz/anchor/dist/cjs/utils/bytes";
 import {
   Address,
   getAddressEncoder,
@@ -6,11 +5,12 @@ import {
   getUtf8Encoder,
   isAddress,
   address,
+  getBase58Decoder,
 } from "@solana/kit";
 import { toBytes, Address as EvmAddress } from "viem";
 
 export const evmAddressToSolana = (evmAddress: EvmAddress) =>
-  address(bs58.encode(toBytes(evmAddressToBytes32(evmAddress))));
+  address(getBase58Decoder().decode(toBytes(evmAddressToBytes32(evmAddress))));
 
 const evmAddressToBytes32 = (address: string): string =>
   `0x000000000000000000000000${address.replace("0x", "")}`;

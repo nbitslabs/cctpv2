@@ -1,16 +1,27 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import {
   CctpNetworkAdapter,
   CctpNetworkAdapterId,
   findNetworkAdapter,
   networkAdapters,
 } from "../networks";
+import {
+  useAppKit,
+  useAppKitConnections,
+  useAppKitEvents,
+  useAppKitNetwork,
+} from "@reown/appkit/react";
+import { networks } from "@/lib/wagmi/config";
+import { delay, intervalAsyncWithTimeout } from "@/lib/utils";
+import { toast } from "sonner";
 
 export type ActiveNetworkContextType = {
   activeNetwork: CctpNetworkAdapter;
-  setActiveNetwork: (networkId: CctpNetworkAdapterId) => Promise<void>;
+  setActiveNetwork: (
+    networkId: CctpNetworkAdapterId
+  ) => Promise<CctpNetworkAdapter>;
 };
 
 export const ActiveNetworkContext = createContext<ActiveNetworkContextType>(
@@ -28,18 +39,52 @@ export function useActiveNetwork() {
 }
 
 export function ActiveNetworkProvider({ children }: React.PropsWithChildren) {
+  const { switchNetwork, caipNetwork } = useAppKitNetwork();
+  const { connections } = useAppKitConnections();
+  const { open } = useAppKit();
+  const appkitEvents = useAppKitEvents();
   const [activeNetwork, setActiveNetworkState] = useState<CctpNetworkAdapter>();
 
-  const setActiveNetwork = async (networkId: CctpNetworkAdapterId) => {
-    const network = findNetworkAdapter(networkId);
-    if (!network) throw new Error(`Network ${networkId} not found`);
-    await network.switchNetwork();
-    setActiveNetworkState(network);
-  };
+  const setActiveNetwork: ActiveNetworkContextType["setActiveNetwork"] = async (
+    networkId
+  ) => {
+    const appkitNetwork = networks.find(
+      (n) => n.id.toString() === networkId.toString()
+    );
 
-  useEffect(() => {
-    setActiveNetwork(networkAdapters[0].id);
-  }, []);
+    if (appkitNetwork?.id.toString() === networkId.toString()) {
+      const selected = findNetworkAdapter(networkId);
+      setActiveNetworkState(selected);
+      return selected!;
+    }
+
+    if (!appkitNetwork) throw new Error(`Network ${networkId} not found`);
+    const successfulSwitched = await intervalAsyncWithTimeout(
+      500,
+      30 * 1000,
+      () => switchNetwork(appkitNetwork),
+      () => {
+        if (appkitEvents.data.event === "SWITCH_NETWORK") {
+          if (appkitEvents.data.address) return true;
+          return false;
+        }
+        return undefined;
+      }
+    );
+
+    if (!successfulSwitched) {
+      toast.warning(
+        "No connected account found after network switch. Please connect wallet and try again."
+      );
+      await delay(1000);
+      open({ namespace: caipNetwork?.chainNamespace });
+      throw new Error("No connected account found after network switch");
+    }
+
+    const selected = findNetworkAdapter(caipNetwork?.id) ?? networkAdapters[0];
+    setActiveNetworkState(selected);
+    return selected;
+  };
 
   return (
     <ActiveNetworkContext.Provider

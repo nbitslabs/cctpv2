@@ -1,8 +1,4 @@
-import {
-  useAppKit,
-  useAppKitAccount,
-  useAppKitConnections,
-} from "@reown/appkit/react";
+import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 import {
   appendTransactionMessageInstruction,
   createTransactionMessage,
@@ -33,7 +29,7 @@ const solanaUsdcAddress = solAddress(usdcAddresses[solana.id]);
 
 export default function SolanaWalletInteraction() {
   const { open } = useAppKit();
-  const { isConnected, address } = useAppKitAccount();
+  const { isConnected } = useAppKitAccount();
   const wallets = useWallets();
   const selected = wallets.find((wallet) => wallet.accounts.length > 0);
 
@@ -54,8 +50,6 @@ function SignMessageButton({ account }: { account: UiWalletAccount }) {
     account,
     "solana:mainnet"
   );
-  const { connections } = useAppKitConnections();
-  console.log(connections);
 
   const handleSend = async () => {
     if (!isConnected || !address) return;
@@ -63,17 +57,15 @@ function SignMessageButton({ account }: { account: UiWalletAccount }) {
     const receipientAddress = evmAddressToSolana(
       "0x9b3e4c62aa8f384b91dbd5260888289b699eab3a"
     );
-    const { rpc, rpcSubscriptions, sendAndConfirmTransaction } =
-      createSolanaClient({
-        urlOrMoniker: `https://solana-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
-      });
+    const { rpc, sendAndConfirmTransaction } = createSolanaClient({
+      urlOrMoniker: `https://wispy-icy-liquid.solana-mainnet.quiknode.pro/1b10c09ce4cbf223215490fc24ad0fb398e470a4/`,
+    });
     const myAddress = solAddress(address);
-    const blockhash = await rpc.getLatestBlockhash().send();
     const destination = findNetworkAdapter(mainnet.id);
     if (!destination) throw new Error("Destination not found");
     const signer = messageSigner;
 
-    const amount = 1000000n;
+    const amount = 1000n;
     const args: DepositForBurnArgs = {
       burnToken: solanaUsdcAddress,
       amount, // 1 USDC if 6 decimals
@@ -110,18 +102,28 @@ function SignMessageButton({ account }: { account: UiWalletAccount }) {
       tokenMinter: pdas.tokenMinterAccount,
       program: TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS,
     });
+    const blockhashResponse = await rpc.getLatestBlockhash().send();
+
     const txMessage = pipe(
       createTransactionMessage({ version: 0 }),
-      (txm) =>
-        setTransactionMessageLifetimeUsingBlockhash(blockhash.value, txm),
-      (txm) => setTransactionMessageFeePayer(signer.address, txm),
-      (txm) => appendTransactionMessageInstruction(instruction, txm)
+      (m) =>
+        setTransactionMessageLifetimeUsingBlockhash(blockhashResponse.value, m),
+      (m) => setTransactionMessageFeePayer(signer.address, m),
+      (m) => appendTransactionMessageInstruction(instruction, m)
     );
-
     const signedTx = await signTransactionMessageWithSigners(txMessage);
-    const sig = await sendAndConfirmTransaction(signedTx);
-    console.log({ sig });
+    const sig = await sendAndConfirmTransaction({
+      ...signedTx,
+      lifetimeConstraint: blockhashResponse.value,
+    });
+    console.log("Burn from SOL: ", sig);
+
+    // console.log("depositForBurn message information:", response.messages[0]);
+    // console.log(
+    //   "message and attestation can be used to receive the message on destination chain with domain",
+    //   destinationDomain
+    // );
   };
 
-  return <Button onClick={handleSend}>Handle Send</Button>;
+  return <Button onClick={handleSend}>Handle Send </Button>;
 }

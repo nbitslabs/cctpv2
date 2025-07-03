@@ -5,15 +5,19 @@ import {
 } from "../tools/codama/generated/message_transmitter_v2";
 import { TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS } from "../tools/codama/generated/token_messenger_minter_v2";
 
+export const getDepositForBurnPdasV2MessageTransmitterAccount = () =>
+  findProgramAddressKit(
+    "message_transmitter",
+    MESSAGE_TRANSMITTER_V2_PROGRAM_ADDRESS
+  );
+
 export const getDepositForBurnPdasV2 = async (
   usdcAddress: string,
   destinationDomain: number
 ) => {
   SEND_MESSAGE_DISCRIMINATOR;
-  const messageTransmitterAccountPromise = findProgramAddressKit(
-    "message_transmitter",
-    MESSAGE_TRANSMITTER_V2_PROGRAM_ADDRESS
-  );
+  const messageTransmitterAccountPromise =
+    getDepositForBurnPdasV2MessageTransmitterAccount();
   const tokenMessengerAccountPromise = findProgramAddressKit(
     "token_messenger",
     TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS

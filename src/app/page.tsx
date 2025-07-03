@@ -9,14 +9,23 @@ import { ProgressSteps } from "@/components/progress-step";
 import { TransferLog } from "@/components/transfer-log";
 import { Timer } from "@/components/timer";
 import { TransferTypeSelector } from "@/components/transfer-type";
-import { useCrossChainTransfer } from "@/hooks/use-cross-chain-transfer";
+import { useCrossChainTransfer } from "@/hooks/useCrossChainTransfer";
 import { cn, formatNumber, shortenAddress } from "@/lib/utils";
-import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
+import {
+  useAppKit,
+  useAppKitAccount,
+  useAppKitNetwork,
+  useWalletInfo,
+} from "@reown/appkit/react";
 import { toast } from "sonner";
-import { CctpNetworkAdapterId, CctpV2TransferType } from "@/lib/cctp/networks";
+import {
+  CctpNetworkAdapterId,
+  CctpV2TransferType,
+  findNetworkAdapter,
+} from "@/lib/cctp/networks";
 import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
 import { useMyUsdcBalance } from "@/hooks/useBalance";
-import { Loader2 } from "lucide-react";
+import { AlertTriangle, Loader2 } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import ExternalLink from "@/components/ui2/ExternalLink";
@@ -26,14 +35,21 @@ import { solana } from "@reown/appkit/networks";
 import NetworkAdapterSelect, {
   useNetworkAdapterBalance,
 } from "@/components/ChainSelect";
-import SolanaWalletInteraction from "@/components/SolanaWalletInteraction";
+import Image from "next/image";
+import { TransactionSigner } from "gill";
+import SolanaTransferButton from "@/components/SolanaTransferButton";
 
 export default function Home() {
   const { open } = useAppKit();
   const { isConnected, address } = useAppKitAccount();
+  const eip155AccountState = useAppKitAccount({ namespace: "eip155" });
+  const solanaAccountState = useAppKitAccount({ namespace: "solana" });
+  const { walletInfo: eip155WalletInfo } = useWalletInfo("eip155");
+  const { walletInfo: solanaWalletInfo } = useWalletInfo("solana");
   const { currentStep, logs, error, executeTransfer, reset } =
     useCrossChainTransfer();
-  const { activeNetwork } = useActiveNetwork();
+  const { activeNetwork, setActiveNetwork } = useActiveNetwork();
+  const { chainId } = useAppKitNetwork();
 
   const [method, setMethod] = useState<"mintOnly" | "transfer">("transfer");
   const isMintOnly = method === "mintOnly";
@@ -44,12 +60,12 @@ export default function Home() {
   const [transferType, setTransferType] = useState<CctpV2TransferType>(
     CctpV2TransferType.Fast
   );
-  const [burnTxHash, setBurnTxHash] = useState<string>();
+  const [burnTxHash, setBurnTxHash] = useState("");
   const myUsdcBalance = useMyUsdcBalance();
   const [understand, setUnderstand] = useState(false);
 
   const [sourceChain, setSourceChain] = useState<CctpNetworkAdapterId>(
-    activeNetwork.id
+    chainId ?? activeNetwork.id
   );
   const {
     usdcBalance: sourceUsdcBalance,
@@ -78,7 +94,9 @@ export default function Home() {
     !destNativeBalance.isLoading &&
     !destNativeBalance.data?.formatted;
 
-  const handleStartTransfer = async () => {
+  const solanaAdapter = findNetworkAdapter(solana.id)!;
+
+  const handleStartTransfer = async (solanaSigner?: TransactionSigner) => {
     if (!isConnected) return open();
     if (!destChain) return toast.error("Please select a destination chain");
 
@@ -92,6 +110,8 @@ export default function Home() {
         sourceChainId: sourceChain,
         destinationChainId: destChain,
         burnTxHash: burnTxHash,
+        mintRecipient: destAddress,
+        solanaSigner,
       });
     } else {
       if (!amount) return toast.error("Please enter an amount");
@@ -106,6 +126,8 @@ export default function Home() {
         destinationChainId: destChain,
         amount,
         transferType,
+        mintRecipient: destAddress,
+        solanaSigner,
       });
     }
     [
@@ -126,8 +148,20 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (destChain === sourceChain) setDestChain(undefined);
+    if (destChain === sourceChain) {
+      toast.warning("Destination chain must ≠ source chain", {
+        description: "Please select a different destination chain to continue",
+      });
+      setDestChain(undefined);
+    }
   }, [sourceChain, showFinalTime]);
+
+  useEffect(() => {
+    console.log("sourceChain", sourceChain, activeNetwork);
+
+    if (sourceChain && activeNetwork.id !== sourceChain)
+      setActiveNetwork(sourceChain);
+  }, [sourceChain]);
 
   useEffect(() => {
     if (currentStep === "waiting-attestation") originTranfers.refetch();
@@ -152,24 +186,66 @@ export default function Home() {
           {isConnected ? (
             <>
               <appkit-account-button />
-              <p className="flex justify-center gap-1">
-                You are connected to{" "}
-                <ExternalLink
-                  href={`${activeNetwork.explorer?.url}/address/${address}`}
-                  className="text-primary"
-                >
-                  {address && shortenAddress(address)}
-                </ExternalLink>
-                on{" "}
-                <strong className="text-primary">{activeNetwork.name}</strong>
-              </p>
+              {eip155AccountState.isConnected && (
+                <p className="flex justify-center gap-1">
+                  You are connected to{" "}
+                  <ExternalLink
+                    href={`${activeNetwork.explorer?.url}/address/${eip155AccountState.address}`}
+                    className="text-primary"
+                  >
+                    {eip155AccountState.address &&
+                      shortenAddress(eip155AccountState.address)}
+                  </ExternalLink>
+                  on{" "}
+                  <strong className="text-primary">{activeNetwork.name}</strong>
+                  via{" "}
+                  {eip155WalletInfo && (
+                    <span className="inline-flex items-center gap-1">
+                      <Image
+                        src={eip155WalletInfo.icon ?? ""}
+                        alt={eip155WalletInfo.name ?? ""}
+                        className="size-4 rounded-full"
+                        width={16}
+                        height={16}
+                      />
+                      {eip155WalletInfo.name}
+                    </span>
+                  )}
+                </p>
+              )}
+              {solanaAccountState.isConnected && (
+                <p className="flex justify-center gap-1">
+                  You are connected to{" "}
+                  <ExternalLink
+                    href={`${solanaAdapter.explorer?.url}/address/${solanaAccountState.address}`}
+                    className="text-primary"
+                  >
+                    {solanaAccountState.address &&
+                      shortenAddress(solanaAccountState.address)}
+                  </ExternalLink>
+                  on{" "}
+                  <strong className="text-primary">{solanaAdapter.name}</strong>
+                  via{" "}
+                  {solanaWalletInfo && (
+                    <span className="inline-flex items-center gap-1">
+                      <Image
+                        src={solanaWalletInfo.icon ?? ""}
+                        alt={solanaWalletInfo.name ?? ""}
+                        className="size-4 rounded-full"
+                        width={16}
+                        height={16}
+                      />
+                      {solanaWalletInfo.name}
+                    </span>
+                  )}
+                </p>
+              )}
             </>
           ) : (
             <appkit-connect-button />
           )}
         </CardHeader>
         <CardContent className="space-y-4">
-          <SolanaWalletInteraction />
           <div className="flex flex-col sm:flex-row justify-between gap-2">
             <div>
               <Label>Transfer Method</Label>
@@ -219,6 +295,7 @@ export default function Home() {
               setChainId={setDestChain}
               address={destAddress}
               setAddress={setDestAddress}
+              exceptAdapterIds={[sourceChain]}
             />
           </div>
 
@@ -286,11 +363,11 @@ export default function Home() {
               </>
             )}
           </div>
-          {error && <div className="text-red-500 text-center">{error}</div>}
+          {error && <div className="text-destructive text-center">{error}</div>}
 
-          <Alert className="bg-primary/5 max-w-xl mx-auto">
+          <Alert className="bg-primary/5 max-w-xl mx-auto border-destructive">
             <AlertTitle className="uppercase text-destructive">
-              Be aware!
+              <AlertTriangle className="size-8" /> Be aware!
             </AlertTitle>
             <AlertDescription className="text-foreground">
               <ul className="list-disc list-inside">
@@ -334,16 +411,31 @@ export default function Home() {
             I have read all the warnings and understand the risks.
           </Label>
           <div className="flex justify-center gap-4">
-            <Button
-              onClick={handleStartTransfer}
-              disabled={
-                isTransferring || currentStep === "completed" || !understand
-              }
-            >
-              {currentStep === "completed"
-                ? "Transfer Complete"
-                : "Start Transfer"}
-            </Button>
+            {!isConnected ? (
+              <Button onClick={() => open()}>Connect Wallet</Button>
+            ) : sourceAdapter?.type === "solana" ? (
+              <SolanaTransferButton
+                onClick={handleStartTransfer}
+                disabled={
+                  isTransferring || currentStep === "completed" || !understand
+                }
+              >
+                {currentStep === "completed"
+                  ? "Transfer Complete"
+                  : "Start Transfer"}
+              </SolanaTransferButton>
+            ) : (
+              <Button
+                onClick={() => handleStartTransfer()}
+                disabled={
+                  isTransferring || currentStep === "completed" || !understand
+                }
+              >
+                {currentStep === "completed"
+                  ? "Transfer Complete"
+                  : "Start Transfer"}
+              </Button>
+            )}
 
             {(currentStep === "completed" || currentStep === "error") && (
               <Button variant="outline" onClick={handleReset}>

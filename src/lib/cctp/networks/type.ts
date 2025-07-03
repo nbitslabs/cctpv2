@@ -1,5 +1,4 @@
-import type { AnchorProvider } from "@coral-xyz/anchor";
-import type { Connection } from "@solana/web3.js";
+import type { Address, Signature, TransactionSigner } from "gill";
 
 type TxHash = string;
 
@@ -12,8 +11,7 @@ type CctpNetworkVersion = { support: boolean };
 
 export type CctpFunctionOpts = {
   version: "v1" | "v2";
-  solanaConnection: Connection;
-  anchorProvider: AnchorProvider;
+  solanaSigner?: TransactionSigner;
 };
 
 export interface CctpNetworkAdapter {
@@ -38,28 +36,18 @@ export interface CctpNetworkAdapter {
   readUsdcBalance: (
     address: string
   ) => Promise<{ raw: string; formatted: number }>;
-  readAllowanceForTokenMessager: (
-    address: string,
-    cctpOpts?: CctpFunctionOpts
-  ) => Promise<{
-    raw: string;
-    formatted: number;
-  }>;
-  writeApproveForTokenMessager: (
-    amount: number,
-    cctpOpts?: CctpFunctionOpts
-  ) => Promise<TxHash>;
   writeTokenMessagerDepositForBurn: (
-    amount: number,
-    destinationDomain: CctpNetworkAdapter["domain"],
-    options?: {
-      mintRecipient?: string;
+    params: {
+      address: string;
+      amount: number;
+      destination: CctpNetworkAdapter;
+      mintRecipient: string;
       maxFee?: bigint;
       finalityThreshold?: number;
       transferType?: CctpV2TransferType;
     },
     cctpOpts?: CctpFunctionOpts
-  ) => Promise<TxHash>;
+  ) => Promise<string>;
   simulateMessageTransmitterReceiveMessage: (
     message: string,
     attestation: string,
@@ -69,8 +57,18 @@ export interface CctpNetworkAdapter {
     message: string,
     attestation: string,
     cctpOpts?: CctpFunctionOpts
-  ) => Promise<TxHash>;
-  switchNetwork: () => Promise<void>;
+  ) => Promise<string>;
+
+  hooks?: {
+    solanaClaimEventAccount: (
+      params: {
+        sentEventAccount: Address;
+        message: string;
+        attestation: string;
+      },
+      cctpOpts: CctpFunctionOpts
+    ) => Promise<Signature>;
+  };
 }
 
 export type CctpNetworkAdapterId = CctpNetworkAdapter["id"];

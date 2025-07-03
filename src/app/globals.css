@@ -1,9 +1,17 @@
 @import "tailwindcss";
-
-@config '../../tailwind.config.ts';
+@source inline("bg-red-200");
+@source inline("bg-red-200");
+@source inline("border-red-700");
+@source inline("bg-green-300");
+@source inline("border-green-700");
+@source inline("bg-orange-400");
+@source inline("border-orange-600");
+@source inline("bg-blue-200");
+@source inline("border-blue-700");
+@config "../../tailwind.config.ts";
 
 /*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  @source inline(The default border color has changed to `currentcolor` in Tailwind CSS v4);
   so we've added these compatibility styles to make sure everything still
   looks the same as it did with Tailwind CSS v3.
 

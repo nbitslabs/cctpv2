@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ["class"],
+  darkMode: ["class", "media"],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -58,15 +58,5 @@ export default {
       },
     },
   },
-  safelist: [
-    "bg-red-200",
-    "border-red-700",
-    "bg-green-300",
-    "border-green-700",
-    "bg-orange-400",
-    "border-orange-600",
-    "bg-blue-200",
-    "border-blue-700",
-  ],
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;

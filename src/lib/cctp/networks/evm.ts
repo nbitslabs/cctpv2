@@ -149,9 +149,11 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
           cctpOpts,
           chainId
         ) as Address;
+
         const allowance = await readUsdcAllowance(wagmiConfig, {
+          chainId,
           address: usdcAddress,
-          args: [tokenMessagerAddress, address as Address],
+          args: [address as Address, tokenMessagerAddress],
         });
         const formattedAllowance = Number(
           formatUnits(allowance, USDC_DECIMALS)
@@ -159,6 +161,7 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
 
         if (amount > formattedAllowance) {
           const tx = await writeUsdcApprove(wagmiConfig, {
+            chainId,
             address: usdcAddress,
             args: [
               tokenMessagerAddress,
@@ -186,6 +189,7 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
           (transferType === CctpV2TransferType.Fast ? 1000 : 2000);
 
         const tx = await writeTokenMessagerDepositForBurn(wagmiConfig, {
+          chainId,
           address: tokenMessagerAddress,
           args: [
             rawAmount,
@@ -197,7 +201,10 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
             finalityThreshold,
           ],
         });
-        await waitForTransactionReceipt(wagmiConfig, { hash: tx });
+        await waitForTransactionReceipt(wagmiConfig, {
+          chainId,
+          hash: tx,
+        });
         return tx;
       },
 
@@ -213,6 +220,7 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
         const { result } = await simulateMessageTransmitterReceiveMessage(
           wagmiConfig,
           {
+            chainId,
             address: messageTransmitterAddress,
             args: [message as Address, attestation as Address],
           }
@@ -230,10 +238,11 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
           chainId
         ) as Address;
         const tx = await writeMessageTransmitterReceiveMessage(wagmiConfig, {
+          chainId,
           address: messageTransmitterAddress,
           args: [message as Address, attestation as Address],
         });
-        await waitForTransactionReceipt(wagmiConfig, { hash: tx });
+        await waitForTransactionReceipt(wagmiConfig, { chainId, hash: tx });
         return tx;
       },
     });

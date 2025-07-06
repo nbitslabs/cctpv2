@@ -7,14 +7,8 @@ import {
   findNetworkAdapter,
   networkAdapters,
 } from "../networks";
-import {
-  useAppKit,
-  useAppKitEvents,
-  useAppKitNetwork,
-} from "@reown/appkit/react";
+import { useAppKitNetwork } from "@reown/appkit/react";
 import { networks } from "@/lib/wagmi/config";
-import { delay, intervalAsyncWithTimeout } from "@/lib/utils";
-import { toast } from "sonner";
 
 export type ActiveNetworkContextType = {
   activeNetwork: CctpNetworkAdapter;
@@ -38,9 +32,7 @@ export function useActiveNetwork() {
 }
 
 export function ActiveNetworkProvider({ children }: React.PropsWithChildren) {
-  const { switchNetwork, caipNetwork } = useAppKitNetwork();
-  const { open } = useAppKit();
-  const appkitEvents = useAppKitEvents();
+  const { switchNetwork } = useAppKitNetwork();
   const [activeNetwork, setActiveNetworkState] = useState<CctpNetworkAdapter>();
 
   const setActiveNetwork: ActiveNetworkContextType["setActiveNetwork"] = async (
@@ -50,38 +42,20 @@ export function ActiveNetworkProvider({ children }: React.PropsWithChildren) {
       (n) => n.id.toString() === networkId.toString()
     );
 
-    if (appkitNetwork?.id.toString() === networkId.toString()) {
-      const selected = findNetworkAdapter(networkId);
-      setActiveNetworkState(selected);
-      return selected!;
-    }
-
     if (!appkitNetwork) throw new Error(`Network ${networkId} not found`);
-    const successfulSwitched = await intervalAsyncWithTimeout(
-      500,
-      30 * 1000,
-      () => switchNetwork(appkitNetwork),
-      () => {
-        if (appkitEvents.data.event === "SWITCH_NETWORK") {
-          if (appkitEvents.data.address) return true;
-          return false;
-        }
-        return undefined;
-      }
-    );
-
-    if (!successfulSwitched) {
-      toast.warning(
-        "No connected account found after network switch. Please connect wallet and try again."
-      );
-      await delay(1000);
-      open({ namespace: caipNetwork?.chainNamespace });
-      throw new Error("No connected account found after network switch");
-    }
-
-    const selected = findNetworkAdapter(caipNetwork?.id) ?? networkAdapters[0];
+    switchNetwork(appkitNetwork);
+    const selected = findNetworkAdapter(networkId);
     setActiveNetworkState(selected);
-    return selected;
+    return selected!;
+
+    // if (!appkitEvents.data.address) {
+    //   toast.warning(
+    //     "No connected account found after network switch. Please connect wallet and try again."
+    //   );
+    //   await delay(1000);
+    //   open({ namespace: caipNetwork?.chainNamespace });
+    //   throw new Error("No connected account found after network switch");
+    // }
   };
 
   return (

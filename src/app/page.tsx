@@ -35,10 +35,12 @@ import { useChainId } from "wagmi";
 import ConnectedWallet from "@/components/ConnectedWallet";
 import { useAddressOfAdapter } from "@/hooks/useAddressOfAdapter";
 import { TooltipWrap, TooltipWrapNumber } from "@/components/TooltipWrap";
+import { useSolanaAccount } from "@/hooks/useSolanaSigner";
 
 export default function Home() {
   const { open } = useAppKit();
   const { isConnected, address } = useAppKitAccount();
+  const solanaAccount = useSolanaAccount();
   const eip155ChainId = useChainId();
   const { currentStep, logs, error, executeTransfer, reset } =
     useCrossChainTransfer();
@@ -361,7 +363,7 @@ export default function Home() {
           <div className="flex justify-center gap-4">
             {!isConnected ? (
               <Button onClick={() => open()}>Connect Wallet</Button>
-            ) : sourceAdapter?.type === "solana" ? (
+            ) : sourceAdapter?.type === "solana" && solanaAccount ? (
               <SolanaTransferButton
                 onClick={handleStartTransfer}
                 disabled={

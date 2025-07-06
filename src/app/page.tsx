@@ -33,7 +33,7 @@ import { TransactionSigner } from "gill";
 import SolanaTransferButton from "@/components/SolanaTransferButton";
 import { useChainId } from "wagmi";
 import ConnectedWallet from "@/components/ConnectedWallet";
-import { useAddressOfAdapter } from "@/hooks/useAddressOfAdapter";
+import { useAddressOfAdapterId } from "@/hooks/useAddressOfAdapter";
 import { TooltipWrap, TooltipWrapNumber } from "@/components/TooltipWrap";
 import { useSolanaAccount } from "@/hooks/useSolanaSigner";
 
@@ -62,14 +62,14 @@ export default function Home() {
   const [sourceChain, setSourceChain] = useState<CctpNetworkAdapterId>(
     chainId ?? activeNetwork.id
   );
+  const sourceAddress = useAddressOfAdapterId(sourceChain);
   const {
     usdcBalance: sourceUsdcBalance,
     nativeBalance: sourceNativeBalance,
     nativeCurrency: sourceNativeCurrency,
     // transfers: originTranfers,
     networkAdapter: sourceAdapter,
-  } = useNetworkAdapterBalance(sourceChain, address);
-  const sourceAddress = useAddressOfAdapter(sourceAdapter!);
+  } = useNetworkAdapterBalance(sourceChain, sourceAddress);
 
   const [destAddress, setDestAddress] = useState("");
   const [destChain, setDestChain] = useState<CctpNetworkAdapterId | undefined>(
@@ -170,8 +170,10 @@ export default function Home() {
           {isConnected ? (
             <>
               <appkit-account-button />
-              <ConnectedWallet namespace="eip155" adapterId={eip155ChainId} />
-              <ConnectedWallet namespace="solana" adapterId={solana.id} />
+              <div className="flex flex-col gap-2 lg:flex-row">
+                <ConnectedWallet namespace="eip155" adapterId={eip155ChainId} />
+                <ConnectedWallet namespace="solana" adapterId={solana.id} />
+              </div>
             </>
           ) : (
             <appkit-connect-button />
@@ -285,7 +287,7 @@ export default function Home() {
                   thousandSeparator=","
                   allowNegative={false}
                 />
-                {address && (
+                {isConnected && (
                   <p className="text-sm text-muted-foreground">
                     {sourceUsdcBalance.isLoading ? (
                       <Loader2 className="animate-spin inline-block size-3" />

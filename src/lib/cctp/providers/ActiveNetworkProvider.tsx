@@ -9,7 +9,6 @@ import {
 } from "../networks";
 import {
   useAppKit,
-  useAppKitConnections,
   useAppKitEvents,
   useAppKitNetwork,
 } from "@reown/appkit/react";
@@ -40,7 +39,6 @@ export function useActiveNetwork() {
 
 export function ActiveNetworkProvider({ children }: React.PropsWithChildren) {
   const { switchNetwork, caipNetwork } = useAppKitNetwork();
-  const { connections } = useAppKitConnections();
   const { open } = useAppKit();
   const appkitEvents = useAppKitEvents();
   const [activeNetwork, setActiveNetworkState] = useState<CctpNetworkAdapter>();

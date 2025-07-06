@@ -10,15 +10,14 @@ import {
 } from "./ui/select";
 import { Input } from "./ui/input";
 import { Loader2 } from "lucide-react";
-import { cn, formatNumber } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import {
   CctpNetworkAdapterId,
   findNetworkAdapter,
   networkAdapters,
 } from "@/lib/cctp/networks";
-import TransactionHistory from "./transaction-history";
 import { useNativeBalance, useUsdcBalance } from "@/hooks/useBalance";
-import { useAccountTransactions } from "@/hooks/useAccountTransactions";
+import { TooltipWrapNumber } from "./TooltipWrap";
 
 export interface NetworkAdapterSelectProps {
   chainId: CctpNetworkAdapterId;
@@ -27,6 +26,7 @@ export interface NetworkAdapterSelectProps {
   setAddress?: (address: string) => void;
   label: string;
   exceptAdapterIds?: CctpNetworkAdapterId[];
+  children?: React.ReactNode;
 }
 
 export function useNetworkAdapterBalance(
@@ -37,14 +37,14 @@ export function useNetworkAdapterBalance(
   const nativeBalance = useNativeBalance(chainId, address);
   const networkAdapter = findNetworkAdapter(chainId);
   const nativeCurrency = networkAdapter?.nativeCurrency;
-  const transfers = useAccountTransactions(chainId, address);
+  // const transfers = useAccountTransactions(chainId, address);
 
   return {
     networkAdapter,
     usdcBalance,
     nativeBalance,
     nativeCurrency,
-    transfers,
+    // transfers,
   };
 }
 
@@ -55,14 +55,10 @@ export default function NetworkAdapterSelect({
   setAddress,
   label,
   exceptAdapterIds,
+  children,
 }: NetworkAdapterSelectProps) {
-  const {
-    networkAdapter,
-    usdcBalance,
-    nativeBalance,
-    nativeCurrency,
-    transfers,
-  } = useNetworkAdapterBalance(chain, address);
+  const { usdcBalance, nativeBalance, nativeCurrency } =
+    useNetworkAdapterBalance(chain, address);
 
   return (
     <div className="space-y-2">
@@ -83,13 +79,16 @@ export default function NetworkAdapterSelect({
       </Select>
       <div>
         <Label>Address</Label>
-        <Input
-          value={address}
-          onChange={(e) => setAddress?.(e.target.value)}
-          placeholder={`Enter address...`}
-          readOnly={!setAddress}
-          className={cn("text-sm", !setAddress && "bg-primary/5")}
-        />
+        <div className="flex items-center gap-2">
+          <Input
+            value={address}
+            onChange={(e) => setAddress?.(e.target.value)}
+            placeholder={`Enter address...`}
+            readOnly={!setAddress}
+            className={cn("text-sm", !setAddress && "bg-primary/5")}
+          />
+          {children}
+        </div>
       </div>
       {address && (
         <>
@@ -97,23 +96,27 @@ export default function NetworkAdapterSelect({
             {usdcBalance.isLoading ? (
               <Loader2 className="animate-spin inline-block size-3" />
             ) : (
-              formatNumber(usdcBalance.data?.formatted ?? 0)
+              <TooltipWrapNumber
+                amount={usdcBalance.data?.formatted ?? 0}
+                format={{ maximumFractionDigits: 2 }}
+              />
             )}{" "}
             USDC •{" "}
             {nativeBalance.isLoading ? (
               <Loader2 className="animate-spin inline-block size-3" />
             ) : (
-              formatNumber(nativeBalance.data?.formatted ?? 0, {
-                maximumFractionDigits: 4,
-              })
+              <TooltipWrapNumber
+                amount={nativeBalance.data?.formatted ?? 0}
+                format={{ maximumFractionDigits: 4 }}
+              />
             )}{" "}
             {nativeCurrency?.symbol}
           </p>
-          <TransactionHistory
+          {/* <TransactionHistory
             transactions={transfers.data}
             isLoading={transfers.isLoading}
             explorerUrl={networkAdapter?.explorer?.url ?? ""}
-          />
+          /> */}
         </>
       )}
     </div>

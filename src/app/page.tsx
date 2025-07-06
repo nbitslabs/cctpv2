@@ -10,22 +10,16 @@ import { TransferLog } from "@/components/transfer-log";
 import { Timer } from "@/components/timer";
 import { TransferTypeSelector } from "@/components/transfer-type";
 import { useCrossChainTransfer } from "@/hooks/useCrossChainTransfer";
-import { cn, formatNumber, shortenAddress } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import {
   useAppKit,
   useAppKitAccount,
   useAppKitNetwork,
-  useWalletInfo,
 } from "@reown/appkit/react";
 import { toast } from "sonner";
-import {
-  CctpNetworkAdapterId,
-  CctpV2TransferType,
-  findNetworkAdapter,
-} from "@/lib/cctp/networks";
+import { CctpNetworkAdapterId, CctpV2TransferType } from "@/lib/cctp/networks";
 import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
-import { useMyUsdcBalance } from "@/hooks/useBalance";
-import { AlertTriangle, Loader2 } from "lucide-react";
+import { AlertTriangle, Loader2, Wallet } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import ExternalLink from "@/components/ui2/ExternalLink";
@@ -35,17 +29,17 @@ import { solana } from "@reown/appkit/networks";
 import NetworkAdapterSelect, {
   useNetworkAdapterBalance,
 } from "@/components/ChainSelect";
-import Image from "next/image";
 import { TransactionSigner } from "gill";
 import SolanaTransferButton from "@/components/SolanaTransferButton";
+import { useChainId } from "wagmi";
+import ConnectedWallet from "@/components/ConnectedWallet";
+import { useAddressOfAdapter } from "@/hooks/useAddressOfAdapter";
+import { TooltipWrap, TooltipWrapNumber } from "@/components/TooltipWrap";
 
 export default function Home() {
   const { open } = useAppKit();
   const { isConnected, address } = useAppKitAccount();
-  const eip155AccountState = useAppKitAccount({ namespace: "eip155" });
-  const solanaAccountState = useAppKitAccount({ namespace: "solana" });
-  const { walletInfo: eip155WalletInfo } = useWalletInfo("eip155");
-  const { walletInfo: solanaWalletInfo } = useWalletInfo("solana");
+  const eip155ChainId = useChainId();
   const { currentStep, logs, error, executeTransfer, reset } =
     useCrossChainTransfer();
   const { activeNetwork, setActiveNetwork } = useActiveNetwork();
@@ -61,7 +55,6 @@ export default function Home() {
     CctpV2TransferType.Fast
   );
   const [burnTxHash, setBurnTxHash] = useState("");
-  const myUsdcBalance = useMyUsdcBalance();
   const [understand, setUnderstand] = useState(false);
 
   const [sourceChain, setSourceChain] = useState<CctpNetworkAdapterId>(
@@ -71,9 +64,10 @@ export default function Home() {
     usdcBalance: sourceUsdcBalance,
     nativeBalance: sourceNativeBalance,
     nativeCurrency: sourceNativeCurrency,
-    transfers: originTranfers,
+    // transfers: originTranfers,
     networkAdapter: sourceAdapter,
   } = useNetworkAdapterBalance(sourceChain, address);
+  const sourceAddress = useAddressOfAdapter(sourceAdapter!);
 
   const [destAddress, setDestAddress] = useState("");
   const [destChain, setDestChain] = useState<CctpNetworkAdapterId | undefined>(
@@ -83,7 +77,7 @@ export default function Home() {
     nativeBalance: destNativeBalance,
     usdcBalance: destUsdcBalance,
     nativeCurrency: destNativeCurrency,
-    transfers: destTransfers,
+    // transfers: destTransfers,
     networkAdapter: destAdapter,
   } = useNetworkAdapterBalance(destChain, destAddress);
 
@@ -93,8 +87,6 @@ export default function Home() {
     destChain &&
     !destNativeBalance.isLoading &&
     !destNativeBalance.data?.formatted;
-
-  const solanaAdapter = findNetworkAdapter(solana.id)!;
 
   const handleStartTransfer = async (solanaSigner?: TransactionSigner) => {
     if (!isConnected) return open();
@@ -115,7 +107,7 @@ export default function Home() {
       });
     } else {
       if (!amount) return toast.error("Please enter an amount");
-      if (Number(amount) > Number(myUsdcBalance.data?.formatted))
+      if (Number(amount) > Number(sourceUsdcBalance.data?.formatted))
         return toast.error("Insufficient balance");
 
       setIsTransferring(true);
@@ -157,24 +149,14 @@ export default function Home() {
   }, [sourceChain, showFinalTime]);
 
   useEffect(() => {
-    console.log("sourceChain", sourceChain, activeNetwork);
-
     if (sourceChain && activeNetwork.id !== sourceChain)
       setActiveNetwork(sourceChain);
   }, [sourceChain]);
 
   useEffect(() => {
-    if (currentStep === "waiting-attestation") originTranfers.refetch();
-    if (currentStep === "completed") destTransfers.refetch();
+    // if (currentStep === "waiting-attestation") originTranfers.refetch();
+    // if (currentStep === "completed") destTransfers.refetch();
   }, [currentStep]);
-
-  useEffect(() => {
-    if (!sourceAdapter || !destAdapter) return;
-
-    if ([destAdapter, sourceAdapter].every(({ type }) => type === "evm")) {
-      if (!destAddress && address) setDestAddress(address);
-    } else setDestAddress("");
-  }, [sourceAdapter, destAdapter]);
 
   return (
     <div className="min-h-screen bg-primary/10 p-8">
@@ -186,60 +168,8 @@ export default function Home() {
           {isConnected ? (
             <>
               <appkit-account-button />
-              {eip155AccountState.isConnected && (
-                <p className="flex justify-center gap-1">
-                  You are connected to{" "}
-                  <ExternalLink
-                    href={`${activeNetwork.explorer?.url}/address/${eip155AccountState.address}`}
-                    className="text-primary"
-                  >
-                    {eip155AccountState.address &&
-                      shortenAddress(eip155AccountState.address)}
-                  </ExternalLink>
-                  on{" "}
-                  <strong className="text-primary">{activeNetwork.name}</strong>
-                  via{" "}
-                  {eip155WalletInfo && (
-                    <span className="inline-flex items-center gap-1">
-                      <Image
-                        src={eip155WalletInfo.icon ?? ""}
-                        alt={eip155WalletInfo.name ?? ""}
-                        className="size-4 rounded-full"
-                        width={16}
-                        height={16}
-                      />
-                      {eip155WalletInfo.name}
-                    </span>
-                  )}
-                </p>
-              )}
-              {solanaAccountState.isConnected && (
-                <p className="flex justify-center gap-1">
-                  You are connected to{" "}
-                  <ExternalLink
-                    href={`${solanaAdapter.explorer?.url}/address/${solanaAccountState.address}`}
-                    className="text-primary"
-                  >
-                    {solanaAccountState.address &&
-                      shortenAddress(solanaAccountState.address)}
-                  </ExternalLink>
-                  on{" "}
-                  <strong className="text-primary">{solanaAdapter.name}</strong>
-                  via{" "}
-                  {solanaWalletInfo && (
-                    <span className="inline-flex items-center gap-1">
-                      <Image
-                        src={solanaWalletInfo.icon ?? ""}
-                        alt={solanaWalletInfo.name ?? ""}
-                        className="size-4 rounded-full"
-                        width={16}
-                        height={16}
-                      />
-                      {solanaWalletInfo.name}
-                    </span>
-                  )}
-                </p>
-              )}
+              <ConnectedWallet namespace="eip155" adapterId={eip155ChainId} />
+              <ConnectedWallet namespace="solana" adapterId={solana.id} />
             </>
           ) : (
             <appkit-connect-button />
@@ -286,7 +216,7 @@ export default function Home() {
               label="Source Chain"
               chainId={sourceChain}
               setChainId={setSourceChain}
-              address={address ?? ""}
+              address={sourceAddress ?? ""}
             />
 
             <NetworkAdapterSelect
@@ -296,7 +226,18 @@ export default function Home() {
               address={destAddress}
               setAddress={setDestAddress}
               exceptAdapterIds={[sourceChain]}
-            />
+            >
+              <TooltipWrap content="Use source address" asChild>
+                <Button
+                  variant={"outline"}
+                  size={"icon"}
+                  className="shrink-0"
+                  onClick={() => setDestAddress(sourceAddress ?? "")}
+                >
+                  <Wallet />
+                </Button>
+              </TooltipWrap>
+            </NetworkAdapterSelect>
           </div>
 
           <div
@@ -344,16 +285,23 @@ export default function Home() {
                 />
                 {address && (
                   <p className="text-sm text-muted-foreground">
-                    {myUsdcBalance.isLoading ? (
+                    {sourceUsdcBalance.isLoading ? (
                       <Loader2 className="animate-spin inline-block size-3" />
                     ) : (
-                      formatNumber(myUsdcBalance.data?.formatted ?? 0)
+                      <>
+                        <TooltipWrapNumber
+                          amount={sourceUsdcBalance.data?.formatted ?? 0}
+                        />{" "}
+                        USDC
+                      </>
                     )}{" "}
                     available
                     <Button
                       variant={"ghost"}
                       size={"sm"}
-                      onClick={() => setAmount(myUsdcBalance.data?.raw ?? "0")}
+                      onClick={() =>
+                        setAmount(sourceUsdcBalance.data?.raw ?? "0")
+                      }
                       className="ml-1"
                     >
                       Max

@@ -14,7 +14,6 @@ import {
   findNetworkAdapter,
 } from "@/lib/cctp/networks";
 import { useAppKitAccount } from "@reown/appkit/react";
-import ExternalLink from "@/components/ui2/ExternalLink";
 import { TransactionSigner } from "gill";
 
 export type TransferStep =
@@ -102,15 +101,7 @@ export function useCrossChainTransfer() {
         attestation.attestation
       );
       addLog(
-        <>
-          Mint Tx: {mintTx}.{" "}
-          <ExternalLink
-            href={`${destinationNetwork.explorer?.url}/tx/${mintTx}`}
-            className="text-primary"
-          >
-            View on {destinationNetwork.explorer?.name}
-          </ExternalLink>
-        </>
+        `Mint Tx: ${mintTx} (${destinationNetwork.explorer?.url}/tx/${mintTx})`
       );
 
       setCurrentStep("completed");

@@ -4,15 +4,21 @@ import {
   getProgramDerivedAddress,
   getUtf8Encoder,
   isAddress,
-  address,
+  address as solAddress,
   getBase58Decoder,
 } from "@solana/kit";
 import { toBytes, Address as EvmAddress } from "viem";
+import {
+  findAssociatedTokenPda,
+  TOKEN_PROGRAM_ADDRESS,
+} from "@solana-program/token";
 
 export const evmHexToSolHex = (evmHex: EvmAddress) =>
-  address(getBase58Decoder().decode(toBytes(evmHex)));
+  solAddress(getBase58Decoder().decode(toBytes(evmHex)));
 export const evmAddressToSolana = (evmAddress: EvmAddress) =>
-  address(getBase58Decoder().decode(toBytes(evmAddressToBytes32(evmAddress))));
+  solAddress(
+    getBase58Decoder().decode(toBytes(evmAddressToBytes32(evmAddress)))
+  );
 
 const evmAddressToBytes32 = (address: string): string =>
   `0x000000000000000000000000${address.replace("0x", "")}`;
@@ -46,3 +52,11 @@ export const findProgramAddressKit = async (
   const [pda] = await getProgramDerivedAddress({ programAddress, seeds });
   return pda;
 };
+export async function getATA2(mint: string, owner: string) {
+  const [tokenAccount] = await findAssociatedTokenPda({
+    mint: solAddress(mint),
+    owner: solAddress(owner),
+    tokenProgram: TOKEN_PROGRAM_ADDRESS,
+  });
+  return tokenAccount;
+}

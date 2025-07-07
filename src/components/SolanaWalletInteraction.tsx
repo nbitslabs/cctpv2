@@ -17,7 +17,7 @@ import {
 } from "@/lib/solana/tools/codama/generated/token_messenger_minter_v2";
 import { Address } from "viem";
 import { findNetworkAdapter } from "@/lib/cctp/networks";
-import { getATA2 } from "@/lib/solana/my-utils";
+import { getATA2 } from "@/lib/solana/utils";
 import { getDepositForBurnPdasV2 } from "@/lib/solana/v2/utilsV2";
 import { createSolanaClient } from "gill";
 import { pipe } from "codama";

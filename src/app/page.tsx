@@ -202,14 +202,14 @@ export default function Home() {
         await destAdapter.simulateMessageTransmitterReceiveMessage(
           attestation.message,
           attestation.attestation,
-          { version: "v2", solanaSigner, attestation }
+          { version: "v2", solanaSigner }
         );
       if (!simulationResult) throw new Error("Simulation failed");
       addLog("Waiting for mint...");
       const mintTx = await destAdapter.writeMessageTransmitterReceiveMessage(
         attestation.message,
         attestation.attestation,
-        { version: "v2", solanaSigner, attestation }
+        { version: "v2", solanaSigner }
       );
 
       addLog(

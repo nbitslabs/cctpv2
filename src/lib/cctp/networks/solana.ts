@@ -6,7 +6,7 @@ import {
 } from "./type";
 import { usdcAddresses } from "@/lib/wagmi/config";
 import { createSolanaClient, lamportsToSol } from "gill";
-import { getATA2 } from "@/lib/solana/my-utils";
+import { getATA2 } from "@/lib/solana/utils";
 import { getTokenMessagerAddress } from "./util";
 import { defaultCctpOpts, USDC_DECIMALS } from "./constants";
 import {

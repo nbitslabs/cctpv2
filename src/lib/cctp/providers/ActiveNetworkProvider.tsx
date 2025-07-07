@@ -9,6 +9,7 @@ import {
 } from "../networks";
 import { useAppKitNetwork } from "@reown/appkit/react";
 import { networks } from "@/lib/wagmi/config";
+import { delay } from "@/lib/utils";
 
 export type ActiveNetworkContextType = {
   activeNetwork: CctpNetworkAdapter;
@@ -44,6 +45,8 @@ export function ActiveNetworkProvider({ children }: React.PropsWithChildren) {
 
     if (!appkitNetwork) throw new Error(`Network ${networkId} not found`);
     switchNetwork(appkitNetwork);
+    // Workaround for async network switch
+    await delay(500);
     const selected = findNetworkAdapter(networkId);
     setActiveNetworkState(selected);
     return selected!;

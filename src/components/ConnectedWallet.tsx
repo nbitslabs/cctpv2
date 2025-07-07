@@ -16,6 +16,8 @@ import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Badge } from "./ui/badge";
 import ExternalLink from "./ui2/ExternalLink";
 import { useConfirm } from "./ui2/PromiseAlertDialog";
+import { formatNumber } from "@/lib/utils";
+import { useNativeBalance } from "@/hooks/useBalance";
 
 export default function ConnectedWallet({
   namespace,
@@ -31,13 +33,17 @@ export default function ConnectedWallet({
   const adapter = findNetworkAdapter(adapterId);
   const { disconnect } = useDisconnect();
   const confirm = useConfirm();
-  if (!accountState.isConnected) return null;
+  const { data: balance, error } = useNativeBalance(
+    adapterId,
+    accountState.address
+  );
 
+  if (!accountState.isConnected) return null;
   const isActiveAccount = activeAccount.address === accountState.address;
 
   return (
     <>
-      <Card className="w-full max-w-2xl">
+      <Card className="w-full max-w-2xl bg-foreground/5">
         <CardHeader className="p-4">
           <CardTitle className="flex items-center gap-2">
             <Badge
@@ -59,20 +65,28 @@ export default function ConnectedWallet({
         </CardHeader>
         <CardContent className="space-y-3 px-4 pb-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              {walletInfo && (
-                <div className="flex items-center gap-2">
-                  <Image
-                    src={walletInfo.icon || "/placeholder.svg"}
-                    alt={walletInfo.name}
-                    className="size-7 rounded-sm"
-                    width={24}
-                    height={24}
-                  />
-                  <span className="font-medium">{walletInfo.name}</span>
+            {walletInfo && (
+              <div className="flex items-center gap-3">
+                <Image
+                  src={walletInfo.icon || "/placeholder.svg"}
+                  alt={walletInfo.name}
+                  className="size-7 rounded-sm"
+                  width={24}
+                  height={24}
+                />
+                <div className="flex flex-col">
+                  <p className="font-semibold">{walletInfo.name}</p>
+                  {balance && (
+                    <p className="text-sm font-mono text-muted-foreground">
+                      {formatNumber(balance.formatted, {
+                        maximumFractionDigits: 6,
+                      })}{" "}
+                      {adapter?.nativeCurrency.symbol}
+                    </p>
+                  )}
                 </div>
-              )}
-            </div>
+              </div>
+            )}
             <div className="flex items-center gap-2 ml-auto">
               <Button
                 variant="secondary"

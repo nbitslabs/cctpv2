@@ -27,8 +27,8 @@ export function useMyUsdcBalance() {
 }
 
 export function useNativeBalance(
-  networkAdapterId?: CctpNetworkAdapterId,
-  address?: string
+  networkAdapterId: CctpNetworkAdapterId | undefined,
+  address: string | undefined
 ) {
   return useQuery({
     queryKey: ["balance", "native", networkAdapterId, address],

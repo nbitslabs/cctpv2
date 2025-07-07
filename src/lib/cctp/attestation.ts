@@ -7,14 +7,16 @@ const apiUrl =
     ? "https://iris-api-sandbox.circle.com/v2"
     : "https://iris-api.circle.com/v2";
 
+export const getAttestationUrl = (
+  sourceDomain: CctpNetworkAdapter["domain"],
+  burnTx: string
+) => `${apiUrl}/messages/${sourceDomain}?transactionHash=${burnTx}`;
+
 export async function getAttestation(
   sourceDomain: CctpNetworkAdapter["domain"],
   burnTx: string
 ): Promise<AttestationMessage> {
-  const url = `${apiUrl}/messages/${sourceDomain}`;
-  const response = await axios.get(url, {
-    params: { transactionHash: burnTx },
-  });
+  const response = await axios.get(getAttestationUrl(sourceDomain, burnTx));
   return response.data?.messages?.[0];
 }
 

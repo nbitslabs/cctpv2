@@ -9,8 +9,11 @@ import { ProgressSteps } from "@/components/progress-step";
 import { TransferLog } from "@/components/transfer-log";
 import { Timer } from "@/components/timer";
 import { TransferTypeSelector } from "@/components/transfer-type";
-import { useCrossChainTransfer } from "@/hooks/useCrossChainTransfer";
-import { cn } from "@/lib/utils";
+import {
+  RequiredExecuteTransferParams,
+  useCrossChainTransfer,
+} from "@/hooks/useCrossChainTransfer";
+import { cn, shortenAddress } from "@/lib/utils";
 import {
   useAppKit,
   useAppKitAccount,
@@ -19,9 +22,15 @@ import {
 import { toast } from "sonner";
 import { CctpNetworkAdapterId, CctpV2TransferType } from "@/lib/cctp/networks";
 import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
-import { AlertTriangle, Loader2, Wallet } from "lucide-react";
+import {
+  AlertTriangle,
+  CheckCircle,
+  Loader2,
+  Moon,
+  Sun,
+  Wallet,
+} from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Link from "next/link";
 import ExternalLink from "@/components/ui2/ExternalLink";
 import { NumericFormat } from "react-number-format";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -30,22 +39,34 @@ import NetworkAdapterSelect, {
   useNetworkAdapterBalance,
 } from "@/components/ChainSelect";
 import { TransactionSigner } from "gill";
-import SolanaTransferButton from "@/components/SolanaTransferButton";
+import SetSolanaSigner from "@/components/SolanaTransferButton";
 import { useChainId } from "wagmi";
 import ConnectedWallet from "@/components/ConnectedWallet";
 import { useAddressOfAdapterId } from "@/hooks/useAddressOfAdapter";
 import { TooltipWrap, TooltipWrapNumber } from "@/components/TooltipWrap";
 import { useSolanaAccount } from "@/hooks/useSolanaSigner";
+import { formatDestinationAddress } from "@/lib/cctp/networks/util";
+import { useTheme } from "next-themes";
+import CopyIconTooltip from "@/components/ui2/CopyIconTooltip";
 
 export default function Home() {
   const { open } = useAppKit();
-  const { isConnected, address } = useAppKitAccount();
+  const { isConnected } = useAppKitAccount();
   const solanaAccount = useSolanaAccount();
   const eip155ChainId = useChainId();
-  const { currentStep, logs, error, executeTransfer, reset } =
-    useCrossChainTransfer();
+  const {
+    currentStep,
+    logs,
+    error,
+    executeTransfer,
+    reset,
+    attestation,
+    setCurrentStep,
+    addLog,
+  } = useCrossChainTransfer();
   const { activeNetwork, setActiveNetwork } = useActiveNetwork();
   const { chainId } = useAppKitNetwork();
+  const { theme, setTheme } = useTheme();
 
   const [method, setMethod] = useState<"mintOnly" | "transfer">("transfer");
   const isMintOnly = method === "mintOnly";
@@ -58,6 +79,8 @@ export default function Home() {
   );
   const [burnTxHash, setBurnTxHash] = useState("");
   const [understand, setUnderstand] = useState(false);
+  const [startMinting, setStartMinting] = useState(false);
+  const [solanaSigner, setSolanaSigner] = useState<TransactionSigner>();
 
   const [sourceChain, setSourceChain] = useState<CctpNetworkAdapterId>(
     chainId ?? activeNetwork.id
@@ -72,9 +95,7 @@ export default function Home() {
   } = useNetworkAdapterBalance(sourceChain, sourceAddress);
 
   const [destAddress, setDestAddress] = useState("");
-  const [destChain, setDestChain] = useState<CctpNetworkAdapterId | undefined>(
-    solana.id
-  );
+  const [destChain, setDestChain] = useState<CctpNetworkAdapterId>();
   const {
     nativeBalance: destNativeBalance,
     usdcBalance: destUsdcBalance,
@@ -90,40 +111,40 @@ export default function Home() {
     !destNativeBalance.isLoading &&
     !destNativeBalance.data?.formatted;
 
-  const handleStartTransfer = async (solanaSigner?: TransactionSigner) => {
+  const handleStartTransfer = async () => {
     if (!isConnected) return open();
-    if (!destChain) return toast.error("Please select a destination chain");
+    if (!sourceAdapter) return toast.error("Please select a source chain");
+    console.log({ destChain, destAdapter, destAddress });
+
+    if (!destAdapter) return toast.error("Please select a destination chain");
+
+    const requiredParams: RequiredExecuteTransferParams = {
+      sourceChainId: sourceChain,
+      destinationChainId: destAdapter.id,
+      mintRecipient: formatDestinationAddress(destAddress, {
+        source: sourceAdapter.type,
+        destination: destAdapter.type,
+      }),
+      solanaSigner,
+    };
 
     if (isMintOnly) {
       if (!burnTxHash) return toast.error("Please enter a burn tx hash");
-
-      setIsTransferring(true);
-      setShowFinalTime(false);
-      setElapsedSeconds(0);
-      await executeTransfer({
-        sourceChainId: sourceChain,
-        destinationChainId: destChain,
-        burnTxHash: burnTxHash,
-        mintRecipient: destAddress,
-        solanaSigner,
-      });
     } else {
       if (!amount) return toast.error("Please enter an amount");
       if (Number(amount) > Number(sourceUsdcBalance.data?.formatted))
         return toast.error("Insufficient balance");
-
-      setIsTransferring(true);
-      setShowFinalTime(false);
-      setElapsedSeconds(0);
-      await executeTransfer({
-        sourceChainId: sourceChain,
-        destinationChainId: destChain,
-        amount,
-        transferType,
-        mintRecipient: destAddress,
-        solanaSigner,
-      });
     }
+
+    setIsTransferring(true);
+    setShowFinalTime(false);
+    setElapsedSeconds(0);
+
+    await executeTransfer({
+      ...requiredParams,
+      ...(isMintOnly ? { burnTxHash } : { amount, transferType }),
+    });
+
     [
       sourceUsdcBalance,
       destUsdcBalance,
@@ -158,15 +179,76 @@ export default function Home() {
   useEffect(() => {
     // if (currentStep === "waiting-attestation") originTranfers.refetch();
     // if (currentStep === "completed") destTransfers.refetch();
+    if (currentStep === "minting") setStartMinting(true);
   }, [currentStep]);
+
+  useEffect(() => {
+    if (!startMinting) return;
+    if (!destAdapter) {
+      toast.error("Please select a destination chain");
+      return;
+    }
+    if (!attestation) {
+      toast.error("Please wait for the attestation");
+      return;
+    }
+    if (destAdapter.type === "solana" && !solanaSigner) {
+      toast.error("Please connect your Solana wallet before continue");
+      return;
+    }
+
+    (async () => {
+      const simulationResult =
+        await destAdapter.simulateMessageTransmitterReceiveMessage(
+          attestation.message,
+          attestation.attestation,
+          { version: "v2", solanaSigner, attestation }
+        );
+      if (!simulationResult) throw new Error("Simulation failed");
+      addLog("Waiting for mint...");
+      const mintTx = await destAdapter.writeMessageTransmitterReceiveMessage(
+        attestation.message,
+        attestation.attestation,
+        { version: "v2", solanaSigner, attestation }
+      );
+
+      addLog(
+        <>
+          <CheckCircle className="size-4 text-green-600" />
+          Mint Tx:{" "}
+          <ExternalLink
+            href={`${destAdapter.explorer?.url}/tx/${mintTx}`}
+            className="text-sm"
+          >
+            {shortenAddress(mintTx, 6)}
+          </ExternalLink>
+          <CopyIconTooltip text={mintTx} />
+        </>
+      );
+
+      setCurrentStep("completed");
+    })();
+  }, [startMinting]);
 
   return (
     <div className="min-h-screen bg-primary/10 p-8">
       <Card className="max-w-5xl mx-auto">
-        <CardHeader className="items-center">
+        <CardHeader className="items-center relative">
           <CardTitle className="text-center">
             Cross-Chain USDC Transfer
           </CardTitle>
+
+          <div className="absolute top-4 right-4">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => {
+                setTheme(theme === "dark" ? "light" : "dark");
+              }}
+            >
+              {theme === "dark" ? <Moon /> : <Sun />}
+            </Button>
+          </div>
           {isConnected ? (
             <>
               <appkit-account-button />
@@ -225,7 +307,7 @@ export default function Home() {
 
             <NetworkAdapterSelect
               label="Destination Chain"
-              chainId={destChain ?? solana.id}
+              chainId={destChain}
               setChainId={setDestChain}
               address={destAddress}
               setAddress={setDestAddress}
@@ -263,13 +345,12 @@ export default function Home() {
                 {burnTxHash && (
                   <p className="text-sm text-muted-foreground">
                     Check your burn transaction on{" "}
-                    <Link
-                      href={`${activeNetwork.explorer?.url}/tx/${burnTxHash}`}
-                      target="_blank"
-                      className="text-primary font-bold"
+                    <ExternalLink
+                      href={`${sourceAdapter?.explorer?.url}/tx/${burnTxHash}`}
+                      className="font-bold"
                     >
-                      {activeNetwork.explorer?.name}
-                    </Link>
+                      {sourceAdapter?.explorer?.name}
+                    </ExternalLink>
                     . This will mint the USDC on the destination chain.
                   </p>
                 )}
@@ -365,20 +446,9 @@ export default function Home() {
           <div className="flex justify-center gap-4">
             {!isConnected ? (
               <Button onClick={() => open()}>Connect Wallet</Button>
-            ) : sourceAdapter?.type === "solana" && solanaAccount ? (
-              <SolanaTransferButton
-                onClick={handleStartTransfer}
-                disabled={
-                  isTransferring || currentStep === "completed" || !understand
-                }
-              >
-                {currentStep === "completed"
-                  ? "Transfer Complete"
-                  : "Start Transfer"}
-              </SolanaTransferButton>
             ) : (
               <Button
-                onClick={() => handleStartTransfer()}
+                onClick={handleStartTransfer}
                 disabled={
                   isTransferring || currentStep === "completed" || !understand
                 }
@@ -432,6 +502,8 @@ export default function Home() {
           </ExternalLink>
         </p>
       </footer>
+
+      {solanaAccount && <SetSolanaSigner setSolanaSigner={setSolanaSigner} />}
     </div>
   );
 }

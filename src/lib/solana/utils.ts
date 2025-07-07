@@ -9,6 +9,8 @@ import {
 } from "@solana/kit";
 import { toBytes, Address as EvmAddress } from "viem";
 
+export const evmHexToSolHex = (evmHex: EvmAddress) =>
+  address(getBase58Decoder().decode(toBytes(evmHex)));
 export const evmAddressToSolana = (evmAddress: EvmAddress) =>
   address(getBase58Decoder().decode(toBytes(evmAddressToBytes32(evmAddress))));
 

@@ -20,7 +20,7 @@ import { useNativeBalance, useUsdcBalance } from "@/hooks/useBalance";
 import { TooltipWrapNumber } from "./TooltipWrap";
 
 export interface NetworkAdapterSelectProps {
-  chainId: CctpNetworkAdapterId;
+  chainId: CctpNetworkAdapterId | undefined;
   setChainId: (chain: CctpNetworkAdapterId) => void;
   address: string;
   setAddress?: (address: string) => void;
@@ -63,9 +63,9 @@ export default function NetworkAdapterSelect({
   return (
     <div className="space-y-2">
       <Label>{label}</Label>
-      <Select value={String(chain)} onValueChange={setChainId}>
+      <Select value={chain?.toString()} onValueChange={setChainId}>
         <SelectTrigger>
-          <SelectValue placeholder="Select chain" />
+          <SelectValue placeholder="Select destination chain" />
         </SelectTrigger>
         <SelectContent>
           {networkAdapters

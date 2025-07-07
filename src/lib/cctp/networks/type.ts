@@ -1,6 +1,5 @@
 import type { Address, Signature, TransactionSigner } from "gill";
-
-type TxHash = string;
+import type { Address as EvmAddress } from "viem";
 
 export enum CctpV2TransferType {
   Standard = "standard",
@@ -54,7 +53,7 @@ export interface CctpNetworkAdapter {
     cctpOpts?: CctpFunctionOpts
   ) => Promise<boolean>;
   writeMessageTransmitterReceiveMessage: (
-    message: string,
+    message: EvmAddress,
     attestation: string,
     cctpOpts?: CctpFunctionOpts
   ) => Promise<string>;

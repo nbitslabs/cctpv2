@@ -12,6 +12,7 @@ import { defaultCctpOpts, USDC_DECIMALS } from "./constants";
 import {
   DepositForBurnArgs,
   getDepositForBurnInstructionAsync,
+  TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS,
 } from "@/lib/solana/tools/codama/generated/token_messenger_minter_v2";
 import {
   Address,
@@ -24,13 +25,18 @@ import {
   appendTransactionMessageInstruction,
   signTransactionMessageWithSigners,
 } from "@solana/kit";
-import { Address as EvmAddress, parseUnits, toBytes } from "viem";
+import { Address as EvmAddress, hexToBytes, parseUnits, toBytes } from "viem";
 import { evmAddressToSolana } from "@/lib/solana/utils";
 import {
   getDepositForBurnPdasV2,
-  getDepositForBurnPdasV2MessageTransmitterAccount,
+  getDepositForBurnPdasV2MessageTransmitter,
+  getReceiveMessagePdasV2,
 } from "@/lib/solana/v2/utilsV2";
-import { getReclaimEventAccountInstruction } from "@/lib/solana/tools/codama/generated/message_transmitter_v2";
+import {
+  getReceiveMessageInstructionAsync,
+  getReclaimEventAccountInstruction,
+  MESSAGE_TRANSMITTER_V2_PROGRAM_ADDRESS,
+} from "@/lib/solana/tools/codama/generated/message_transmitter_v2";
 
 const { rpc, sendAndConfirmTransaction } = createSolanaClient({
   urlOrMoniker: `https://wispy-icy-liquid.solana-mainnet.quiknode.pro/1b10c09ce4cbf223215490fc24ad0fb398e470a4/`,
@@ -172,12 +178,43 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
     },
 
     async writeMessageTransmitterReceiveMessage(
-      _message: string,
-      _attestation: string,
-      _cctpOpts?: CctpFunctionOpts
+      message,
+      attestation,
+      cctpOpts = defaultCctpOpts
     ) {
-      // TODO: Implement CCTP receive message on Solana
-      throw new Error("Not implemented: CCTP receive message on Solana");
+      const { solanaSigner } = cctpOpts || {};
+      if (!solanaSigner) throw new Error("Solana signer is required");
+
+      const { usedNonce, messageTransmitter } = await getReceiveMessagePdasV2(
+        decodeEventNonceFromMessageV2(message) as unknown as number[]
+      );
+
+      const instruction = await getReceiveMessageInstructionAsync({
+        caller: solanaSigner,
+        payer: solanaSigner,
+        messageTransmitter,
+        usedNonce,
+        receiver: TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS,
+        program: MESSAGE_TRANSMITTER_V2_PROGRAM_ADDRESS,
+        params: {
+          attestation: toBytes(attestation),
+          message: toBytes(message),
+        },
+      });
+
+      const { value: blockhash } = await rpc.getLatestBlockhash().send();
+      const txMessage = pipe(
+        createTransactionMessage({ version: 0 }),
+        (m) => setTransactionMessageLifetimeUsingBlockhash(blockhash, m),
+        (m) => setTransactionMessageFeePayer(solanaSigner.address, m),
+        (m) => appendTransactionMessageInstruction(instruction, m)
+      );
+      const signedTx = await signTransactionMessageWithSigners(txMessage);
+      const sig = await sendAndConfirmTransaction({
+        ...signedTx,
+        lifetimeConstraint: blockhash,
+      });
+      return sig.toString();
     },
 
     hooks: {
@@ -189,7 +226,7 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
         if (!solanaSigner) throw new Error("Solana signer is required");
 
         const messageTransmitterAccount =
-          await getDepositForBurnPdasV2MessageTransmitterAccount();
+          await getDepositForBurnPdasV2MessageTransmitter();
         const reclaimInstruction = getReclaimEventAccountInstruction({
           messageSentEventData: sentEventAccount,
           messageTransmitter: messageTransmitterAccount,
@@ -200,21 +237,17 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
           },
         });
 
-        const blockhashResponse = await rpc.getLatestBlockhash().send();
+        const { value: blockhash } = await rpc.getLatestBlockhash().send();
         const txMessage = pipe(
           createTransactionMessage({ version: 0 }),
-          (m) =>
-            setTransactionMessageLifetimeUsingBlockhash(
-              blockhashResponse.value,
-              m
-            ),
+          (m) => setTransactionMessageLifetimeUsingBlockhash(blockhash, m),
           (m) => setTransactionMessageFeePayer(solanaSigner.address, m),
           (m) => appendTransactionMessageInstruction(reclaimInstruction, m)
         );
         const signedTx = await signTransactionMessageWithSigners(txMessage);
         const sig = await sendAndConfirmTransaction({
           ...signedTx,
-          lifetimeConstraint: blockhashResponse.value,
+          lifetimeConstraint: blockhash,
         });
 
         return sig;
@@ -222,3 +255,14 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
     },
   },
 ];
+
+const decodeEventNonceFromMessageV2 = (messageHex: EvmAddress) => {
+  const nonceIndex = 12;
+  const nonceBytesLength = 32;
+  const message = hexToBytes(messageHex);
+  const eventNonceBytes = message.subarray(
+    nonceIndex,
+    nonceIndex + nonceBytesLength
+  );
+  return eventNonceBytes;
+};

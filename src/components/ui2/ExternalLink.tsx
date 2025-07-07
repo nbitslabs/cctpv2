@@ -15,7 +15,10 @@ export default function ExternalLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={cn("hover:text-primary", className)}
+      className={cn(
+        "text-primary underline-offset-4 hover:underline",
+        className
+      )}
     >
       {children}
     </Link>

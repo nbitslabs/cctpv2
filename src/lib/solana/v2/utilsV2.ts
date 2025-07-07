@@ -5,11 +5,29 @@ import {
 } from "../tools/codama/generated/message_transmitter_v2";
 import { TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS } from "../tools/codama/generated/token_messenger_minter_v2";
 
-export const getDepositForBurnPdasV2MessageTransmitterAccount = () =>
+export const getDepositForBurnPdasV2MessageTransmitter = () =>
   findProgramAddressKit(
     "message_transmitter",
     MESSAGE_TRANSMITTER_V2_PROGRAM_ADDRESS
   );
+
+export const getReceiveMessagePdasV2 = async (nonce: number[]) => {
+  const usedNoncePromise = findProgramAddressKit(
+    "used_nonce",
+    MESSAGE_TRANSMITTER_V2_PROGRAM_ADDRESS,
+    [nonce]
+  );
+
+  const [usedNonce, messageTransmitter] = await Promise.all([
+    usedNoncePromise,
+    getDepositForBurnPdasV2MessageTransmitter(),
+  ]);
+
+  return {
+    usedNonce,
+    messageTransmitter,
+  };
+};
 
 export const getDepositForBurnPdasV2 = async (
   usdcAddress: string,
@@ -17,7 +35,7 @@ export const getDepositForBurnPdasV2 = async (
 ) => {
   SEND_MESSAGE_DISCRIMINATOR;
   const messageTransmitterAccountPromise =
-    getDepositForBurnPdasV2MessageTransmitterAccount();
+    getDepositForBurnPdasV2MessageTransmitter();
   const tokenMessengerAccountPromise = findProgramAddressKit(
     "token_messenger",
     TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS

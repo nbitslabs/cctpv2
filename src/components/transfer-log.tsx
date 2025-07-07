@@ -1,5 +1,6 @@
 "use client";
 
+import { Logs } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 export function TransferLog({ logs }: { logs: React.ReactNode[] }) {
@@ -23,16 +24,19 @@ export function TransferLog({ logs }: { logs: React.ReactNode[] }) {
   return (
     <div
       ref={containerRef}
-      className="w-full max-w-2xl mx-auto mt-8 p-4 bg-gray-50 rounded-lg h-64 overflow-y-auto"
+      className="w-full mt-8 p-4 bg-background rounded-lg h-64 overflow-y-auto"
     >
-      <div className="text-sm font-mono">
-        {logs.map((log, index) => (
-          <div key={index} className="text-gray-700">
-            {log}
-          </div>
-        ))}
+      <ul className="text-sm font-mono text-muted-foreground">
+        {logs.length > 0 ? (
+          logs
+        ) : (
+          <li className="text-center py-8 flex flex-col items-center gap-1">
+            <Logs className="size-8" />
+            Your transaction logs will appear here.
+          </li>
+        )}
         <div ref={logsEndRef} />
-      </div>
+      </ul>
     </div>
   );
 }

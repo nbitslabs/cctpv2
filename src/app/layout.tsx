@@ -18,7 +18,7 @@ const funnelDisplay = Funnel_Display({
 
 export const metadata: Metadata = {
   title: "USDC Cross-Chain Transfer",
-  description: "USDC Cross-Chain Transfer",
+  description: "USDC Cross-Chain Transfer, support EVM and Solana in CCTP V2",
 };
 
 export default function RootLayout({ children }: React.PropsWithChildren) {

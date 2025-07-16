@@ -5,6 +5,7 @@ import {
   messageTransmitterV2Addresses,
   tokenMessagerV1Addresses,
   tokenMessagerV2Addresses,
+  usdcAddresses,
 } from "@/lib/wagmi/config";
 import {
   CctpFunctionOpts,
@@ -13,6 +14,8 @@ import {
 } from "./type";
 import { getBase58Encoder, address as solAddress } from "gill";
 import { bytesToHex } from "viem";
+import { getATA2 } from "@/lib/solana/utils";
+import { solana } from "@reown/appkit/networks";
 
 export function getTokenMessagerAddress(
   cctpOpts: CctpFunctionOpts,
@@ -38,7 +41,7 @@ export function getEvmAddressFromSolanaAddress(address: string) {
   );
 }
 
-export function formatDestinationAddress(
+export async function formatDestinationAddress(
   address: string,
   {
     source,
@@ -46,7 +49,8 @@ export function formatDestinationAddress(
   }: Record<"source" | "destination", CctpNetworkAdapter["type"]>
 ) {
   if (source === "evm" && destination === "solana") {
-    return getEvmAddressFromSolanaAddress(address);
+    const userTokenAddress = await getATA2(usdcAddresses[solana.id], address);
+    return getEvmAddressFromSolanaAddress(userTokenAddress);
   }
   return address;
 }

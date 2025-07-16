@@ -2,10 +2,7 @@ import { Address } from "viem";
 import { CctpNetworkAdapter } from "./networks";
 import axios from "axios";
 
-const apiUrl =
-  process.env.NEXT_PUBLIC_TESTNET === "true"
-    ? "https://iris-api-sandbox.circle.com/v2"
-    : "https://iris-api.circle.com/v2";
+const apiUrl = "https://iris-api.circle.com/v2";
 
 export const getAttestationUrl = (
   sourceDomain: CctpNetworkAdapter["domain"],

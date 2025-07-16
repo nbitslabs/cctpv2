@@ -48,6 +48,8 @@ import { useSolanaAccount } from "@/hooks/useSolanaSigner";
 import { formatDestinationAddress } from "@/lib/cctp/networks/util";
 import { useTheme } from "next-themes";
 import CopyIconTooltip from "@/components/ui2/CopyIconTooltip";
+import { getAccount } from "wagmi/actions";
+import { wagmiConfig } from "@/lib/wagmi/config";
 
 export default function Home() {
   const { open } = useAppKit();
@@ -114,14 +116,13 @@ export default function Home() {
   const handleStartTransfer = async () => {
     if (!isConnected) return open();
     if (!sourceAdapter) return toast.error("Please select a source chain");
-    console.log({ destChain, destAdapter, destAddress });
-
     if (!destAdapter) return toast.error("Please select a destination chain");
+    if (!destAddress) return toast.error("Please enter a destination address");
 
     const requiredParams: RequiredExecuteTransferParams = {
       sourceChainId: sourceChain,
       destinationChainId: destAdapter.id,
-      mintRecipient: formatDestinationAddress(destAddress, {
+      mintRecipient: await formatDestinationAddress(destAddress, {
         source: sourceAdapter.type,
         destination: destAdapter.type,
       }),
@@ -311,14 +312,20 @@ export default function Home() {
               setChainId={setDestChain}
               address={destAddress}
               setAddress={setDestAddress}
-              exceptAdapterIds={[sourceChain]}
+              exceptAdapterIds={[sourceChain, solana.id]}
             >
-              <TooltipWrap content="Use source address" asChild>
+              <TooltipWrap content="Use connected wallet" asChild>
                 <Button
                   variant={"outline"}
                   size={"icon"}
                   className="shrink-0"
-                  onClick={() => setDestAddress(sourceAddress ?? "")}
+                  onClick={() =>
+                    setDestAddress(
+                      (destAdapter?.type === "solana"
+                        ? solanaAccount?.address
+                        : getAccount(wagmiConfig).address) ?? ""
+                    )
+                  }
                 >
                   <Wallet />
                 </Button>

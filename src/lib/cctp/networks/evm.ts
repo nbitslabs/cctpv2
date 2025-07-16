@@ -45,9 +45,6 @@ const {
   "14": _worldchain,
 } = chainsByDomain;
 
-// [sonicBlazeTestnet.id]: "0xA4879Fed32Ecbef99399e5cbC247E533421C4eC6",
-// [lineaSepolia.id]: "0xFEce4462D57bD51A6A552365A011b95f0E16d9B7",
-
 // https://developers.circle.com/stablecoins/supported-domains
 const evmChains: Array<
   Pick<CctpNetworkAdapter, "domain"> & {

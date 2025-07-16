@@ -19,7 +19,6 @@ export const evmAddressToSolana = (evmAddress: EvmAddress) =>
   solAddress(
     getBase58Decoder().decode(toBytes(evmAddressToBytes32(evmAddress)))
   );
-
 const evmAddressToBytes32 = (address: string): string =>
   `0x000000000000000000000000${address.replace("0x", "")}`;
 

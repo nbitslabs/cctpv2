@@ -21,7 +21,7 @@ export namespace Alchemy {
     blockSpeed: string;
     websiteUrl: string;
     githubUrl: string;
-    supportedProducts: SupportedProduct[];
+    supportedProducts: (SupportedProduct | string)[];
     supportedWebhookTypes: number[];
     supportsMempool: boolean;
     networkLegacyProtoNumber: number;

@@ -50,6 +50,7 @@ import { useTheme } from "next-themes";
 import CopyIconTooltip from "@/components/ui2/CopyIconTooltip";
 import { getAccount } from "wagmi/actions";
 import { wagmiConfig } from "@/lib/wagmi/config";
+import TransactionHistory from "@/components/transaction-history";
 
 export default function Home() {
   const { open } = useAppKit();
@@ -232,8 +233,8 @@ export default function Home() {
   }, [startMinting]);
 
   return (
-    <div className="min-h-screen bg-primary/10 p-8">
-      <Card className="max-w-5xl mx-auto">
+    <div className="min-h-screen p-8">
+      <Card className="max-w-5xl mx-auto bg-foreground/3">
         <CardHeader className="items-center relative">
           <CardTitle className="text-center">
             Cross-Chain USDC Transfer
@@ -342,7 +343,12 @@ export default function Home() {
             {isMintOnly ? (
               <>
                 {" "}
-                <Label>Burn Transaction Hash</Label>
+                <Label>
+                  Burn Transaction Hash
+                  {sourceAdapter && (
+                    <TransactionHistory chainAdapter={sourceAdapter} />
+                  )}
+                </Label>
                 <Input
                   value={burnTxHash}
                   onChange={(e) => setBurnTxHash(e.target.value)}
@@ -405,7 +411,7 @@ export default function Home() {
           </div>
           {error && <div className="text-destructive text-center">{error}</div>}
 
-          <Alert className="bg-primary/5 max-w-xl mx-auto border-destructive">
+          <Alert className="bg-destructive/5 max-w-xl mx-auto border-destructive/50">
             <AlertTitle className="uppercase text-destructive">
               <AlertTriangle className="size-8" /> Be aware!
             </AlertTitle>
@@ -500,13 +506,21 @@ export default function Home() {
       </Card>
       <footer className="text-center text-sm text-muted-foreground mt-4">
         <p>
-          Built with ❤️ by{" "}
+          Funded by{" "}
+          <ExternalLink
+            href="https://github.com/raghavsood"
+            className="text-primary font-semibold"
+          >
+            raghavsood
+          </ExternalLink>
+          . Built with ❤️ by{" "}
           <ExternalLink
             href="https://github.com/thanhhoa214"
             className="text-primary font-semibold"
           >
             thanhhoa214 🇻🇳
           </ExternalLink>
+          .
         </p>
       </footer>
 

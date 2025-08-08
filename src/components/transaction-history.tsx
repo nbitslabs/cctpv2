@@ -1,10 +1,13 @@
 "use client";
 
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -14,7 +17,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import type { Alchemy } from "@/lib/alchemy/type";
 import { Pagination, PaginationContent, PaginationItem } from "./ui/pagination";
 import { useState } from "react";
 import { Button } from "./ui/button";
@@ -30,21 +32,22 @@ import { useAppKitAccount } from "@reown/appkit/react";
 import Image from "next/image";
 import ExternalLink from "./ui2/ExternalLink";
 import CopyIconTooltip from "./ui2/CopyIconTooltip";
+import { useAccountTransactions } from "@/hooks/useAccountTransactions";
+import { CctpNetworkAdapter } from "@/lib/cctp/networks";
 
 const ITEMS_PER_PAGE = 5;
 
 export default function TransactionHistory({
-  transactions,
-  isLoading,
-  explorerUrl,
+  chainAdapter,
 }: {
-  transactions: Alchemy.Transfer[] | undefined;
-  isLoading?: boolean;
-  explorerUrl: string;
+  chainAdapter: CctpNetworkAdapter;
 }) {
   const { address } = useAppKitAccount();
   const [currentPage, setCurrentPage] = useState(1);
-  const [isOpen, setIsOpen] = useState(false);
+  const { data: transactions, isLoading } = useAccountTransactions(
+    chainAdapter.id,
+    address
+  );
 
   const totalPages = Math.ceil((transactions?.length ?? 0) / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -59,12 +62,20 @@ export default function TransactionHistory({
   };
 
   return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <CollapsibleTrigger className="flex items-center gap-0 font-semibold text-sm cursor-pointer">
-        Transaction History
-        <ChevronRight className={cn("size-4", isOpen && "rotate-90")} />
-      </CollapsibleTrigger>
-      <CollapsibleContent>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="link" size={"sm"}>
+          {chainAdapter.name} History
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{chainAdapter.name} Transaction History</DialogTitle>
+          <DialogDescription>
+            This is the transaction history for your account on{" "}
+            <strong>{chainAdapter.name}</strong>.
+          </DialogDescription>
+        </DialogHeader>
         <Table className="rounded-md overflow-hidden mt-2">
           <TableCaption className="my-1 text-xs">
             *Only USDC, ETH transactions are shown
@@ -92,7 +103,7 @@ export default function TransactionHistory({
                 const youOrLink = (addressToCheck: string) => (
                   <div className="flex items-center gap-1">
                     <ExternalLink
-                      href={`${explorerUrl}/address/${addressToCheck}`}
+                      href={`${chainAdapter.explorer?.url}/address/${addressToCheck}`}
                       className="hover:underline"
                     >
                       {addressToCheck.toLowerCase() ===
@@ -112,10 +123,10 @@ export default function TransactionHistory({
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-1">
                         <ExternalLink
-                          href={`${explorerUrl}/tx/${tx.hash}`}
+                          href={`${chainAdapter.explorer?.url}/tx/${tx.hash}`}
                           className={cn(
                             "hover:underline flex items-center gap-1",
-                            fromMe ? "text-red-600" : "text-green-600"
+                            fromMe ? "text-red-600/70" : "text-green-600"
                           )}
                         >
                           {fromMe ? (
@@ -188,7 +199,7 @@ export default function TransactionHistory({
             </PaginationContent>
           </Pagination>
         )}
-      </CollapsibleContent>
-    </Collapsible>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -37,7 +37,6 @@ export function useNetworkAdapterBalance(
   const nativeBalance = useNativeBalance(chainId, address);
   const networkAdapter = findNetworkAdapter(chainId);
   const nativeCurrency = networkAdapter?.nativeCurrency;
-  // const transfers = useAccountTransactions(chainId, address);
 
   return {
     networkAdapter,

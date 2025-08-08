@@ -1,9 +1,5 @@
 import { solana } from "@reown/appkit/networks";
-import {
-  CctpNetworkAdapter,
-  CctpFunctionOpts,
-  CctpV2TransferType,
-} from "./type";
+import { CctpNetworkAdapter, CctpFunctionOpts } from "./type";
 import { usdcAddresses } from "@/lib/wagmi/config";
 import { createSolanaClient, lamportsToSol } from "gill";
 import { getATA2 } from "@/lib/solana/utils";
@@ -82,11 +78,7 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
         cctpOpts,
         solanaChainId
       ) as Address;
-      let {
-        transferType = CctpV2TransferType.Fast,
-        maxFee,
-        finalityThreshold,
-      } = options;
+      let { maxFee, finalityThreshold } = options;
 
       const { solanaSigner } = cctpOpts || {};
       if (!solanaSigner) throw new Error("Solana signer is required");
@@ -94,9 +86,7 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
       const rawAmount = parseUnits(amount.toString(), USDC_DECIMALS);
 
       maxFee = maxFee ?? rawAmount - 1n;
-      finalityThreshold =
-        finalityThreshold ??
-        (transferType === CctpV2TransferType.Fast ? 1000 : 2000);
+      finalityThreshold = finalityThreshold ?? 1000;
 
       const myAddress = solAddress(address);
 

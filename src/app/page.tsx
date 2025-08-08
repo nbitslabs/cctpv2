@@ -20,17 +20,13 @@ import {
   useAppKitNetwork,
 } from "@reown/appkit/react";
 import { toast } from "sonner";
-import { CctpNetworkAdapterId, CctpV2TransferType } from "@/lib/cctp/networks";
-import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
 import {
-  AlertTriangle,
-  CheckCircle,
-  Loader2,
-  Moon,
-  Sun,
-  Wallet,
-} from "lucide-react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+  CctpFunctionOpts,
+  CctpNetworkAdapterId,
+  findNetworkAdapter,
+} from "@/lib/cctp/networks";
+import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
+import { AlertTriangle, CheckCircle, Loader2, Wallet } from "lucide-react";
 import ExternalLink from "@/components/ui2/ExternalLink";
 import { NumericFormat } from "react-number-format";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -46,10 +42,11 @@ import { useAddressOfAdapterId } from "@/hooks/useAddressOfAdapter";
 import { TooltipWrap, TooltipWrapNumber } from "@/components/TooltipWrap";
 import { useSolanaAccount } from "@/hooks/useSolanaSigner";
 import { formatDestinationAddress } from "@/lib/cctp/networks/util";
-import { useTheme } from "next-themes";
 import CopyIconTooltip from "@/components/ui2/CopyIconTooltip";
 import { getAccount } from "wagmi/actions";
 import { wagmiConfig } from "@/lib/wagmi/config";
+import ThemeButton from "@/components/ui2/ThemeButton";
+import MethodSwitch from "@/components/MethodSwitch";
 import TransactionHistory from "@/components/transaction-history";
 
 export default function Home() {
@@ -69,7 +66,6 @@ export default function Home() {
   } = useCrossChainTransfer();
   const { activeNetwork, setActiveNetwork } = useActiveNetwork();
   const { chainId } = useAppKitNetwork();
-  const { theme, setTheme } = useTheme();
 
   const [method, setMethod] = useState<"mintOnly" | "transfer">("transfer");
   const isMintOnly = method === "mintOnly";
@@ -77,17 +73,17 @@ export default function Home() {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [isTransferring, setIsTransferring] = useState(false);
   const [showFinalTime, setShowFinalTime] = useState(false);
-  const [transferType, setTransferType] = useState<CctpV2TransferType>(
-    CctpV2TransferType.Fast
-  );
+  const [version, setVersion] = useState<CctpFunctionOpts["version"]>("v2");
   const [burnTxHash, setBurnTxHash] = useState("");
   const [understand, setUnderstand] = useState(false);
   const [startMinting, setStartMinting] = useState(false);
   const [solanaSigner, setSolanaSigner] = useState<TransactionSigner>();
 
+  const adapter = findNetworkAdapter(chainId);
   const [sourceChain, setSourceChain] = useState<CctpNetworkAdapterId>(
-    chainId ?? activeNetwork.id
+    adapter ? adapter.id : activeNetwork.id
   );
+
   const sourceAddress = useAddressOfAdapterId(sourceChain);
   const {
     usdcBalance: sourceUsdcBalance,
@@ -117,10 +113,13 @@ export default function Home() {
   const handleStartTransfer = async () => {
     if (!isConnected) return open();
     if (!sourceAdapter) return toast.error("Please select a source chain");
+    if (!sourceAddress) return toast.error("Please enter a source address");
     if (!destAdapter) return toast.error("Please select a destination chain");
     if (!destAddress) return toast.error("Please enter a destination address");
 
     const requiredParams: RequiredExecuteTransferParams = {
+      version,
+      fromAddress: sourceAddress,
       sourceChainId: sourceChain,
       destinationChainId: destAdapter.id,
       mintRecipient: await formatDestinationAddress(destAddress, {
@@ -144,7 +143,7 @@ export default function Home() {
 
     await executeTransfer({
       ...requiredParams,
-      ...(isMintOnly ? { burnTxHash } : { amount, transferType }),
+      ...(isMintOnly ? { burnTxHash } : { amount, transferType: version }),
     });
 
     [
@@ -241,15 +240,7 @@ export default function Home() {
           </CardTitle>
 
           <div className="absolute top-4 right-4">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => {
-                setTheme(theme === "dark" ? "light" : "dark");
-              }}
-            >
-              {theme === "dark" ? <Moon /> : <Sun />}
-            </Button>
+            <ThemeButton />
           </div>
           {isConnected ? (
             <>
@@ -264,39 +255,18 @@ export default function Home() {
           )}
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex flex-col sm:flex-row justify-between gap-2">
-            <div>
-              <Label>Transfer Method</Label>
-              <p className="text-sm text-muted-foreground">
-                {method === "mintOnly"
-                  ? "Provides a burn transaction hash to mint on the destination chain"
-                  : "Transfer and mint from the origin to the destination"}
-              </p>
-            </div>
-            <Tabs
-              value={method}
-              onValueChange={(v) => setMethod(v as "mintOnly" | "transfer")}
-            >
-              <TabsList className="grid w-fit grid-cols-2">
-                <TabsTrigger value={"transfer"}>Transfer</TabsTrigger>
-                <TabsTrigger value={"mintOnly"}>Mint Only</TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </div>
+          <MethodSwitch method={method} setMethod={setMethod} />
           {!isMintOnly && (
             <div className="flex flex-col sm:flex-row justify-between gap-2">
               <div className="space-y-2">
                 <Label>Transfer Type</Label>
                 <p className="text-sm text-muted-foreground">
-                  {transferType === CctpV2TransferType.Fast
-                    ? "Faster transfers with lower finality threshold (1000 blocks)"
-                    : "Standard transfers with higher finality (2000 blocks)"}
+                  {version === "v2"
+                    ? "Faster transfers with CCTP V2"
+                    : "Standard transfers with CCTP V1"}
                 </p>
               </div>
-              <TransferTypeSelector
-                value={transferType}
-                onChange={setTransferType}
-              />
+              <TransferTypeSelector value={version} onChange={setVersion} />
             </div>
           )}
           <div className="grid grid-cols-2 gap-4">

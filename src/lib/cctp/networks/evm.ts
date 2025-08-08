@@ -1,5 +1,5 @@
 import { AppKitNetwork } from "@reown/appkit/networks";
-import { CctpNetworkAdapter, CctpV2TransferType } from "./type";
+import { CctpNetworkAdapter } from "./type";
 import {
   readUsdcAllowance,
   simulateMessageTransmitterReceiveMessage,
@@ -169,21 +169,17 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
         }
 
         let {
-          transferType = CctpV2TransferType.Fast,
           maxFee,
           finalityThreshold,
           mintRecipient = getAccount(wagmiConfig).address,
         } = options;
 
         if (!mintRecipient) throw new Error("No mint recipient found");
-        if (!config.supportV2) transferType = CctpV2TransferType.Standard;
 
         const rawAmount = parseUnits(amount.toString(), USDC_DECIMALS);
 
         maxFee = maxFee ?? rawAmount - 1n;
-        finalityThreshold =
-          finalityThreshold ??
-          (transferType === CctpV2TransferType.Fast ? 1000 : 2000);
+        finalityThreshold = finalityThreshold ?? 1000;
 
         const tx = await writeTokenMessagerDepositForBurn(wagmiConfig, {
           chainId,
@@ -247,5 +243,7 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
 );
 
 function getMintRecipient(destinationAddress: string) {
-  return `0x${destinationAddress.replace(/^0x/, "").padStart(64, "0")}` satisfies Address;
+  return `0x${destinationAddress
+    .replace(/^0x/, "")
+    .padStart(64, "0")}` satisfies Address;
 }

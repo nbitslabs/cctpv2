@@ -4,9 +4,13 @@
 
 - [x] Supports Mint only (provides Burn tx hash)
 - [x] History of Trades
-- [ ] Support Solana (burn from Solana ✅, receive in Solana 🔵)
-- [ ] Support Aptos
-- [ ] Supports CCTP V1
+- [x] Support Solana (burn from Solana ✅)
+- [ ] Support Solana (receive in Solana 🔵)
+- [ ] Supports CCTP V1 via Wormhole
+
+## Unplan
+
+- Support Codex
 
 ## Testing
 

@@ -1,17 +1,19 @@
 import type { Address, Signature, TransactionSigner } from "gill";
 import type { Address as EvmAddress } from "viem";
 
-export enum CctpV2TransferType {
-  Standard = "standard",
-  Fast = "fast",
-}
-
 type CctpNetworkVersion = { support: boolean };
 
 export type CctpFunctionOpts = {
-  version: "v1" | "v2";
   solanaSigner?: TransactionSigner;
-};
+} & (
+  | {
+      version: "v1";
+      fromAddress: string;
+    }
+  | {
+      version: "v2";
+    }
+);
 
 export interface CctpNetworkAdapter {
   id: number | string;
@@ -43,7 +45,6 @@ export interface CctpNetworkAdapter {
       mintRecipient: string;
       maxFee?: bigint;
       finalityThreshold?: number;
-      transferType?: CctpV2TransferType;
     },
     cctpOpts?: CctpFunctionOpts
   ) => Promise<string>;

@@ -56,9 +56,6 @@ export default function NetworkAdapterSelect({
   exceptAdapterIds,
   children,
 }: NetworkAdapterSelectProps) {
-  const { usdcBalance, nativeBalance, nativeCurrency } =
-    useNetworkAdapterBalance(chain, address);
-
   return (
     <div className="space-y-2">
       <Label>{label}</Label>
@@ -92,35 +89,44 @@ export default function NetworkAdapterSelect({
           {children}
         </div>
       </div>
-      {address && (
-        <>
-          <p className="text-sm text-muted-foreground">
-            {usdcBalance.isLoading ? (
-              <Loader2 className="animate-spin inline-block size-3" />
-            ) : (
-              <TooltipWrapNumber
-                amount={usdcBalance.data?.formatted ?? 0}
-                format={{ maximumFractionDigits: 2 }}
-              />
-            )}{" "}
-            USDC •{" "}
-            {nativeBalance.isLoading ? (
-              <Loader2 className="animate-spin inline-block size-3" />
-            ) : (
-              <TooltipWrapNumber
-                amount={nativeBalance.data?.formatted ?? 0}
-                format={{ maximumFractionDigits: 4 }}
-              />
-            )}{" "}
-            {nativeCurrency?.symbol}
-          </p>
-          {/* <TransactionHistory
-            transactions={transfers.data}
-            isLoading={transfers.isLoading}
-            explorerUrl={networkAdapter?.explorer?.url ?? ""}
-          /> */}
-        </>
-      )}
+      <NetworkAdapterSelectBalance chainId={chain} address={address} />
     </div>
+  );
+}
+
+function NetworkAdapterSelectBalance({
+  chainId: chain,
+  address,
+}: Pick<NetworkAdapterSelectProps, "chainId" | "address">) {
+  const { usdcBalance, nativeBalance, nativeCurrency } =
+    useNetworkAdapterBalance(chain, address);
+
+  if (!address) return null;
+  return (
+    <p className="text-sm text-muted-foreground">
+      {usdcBalance.isLoading ? (
+        <Loader2 className="animate-spin inline-block size-3" />
+      ) : (
+        <TooltipWrapNumber
+          amount={usdcBalance.data?.formatted ?? 0}
+          format={{ maximumFractionDigits: 2 }}
+        />
+      )}{" "}
+      USDC •{" "}
+      {nativeBalance.isLoading ? (
+        <Loader2 className="animate-spin inline-block size-3" />
+      ) : (
+        <TooltipWrapNumber
+          amount={nativeBalance.data?.formatted ?? 0}
+          format={{ maximumFractionDigits: 4 }}
+        />
+      )}{" "}
+      {nativeCurrency?.symbol}
+    </p>
+    /* <TransactionHistory
+  transactions={transfers.data}
+  isLoading={transfers.isLoading}
+  explorerUrl={networkAdapter?.explorer?.url ?? ""}
+/> */
   );
 }

@@ -84,7 +84,10 @@ export default function NetworkAdapterSelect({
             onChange={(e) => setAddress?.(e.target.value)}
             placeholder={`Enter address...`}
             readOnly={!setAddress}
-            className={cn("text-sm", !setAddress && "bg-primary/5")}
+            className={cn(
+              "text-sm",
+              !setAddress && "bg-primary/5 text-foreground/70"
+            )}
           />
           {children}
         </div>

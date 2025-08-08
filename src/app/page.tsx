@@ -278,8 +278,8 @@ export default function Home() {
               onValueChange={(v) => setMethod(v as "mintOnly" | "transfer")}
             >
               <TabsList className="grid w-fit grid-cols-2">
-                <TabsTrigger value={"mintOnly"}>Mint Only</TabsTrigger>
                 <TabsTrigger value={"transfer"}>Transfer</TabsTrigger>
+                <TabsTrigger value={"mintOnly"}>Mint Only</TabsTrigger>
               </TabsList>
             </Tabs>
           </div>

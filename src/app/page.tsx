@@ -13,7 +13,7 @@ import {
   RequiredExecuteTransferParams,
   useCrossChainTransfer,
 } from "@/hooks/useCrossChainTransfer";
-import { cn, shortenAddress } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import {
   useAppKit,
   useAppKitAccount,
@@ -22,14 +22,7 @@ import {
 import { toast } from "sonner";
 import { CctpNetworkAdapterId, CctpV2TransferType } from "@/lib/cctp/networks";
 import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
-import {
-  AlertTriangle,
-  CheckCircle,
-  Loader2,
-  Moon,
-  Sun,
-  Wallet,
-} from "lucide-react";
+import { AlertTriangle, Loader2, Moon, Sun, Wallet } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ExternalLink from "@/components/ui2/ExternalLink";
 import { NumericFormat } from "react-number-format";
@@ -47,7 +40,6 @@ import { TooltipWrap, TooltipWrapNumber } from "@/components/TooltipWrap";
 import { useSolanaAccount } from "@/hooks/useSolanaSigner";
 import { formatDestinationAddress } from "@/lib/cctp/networks/util";
 import { useTheme } from "next-themes";
-import CopyIconTooltip from "@/components/ui2/CopyIconTooltip";
 import { getAccount } from "wagmi/actions";
 import { wagmiConfig } from "@/lib/wagmi/config";
 import TransactionHistory from "@/components/transaction-history";
@@ -57,16 +49,8 @@ export default function Home() {
   const { isConnected } = useAppKitAccount();
   const solanaAccount = useSolanaAccount();
   const eip155ChainId = useChainId();
-  const {
-    currentStep,
-    logs,
-    error,
-    executeTransfer,
-    reset,
-    attestation,
-    setCurrentStep,
-    addLog,
-  } = useCrossChainTransfer();
+  const { currentStep, logs, error, executeTransfer, reset } =
+    useCrossChainTransfer();
   const { activeNetwork, setActiveNetwork } = useActiveNetwork();
   const { chainId } = useAppKitNetwork();
   const { theme, setTheme } = useTheme();
@@ -82,7 +66,6 @@ export default function Home() {
   );
   const [burnTxHash, setBurnTxHash] = useState("");
   const [understand, setUnderstand] = useState(false);
-  const [startMinting, setStartMinting] = useState(false);
   const [solanaSigner, setSolanaSigner] = useState<TransactionSigner>();
 
   const [sourceChain, setSourceChain] = useState<CctpNetworkAdapterId>(
@@ -177,62 +160,6 @@ export default function Home() {
     if (sourceChain && activeNetwork.id !== sourceChain)
       setActiveNetwork(sourceChain);
   }, [sourceChain]);
-
-  useEffect(() => {
-    // if (currentStep === "waiting-attestation") originTranfers.refetch();
-    // if (currentStep === "completed") destTransfers.refetch();
-    if (currentStep === "minting") setStartMinting(true);
-  }, [currentStep]);
-
-  useEffect(() => {
-    if (!startMinting) return;
-    if (!destAdapter) {
-      toast.error("Please select a destination chain");
-      return;
-    }
-    if (!attestation) {
-      toast.error("Please wait for the attestation");
-      return;
-    }
-    if (destAdapter.type === "solana" && !solanaSigner) {
-      toast.error("Please connect your Solana wallet before continue");
-      return;
-    }
-
-    (async () => {
-      const simulationResult =
-        await destAdapter.simulateMessageTransmitterReceiveMessage(
-          attestation.message,
-          attestation.attestation,
-          { version: "v2", solanaSigner }
-        );
-      if (!simulationResult) throw new Error("Simulation failed");
-      addLog("Waiting for mint...");
-      if (!sourceAdapter) throw new Error("Source adapter not found");
-      const mintTx = await destAdapter.writeMessageTransmitterReceiveMessage(
-        attestation.message,
-        attestation.attestation,
-        sourceAdapter,
-        { version: "v2", solanaSigner }
-      );
-
-      addLog(
-        <>
-          <CheckCircle className="size-4 text-green-600" />
-          Mint Tx:{" "}
-          <ExternalLink
-            href={`${destAdapter.explorer?.url}/tx/${mintTx}`}
-            className="text-sm"
-          >
-            {shortenAddress(mintTx, 6)}
-          </ExternalLink>
-          <CopyIconTooltip text={mintTx} />
-        </>
-      );
-
-      setCurrentStep("completed");
-    })();
-  }, [startMinting]);
 
   return (
     <div className="min-h-screen p-8">

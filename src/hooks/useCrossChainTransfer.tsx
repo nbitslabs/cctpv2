@@ -59,6 +59,9 @@ export function useCrossChainTransfer() {
     const sourceNetwork = findNetworkAdapter(sourceChainId);
     if (!sourceNetwork) throw new Error("Source network not found");
 
+    const destNetwork = findNetworkAdapter(destinationChainId);
+    if (!destNetwork) throw new Error("Destination network not found");
+
     try {
       let burnTx: string;
       if ("burnTxHash" in params) {
@@ -119,8 +122,38 @@ export function useCrossChainTransfer() {
       // Switch network before request "receiveMessage" transaction
       await setActiveNetwork(destinationChainId);
 
-      // setCurrentStep("completed");
       setCurrentStep("minting");
+      const simulationResult =
+        await destNetwork.simulateMessageTransmitterReceiveMessage(
+          attestation.message,
+          attestation.attestation,
+          { version: "v2", solanaSigner: params.solanaSigner }
+        );
+      if (!simulationResult) throw new Error("Simulation failed");
+      addLog("Waiting for mint...");
+      if (!sourceNetwork) throw new Error("Source adapter not found");
+      const mintTx = await destNetwork.writeMessageTransmitterReceiveMessage(
+        attestation.message,
+        attestation.attestation,
+        sourceNetwork,
+        { version: "v2", solanaSigner: params.solanaSigner }
+      );
+
+      addLog(
+        <>
+          <CheckCircle className="size-4 text-green-600" />
+          Mint Tx:{" "}
+          <ExternalLink
+            href={`${destNetwork.explorer?.url}/tx/${mintTx}`}
+            className="text-sm"
+          >
+            {shortenAddress(mintTx, 6)}
+          </ExternalLink>
+          <CopyIconTooltip text={mintTx} />
+        </>
+      );
+
+      setCurrentStep("completed");
     } catch (error) {
       console.log(error);
 
@@ -144,11 +177,8 @@ export function useCrossChainTransfer() {
     currentStep,
     logs,
     error,
-    attestation,
     executeTransfer,
     reset,
-    setCurrentStep,
-    addLog,
   };
 }
 

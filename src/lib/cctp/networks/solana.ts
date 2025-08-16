@@ -1,9 +1,5 @@
 import { solana } from "@reown/appkit/networks";
-import {
-  CctpNetworkAdapter,
-  CctpFunctionOpts,
-  CctpV2TransferType,
-} from "./type";
+import { CctpNetworkAdapter, CctpV2TransferType } from "./type";
 import { usdcAddresses } from "@/lib/wagmi/config";
 import { createSolanaClient, lamportsToSol } from "gill";
 import { getATA2 } from "@/lib/solana/utils";
@@ -91,11 +87,8 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
         cctpOpts,
         solanaChainId
       ) as Address;
-      let {
-        transferType = CctpV2TransferType.Fast,
-        maxFee,
-        finalityThreshold,
-      } = options;
+      const transferType = options.transferType ?? CctpV2TransferType.Fast;
+      let { maxFee, finalityThreshold } = options;
 
       const { solanaSigner } = cctpOpts || {};
       if (!solanaSigner) throw new Error("Solana signer is required");
@@ -173,11 +166,7 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
       return sig.toString();
     },
 
-    async simulateMessageTransmitterReceiveMessage(
-      _message: string,
-      _attestation: string,
-      _cctpOpts?: CctpFunctionOpts
-    ) {
+    async simulateMessageTransmitterReceiveMessage() {
       // TODO: Implement simulation logic if possible
       return true;
     },

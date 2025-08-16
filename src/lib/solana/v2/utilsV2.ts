@@ -1,9 +1,6 @@
 import { hexToBytes, findProgramAddressKit, getATA2 } from "../utils";
 import { Address, Rpc, SolanaRpcApiMainnet } from "@solana/kit";
-import {
-  MESSAGE_TRANSMITTER_V2_PROGRAM_ADDRESS,
-  SEND_MESSAGE_DISCRIMINATOR,
-} from "../tools/codama/generated/message_transmitter_v2";
+import { MESSAGE_TRANSMITTER_V2_PROGRAM_ADDRESS } from "../tools/codama/generated/message_transmitter_v2";
 import { TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS } from "../tools/codama/generated/token_messenger_minter_v2";
 import { fetchTokenMessenger } from "../tools/codama/generated/token_messenger_minter_v2";
 
@@ -17,7 +14,6 @@ export const getDepositForBurnPdasV2 = async (
   usdcAddress: string,
   destinationDomain: number
 ) => {
-  SEND_MESSAGE_DISCRIMINATOR;
   const messageTransmitterAccountPromise =
     getDepositForBurnPdasV2MessageTransmitter();
   const tokenMessengerAccountPromise = findProgramAddressKit(

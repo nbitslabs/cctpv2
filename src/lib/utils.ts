@@ -46,15 +46,14 @@ export function parseNumber(value: number | string) {
   return Math.trunc(value * correction) / correction;
 }
 
-export function intervalAsyncWithTimeout<T>(
+export function intervalAsyncWithTimeout(
   interval: number,
   timeout: number,
   trigger: () => void,
   conditionToResolve: () => boolean | undefined
 ) {
   return new Promise<boolean>((resolve, reject) => {
-    let timeoutId;
-    timeoutId = setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       clearInterval(intervalId);
       reject(new Error("Network switch timeout"));
     }, timeout);

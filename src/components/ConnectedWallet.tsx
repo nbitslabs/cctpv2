@@ -33,10 +33,7 @@ export default function ConnectedWallet({
   const adapter = findNetworkAdapter(adapterId);
   const { disconnect } = useDisconnect();
   const confirm = useConfirm();
-  const { data: balance, error } = useNativeBalance(
-    adapterId,
-    accountState.address
-  );
+  const { data: balance } = useNativeBalance(adapterId, accountState.address);
 
   if (!accountState.isConnected) return null;
   const isActiveAccount = activeAccount.address === accountState.address;

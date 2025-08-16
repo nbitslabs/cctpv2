@@ -36,8 +36,6 @@ export function useCrossChainTransfer() {
   const [error, setError] = useState<string | null>(null);
   const { setActiveNetwork } = useActiveNetwork();
   const { address } = useAppKitAccount();
-  const [attestation, setAttestation] =
-    useState<AttestationMessageSuccess | null>(null);
 
   const addLog = (message: React.ReactNode) =>
     setLogs((prev) => [
@@ -117,7 +115,6 @@ export function useCrossChainTransfer() {
           <CopyIconTooltip text={attestation.attestation} />
         </>
       );
-      setAttestation(attestation);
 
       // Switch network before request "receiveMessage" transaction
       await setActiveNetwork(destinationChainId);
@@ -209,7 +206,6 @@ const retrieveAttestation = async (
       }
 
       await resolveWhenComplete();
-      let timeout: NodeJS.Timeout;
       const interval = setInterval(async () => {
         resolveWhenComplete(() => {
           clearInterval(interval);
@@ -217,7 +213,7 @@ const retrieveAttestation = async (
         });
       }, 5000);
 
-      timeout = setTimeout(
+      const timeout = setTimeout(
         () => {
           clearInterval(interval);
           reject(new Error("Timeout waiting for attestation"));

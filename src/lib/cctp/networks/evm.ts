@@ -172,8 +172,9 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
           transferType = CctpV2TransferType.Fast,
           maxFee,
           finalityThreshold,
-          mintRecipient = getAccount(wagmiConfig).address,
         } = options;
+        const mintRecipient =
+          options.mintRecipient ?? getAccount(wagmiConfig).address;
 
         if (!mintRecipient) throw new Error("No mint recipient found");
         if (!config.supportV2) transferType = CctpV2TransferType.Standard;

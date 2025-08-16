@@ -228,6 +228,7 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
       async writeMessageTransmitterReceiveMessage(
         message,
         attestation,
+        _,
         cctpOpts = defaultCctpOpts
       ) {
         const messageTransmitterAddress = getMessageTransmitterAddress(
@@ -237,7 +238,7 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
         const tx = await writeMessageTransmitterReceiveMessage(wagmiConfig, {
           chainId,
           address: messageTransmitterAddress,
-          args: [message as Address, attestation as Address],
+          args: [message, attestation as Address],
         });
         await waitForTransactionReceipt(wagmiConfig, { chainId, hash: tx });
         return tx;

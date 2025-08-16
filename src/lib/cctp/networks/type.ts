@@ -55,6 +55,7 @@ export interface CctpNetworkAdapter {
   writeMessageTransmitterReceiveMessage: (
     message: EvmAddress,
     attestation: string,
+    source: CctpNetworkAdapter,
     cctpOpts?: CctpFunctionOpts
   ) => Promise<string>;
 

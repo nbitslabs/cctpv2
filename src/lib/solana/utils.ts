@@ -22,13 +22,15 @@ export const evmAddressToSolana = (evmAddress: EvmAddress) =>
 const evmAddressToBytes32 = (address: string): string =>
   `0x000000000000000000000000${address.replace("0x", "")}`;
 
-export const hexToBytes = (hex: string): Buffer =>
+export const hexToBytes = (hex: string): Buffer<ArrayBuffer> =>
   Buffer.from(hex.replace("0x", ""), "hex");
 
 export const findProgramAddressKit = async (
   label: string,
   programAddress: Address,
-  extraSeeds: (string | number[] | Address)[] | null = null
+  extraSeeds:
+    | (string | number[] | Buffer<ArrayBuffer> | Address)[]
+    | null = null
 ) => {
   const utf8Encoder = getUtf8Encoder();
   const seeds = [Buffer.from(utf8Encoder.encode(label))];
@@ -42,7 +44,7 @@ export const findProgramAddressKit = async (
           );
         } else seeds.push(Buffer.from(utf8Encoder.encode(extraSeed)));
       } else if (Array.isArray(extraSeed)) {
-        seeds.push(Buffer.from(extraSeed as number[]));
+        seeds.push(Buffer.from(extraSeed));
       } else if (Buffer.isBuffer(extraSeed)) {
         seeds.push(extraSeed);
       }
@@ -51,6 +53,7 @@ export const findProgramAddressKit = async (
   const [pda] = await getProgramDerivedAddress({ programAddress, seeds });
   return pda;
 };
+
 export async function getATA2(mint: string, owner: string) {
   const [tokenAccount] = await findAssociatedTokenPda({
     mint: solAddress(mint),

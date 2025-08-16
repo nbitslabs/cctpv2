@@ -56,7 +56,9 @@ export function useCrossChainTransfer() {
   ) => {
     if (!address) throw new Error("No account found");
     const { sourceChainId, destinationChainId, mintRecipient } = params;
-    const sourceNetwork = await setActiveNetwork(sourceChainId);
+    const sourceNetwork = findNetworkAdapter(sourceChainId);
+    if (!sourceNetwork) throw new Error("Source network not found");
+
     try {
       let burnTx: string;
       if ("burnTxHash" in params) {
@@ -70,6 +72,7 @@ export function useCrossChainTransfer() {
         const destination = findNetworkAdapter(destinationChainId);
         if (!destination) throw new Error("Destination network not found");
 
+        await setActiveNetwork(sourceChainId);
         burnTx = await sourceNetwork.writeTokenMessagerDepositForBurn(
           {
             address,

@@ -208,9 +208,11 @@ export default function Home() {
         );
       if (!simulationResult) throw new Error("Simulation failed");
       addLog("Waiting for mint...");
+      if (!sourceAdapter) throw new Error("Source adapter not found");
       const mintTx = await destAdapter.writeMessageTransmitterReceiveMessage(
         attestation.message,
         attestation.attestation,
+        sourceAdapter,
         { version: "v2", solanaSigner }
       );
 
@@ -313,7 +315,7 @@ export default function Home() {
               setChainId={setDestChain}
               address={destAddress}
               setAddress={setDestAddress}
-              exceptAdapterIds={[sourceChain, solana.id]}
+              exceptAdapterIds={[sourceChain]}
             >
               <TooltipWrap content="Use connected wallet" asChild>
                 <Button

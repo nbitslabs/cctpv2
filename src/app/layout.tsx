@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import React from "react";
 import Providers from "./Providers";
+import { deployedUrl } from "@/lib/constants";
 
 const funnelSans = Funnel_Sans({
   variable: "--font-sans",
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
     "Cross-Chain USDC Transfers | CCTP v2 on Ethereum, Solana, Arbitrum, Base, Polygon, Avalanche & More",
   description:
     "Seamless USDC transfers across top blockchains with CCTP v2. Instantly bridge between Ethereum, Solana, Avalanche, Arbitrum, Base, Polygon, Linea, and more. Secure, fast, and low-cost cross-chain settlements.",
+  metadataBase: new URL(deployedUrl),
 };
 
 export default function RootLayout({ children }: React.PropsWithChildren) {

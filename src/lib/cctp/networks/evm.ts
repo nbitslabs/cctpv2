@@ -43,6 +43,7 @@ const {
   "11": _linea,
   "13": _sonic,
   "14": _worldchain,
+  "16": _sei,
 } = chainsByDomain;
 
 // https://developers.circle.com/stablecoins/supported-domains
@@ -68,6 +69,7 @@ const evmChains: Array<
   // codex: 12
   { chain: _sonic, domain: 13, supportV1: false, supportV2: true },
   { chain: _worldchain, domain: 14, supportV1: false, supportV2: true },
+  { chain: _sei, domain: 16, supportV1: false, supportV2: true },
 ];
 
 export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(

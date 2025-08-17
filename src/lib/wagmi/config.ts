@@ -11,6 +11,7 @@ import {
   near,
   optimism,
   polygon,
+  sei,
   solana,
   sonic,
   tron,
@@ -18,10 +19,10 @@ import {
   worldchain,
   type AppKitNetwork,
 } from "@reown/appkit/networks";
+import { deployedUrl } from "../constants";
 
 // Get projectId from https://cloud.reown.com
 export const projectId = "1c6462fb2a1793e314522f2a4b9637d9";
-const deployedUrl = "https://cctpv2.vercel.app";
 
 // https://developers.circle.com/stablecoins/supported-domains
 // 0 Ethereum
@@ -51,6 +52,7 @@ export const chainsByDomain: Record<string, AppKitNetwork> = {
   "11": linea,
   "13": sonic,
   "14": worldchain,
+  "16": sei,
 };
 
 export const networks = Object.values(chainsByDomain) as [
@@ -59,8 +61,9 @@ export const networks = Object.values(chainsByDomain) as [
 ];
 
 export const metadata = {
-  name: "CCTP",
-  description: "Cross Chain Transfer Protocol",
+  name: "CCTP V2",
+  description:
+    "CCTP v2 on Ethereum, Solana, Arbitrum, Base, Polygon, Avalanche & More",
   url: deployedUrl,
   icons: [`${deployedUrl}/icon.svg`],
 };

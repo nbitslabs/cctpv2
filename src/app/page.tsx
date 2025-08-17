@@ -11,6 +11,7 @@ import { ProgressSteps } from "@/components/progress-step";
 import { TransferLog } from "@/components/transfer-log";
 import { Timer } from "@/components/timer";
 import { TransferTypeSelector } from "@/components/transfer-type";
+import SuccessDialog from "@/components/SuccessDialog";
 import {
   RequiredExecuteTransferParams,
   TransferStep,
@@ -55,6 +56,7 @@ export default function Home() {
   const eip155ChainId = useChainId();
   const { currentStep, logs, error, executeTransfer, reset } =
     useCrossChainTransfer();
+  const isCompleted = currentStep === "completed";
   const { activeNetwork, setActiveNetwork } = useActiveNetwork();
   const { chainId } = useAppKitNetwork();
   const { theme, setTheme } = useTheme();
@@ -82,6 +84,9 @@ export default function Home() {
     nativeCurrency: sourceNativeCurrency,
     networkAdapter: sourceAdapter,
   } = useNetworkAdapterBalance(sourceChain, sourceAddress);
+
+  // Success dialog state
+  const [transferAmount, setTransferAmount] = useState("");
 
   const [destAddress, setDestAddress] = useState("");
   const [destChain, setDestChain] = useState<CctpNetworkAdapterId>();
@@ -121,6 +126,7 @@ export default function Home() {
       if (!amount) return toast.error("Please enter an amount");
       if (Number(amount) > Number(sourceUsdcBalance.data?.formatted))
         return toast.error("Insufficient balance");
+      setTransferAmount(amount);
     }
 
     setIsTransferring(true);
@@ -147,6 +153,7 @@ export default function Home() {
     setIsTransferring(false);
     setShowFinalTime(false);
     setElapsedSeconds(0);
+    setTransferAmount("");
   };
 
   useEffect(() => {
@@ -162,7 +169,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen p-8">
-      <ConfettiCelebration isCompleted={currentStep === "completed"} />
       <Card className="max-w-5xl mx-auto bg-foreground/3">
         <CardHeader className="items-center relative">
           <CardTitle className="text-center">
@@ -448,6 +454,24 @@ export default function Home() {
       <Footer />
 
       {solanaAccount && <SetSolanaSigner setSolanaSigner={setSolanaSigner} />}
+
+      {/* Success Dialog */}
+      {isCompleted && sourceAdapter && destAdapter && (
+        <SuccessDialog
+          source={{
+            networkAdapter: sourceAdapter,
+            address: sourceAddress ?? "",
+            usdcBalance: sourceUsdcBalance.data?.formatted ?? 0,
+          }}
+          destination={{
+            networkAdapter: destAdapter,
+            address: destAddress,
+            usdcBalance: destUsdcBalance.data?.formatted ?? 0,
+          }}
+          amount={transferAmount}
+        />
+      )}
+      <ConfettiCelebration isCompleted={isCompleted} />
     </div>
   );
 }

@@ -18,17 +18,19 @@ export default function ConfettiCelebration({
   useEffect(() => {
     if (isCompleted && !showConfetti) {
       setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 5000);
+      const timer = setTimeout(() => setShowConfetti(false), 5000);
+
+      return () => clearTimeout(timer);
     }
-  }, [isCompleted, showConfetti]);
+  }, [isCompleted]);
 
   if (!showConfetti || width === 0 || height === 0) {
     return null;
   }
 
   return (
-    <div className="fixed inset-0">
-      <Confetti width={width} height={height} />
+    <div className="fixed inset-0 pointer-events-none">
+      <Confetti width={width} height={height} gravity={0.3} />
     </div>
   );
 }

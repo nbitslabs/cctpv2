@@ -7,10 +7,12 @@
 - [x] Support Solana
 - [ ] Support Aptos
 - [ ] Supports CCTP V1
+- [ ] Estimated fees: fee on both chains (in native token), and total fees in USDC
 
 ### Low priority
 
 - [ ] UX Improvement: Add the latest USDC out tx
+- [ ] UX Improvement: Handle interrupted flow when burned, but unable to continue
 
 ## Testing
 

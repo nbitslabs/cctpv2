@@ -145,8 +145,8 @@ export default function SuccessDialog({
             <div className="space-y-1">
               <h3 className="font-semibold">Support Our Project! 🌟 </h3>
               <p className="text-muted-foreground mx-auto text-xs">
-                We're building the future of cross-chain money and making it
-                accessible to everyone.
+                We&apos;re building the future of cross-chain money and making
+                it accessible to everyone.
               </p>
             </div>
             <GitHubButton

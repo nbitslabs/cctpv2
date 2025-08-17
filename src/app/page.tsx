@@ -168,8 +168,8 @@ export default function Home() {
   }, [sourceChain]);
 
   return (
-    <div className="min-h-screen p-8">
-      <Card className="max-w-5xl mx-auto bg-foreground/3">
+    <div className="min-h-screen pb-8 sm:p-8">
+      <Card className="max-w-5xl mx-auto bg-foreground/3 border-none sm:border">
         <CardHeader className="items-center relative">
           <CardTitle className="text-center">
             Cross-Chain USDC Transfer
@@ -189,7 +189,7 @@ export default function Home() {
           {isConnected ? (
             <>
               <appkit-account-button />
-              <div className="flex flex-col gap-2 lg:flex-row">
+              <div className="flex w-full gap-2">
                 <ConnectedWallet namespace="eip155" adapterId={eip155ChainId} />
                 <ConnectedWallet namespace="solana" adapterId={solana.id} />
               </div>
@@ -199,42 +199,40 @@ export default function Home() {
           )}
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex flex-col sm:flex-row justify-between gap-2">
-            <div>
+          <div className="flex flex-col gap-2 sm:flex-row sm:*:w-1/2">
+            <div className="flex flex-col gap-2">
               <Label>Transfer Method</Label>
+              <Tabs
+                value={method}
+                onValueChange={(v) => setMethod(v as "mintOnly" | "transfer")}
+              >
+                <TabsList className="grid w-fit grid-cols-2">
+                  <TabsTrigger value={"transfer"}>Transfer</TabsTrigger>
+                  <TabsTrigger value={"mintOnly"}>Mint Only</TabsTrigger>
+                </TabsList>
+              </Tabs>
               <p className="text-sm text-muted-foreground">
                 {method === "mintOnly"
                   ? "Provides a burn transaction hash to mint on the destination chain"
                   : "Transfer and mint from the origin to the destination"}
               </p>
             </div>
-            <Tabs
-              value={method}
-              onValueChange={(v) => setMethod(v as "mintOnly" | "transfer")}
-            >
-              <TabsList className="grid w-fit grid-cols-2">
-                <TabsTrigger value={"transfer"}>Transfer</TabsTrigger>
-                <TabsTrigger value={"mintOnly"}>Mint Only</TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </div>
-          {!isMintOnly && (
-            <div className="flex flex-col sm:flex-row justify-between gap-2">
-              <div className="space-y-2">
+            {!isMintOnly && (
+              <div className="flex flex-col gap-2">
                 <Label>Transfer Type</Label>
+                <TransferTypeSelector
+                  value={transferType}
+                  onChange={setTransferType}
+                />
                 <p className="text-sm text-muted-foreground">
                   {transferType === CctpV2TransferType.Fast
                     ? "Faster transfers with lower finality threshold (1000 blocks)"
                     : "Standard transfers with higher finality (2000 blocks)"}
                 </p>
               </div>
-              <TransferTypeSelector
-                value={transferType}
-                onChange={setTransferType}
-              />
-            </div>
-          )}
-          <div className="grid grid-cols-2 gap-4">
+            )}
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4">
             <NetworkAdapterSelect
               label="Source Chain"
               chainId={sourceChain}

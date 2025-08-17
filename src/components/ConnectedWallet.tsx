@@ -16,7 +16,7 @@ import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Badge } from "./ui/badge";
 import ExternalLink from "./ui2/ExternalLink";
 import { useConfirm } from "./ui2/PromiseAlertDialog";
-import { formatNumber } from "@/lib/utils";
+import { formatNumber, shortenAddress } from "@/lib/utils";
 import { useNativeBalance } from "@/hooks/useBalance";
 
 export default function ConnectedWallet({
@@ -35,13 +35,26 @@ export default function ConnectedWallet({
   const confirm = useConfirm();
   const { data: balance } = useNativeBalance(adapterId, accountState.address);
 
+  const handleDisconnect = async () => {
+    const result = await confirm({
+      title: `Disconnect "${walletInfo?.name}" Wallet`,
+      body: "Are you sure you want to disconnect your wallet?",
+      actionButton: "Disconnect",
+      cancelButton: "Cancel",
+      cancelButtonVariant: "outline",
+    });
+    if (result) {
+      disconnect({ namespace });
+    }
+  };
+
   if (!accountState.isConnected) return null;
   const isActiveAccount = activeAccount.address === accountState.address;
 
   return (
     <>
       <Card className="w-full max-w-2xl bg-foreground/5">
-        <CardHeader className="p-4">
+        <CardHeader className="p-2 sm:p-4">
           <CardTitle className="flex items-center gap-2">
             <Badge
               variant={isActiveAccount ? "default" : "secondary"}
@@ -49,7 +62,7 @@ export default function ConnectedWallet({
             >
               {adapter?.name}
             </Badge>
-            Connected Wallet
+            <span className="hidden sm:inline">Connected Wallet</span>
             <Button
               variant="ghost"
               size="iconSm"
@@ -58,21 +71,38 @@ export default function ConnectedWallet({
             >
               <User2 />
             </Button>
+            <Button
+              variant="destructive-outline"
+              size="iconSm"
+              onClick={handleDisconnect}
+              className="sm:hidden"
+            >
+              <LogOut />
+            </Button>
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3 px-4 pb-4">
+        <CardContent className="space-y-3 px-2 sm:px-4 pb-4">
           <div className="flex items-center justify-between">
             {walletInfo && (
               <div className="flex items-center gap-3">
                 <Image
                   src={walletInfo.icon || "/placeholder.svg"}
                   alt={walletInfo.name}
-                  className="size-7 rounded-sm"
+                  className="size-7 rounded-sm hidden sm:block"
                   width={24}
                   height={24}
                 />
                 <div className="flex flex-col">
-                  <p className="font-semibold">{walletInfo.name}</p>
+                  <p className="text-sm sm:text-base font-semibold flex items-center">
+                    <Image
+                      src={walletInfo.icon || "/placeholder.svg"}
+                      alt={walletInfo.name}
+                      className="size-4 rounded-sm inline mr-1.5 sm:hidden"
+                      width={16}
+                      height={16}
+                    />
+                    {walletInfo.name}
+                  </p>
                   {balance && (
                     <p className="text-sm font-mono text-muted-foreground">
                       {formatNumber(balance.formatted, {
@@ -88,19 +118,8 @@ export default function ConnectedWallet({
               <Button
                 variant="secondary"
                 size="sm"
-                onClick={async () => {
-                  const result = await confirm({
-                    title: `Disconnect "${walletInfo?.name}" Wallet`,
-                    body: "Are you sure you want to disconnect your wallet?",
-                    actionButton: "Disconnect",
-                    cancelButton: "Cancel",
-                    cancelButtonVariant: "outline",
-                  });
-                  if (result) {
-                    disconnect({ namespace });
-                  }
-                }}
-                className="gap-2"
+                onClick={handleDisconnect}
+                className="gap-2 hidden sm:flex"
               >
                 <LogOut />
                 Disconnect
@@ -115,7 +134,7 @@ export default function ConnectedWallet({
               href={`${adapter?.explorer?.url}/address/${accountState.address}`}
               className="text-primary hover:underline font-mono text-sm"
             >
-              {accountState.address ?? ""}
+              {shortenAddress(accountState.address ?? "")}
             </ExternalLink>
             <CopyIconTooltip text={accountState.address ?? ""} />
           </div>

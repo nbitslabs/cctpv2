@@ -17,8 +17,10 @@ const funnelDisplay = Funnel_Display({
 });
 
 export const metadata: Metadata = {
-  title: "USDC Cross-Chain Transfer",
-  description: "USDC Cross-Chain Transfer, support EVM and Solana in CCTP V2",
+  title:
+    "Cross-Chain USDC Transfers | CCTP v2 on Ethereum, Solana, Arbitrum, Base, Polygon, Avalanche & More",
+  description:
+    "Seamless USDC transfers across top blockchains with CCTP v2. Instantly bridge between Ethereum, Solana, Avalanche, Arbitrum, Base, Polygon, Linea, and more. Secure, fast, and low-cost cross-chain settlements.",
 };
 
 export default function RootLayout({ children }: React.PropsWithChildren) {

@@ -11,6 +11,7 @@ import { Timer } from "@/components/timer";
 import { TransferTypeSelector } from "@/components/transfer-type";
 import {
   RequiredExecuteTransferParams,
+  TransferStep,
   useCrossChainTransfer,
 } from "@/hooks/useCrossChainTransfer";
 import { cn } from "@/lib/utils";
@@ -30,7 +31,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { solana } from "@reown/appkit/networks";
 import NetworkAdapterSelect, {
   useNetworkAdapterBalance,
-} from "@/components/ChainSelect";
+} from "@/components/NetworkAdapterSelect";
 import { TransactionSigner } from "gill";
 import SetSolanaSigner from "@/components/SolanaTransferButton";
 import { useChainId } from "wagmi";
@@ -43,6 +44,7 @@ import { useTheme } from "next-themes";
 import { getAccount } from "wagmi/actions";
 import { wagmiConfig } from "@/lib/wagmi/config";
 import TransactionHistory from "@/components/transaction-history";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const { open } = useAppKit();
@@ -76,7 +78,6 @@ export default function Home() {
     usdcBalance: sourceUsdcBalance,
     nativeBalance: sourceNativeBalance,
     nativeCurrency: sourceNativeCurrency,
-    // transfers: originTranfers,
     networkAdapter: sourceAdapter,
   } = useNetworkAdapterBalance(sourceChain, sourceAddress);
 
@@ -86,7 +87,6 @@ export default function Home() {
     nativeBalance: destNativeBalance,
     usdcBalance: destUsdcBalance,
     nativeCurrency: destNativeCurrency,
-    // transfers: destTransfers,
     networkAdapter: destAdapter,
   } = useNetworkAdapterBalance(destChain, destAddress);
 
@@ -154,9 +154,6 @@ export default function Home() {
       });
       setDestChain(undefined);
     }
-  }, [sourceChain, showFinalTime]);
-
-  useEffect(() => {
     if (sourceChain && activeNetwork.id !== sourceChain)
       setActiveNetwork(sourceChain);
   }, [sourceChain]);
@@ -293,7 +290,8 @@ export default function Home() {
                     >
                       {sourceAdapter?.explorer?.name}
                     </ExternalLink>
-                    . This will mint the USDC on the destination chain.
+                    . This will be used to mint the USDC on the destination
+                    chain.
                   </p>
                 )}
               </>
@@ -395,9 +393,7 @@ export default function Home() {
                   isTransferring || currentStep === "completed" || !understand
                 }
               >
-                {currentStep === "completed"
-                  ? "Transfer Complete"
-                  : "Start Transfer"}
+                {buttonLabel[currentStep]}
               </Button>
             )}
 
@@ -433,27 +429,19 @@ export default function Home() {
           <TransferLog logs={logs} />
         </CardContent>
       </Card>
-      <footer className="text-center text-sm text-muted-foreground mt-4">
-        <p>
-          Funded by{" "}
-          <ExternalLink
-            href="https://github.com/raghavsood"
-            className="text-primary font-semibold"
-          >
-            raghavsood
-          </ExternalLink>
-          . Built with ❤️ by{" "}
-          <ExternalLink
-            href="https://github.com/thanhhoa214"
-            className="text-primary font-semibold"
-          >
-            thanhhoa214 🇻🇳
-          </ExternalLink>
-          .
-        </p>
-      </footer>
+      <Footer />
 
       {solanaAccount && <SetSolanaSigner setSolanaSigner={setSolanaSigner} />}
     </div>
   );
 }
+
+const buttonLabel: Record<TransferStep, string> = {
+  idle: "Start Transfer",
+  approving: "Approving...",
+  burning: "Burning...",
+  "waiting-attestation": "Waiting for Attestation...",
+  minting: "Minting...",
+  completed: "Transfer Completed 🎉",
+  error: "Error ❌",
+};

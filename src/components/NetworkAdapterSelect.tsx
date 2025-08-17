@@ -18,6 +18,7 @@ import {
 } from "@/lib/cctp/networks";
 import { useNativeBalance, useUsdcBalance } from "@/hooks/useBalance";
 import { TooltipWrapNumber } from "./TooltipWrap";
+import Image from "next/image";
 
 export interface NetworkAdapterSelectProps {
   chainId: CctpNetworkAdapterId | undefined;
@@ -43,7 +44,6 @@ export function useNetworkAdapterBalance(
     usdcBalance,
     nativeBalance,
     nativeCurrency,
-    // transfers,
   };
 }
 
@@ -71,7 +71,16 @@ export default function NetworkAdapterSelect({
             .filter((chain) => !exceptAdapterIds?.includes(chain.id))
             .map((chain) => (
               <SelectItem key={chain.id} value={String(chain.id)}>
-                {chain.name}
+                <div className="flex items-center gap-2">
+                  <Image
+                    src={chain.logoUrl}
+                    alt={chain.name}
+                    className="size-6 rounded-full"
+                    width={24}
+                    height={24}
+                  />
+                  {chain.name}
+                </div>
               </SelectItem>
             ))}
         </SelectContent>

@@ -43,7 +43,7 @@ const {
   "11": _linea,
   "13": _sonic,
   "14": _worldchain,
-  "16": _sei,
+  // "16": _sei,
 } = chainsByDomain;
 
 // https://developers.circle.com/stablecoins/supported-domains
@@ -52,24 +52,100 @@ const evmChains: Array<
     chain: AppKitNetwork;
     supportV1: boolean;
     supportV2: boolean;
+    logoUrl: string;
   }
 > = [
-  { chain: _mainnet, domain: 0, supportV1: true, supportV2: true },
-  { chain: _avalanche, domain: 1, supportV1: true, supportV2: true },
-  { chain: _optimism, domain: 2, supportV1: true, supportV2: true },
-  { chain: _arbitrum, domain: 3, supportV1: true, supportV2: true },
+  {
+    chain: _mainnet,
+    domain: 0,
+    supportV1: true,
+    supportV2: true,
+    logoUrl: "/images/tokens/eth.png",
+  },
+  {
+    chain: _avalanche,
+    domain: 1,
+    supportV1: true,
+    supportV2: true,
+    logoUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCDzBzv0xelHUJFWzZ47s3lAcxBmAMc7uNUg&s",
+  },
+  {
+    chain: _optimism,
+    domain: 2,
+    supportV1: true,
+    supportV2: true,
+    logoUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1JMo4wntjsMHtdJoq3VvQfWaAtX8jDW-h1w&s",
+  },
+  {
+    chain: _arbitrum,
+    domain: 3,
+    supportV1: true,
+    supportV2: true,
+    logoUrl: "https://rpc.info/logos/arbitrum.png",
+  },
   // noble: 4
   // solana: 5
-  { chain: _base, domain: 6, supportV1: true, supportV2: true },
-  { chain: _polygon, domain: 7, supportV1: true, supportV2: false },
+  {
+    chain: _base,
+    domain: 6,
+    supportV1: true,
+    supportV2: true,
+    logoUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNZrouU_9cELxCRIFHcEgezwQIbcFw--3pig&s",
+  },
+  {
+    chain: _polygon,
+    domain: 7,
+    supportV1: true,
+    supportV2: false,
+    logoUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyudckJZOkhk-RxzyKWJGdewhdzGU6bdSp8w&s",
+  },
   // sui: 8
   // aptos: 9
-  { chain: _unichain, domain: 10, supportV1: true, supportV2: true },
-  { chain: _linea, domain: 11, supportV1: true, supportV2: true },
+  {
+    chain: _unichain,
+    domain: 10,
+    supportV1: true,
+    supportV2: true,
+    logoUrl:
+      "https://cdn.prod.website-files.com/633c5e06513fa35f3391a5f9/67609daba55dfb7746d0b732_unichain.png",
+  },
+  {
+    chain: _linea,
+    domain: 11,
+    supportV1: true,
+    supportV2: true,
+    logoUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVMeA0U3r5fKNEn9zPeFzSGihbIWpYmBlEYQ&s",
+  },
   // codex: 12
-  { chain: _sonic, domain: 13, supportV1: false, supportV2: true },
-  { chain: _worldchain, domain: 14, supportV1: false, supportV2: true },
-  { chain: _sei, domain: 16, supportV1: false, supportV2: true },
+  {
+    chain: _sonic,
+    domain: 13,
+    supportV1: false,
+    supportV2: true,
+    logoUrl:
+      "https://dailyhodl.com/wp-content/uploads/2024/12/UPSCALED-Sonic-Labs-Industry-Announcement-Featured-Image-Template.jpg?w=200",
+  },
+  {
+    chain: _worldchain,
+    domain: 14,
+    supportV1: false,
+    supportV2: true,
+    logoUrl:
+      "https://static1.tokenterminal.com/worldchain/logo.png?logo_hash=786762db10d4891532210e063b6501ac6ad715a9",
+  },
+  // {
+  //   chain: _sei,
+  //   domain: 16,
+  //   supportV1: false,
+  //   supportV2: true,
+  //   logoUrl:
+  //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6fwxNLN1-so5tXQr4z_Z-VcgryIoKU2iaFw&s",
+  // },
 ];
 
 export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(

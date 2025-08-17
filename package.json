@@ -57,6 +57,7 @@
     "@codama/nodes-from-anchor": "^1.2.1",
     "@codama/renderers-js": "^1.2.14",
     "@tailwindcss/postcss": "^4.1.10",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

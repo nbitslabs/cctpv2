@@ -18,6 +18,7 @@ export interface CctpNetworkAdapter {
   name: string;
   domain: number;
   type: "evm" | "solana";
+  logoUrl: string;
   nativeCurrency: {
     symbol: string;
     decimals: number;

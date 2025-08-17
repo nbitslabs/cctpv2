@@ -8,6 +8,10 @@
 - [ ] Support Aptos
 - [ ] Supports CCTP V1
 
+### Low priority
+
+- [ ] UX Improvement: Add the latest USDC out tx
+
 ## Testing
 
 - [x] [Ethereum](https://etherscan.io/tx/0x5e50464610d278bca8a964dfda03044748742604bff8d440a5270eb738a36aee) -> [Arbitrum One](https://arbiscan.io/tx/0x525bb17796a80c097df764064ce0059ec3e68f10792958a2527a623083cfc711)

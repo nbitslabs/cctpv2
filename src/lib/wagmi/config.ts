@@ -11,7 +11,6 @@ import {
   near,
   optimism,
   polygon,
-  sei,
   solana,
   sonic,
   tron,
@@ -25,21 +24,6 @@ import { deployedUrl } from "../constants";
 export const projectId = "1c6462fb2a1793e314522f2a4b9637d9";
 
 // https://developers.circle.com/stablecoins/supported-domains
-// 0 Ethereum
-// 1	Avalanche
-// 2	OP
-// 3	Arbitrum
-// 4	Noble
-// 5	Solana
-// 6	Base
-// 7	Polygon PoS
-// 8	Sui
-// 9	Aptos
-// 10	Unichain
-// 11	Linea
-// 12	Codex
-// 13	Sonic
-// 14	World Chain
 export const chainsByDomain: Record<string, AppKitNetwork> = {
   "0": mainnet,
   "1": avalanche,
@@ -52,7 +36,7 @@ export const chainsByDomain: Record<string, AppKitNetwork> = {
   "11": linea,
   "13": sonic,
   "14": worldchain,
-  "16": sei,
+  // "16": sei,
 };
 
 export const networks = Object.values(chainsByDomain) as [

@@ -54,6 +54,7 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
     name: solana.name,
     domain: 5,
     type: "solana",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png",
     nativeCurrency: solana.nativeCurrency,
     explorer: solana.blockExplorers.default,
     v1: { support: true },

@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import ConfettiCelebration from "@/components/ConfettiCelebration";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -160,6 +162,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen p-8">
+      <ConfettiCelebration isCompleted={currentStep === "completed"} />
       <Card className="max-w-5xl mx-auto bg-foreground/3">
         <CardHeader className="items-center relative">
           <CardTitle className="text-center">
@@ -390,10 +393,23 @@ export default function Home() {
               <Button
                 onClick={handleStartTransfer}
                 disabled={
-                  isTransferring || currentStep === "completed" || !understand
+                  isTransferring ||
+                  currentStep === "completed" ||
+                  currentStep === "error" ||
+                  !understand
                 }
               >
-                {buttonLabel[currentStep]}
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={currentStep}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                  >
+                    {buttonLabel[currentStep]}
+                  </motion.span>
+                </AnimatePresence>
               </Button>
             )}
 

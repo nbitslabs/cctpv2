@@ -5,8 +5,6 @@ import {
 } from "../cctp/networks";
 import type { Alchemy } from "./type";
 
-const alchemyApiKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
-
 export async function getAccountTransactions(
   networkId: CctpNetworkAdapterId,
   address: string
@@ -23,7 +21,7 @@ export async function getAccountTransactions(
   }
   const kebabCaseId = chain.kebabCaseId;
 
-  const url = `https://${kebabCaseId}.g.alchemy.com/v2/${alchemyApiKey}`;
+  const url = `https://${kebabCaseId}.g.alchemy.com/v2/kVV691s2Iq_F1omMf9nY1`;
   const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -48,9 +46,7 @@ export async function getAccountTransactions(
   }));
 
   const [toAddressResponse, fromAddressResponse] = await Promise.all([
-    axios.post<Alchemy.AssetTransfersResponse>(url, toAddressBody, {
-      headers,
-    }),
+    axios.post<Alchemy.AssetTransfersResponse>(url, toAddressBody, { headers }),
     axios.post<Alchemy.AssetTransfersResponse>(url, fromAddressBody, {
       headers,
     }),

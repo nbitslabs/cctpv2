@@ -6,6 +6,7 @@
 - [x] History of Trades
 - [x] Support Solana
 - [x] Support Codex
+- [ ] Add Li.fi to support cross-chain swap (to get native tokens quickly)
 - [ ] Supports CCTP V1
 - [ ] Estimated fees: fee on both chains (in native token), and total fees in USDC
 

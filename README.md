@@ -5,7 +5,7 @@
 - [x] Supports Mint only (provides Burn tx hash)
 - [x] History of Trades
 - [x] Support Solana
-- [ ] Support Aptos
+- [x] Support Codex
 - [ ] Supports CCTP V1
 - [ ] Estimated fees: fee on both chains (in native token), and total fees in USDC
 

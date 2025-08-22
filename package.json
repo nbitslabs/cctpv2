@@ -11,6 +11,7 @@
     "generate:codama": "tsx src/lib/solana/tools/codama/generator.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.1",
     "@number-flow/react": "^0.5.10",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-avatar": "^1.1.10",
@@ -48,13 +49,15 @@
     "react-confetti": "^6.4.0",
     "react-dom": "^19.0.0",
     "react-github-btn": "^1.4.0",
+    "react-hook-form": "^7.62.0",
     "react-number-format": "^5.4.4",
     "sonner": "^2.0.5",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
     "usehooks-ts": "^3.1.1",
     "viem": "^2.31.0",
-    "wagmi": "^2.15.6"
+    "wagmi": "^2.15.6",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@codama/nodes-from-anchor": "^1.2.1",

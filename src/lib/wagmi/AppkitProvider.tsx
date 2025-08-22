@@ -4,7 +4,7 @@ import { AppKit, createAppKit, ThemeMode } from "@reown/appkit/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createContext, useContext, useEffect, type ReactNode } from "react";
 import { WagmiProvider, type Config } from "wagmi";
-import { metadata, projectId, wagmiAdapter, networks } from "./config";
+import { metadata, projectId, wagmiAdapter, networks, codex } from "./config";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { solanaAdapter } from "../solana/config";
 import { useTheme } from "next-themes";
@@ -18,6 +18,7 @@ const appkit = createAppKit({
   projectId,
   networks,
   metadata,
+  chainImages: { [codex.id]: codex.assets.imageUrl },
 });
 
 function AppkitProvider({ children }: { children: ReactNode }) {

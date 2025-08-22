@@ -41,6 +41,7 @@ const {
   "7": _polygon,
   "10": _unichain,
   "11": _linea,
+  "12": _codex,
   "13": _sonic,
   "14": _worldchain,
   // "16": _sei,
@@ -121,7 +122,13 @@ const evmChains: Array<
     logoUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVMeA0U3r5fKNEn9zPeFzSGihbIWpYmBlEYQ&s",
   },
-  // codex: 12
+  {
+    chain: _codex,
+    domain: 12,
+    supportV1: false,
+    supportV2: true,
+    logoUrl: "https://explorer.codex.xyz/assets/configs/network_icon.svg",
+  },
   {
     chain: _sonic,
     domain: 13,

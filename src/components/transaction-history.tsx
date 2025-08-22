@@ -77,9 +77,11 @@ export default function TransactionHistory({
           </DialogDescription>
         </DialogHeader>
         <Table className="rounded-md overflow-hidden mt-2">
-          <TableCaption className="my-1 text-xs">
-            *Only USDC, ETH transactions are shown
-          </TableCaption>
+          {transactions && transactions.length > 0 && (
+            <TableCaption className="my-1 text-xs">
+              *Only USDC, ETH transactions are shown.
+            </TableCaption>
+          )}
           <TableHeader>
             <TableRow className="bg-primary/5 *:h-8">
               <TableHead>Hash</TableHead>
@@ -158,8 +160,18 @@ export default function TransactionHistory({
             ) : (
               <TableRow>
                 <TableCell colSpan={4} className="text-center">
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground mb-2">
                     No transactions found.
+                  </p>
+                  <p className="text-xs text-muted-foreground mx-auto max-w-sm">
+                    Can&apos;t find the transaction? You can view the most
+                    recent transaction in the source explorer{" "}
+                    <ExternalLink
+                      href={`${chainAdapter.explorer?.url}/address/${address}`}
+                    >
+                      {chainAdapter.explorer?.name}
+                    </ExternalLink>
+                    .
                   </p>
                 </TableCell>
               </TableRow>

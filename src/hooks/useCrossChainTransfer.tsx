@@ -20,6 +20,8 @@ import { AlertCircle, CheckCircle } from "lucide-react";
 import ExternalLink from "@/components/ui2/ExternalLink";
 import { shortenAddress } from "@/lib/utils";
 import CopyIconTooltip from "@/components/ui2/CopyIconTooltip";
+import { formatUnits } from "viem";
+import { USDC_DECIMALS } from "@/lib/cctp/networks/constants";
 
 export type TransferStep =
   | "idle"
@@ -32,6 +34,7 @@ export type TransferStep =
 
 export function useCrossChainTransfer() {
   const [currentStep, setCurrentStep] = useState<TransferStep>("idle");
+  const [transferAmount, setTransferAmount] = useState<string>("");
   const [logs, setLogs] = useState<React.ReactNode[]>([]);
   const [error, setError] = useState<string | null>(null);
   const { setActiveNetwork } = useActiveNetwork();
@@ -116,6 +119,15 @@ export function useCrossChainTransfer() {
         </>
       );
 
+      setTransferAmount(
+        attestation.decodedMessage
+          ? formatUnits(
+              BigInt(attestation.decodedMessage.decodedMessageBody.amount),
+              USDC_DECIMALS
+            )
+          : "0"
+      );
+
       // Switch network before request "receiveMessage" transaction
       await setActiveNetwork(destinationChainId);
 
@@ -168,12 +180,14 @@ export function useCrossChainTransfer() {
     setCurrentStep("idle");
     setLogs([]);
     setError(null);
+    setTransferAmount("");
   };
 
   return {
     currentStep,
     logs,
     error,
+    transferAmount,
     executeTransfer,
     reset,
   };

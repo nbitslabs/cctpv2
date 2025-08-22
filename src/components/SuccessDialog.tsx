@@ -40,10 +40,10 @@ export default function SuccessDialog({
         className="overflow-hidden border-none p-4 sm:p-6"
       >
         <DialogHeader className="text-center flex flex-col items-center gap-2 relative pt-2">
-          <div className="bg-green-600 rounded-full p-1.5 flex items-center justify-center">
-            <Check className="size-7 text-background stroke-3" />
+          <div className="dark:bg-green-600 bg-white rounded-full p-1.5 flex items-center justify-center">
+            <Check className="size-7 dark:text-background text-green-600 stroke-3" />
           </div>
-          <DialogTitle className="mx-auto font-bold text-green-600 ">
+          <DialogTitle className="mx-auto font-bold dark:text-green-600 text-white">
             Transfer Success!
           </DialogTitle>
           <DialogDescription className="sr-only">
@@ -51,7 +51,7 @@ export default function SuccessDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="dark:bg-primary/30 bg-green-700/40 absolute top-0 left-0 w-full h-40 z-[-1]" />
+        <div className="dark:bg-primary/30 bg-green-600 absolute top-0 left-0 w-full h-40 z-[-1]" />
 
         <div className="space-y-4 relative">
           {/* Transfer Flow Visualization */}
@@ -67,7 +67,7 @@ export default function SuccessDialog({
                   alt={source.networkAdapter.name}
                   width={48}
                   height={48}
-                  className="rounded-full border-2 border-border"
+                  className="rounded-full mt-1"
                 />
               </div>
               <div className="text-center">
@@ -111,7 +111,7 @@ export default function SuccessDialog({
                   alt={destination.networkAdapter.name}
                   width={48}
                   height={48}
-                  className="rounded-full border-2 border-border"
+                  className="rounded-full mt-1"
                 />
               </div>
               <div className="text-center">

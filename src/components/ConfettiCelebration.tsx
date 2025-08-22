@@ -29,7 +29,7 @@ export default function ConfettiCelebration({
   }
 
   return (
-    <div className="fixed inset-0 pointer-events-none">
+    <div className="fixed z-50 inset-0 pointer-events-none">
       <Confetti width={width} height={height} gravity={0.3} />
     </div>
   );

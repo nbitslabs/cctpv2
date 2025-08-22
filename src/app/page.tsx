@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ConfettiCelebration from "@/components/ConfettiCelebration";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -26,7 +26,7 @@ import {
 import { toast } from "sonner";
 import { CctpNetworkAdapterId, CctpV2TransferType } from "@/lib/cctp/networks";
 import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
-import { AlertTriangle, Loader2, Moon, Sun, Wallet } from "lucide-react";
+import { AlertCircle, Loader2, Moon, Sun, Wallet } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ExternalLink from "@/components/ui2/ExternalLink";
 import { NumericFormat } from "react-number-format";
@@ -54,7 +54,7 @@ export default function Home() {
   const { isConnected } = useAppKitAccount();
   const solanaAccount = useSolanaAccount();
   const eip155ChainId = useChainId();
-  const { currentStep, logs, error, executeTransfer, reset } =
+  const { currentStep, logs, error, transferAmount, executeTransfer, reset } =
     useCrossChainTransfer();
   const isCompleted = currentStep === "completed";
   const { activeNetwork, setActiveNetwork } = useActiveNetwork();
@@ -84,9 +84,6 @@ export default function Home() {
     nativeCurrency: sourceNativeCurrency,
     networkAdapter: sourceAdapter,
   } = useNetworkAdapterBalance(sourceChain, sourceAddress);
-
-  // Success dialog state
-  const [transferAmount, setTransferAmount] = useState("");
 
   const [destAddress, setDestAddress] = useState("");
   const [destChain, setDestChain] = useState<CctpNetworkAdapterId>();
@@ -126,7 +123,6 @@ export default function Home() {
       if (!amount) return toast.error("Please enter an amount");
       if (Number(amount) > Number(sourceUsdcBalance.data?.formatted))
         return toast.error("Insufficient balance");
-      setTransferAmount(amount);
     }
 
     setIsTransferring(true);
@@ -153,7 +149,6 @@ export default function Home() {
     setIsTransferring(false);
     setShowFinalTime(false);
     setElapsedSeconds(0);
-    setTransferAmount("");
   };
 
   useEffect(() => {
@@ -345,37 +340,46 @@ export default function Home() {
           </div>
           {error && <div className="text-destructive text-center">{error}</div>}
 
-          <Alert className="bg-destructive/5 max-w-xl mx-auto border-destructive/50">
-            <AlertTitle className="uppercase text-destructive">
-              <AlertTriangle className="size-8" /> Be aware!
-            </AlertTitle>
+          <Alert variant="warning">
+            <AlertCircle className="size-8" />
             <AlertDescription className="text-foreground">
-              <ul className="list-disc list-inside">
-                <li>
-                  After burn, the transaction may take a while to complete. You
-                  always can check it under <strong>Transaction History</strong>{" "}
-                  of the source chain, then use <strong>Mint Only</strong>{" "}
-                  option to mint the USDC on the destination chain.
+              After burning, if you lose progress, you can use the{" "}
+              <strong>Mint Only</strong> option to mint USDC on the destination
+              chain. The latest burn transaction is always available in the
+              source explorer (
+              <ExternalLink
+                href={`${sourceAdapter?.explorer?.url}/tx/${burnTxHash}`}
+              >
+                {sourceAdapter?.explorer?.name}
+              </ExternalLink>
+              ).
+              {hasZeroNativeBalanceOnDestination && (
+                <li className="text-destructive">
+                  You need some <strong>{destNativeCurrency?.symbol}</strong> on
+                  the <strong>{destAdapter?.name}</strong> to receive the USDC.
                 </li>
-                {hasZeroNativeBalanceOnSource && (
-                  <li className="text-destructive">
-                    You need some{" "}
-                    <strong>{sourceNativeCurrency?.symbol}</strong> on the{" "}
-                    <strong>{sourceAdapter?.name}</strong> to pay for the burn
-                    action.
-                  </li>
-                )}
-                {hasZeroNativeBalanceOnDestination && (
-                  <li className="text-destructive">
-                    You need some <strong>{destNativeCurrency?.symbol}</strong>{" "}
-                    on the <strong>{destAdapter?.name}</strong> to receive the
-                    USDC.
-                  </li>
-                )}
-              </ul>
+              )}
             </AlertDescription>
           </Alert>
 
+          {hasZeroNativeBalanceOnSource && (
+            <Label
+              htmlFor="source-zero-balance"
+              className="flex items-center justify-center gap-2"
+            >
+              <Checkbox
+                id="source-zero-balance"
+                className="border-primary/50"
+                checked={understand}
+                onCheckedChange={(checked) =>
+                  setUnderstand(checked === "indeterminate" ? false : checked)
+                }
+              />
+              You need some <strong>{sourceNativeCurrency?.symbol}</strong> on
+              the <strong>{sourceAdapter?.name}</strong> to pay for the burn
+              action.
+            </Label>
+          )}
           <Label
             htmlFor="understand"
             className="flex items-center justify-center gap-2"

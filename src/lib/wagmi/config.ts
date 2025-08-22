@@ -4,6 +4,7 @@ import {
   avalanche,
   base,
   celo,
+  defineChain,
   flowMainnet,
   hedera,
   linea,
@@ -20,6 +21,31 @@ import {
 } from "@reown/appkit/networks";
 import { deployedUrl } from "../constants";
 
+export const codex = defineChain({
+  id: 81224,
+  chainNamespace: "eip155",
+  caipNetworkId: "eip155:81224",
+  name: "Codex Mainnet",
+  nativeCurrency: mainnet.nativeCurrency,
+  rpcUrls: {
+    default: {
+      http: ["https://rpc.codex.xyz"],
+      webSocket: ["wss://rpc.codex.xyz"],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: "Codex Explorer",
+      url: "https://explorer.codex.xyz",
+    },
+  },
+  assets: {
+    imageId: "https://explorer.codex.xyz/assets/configs/network_icon.svg",
+    imageUrl: "https://explorer.codex.xyz/assets/configs/network_icon.svg",
+  },
+  testnet: false,
+});
+
 // Get projectId from https://cloud.reown.com
 export const projectId = "1c6462fb2a1793e314522f2a4b9637d9";
 
@@ -34,6 +60,7 @@ export const chainsByDomain: Record<string, AppKitNetwork> = {
   "7": polygon,
   "10": unichain,
   "11": linea,
+  "12": codex,
   "13": sonic,
   "14": worldchain,
   // "16": sei,
@@ -73,6 +100,7 @@ export const usdcAddresses = {
   [flowMainnet.id]: "A.b19436aae4d94622.FiatToken",
   [hedera.id]: "0.0.456858",
   [linea.id]: "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+  [codex.id]: "0xd996633a415985DBd7D6D12f4A4343E31f5037cf",
   [near.id]: "17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
   // [noble.id]:	"uusdc",
   [optimism.id]: "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85",
@@ -108,6 +136,7 @@ export const tokenMessagerV2Addresses = {
   [arbitrum.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
   [base.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
   [linea.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
+  [codex.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
   [sonic.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
   [worldchain.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
   [solana.id]: "CCTPV2vPZJS2u2BBsUoscuikbYjnpFmbFsvVuJdgUMQe",
@@ -132,6 +161,7 @@ export const messageTransmitterV2Addresses = {
   [arbitrum.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
   [base.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
   [linea.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
+  [codex.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
   [sonic.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
   [worldchain.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
   [solana.id]: "CCTPV2Sm4AdWt5296sk4P66VBZ7bEhcARwFaaS9YPbeC",

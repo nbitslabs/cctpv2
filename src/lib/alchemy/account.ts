@@ -16,7 +16,7 @@ export async function getAccountTransactions(
     (chain) => chain.networkChainId?.toString() === networkId.toString()
   );
   if (!chain) {
-    console.log(`Network ${networkId} not found`);
+    console.log(`Alchemy does not support ${network?.name} (${networkId})`);
     return [];
   }
   const kebabCaseId = chain.kebabCaseId;

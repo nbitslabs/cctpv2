@@ -7,9 +7,12 @@ import {
   findNetworkAdapter,
   networkAdapters,
 } from "../networks";
-import { useAppKitNetwork } from "@reown/appkit/react";
+import { useAppKitAccount, useAppKitNetwork } from "@reown/appkit/react";
 import { networks } from "@/lib/wagmi/config";
 import { delay } from "@/lib/utils";
+import { useWalletClient } from "wagmi";
+import { addChain } from "viem/actions";
+import { Chain, solana } from "@reown/appkit/networks";
 
 export type ActiveNetworkContextType = {
   activeNetwork: CctpNetworkAdapter;
@@ -33,6 +36,8 @@ export function useActiveNetwork() {
 }
 
 export function ActiveNetworkProvider({ children }: React.PropsWithChildren) {
+  const { isConnected } = useAppKitAccount();
+  const { data: client } = useWalletClient();
   const { switchNetwork } = useAppKitNetwork();
   const [activeNetwork, setActiveNetworkState] = useState<CctpNetworkAdapter>();
 
@@ -44,21 +49,21 @@ export function ActiveNetworkProvider({ children }: React.PropsWithChildren) {
     );
 
     if (!appkitNetwork) throw new Error(`Network ${networkId} not found`);
-    switchNetwork(appkitNetwork);
-    // Workaround for async network switch
-    await delay(1000);
+    if (isConnected) {
+      if (!client) throw new Error("No wallet client found");
+      // There is no way to check if selected wallet has codex chain added, adding a delay 30s for the tries after first accepted
+      if (appkitNetwork.id !== solana.id)
+        await Promise.race([
+          addChain(client, { chain: appkitNetwork as Chain }),
+          delay(30_000),
+        ]);
+      switchNetwork(appkitNetwork);
+      // Workaround for async network switch
+      await delay(1000);
+    }
     const selected = findNetworkAdapter(networkId);
     setActiveNetworkState(selected);
     return selected!;
-
-    // if (!appkitEvents.data.address) {
-    //   toast.warning(
-    //     "No connected account found after network switch. Please connect wallet and try again."
-    //   );
-    //   await delay(1000);
-    //   open({ namespace: caipNetwork?.chainNamespace });
-    //   throw new Error("No connected account found after network switch");
-    // }
   };
 
   return (

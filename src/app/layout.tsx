@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import React from "react";
 import Providers from "./Providers";
 import { deployedUrl } from "@/lib/constants";
+import { networkAdapters } from "@/lib/cctp/networks";
 
 const funnelSans = Funnel_Sans({
   variable: "--font-sans",
@@ -19,9 +20,8 @@ const funnelDisplay = Funnel_Display({
 
 export const metadata: Metadata = {
   title:
-    "Cross-Chain USDC Transfers | CCTP v2 on Ethereum, Solana, Arbitrum, Base, Polygon, Avalanche & More",
-  description:
-    "Seamless USDC transfers across top blockchains with CCTP v2. Instantly bridge between Ethereum, Solana, Avalanche, Arbitrum, Base, Polygon, Linea, and more. Secure, fast, and low-cost cross-chain settlements.",
+    "Cross-Chain USDC Transfers | CCTP v2 on Ethereum, Solana, Arbitrum, Base & More",
+  description: `Seamless USDC transfers across top blockchains with CCTP v2. Secure, fast, and low-cost cross-chain settlements. Instantly bridge between ${networkAdapters.map((adapter) => adapter.name).join(", ")}, and more. `,
   metadataBase: new URL(deployedUrl),
 };
 

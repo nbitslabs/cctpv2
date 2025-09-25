@@ -48,7 +48,7 @@ export default function ConnectedWallet({
     }
   };
 
-  if (!accountState.isConnected) return null;
+  if (!accountState.isConnected) return <appkit-button namespace={namespace} />;
   const isActiveAccount = activeAccount.address === accountState.address;
 
   return (

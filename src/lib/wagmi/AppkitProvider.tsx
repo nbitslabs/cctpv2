@@ -6,15 +6,15 @@ import { createContext, useContext, useEffect, type ReactNode } from "react";
 import { WagmiProvider, type Config } from "wagmi";
 import { metadata, projectId, wagmiAdapter, networks, codex } from "./config";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { solanaAdapter } from "../solana/config";
 import { useTheme } from "next-themes";
+import { SolanaAdapter } from "@reown/appkit-adapter-solana/react";
 
 export const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 3 } },
 });
 
 const appkit = createAppKit({
-  adapters: [wagmiAdapter, solanaAdapter],
+  adapters: [wagmiAdapter, new SolanaAdapter()],
   projectId,
   networks,
   metadata,

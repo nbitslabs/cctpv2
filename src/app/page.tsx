@@ -35,7 +35,6 @@ import { solana } from "@reown/appkit/networks";
 import NetworkAdapterSelect, {
   useNetworkAdapterBalance,
 } from "@/components/NetworkAdapterSelect";
-import { TransactionSigner } from "gill";
 import SetSolanaSigner from "@/components/SolanaTransferButton";
 import { useChainId } from "wagmi";
 import ConnectedWallet from "@/components/ConnectedWallet";
@@ -48,6 +47,7 @@ import { getAccount } from "wagmi/actions";
 import { wagmiConfig } from "@/lib/wagmi/config";
 import TransactionHistory from "@/components/transaction-history";
 import Footer from "@/components/Footer";
+import type { TransactionSigner } from "@solana/kit";
 
 export default function Home() {
   const { open } = useAppKit();
@@ -60,6 +60,7 @@ export default function Home() {
   const { activeNetwork, setActiveNetwork } = useActiveNetwork();
   const { chainId } = useAppKitNetwork();
   const { theme, setTheme } = useTheme();
+  const solanaAccountState = useAppKitAccount({ namespace: "solana" });
 
   const [method, setMethod] = useState<"mintOnly" | "transfer">("transfer");
   const isMintOnly = method === "mintOnly";
@@ -238,7 +239,12 @@ export default function Home() {
             <NetworkAdapterSelect
               label="Destination Chain"
               chainId={destChain}
-              setChainId={setDestChain}
+              setChainId={(chainId) => {
+                if (chainId === solana.id && !solanaAccountState.isConnected) {
+                  open({ namespace: "solana" });
+                }
+                setDestChain(chainId);
+              }}
               address={destAddress}
               setAddress={setDestAddress}
               exceptAdapterIds={[sourceChain]}
@@ -342,7 +348,7 @@ export default function Home() {
 
           <Alert variant="warning">
             <AlertCircle className="size-8" />
-            <AlertDescription className="text-foreground">
+            <AlertDescription>
               After burning, if you lose progress, you can use the{" "}
               <strong>Mint Only</strong> option to mint USDC on the destination
               chain. The latest burn transaction is always available in the

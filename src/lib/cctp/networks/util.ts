@@ -12,7 +12,7 @@ import {
   CctpNetworkAdapter,
   CctpNetworkAdapterId,
 } from "./type";
-import { getBase58Encoder, address as solAddress } from "gill";
+import { getBase58Encoder, address as solAddress } from "@solana/kit";
 import { bytesToHex } from "viem";
 import { getATA2 } from "@/lib/solana/utils";
 import { solana } from "@reown/appkit/networks";

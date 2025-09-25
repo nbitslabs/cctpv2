@@ -1,4 +1,4 @@
-import type { Address, Signature, TransactionSigner } from "gill";
+import type { Address, Signature, TransactionSigner } from "@solana/kit";
 import type { Address as EvmAddress } from "viem";
 
 export enum CctpV2TransferType {

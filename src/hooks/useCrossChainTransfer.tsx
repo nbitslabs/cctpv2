@@ -15,7 +15,7 @@ import {
   findNetworkAdapter,
 } from "@/lib/cctp/networks";
 import { useAppKitAccount } from "@reown/appkit/react";
-import { TransactionSigner } from "gill";
+import type { TransactionSigner } from "@solana/kit";
 import { AlertCircle, CheckCircle } from "lucide-react";
 import ExternalLink from "@/components/ui2/ExternalLink";
 import { shortenAddress } from "@/lib/utils";

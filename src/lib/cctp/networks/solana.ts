@@ -1,7 +1,6 @@
 import { solana } from "@reown/appkit/networks";
 import { CctpNetworkAdapter, CctpV2TransferType } from "./type";
 import { usdcAddresses } from "@/lib/wagmi/config";
-import { createSolanaClient, lamportsToSol } from "gill";
 import { getATA2 } from "@/lib/solana/utils";
 import { getTokenMessagerAddress } from "./util";
 import { defaultCctpOpts, USDC_DECIMALS } from "./constants";
@@ -22,6 +21,11 @@ import {
   signTransactionMessageWithSigners,
   IAccountMeta,
   AccountRole,
+  createSolanaRpc,
+  sendAndConfirmTransactionFactory,
+  getSignatureFromTransaction,
+  getBase64EncodedWireTransaction,
+  createSolanaRpcSubscriptions,
 } from "@solana/kit";
 import {
   Address as EvmAddress,
@@ -43,9 +47,19 @@ import {
 } from "@/lib/solana/tools/codama/generated/message_transmitter_v2";
 import { TOKEN_PROGRAM_ADDRESS } from "@solana-program/token";
 
-const { rpc, sendAndConfirmTransaction } = createSolanaClient({
-  urlOrMoniker: `https://wispy-icy-liquid.solana-mainnet.quiknode.pro/1b10c09ce4cbf223215490fc24ad0fb398e470a4/`,
+function lamportsToSol(lamports: bigint) {
+  return Number(lamports) / Number(10 ** 9);
+}
+
+const rpcPath =
+  "wispy-icy-liquid.solana-mainnet.quiknode.pro/1b10c09ce4cbf223215490fc24ad0fb398e470a4/";
+
+const rpc = createSolanaRpc(`https://${rpcPath}`);
+const sendAndConfirmTransaction = sendAndConfirmTransactionFactory({
+  rpc,
+  rpcSubscriptions: createSolanaRpcSubscriptions(`wss://${rpcPath}`),
 });
+
 const solanaChainId = solana.id;
 const solanaUsdcAddress = solAddress(usdcAddresses[solanaChainId]);
 export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
@@ -66,7 +80,7 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
         .getBalance(solAddress(address))
         .send();
 
-      const formatted = Number(lamportsToSol(lamports));
+      const formatted = lamportsToSol(lamports);
       return { raw: formatted.toString(), formatted };
     },
 
@@ -159,12 +173,17 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
         (m) => appendTransactionMessageInstruction(instruction, m)
       );
       const signedTx = await signTransactionMessageWithSigners(txMessage);
-      const sig = await sendAndConfirmTransaction({
-        ...signedTx,
-        lifetimeConstraint: blockhash,
-      });
-
-      return sig.toString();
+      const appendedTx = { ...signedTx, lifetimeConstraint: blockhash };
+      await sendAndConfirmTransaction(appendedTx, { commitment: "confirmed" });
+      const simulation = await rpc
+        .simulateTransaction(getBase64EncodedWireTransaction(signedTx), {
+          encoding: "base64",
+        })
+        .send();
+      console.log(simulation);
+      if (simulation.value?.err)
+        throw new Error(simulation.value.err.toString());
+      return getSignatureFromTransaction(signedTx);
     },
 
     async simulateMessageTransmitterReceiveMessage() {
@@ -245,12 +264,17 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
           )
       );
       const signedTx = await signTransactionMessageWithSigners(txMessage);
-      const sig = await sendAndConfirmTransaction({
-        ...signedTx,
-        lifetimeConstraint: blockhash,
-      });
-
-      return sig.toString();
+      const appendedTx = { ...signedTx, lifetimeConstraint: blockhash };
+      const simulation = await rpc
+        .simulateTransaction(getBase64EncodedWireTransaction(appendedTx), {
+          encoding: "base64",
+        })
+        .send();
+      console.log(simulation);
+      if (simulation.value?.err)
+        throw new Error(simulation.value.err.toString());
+      await sendAndConfirmTransaction(appendedTx, { commitment: "confirmed" });
+      return getSignatureFromTransaction(appendedTx);
     },
 
     hooks: {
@@ -281,12 +305,9 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
           (m) => appendTransactionMessageInstruction(reclaimInstruction, m)
         );
         const signedTx = await signTransactionMessageWithSigners(txMessage);
-        const sig = await sendAndConfirmTransaction({
-          ...signedTx,
-          lifetimeConstraint: blockhash,
-        });
+        await sendAndConfirmTransaction(signedTx, { commitment: "confirmed" });
 
-        return sig;
+        return getSignatureFromTransaction(signedTx);
       },
     },
   },

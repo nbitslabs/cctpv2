@@ -5,6 +5,7 @@ import {
   base,
   // celo,
   defineChain,
+  // ink,
   // flowMainnet,
   // hedera,
   linea,
@@ -81,25 +82,6 @@ export const hyperEvm = defineChain({
 // Get projectId from https://cloud.reown.com
 export const projectId = "1c6462fb2a1793e314522f2a4b9637d9";
 
-const v2SupportedChains = {
-  mainnet,
-  avalanche,
-  optimism,
-  arbitrum,
-  base,
-  solana,
-  polygon,
-  unichain,
-  linea,
-  codex,
-  sonic,
-  worldchain,
-  xdc,
-  hyperEvm,
-} satisfies Record<string, AppKitNetwork>;
-type V2SupportedChainId =
-  (typeof v2SupportedChains)[keyof typeof v2SupportedChains]["id"];
-
 // https://developers.circle.com/stablecoins/supported-domains
 export const chainsByDomain = {
   "0": mainnet,
@@ -117,7 +99,10 @@ export const chainsByDomain = {
   // "16": sei,
   "18": xdc,
   "19": hyperEvm,
+  // "21": ink,
 } satisfies Record<string, AppKitNetwork>;
+type V2SupportedChainId =
+  (typeof chainsByDomain)[keyof typeof chainsByDomain]["id"];
 
 export const networks = Object.values(chainsByDomain) as unknown as [
   AppKitNetwork,
@@ -170,6 +155,7 @@ export const usdcAddresses: Record<V2SupportedChainId, string> = {
   [hyperEvm.id]: "0xb88339CB7199b77E23DB6E890353E22632Ba630f",
   // [xrpl.id]:	"5553444300000000000000000000000000000000.rGm7WCVp9gb4jZHWTEtGUr4dd74z2XuWhE",
   // [zkSyncEra.id]:	"0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4",
+  // [ink.id]: "0x2D270e6886d130D724215A266106e6832161EAEd",
 };
 
 export const tokenMessagerV1Addresses = {
@@ -199,6 +185,7 @@ export const tokenMessagerV2Addresses: Record<V2SupportedChainId, string> = {
   [worldchain.id]: evmTokenMessagerV2Address,
   [xdc.id]: evmTokenMessagerV2Address,
   [hyperEvm.id]: evmTokenMessagerV2Address,
+  // [ink.id]: evmTokenMessagerV2Address,
   [solana.id]: "CCTPV2vPZJS2u2BBsUoscuikbYjnpFmbFsvVuJdgUMQe",
 };
 export type CctpV2SupportedChainId = keyof typeof tokenMessagerV2Addresses;
@@ -231,5 +218,6 @@ export const messageTransmitterV2Addresses: Record<V2SupportedChainId, string> =
     [worldchain.id]: evmMessageTransmitterV2Address,
     [xdc.id]: evmMessageTransmitterV2Address,
     [hyperEvm.id]: evmMessageTransmitterV2Address,
+    // [ink.id]: evmMessageTransmitterV2Address,
     [solana.id]: "CCTPV2Sm4AdWt5296sk4P66VBZ7bEhcARwFaaS9YPbeC",
   };

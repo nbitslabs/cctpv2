@@ -33,6 +33,7 @@
 - [x] [Solana](https://solscan.io/tx/4d7WvDktAksFjCuVpx5SL7jX6Kq84G3kMN58S8AL1TPygXk19EAkAhcGwyF17NYw3yJ8JSLozLWiuUxVN33D6vX2) -> [HyperEVM](https://www.hyperscan.com//tx/0xb229422a308de76b19eb7148148d0fb4633be407217167fe0eba4574b39850e0)
 - [x] [XDC Network](https://xdcscan.com/tx/0x721aa0cd02815c87abacac3700c538226bc5d9da239e96f96cda2ab0f7ea2e82) -> [HyperEVM](https://www.hyperscan.com//tx/0xf363dec94c706c24d3b08825e745c217ecbb628721c11019e723ee1cf01db875)
 - [x] [Solana](https://solscan.io/tx/2LNqjhz67tKfg2oajTx7q3T2HvJHyFSyE7r62fMPBGzjUewQ32zhe2AD7fEArgedhD6gtuarW9zU2VMXLcr75E6r) -> [Unichain](https://uniscan.xyz/tx/0x88315ec25cdc0e10624e72e4132b79bf0ada4f957d2fad838b4cd44a14a4baea)
+- [XDC Network](https://xdcscan.com/tx/0x571e10241a8384e6f1537b71969c70a89dd99d23882b408e53da647b77848f81) -> [Solana](https://solscan.io/tx/3FNj1nsDFWRThkQ4JVvKrwasdd5V8YJ7aj6aV1ynQYHNJNxdkg5xS4qsJWwFf6XfUEVmyyM2P2NZVic5bdnRSKNy)
 
 ## Getting Started
 

@@ -39,7 +39,11 @@ import SetSolanaSigner from "@/components/SolanaTransferButton";
 import { useChainId } from "wagmi";
 import ConnectedWallet from "@/components/ConnectedWallet";
 import { useAddressOfAdapterId } from "@/hooks/useAddressOfAdapter";
-import { TooltipWrap, TooltipWrapNumber } from "@/components/TooltipWrap";
+import {
+  TooltipWrap,
+  TooltipWrapInfo,
+  TooltipWrapNumber,
+} from "@/components/TooltipWrap";
 import { useSolanaAccount } from "@/hooks/useSolanaSigner";
 import { formatDestinationAddress } from "@/lib/cctp/networks/util";
 import { useTheme } from "next-themes";
@@ -349,10 +353,17 @@ export default function Home() {
           <Alert variant="warning">
             <AlertCircle className="size-8" />
             <AlertDescription>
-              After burning, if you lose progress, you can use the{" "}
-              <strong>Mint Only</strong> option to mint USDC on the destination
-              chain. The latest burn transaction is always available in the
-              source explorer (
+              After burning, if you lose progress or getting{" "}
+              <strong className="text-destructive font-medium">
+                <TooltipWrapInfo
+                  content="Sometimes with Solana, this error means the burn transaction has already been processed."
+                  className="mr-1 size-3"
+                />
+                Error: AlreadyProcessed{" "}
+              </strong>
+              , you can use the <strong>Mint Only</strong> option to mint USDC
+              on the destination chain. The latest burn transaction is always
+              available in the source explorer (
               <ExternalLink
                 href={`${sourceAdapter?.explorer?.url}/tx/${burnTxHash}`}
               >

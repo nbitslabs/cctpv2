@@ -6,6 +6,8 @@
 - [x] History of Trades
 - [x] Support Solana
 - [x] Support Codex
+- [x] Support HyperEVM
+- [x] Support XDC Network
 - [ ] Add Li.fi to support cross-chain swap (to get native tokens quickly)
 - [ ] Supports CCTP V1
 - [ ] Estimated fees: fee on both chains (in native token), and total fees in USDC
@@ -27,6 +29,10 @@
 - [x] [Arbitrum One](https://arbiscan.io/tx/0xf08969b1e5b8df967f9495503b062bb0ca9bda210ed0e2d42c7fbd09156112bd) -> [Codex](https://explorer.codex.xyz/tx/0xf6a37dc84e2aeb286dc5c970d0ece7e4ecccc95c87cbbaf9b96c57cf5102929f)
 - [x] [Avalanche C-chain](https://snowtrace.io/tx/0xfbae678dfd381dbc9073fda845227ef502f6819e99f8f431cdafe1534cd3b5a1) -> [Codex](https://explorer.codex.xyz/tx/0x76d2073a4852690dc7e6a08b9173b9bdc20414baaee215fa594624d5c1183088)
 - [x] [Codex](https://explorer.codex.xyz/tx/0xbcacf0758cf52e24cf746bbb073b978cbdc7f5cc63fe2d65fe827a4626e5d3b9) -> [Avalanche C-chain](https://snowtrace.io/tx/0x00fa4f035d74435d9e4f90b6c1db9c7e81987555f98bcafef05f3578f407c086?chainid=43114)
+- [x] [Solana](https://solscan.io/tx/3EKm4mPv9f5wXRHRgd6FmnJTsVFw3PuDz59Up7mcUJyAiyP1n5B4G27Z6u6dZrEbPZSMN28p8AmJLp6ikkBaWSiU) -> [XDC Network](https://xdcscan.com/tx/0xdcb5b531af46f787ae430c5e2b5b2f178e6b2e044df41c4c8d40be20445a6f96)
+- [x] [Solana](https://solscan.io/tx/4d7WvDktAksFjCuVpx5SL7jX6Kq84G3kMN58S8AL1TPygXk19EAkAhcGwyF17NYw3yJ8JSLozLWiuUxVN33D6vX2) -> [HyperEVM](https://www.hyperscan.com//tx/0xb229422a308de76b19eb7148148d0fb4633be407217167fe0eba4574b39850e0)
+- [x] [XDC Network](https://xdcscan.com/tx/0x721aa0cd02815c87abacac3700c538226bc5d9da239e96f96cda2ab0f7ea2e82) -> [HyperEVM](https://www.hyperscan.com//tx/0xf363dec94c706c24d3b08825e745c217ecbb628721c11019e723ee1cf01db875)
+- [x] [Solana](https://solscan.io/tx/2LNqjhz67tKfg2oajTx7q3T2HvJHyFSyE7r62fMPBGzjUewQ32zhe2AD7fEArgedhD6gtuarW9zU2VMXLcr75E6r) -> [Unichain](https://uniscan.xyz/tx/0x88315ec25cdc0e10624e72e4132b79bf0ada4f957d2fad838b4cd44a14a4baea)
 
 ## Getting Started
 

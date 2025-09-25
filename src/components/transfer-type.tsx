@@ -17,7 +17,7 @@ export function TransferTypeSelector({
     >
       <TabsList className="grid w-fit grid-cols-2">
         <TabsTrigger value={CctpV2TransferType.Fast}>🚀 Fast</TabsTrigger>
-        <TabsTrigger value={CctpV2TransferType.Standard}>
+        <TabsTrigger value={CctpV2TransferType.Standard} disabled>
           🛡️ Standard
         </TabsTrigger>
       </TabsList>

@@ -3,20 +3,21 @@ import {
   arbitrum,
   avalanche,
   base,
-  celo,
+  // celo,
   defineChain,
-  flowMainnet,
-  hedera,
+  // flowMainnet,
+  // hedera,
   linea,
   mainnet,
-  near,
+  // near,
   optimism,
   polygon,
   solana,
   sonic,
-  tron,
+  // tron,
   unichain,
   worldchain,
+  xdc,
   type AppKitNetwork,
 } from "@reown/appkit/networks";
 import { deployedUrl } from "../constants";
@@ -46,11 +47,61 @@ export const codex = defineChain({
   testnet: false,
 });
 
+export const hyperEvm = defineChain({
+  id: 999,
+  chainNamespace: "eip155",
+  caipNetworkId: "eip155:999",
+  name: "HyperEVM",
+  nativeCurrency: {
+    decimals: 18,
+    name: "HYPE",
+    symbol: "HYPE",
+  },
+  rpcUrls: {
+    default: {
+      http: ["https://hyperliquid.drpc.org"],
+      webSocket: ["wss://hyperliquid.drpc.org"],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: "Hyperliquid Explorer",
+      url: "https://www.hyperscan.com/",
+    },
+  },
+  assets: {
+    imageId:
+      "https://storage.googleapis.com/zapper-fi-assets/networks/hyperevm-icon.png",
+    imageUrl:
+      "https://storage.googleapis.com/zapper-fi-assets/networks/hyperevm-icon.png",
+  },
+  testnet: false,
+});
+
 // Get projectId from https://cloud.reown.com
 export const projectId = "1c6462fb2a1793e314522f2a4b9637d9";
 
+const v2SupportedChains = {
+  mainnet,
+  avalanche,
+  optimism,
+  arbitrum,
+  base,
+  solana,
+  polygon,
+  unichain,
+  linea,
+  codex,
+  sonic,
+  worldchain,
+  xdc,
+  hyperEvm,
+} satisfies Record<string, AppKitNetwork>;
+type V2SupportedChainId =
+  (typeof v2SupportedChains)[keyof typeof v2SupportedChains]["id"];
+
 // https://developers.circle.com/stablecoins/supported-domains
-export const chainsByDomain: Record<string, AppKitNetwork> = {
+export const chainsByDomain = {
   "0": mainnet,
   "1": avalanche,
   "2": optimism,
@@ -64,9 +115,11 @@ export const chainsByDomain: Record<string, AppKitNetwork> = {
   "13": sonic,
   "14": worldchain,
   // "16": sei,
-};
+  "18": xdc,
+  "19": hyperEvm,
+} satisfies Record<string, AppKitNetwork>;
 
-export const networks = Object.values(chainsByDomain) as [
+export const networks = Object.values(chainsByDomain) as unknown as [
   AppKitNetwork,
   ...AppKitNetwork[],
 ];
@@ -89,19 +142,19 @@ export const wagmiAdapter = new WagmiAdapter({
 export const wagmiConfig = wagmiAdapter.wagmiConfig;
 
 // https://developers.circle.com/stablecoins/usdc-contract-addresses
-export const usdcAddresses = {
+export const usdcAddresses: Record<V2SupportedChainId, string> = {
   // Algorand	31566704
   // Aptos	0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b
   [arbitrum.id]: "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
   [avalanche.id]: "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E",
   [base.id]: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-  [celo.id]: "0xcebA9300f2b948710d2653dD7B07f33A8B32118C",
+  // [celo.id]: "0xcebA9300f2b948710d2653dD7B07f33A8B32118C",
   [mainnet.id]: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-  [flowMainnet.id]: "A.b19436aae4d94622.FiatToken",
-  [hedera.id]: "0.0.456858",
+  // [flowMainnet.id]: "A.b19436aae4d94622.FiatToken",
+  // [hedera.id]: "0.0.456858",
   [linea.id]: "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
   [codex.id]: "0xd996633a415985DBd7D6D12f4A4343E31f5037cf",
-  [near.id]: "17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
+  // [near.id]: "17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
   // [noble.id]:	"uusdc",
   [optimism.id]: "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85",
   // [polkadot.id]:	"1337",
@@ -110,9 +163,11 @@ export const usdcAddresses = {
   [sonic.id]: "0x29219dd400f2Bf60E5a23d13Be72B486D4038894",
   // [stellar.id]:	"USDC-GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN",
   // [sui.id]:	"0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
-  [tron.id]: "TEkxiTehnzSmSe2XqrBj4w32RUN966rdz8",
+  // [tron.id]: "TEkxiTehnzSmSe2XqrBj4w32RUN966rdz8",
   [unichain.id]: "0x078D782b760474a361dDA0AF3839290b0EF57AD6",
   [worldchain.id]: "0x79A02482A880bCe3F13E09da970dC34dB4cD24D1",
+  [xdc.id]: "0xfA2958CB79b0491CC627c1557F441eF849Ca8eb1",
+  [hyperEvm.id]: "0xb88339CB7199b77E23DB6E890353E22632Ba630f",
   // [xrpl.id]:	"5553444300000000000000000000000000000000.rGm7WCVp9gb4jZHWTEtGUr4dd74z2XuWhE",
   // [zkSyncEra.id]:	"0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4",
 };
@@ -129,16 +184,21 @@ export const tokenMessagerV1Addresses = {
 };
 export type CctpV1SupportedChainId = keyof typeof tokenMessagerV1Addresses;
 
-export const tokenMessagerV2Addresses = {
-  [mainnet.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
-  [avalanche.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
-  [optimism.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
-  [arbitrum.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
-  [base.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
-  [linea.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
-  [codex.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
-  [sonic.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
-  [worldchain.id]: "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d",
+const evmTokenMessagerV2Address = "0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d";
+export const tokenMessagerV2Addresses: Record<V2SupportedChainId, string> = {
+  [mainnet.id]: evmTokenMessagerV2Address,
+  [avalanche.id]: evmTokenMessagerV2Address,
+  [optimism.id]: evmTokenMessagerV2Address,
+  [arbitrum.id]: evmTokenMessagerV2Address,
+  [base.id]: evmTokenMessagerV2Address,
+  [linea.id]: evmTokenMessagerV2Address,
+  [codex.id]: evmTokenMessagerV2Address,
+  [sonic.id]: evmTokenMessagerV2Address,
+  [unichain.id]: evmTokenMessagerV2Address,
+  [polygon.id]: evmTokenMessagerV2Address,
+  [worldchain.id]: evmTokenMessagerV2Address,
+  [xdc.id]: evmTokenMessagerV2Address,
+  [hyperEvm.id]: evmTokenMessagerV2Address,
   [solana.id]: "CCTPV2vPZJS2u2BBsUoscuikbYjnpFmbFsvVuJdgUMQe",
 };
 export type CctpV2SupportedChainId = keyof typeof tokenMessagerV2Addresses;
@@ -154,15 +214,22 @@ export const messageTransmitterV1Addresses = {
   [solana.id]: "CCTPmbSD7gX1bxKPAmg77w8oFzNFpaQiQUWD43TKaecd",
 };
 
-export const messageTransmitterV2Addresses = {
-  [mainnet.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
-  [avalanche.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
-  [optimism.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
-  [arbitrum.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
-  [base.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
-  [linea.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
-  [codex.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
-  [sonic.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
-  [worldchain.id]: "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64",
-  [solana.id]: "CCTPV2Sm4AdWt5296sk4P66VBZ7bEhcARwFaaS9YPbeC",
-};
+const evmMessageTransmitterV2Address =
+  "0x81D40F21F12A8F0E3252Bccb954D722d4c464B64";
+export const messageTransmitterV2Addresses: Record<V2SupportedChainId, string> =
+  {
+    [mainnet.id]: evmMessageTransmitterV2Address,
+    [avalanche.id]: evmMessageTransmitterV2Address,
+    [optimism.id]: evmMessageTransmitterV2Address,
+    [arbitrum.id]: evmMessageTransmitterV2Address,
+    [base.id]: evmMessageTransmitterV2Address,
+    [linea.id]: evmMessageTransmitterV2Address,
+    [codex.id]: evmMessageTransmitterV2Address,
+    [sonic.id]: evmMessageTransmitterV2Address,
+    [unichain.id]: evmMessageTransmitterV2Address,
+    [polygon.id]: evmMessageTransmitterV2Address,
+    [worldchain.id]: evmMessageTransmitterV2Address,
+    [xdc.id]: evmMessageTransmitterV2Address,
+    [hyperEvm.id]: evmMessageTransmitterV2Address,
+    [solana.id]: "CCTPV2Sm4AdWt5296sk4P66VBZ7bEhcARwFaaS9YPbeC",
+  };

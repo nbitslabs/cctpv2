@@ -7,7 +7,12 @@ import {
   writeTokenMessagerDepositForBurn,
   writeUsdcApprove,
 } from "../../wagmi/generated";
-import { chainsByDomain, wagmiConfig, usdcAddresses } from "../../wagmi/config";
+import {
+  chainsByDomain,
+  wagmiConfig,
+  usdcAddresses,
+  hyperEvm,
+} from "../../wagmi/config";
 import {
   getAccount,
   getPublicClient,
@@ -45,6 +50,8 @@ const {
   "13": _sonic,
   "14": _worldchain,
   // "16": _sei,
+  "18": _xdc,
+  "19": _hyperEvm,
 } = chainsByDomain;
 
 // https://developers.circle.com/stablecoins/supported-domains
@@ -153,6 +160,21 @@ const evmChains: Array<
   //   logoUrl:
   //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6fwxNLN1-so5tXQr4z_Z-VcgryIoKU2iaFw&s",
   // },
+  {
+    chain: _xdc,
+    domain: 18,
+    supportV1: false,
+    supportV2: true,
+    logoUrl:
+      "https://images.prismic.io/xdcf/aCdHeSdWJ-7kSOet_XDCNetworkColorDisplay.png?auto=format,compress",
+  },
+  {
+    chain: _hyperEvm,
+    domain: 19,
+    supportV1: false,
+    supportV2: true,
+    logoUrl: hyperEvm.assets.imageUrl,
+  },
 ];
 
 export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(

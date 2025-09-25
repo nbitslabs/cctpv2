@@ -180,7 +180,6 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
           encoding: "base64",
         })
         .send();
-      console.log(simulation);
       if (simulation.value?.err)
         throw new Error(simulation.value.err.toString());
       return getSignatureFromTransaction(signedTx);
@@ -270,11 +269,10 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
           encoding: "base64",
         })
         .send();
-      console.log(simulation);
       if (simulation.value?.err)
         throw new Error(simulation.value.err.toString());
       await sendAndConfirmTransaction(appendedTx, { commitment: "confirmed" });
-      return getSignatureFromTransaction(appendedTx);
+      return getSignatureFromTransaction(signedTx);
     },
 
     hooks: {

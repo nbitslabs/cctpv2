@@ -1,0 +1,6 @@
+onlyBuiltDependencies:
+  - '@reown/appkit'
+  - '@tailwindcss/oxide'
+  - esbuild
+  - sharp
+  - unrs-resolver

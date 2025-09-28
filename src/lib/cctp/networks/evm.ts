@@ -68,7 +68,7 @@ const evmChains: Array<
     domain: 0,
     supportV1: true,
     supportV2: true,
-    logoUrl: "/images/tokens/eth.png",
+    logoUrl: "https://www.cdnlogo.com/logos/e/81/ethereum-eth.svg",
   },
   {
     chain: _avalanche,
@@ -356,5 +356,7 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
 );
 
 function getMintRecipient(destinationAddress: string) {
-  return `0x${destinationAddress.replace(/^0x/, "").padStart(64, "0")}` satisfies Address;
+  return `0x${destinationAddress
+    .replace(/^0x/, "")
+    .padStart(64, "0")}` satisfies Address;
 }

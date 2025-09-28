@@ -1,69 +1,64 @@
 "use client";
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import ConfettiCelebration from "@/components/ConfettiCelebration";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ProgressSteps } from "@/components/progress-step";
-import { TransferLog } from "@/components/transfer-log";
-import { Timer } from "@/components/timer";
-import { TransferTypeSelector } from "@/components/transfer-type";
-import SuccessDialog from "@/components/SuccessDialog";
-import {
-  RequiredExecuteTransferParams,
-  TransferStep,
-  useCrossChainTransfer,
-} from "@/hooks/useCrossChainTransfer";
-import { cn } from "@/lib/utils";
-import {
-  useAppKit,
-  useAppKitAccount,
-  useAppKitNetwork,
-} from "@reown/appkit/react";
-import { toast } from "sonner";
-import { CctpNetworkAdapterId, CctpV2TransferType } from "@/lib/cctp/networks";
-import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
-import { AlertCircle, Loader2, Moon, Sun, Wallet } from "lucide-react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ExternalLink from "@/components/ui2/ExternalLink";
-import { NumericFormat } from "react-number-format";
-import { Checkbox } from "@/components/ui/checkbox";
-import { solana } from "@reown/appkit/networks";
+import Footer from "@/components/Footer";
 import NetworkAdapterSelect, {
   useNetworkAdapterBalance,
 } from "@/components/NetworkAdapterSelect";
+import { ProgressSteps } from "@/components/progress-step";
 import SetSolanaSigner from "@/components/SolanaTransferButton";
-import { useChainId } from "wagmi";
-import ConnectedWallet from "@/components/ConnectedWallet";
-import { useAddressOfAdapterId } from "@/hooks/useAddressOfAdapter";
+import StickyWallets from "@/components/StickyWallets";
+import SuccessDialog from "@/components/SuccessDialog";
+import { Timer } from "@/components/timer";
 import {
   TooltipWrap,
   TooltipWrapInfo,
   TooltipWrapNumber,
 } from "@/components/TooltipWrap";
-import { useSolanaAccount } from "@/hooks/useSolanaSigner";
-import { formatDestinationAddress } from "@/lib/cctp/networks/util";
-import { useTheme } from "next-themes";
-import { getAccount } from "wagmi/actions";
-import { wagmiConfig } from "@/lib/wagmi/config";
 import TransactionHistory from "@/components/transaction-history";
-import Footer from "@/components/Footer";
+import { TransferLog } from "@/components/transfer-log";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ExternalLink from "@/components/ui2/ExternalLink";
+import { useAddressOfAdapterId } from "@/hooks/useAddressOfAdapter";
+import {
+  RequiredExecuteTransferParams,
+  TransferStep,
+  useCrossChainTransfer,
+} from "@/hooks/useCrossChainTransfer";
+import { useSolanaAccount } from "@/hooks/useSolanaSigner";
+import { CctpNetworkAdapterId, CctpV2TransferType } from "@/lib/cctp/networks";
+import { formatDestinationAddress } from "@/lib/cctp/networks/util";
+import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
+import { cn } from "@/lib/utils";
+import { wagmiConfig } from "@/lib/wagmi/config";
+import { solana } from "@reown/appkit/networks";
+import {
+  useAppKit,
+  useAppKitAccount,
+  useAppKitNetwork,
+} from "@reown/appkit/react";
 import type { TransactionSigner } from "@solana/kit";
+import { AnimatePresence, motion } from "framer-motion";
+import { AlertCircle, Loader2, Wallet } from "lucide-react";
+import { useEffect, useState } from "react";
+import { NumericFormat } from "react-number-format";
+import { toast } from "sonner";
+import { getAccount } from "wagmi/actions";
 
 export default function Home() {
   const { open } = useAppKit();
   const { isConnected } = useAppKitAccount();
   const solanaAccount = useSolanaAccount();
-  const eip155ChainId = useChainId();
   const { currentStep, logs, error, transferAmount, executeTransfer, reset } =
     useCrossChainTransfer();
   const isCompleted = currentStep === "completed";
   const { activeNetwork, setActiveNetwork } = useActiveNetwork();
   const { chainId } = useAppKitNetwork();
-  const { theme, setTheme } = useTheme();
   const solanaAccountState = useAppKitAccount({ namespace: "solana" });
 
   const [method, setMethod] = useState<"mintOnly" | "transfer">("transfer");
@@ -72,9 +67,7 @@ export default function Home() {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [isTransferring, setIsTransferring] = useState(false);
   const [showFinalTime, setShowFinalTime] = useState(false);
-  const [transferType, setTransferType] = useState<CctpV2TransferType>(
-    CctpV2TransferType.Fast
-  );
+  const [transferType] = useState<CctpV2TransferType>(CctpV2TransferType.Fast);
   const [burnTxHash, setBurnTxHash] = useState("");
   const [understand, setUnderstand] = useState(false);
   const [solanaSigner, setSolanaSigner] = useState<TransactionSigner>();
@@ -168,38 +161,16 @@ export default function Home() {
   }, [sourceChain]);
 
   return (
-    <div className="min-h-screen pb-8 sm:p-8">
-      <Card className="max-w-5xl mx-auto bg-foreground/3 border-none sm:border">
-        <CardHeader className="items-center relative">
-          <CardTitle className="text-center">
+    <div className="min-h-screen w-full pb-8 sm:p-8 absolute">
+      <StickyWallets />
+      <Card className="max-w-4xl mx-auto border-0 sm:bg-foreground/3 sm:border pt-10 sm:pt-2">
+        <CardHeader className="items-center">
+          <CardTitle className="text-center text-xl sm:text-2xl">
             Cross-Chain USDC Transfer
           </CardTitle>
-
-          <div className="absolute top-4 right-4">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => {
-                setTheme(theme === "dark" ? "light" : "dark");
-              }}
-            >
-              {theme === "dark" ? <Moon /> : <Sun />}
-            </Button>
-          </div>
-          {isConnected ? (
-            <>
-              <appkit-account-button />
-              <div className="flex w-full gap-2">
-                <ConnectedWallet namespace="eip155" adapterId={eip155ChainId} />
-                <ConnectedWallet namespace="solana" adapterId={solana.id} />
-              </div>
-            </>
-          ) : (
-            <appkit-connect-button />
-          )}
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex flex-col gap-2 sm:flex-row sm:*:w-1/2">
+          <div className="flex flex-col gap-4 sm:flex-row sm:*:w-1/2">
             <div className="flex flex-col gap-2">
               <Label>Transfer Method</Label>
               <Tabs
@@ -217,7 +188,7 @@ export default function Home() {
                   : "Transfer and mint from the origin to the destination"}
               </p>
             </div>
-            {!isMintOnly && (
+            {/* {!isMintOnly && (
               <div className="flex flex-col gap-2">
                 <Label>Transfer Type</Label>
                 <TransferTypeSelector
@@ -230,7 +201,7 @@ export default function Home() {
                     : "Standard transfers with higher finality (2000 blocks)"}
                 </p>
               </div>
-            )}
+            )} */}
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <NetworkAdapterSelect
@@ -261,7 +232,7 @@ export default function Home() {
                   onClick={() =>
                     setDestAddress(
                       (destAdapter?.type === "solana"
-                        ? solanaAccount?.address
+                        ? solanaAccountState?.address
                         : getAccount(wagmiConfig).address) ?? ""
                     )
                   }
@@ -392,9 +363,11 @@ export default function Home() {
                   setUnderstand(checked === "indeterminate" ? false : checked)
                 }
               />
-              You need some <strong>{sourceNativeCurrency?.symbol}</strong> on
-              the <strong>{sourceAdapter?.name}</strong> to pay for the burn
-              action.
+              <span>
+                You need some <strong>{sourceNativeCurrency?.symbol}</strong> on
+                the <strong>{sourceAdapter?.name}</strong> to pay for the burn
+                action.
+              </span>
             </Label>
           )}
           <Label
@@ -472,7 +445,12 @@ export default function Home() {
       </Card>
       <Footer />
 
-      {solanaAccount && <SetSolanaSigner setSolanaSigner={setSolanaSigner} />}
+      {solanaAccount && (
+        <SetSolanaSigner
+          setSolanaSigner={setSolanaSigner}
+          solanaAccount={solanaAccount}
+        />
+      )}
 
       {/* Success Dialog */}
       {isCompleted && sourceAdapter && destAdapter && (

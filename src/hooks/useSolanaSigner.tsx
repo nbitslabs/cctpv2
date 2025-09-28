@@ -1,16 +1,16 @@
+import { isAddress } from "@solana/kit";
 import { useWalletAccountTransactionSigner } from "@solana/react";
-import { useWallets } from "@wallet-standard/react";
+import { UiWalletAccount, useWallets } from "@wallet-standard/react";
 
 export function useSolanaAccount() {
   const wallets = useWallets();
   const selected = wallets.find((wallet) => wallet.accounts.length > 0);
   const account = selected?.accounts[0];
-  return account;
+  if (account?.address && isAddress(account.address)) return account;
+  return undefined;
 }
 
-export function useSolanaSigner() {
-  const account = useSolanaAccount();
-  if (!account) throw new Error("No Solana account found");
+export function useSolanaSigner(account: UiWalletAccount) {
   const messageSigner = useWalletAccountTransactionSigner(
     account,
     "solana:mainnet"

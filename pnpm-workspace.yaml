@@ -1,6 +1,5 @@
 onlyBuiltDependencies:
-  - '@reown/appkit'
-  - '@tailwindcss/oxide'
-  - esbuild
-  - sharp
-  - unrs-resolver
+  - bigint-buffer
+  - bufferutil
+  - keccak
+  - utf-8-validate

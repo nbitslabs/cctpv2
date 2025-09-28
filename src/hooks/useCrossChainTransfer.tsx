@@ -18,10 +18,11 @@ import { useAppKitAccount } from "@reown/appkit/react";
 import type { TransactionSigner } from "@solana/kit";
 import { AlertCircle, CheckCircle } from "lucide-react";
 import ExternalLink from "@/components/ui2/ExternalLink";
-import { shortenAddress } from "@/lib/utils";
+import { delay, shortenAddress } from "@/lib/utils";
 import CopyIconTooltip from "@/components/ui2/CopyIconTooltip";
 import { formatUnits } from "viem";
 import { USDC_DECIMALS } from "@/lib/cctp/networks/constants";
+import { toast } from "sonner";
 
 export type TransferStep =
   | "idle"
@@ -173,6 +174,16 @@ export function useCrossChainTransfer() {
           Error: {error instanceof Error ? error.message : "Unknown error"}
         </>
       );
+
+      await delay(500);
+      if (
+        error instanceof Error &&
+        error.message === "Solana signer is required"
+      ) {
+        toast.error(
+          'Please manually set your Solana wallet "Active", refresh the page and retry.'
+        );
+      }
     }
   };
 
@@ -208,7 +219,7 @@ const retrieveAttestation = async (
             ({
               status: "error",
               error: e.message,
-            }) satisfies AttestationMessage
+            } satisfies AttestationMessage)
         );
         if (response.status === "complete") {
           cleanup?.();
@@ -227,13 +238,10 @@ const retrieveAttestation = async (
         });
       }, 5000);
 
-      const timeout = setTimeout(
-        () => {
-          clearInterval(interval);
-          reject(new Error("Timeout waiting for attestation"));
-        },
-        5 * 60 * 1000
-      );
+      const timeout = setTimeout(() => {
+        clearInterval(interval);
+        reject(new Error("Timeout waiting for attestation"));
+      }, 5 * 60 * 1000);
     }
   );
 };

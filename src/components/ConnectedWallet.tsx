@@ -1,5 +1,4 @@
 "use client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CctpNetworkAdapterId, findNetworkAdapter } from "@/lib/cctp/networks";
 import { NamespaceTypeMap } from "@reown/appkit-controllers";
 import {
@@ -11,13 +10,21 @@ import {
 import Image from "next/image";
 import CopyIconTooltip from "./ui2/CopyIconTooltip";
 import { Button } from "./ui/button";
-import { LogOut, User2 } from "lucide-react";
-import { Separator } from "@radix-ui/react-dropdown-menu";
+import {
+  ArrowLeftRight,
+  CircleCheck,
+  CopyIcon,
+  CreditCard,
+} from "lucide-react";
 import { Badge } from "./ui/badge";
 import ExternalLink from "./ui2/ExternalLink";
 import { useConfirm } from "./ui2/PromiseAlertDialog";
-import { formatNumber, shortenAddress } from "@/lib/utils";
+import { cn, formatNumber, shortenAddress } from "@/lib/utils";
 import { useNativeBalance } from "@/hooks/useBalance";
+import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
+import { TooltipWrap } from "./TooltipWrap";
+import { useState } from "react";
 
 export default function ConnectedWallet({
   namespace,
@@ -27,6 +34,7 @@ export default function ConnectedWallet({
   adapterId: CctpNetworkAdapterId;
 }) {
   const { open } = useAppKit();
+  const { setActiveNetwork } = useActiveNetwork();
   const activeAccount = useAppKitAccount();
   const accountState = useAppKitAccount({ namespace });
   const { walletInfo } = useWalletInfo(namespace);
@@ -34,6 +42,7 @@ export default function ConnectedWallet({
   const { disconnect } = useDisconnect();
   const confirm = useConfirm();
   const { data: balance } = useNativeBalance(adapterId, accountState.address);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleDisconnect = async () => {
     const result = await confirm({
@@ -43,103 +52,154 @@ export default function ConnectedWallet({
       cancelButton: "Cancel",
       cancelButtonVariant: "outline",
     });
-    if (result) {
-      disconnect({ namespace });
-    }
+    if (result) disconnect({ namespace });
   };
 
-  if (!accountState.isConnected) return <appkit-button namespace={namespace} />;
+  if (!accountState.isConnected)
+    return (
+      <Button
+        size="sm"
+        variant={"outline-solid"}
+        className="h-[26px]"
+        onClick={() => open({ view: "Account", namespace })}
+      >
+        Connect {adapter?.type === "evm" ? "EVM" : "Solana"}
+      </Button>
+    );
   const isActiveAccount = activeAccount.address === accountState.address;
 
   return (
-    <>
-      <Card className="w-full max-w-2xl bg-foreground/5">
-        <CardHeader className="p-2 sm:p-4">
-          <CardTitle className="flex items-center gap-2">
-            <Badge
-              variant={isActiveAccount ? "default" : "secondary"}
-              className="font-medium"
-            >
-              {adapter?.name}
-            </Badge>
-            <span className="hidden sm:inline">Connected Wallet</span>
-            <Button
-              variant="ghost"
-              size="iconSm"
-              className="ml-auto"
-              onClick={() => open({ view: "Account", namespace })}
-            >
-              <User2 />
-            </Button>
-            <Button
-              variant="destructive-outline"
-              size="iconSm"
-              onClick={handleDisconnect}
-              className="sm:hidden"
-            >
-              <LogOut />
-            </Button>
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3 px-2 sm:px-4 pb-4">
-          <div className="flex items-center justify-between">
+    <HoverCard
+      openDelay={100}
+      closeDelay={100}
+      open={isOpen}
+      onOpenChange={setIsOpen}
+    >
+      <HoverCardTrigger onTouchStart={() => setIsOpen(true)}>
+        <div
+          className={cn(
+            "flex items-center gap-2 rounded-sm py-1 px-1.5 border border-foreground/10",
+            isActiveAccount ? "bg-primary/30 pr-1 border-primary/40" : ""
+          )}
+        >
+          <Image
+            src={walletInfo?.icon || "/placeholder.svg"}
+            alt={walletInfo?.name || ""}
+            className="size-4 rounded-sm"
+            width={16}
+            height={16}
+          />
+          <p className="text-xs font-mono text-muted-foreground flex items-center gap-1">
+            {shortenAddress(accountState.address ?? "", 2, "..")}
+            {isActiveAccount && (
+              <span className="text-primary text-3xl leading-3 animate-pulse">
+                •
+              </span>
+            )}
+          </p>
+        </div>
+      </HoverCardTrigger>
+      <HoverCardContent>
+        <div>
+          <div className="flex justify-between items-start gap-2 text-xs">
             {walletInfo && (
-              <div className="flex items-center gap-3">
-                <Image
-                  src={walletInfo.icon || "/placeholder.svg"}
-                  alt={walletInfo.name}
-                  className="size-7 rounded-sm hidden sm:block"
-                  width={24}
-                  height={24}
-                />
-                <div className="flex flex-col">
-                  <p className="text-sm sm:text-base font-semibold flex items-center">
-                    <Image
-                      src={walletInfo.icon || "/placeholder.svg"}
-                      alt={walletInfo.name}
-                      className="size-4 rounded-sm inline mr-1.5 sm:hidden"
-                      width={16}
-                      height={16}
-                    />
-                    {walletInfo.name}
+              <div className="flex flex-col gap-1.5">
+                <p className="font-semibold flex items-center">
+                  <Image
+                    src={walletInfo.icon || "/placeholder.svg"}
+                    alt={walletInfo.name}
+                    className="size-4 rounded-sm inline mr-1.5 sm:hidden"
+                    width={16}
+                    height={16}
+                  />
+                  {walletInfo.name}
+                </p>
+                {balance && (
+                  <p className="font-mono text-muted-foreground">
+                    {formatNumber(balance.formatted, {
+                      maximumFractionDigits: 6,
+                    })}{" "}
+                    {adapter?.nativeCurrency.symbol}
                   </p>
-                  {balance && (
-                    <p className="text-sm font-mono text-muted-foreground">
-                      {formatNumber(balance.formatted, {
-                        maximumFractionDigits: 6,
-                      })}{" "}
-                      {adapter?.nativeCurrency.symbol}
-                    </p>
-                  )}
-                </div>
+                )}
               </div>
             )}
-            <div className="flex items-center gap-2 ml-auto">
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={handleDisconnect}
-                className="gap-2 hidden sm:flex"
-              >
-                <LogOut />
-                Disconnect
-              </Button>
+
+            <div className="flex flex-col gap-1.5">
+              <div className="ml-auto flex items-center gap-1 font-medium">
+                {adapter?.name}
+                {adapter?.logoUrl && (
+                  <Image
+                    src={adapter.logoUrl}
+                    alt={adapter.name}
+                    className="size-4 rounded-sm inline"
+                    width={16}
+                    height={16}
+                  />
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                <ExternalLink
+                  href={`${adapter?.explorer?.url}/address/${accountState.address}`}
+                  className="text-primary hover:underline font-mono"
+                >
+                  {shortenAddress(accountState.address ?? "", 3, "..")}
+                </ExternalLink>
+                <CopyIconTooltip text={accountState.address ?? ""}>
+                  <CopyIcon
+                    size={14}
+                    className="cursor-pointer text-muted-foreground hover:text-foreground"
+                  />
+                </CopyIconTooltip>
+              </div>
             </div>
           </div>
-
-          <Separator />
-
-          <div className="flex items-center gap-2">
-            <ExternalLink
-              href={`${adapter?.explorer?.url}/address/${accountState.address}`}
-              className="text-primary hover:underline font-mono text-sm"
+          <footer className="flex items-center gap-1 mt-2 border-t pt-2">
+            <Button
+              variant="destructive-outline"
+              size="sm"
+              onClick={handleDisconnect}
+              className="mr-auto"
             >
-              {shortenAddress(accountState.address ?? "")}
-            </ExternalLink>
-            <CopyIconTooltip text={accountState.address ?? ""} />
-          </div>
-        </CardContent>
-      </Card>
-    </>
+              Disconnect
+            </Button>
+            <TooltipWrap content="Swap">
+              <Button
+                variant="ghost"
+                size="iconSm"
+                onClick={async () => {
+                  await setActiveNetwork(adapterId);
+                  open({ view: "Swap", namespace });
+                }}
+              >
+                <ArrowLeftRight />
+              </Button>
+            </TooltipWrap>
+            <TooltipWrap content="Deposit with fiat">
+              <Button
+                variant="ghost"
+                size="iconSm"
+                onClick={async () => {
+                  await setActiveNetwork(adapterId);
+                  open({ view: "OnRampProviders", namespace });
+                }}
+              >
+                <CreditCard />
+              </Button>
+            </TooltipWrap>
+            {isActiveAccount ? (
+              <Badge variant="secondary">
+                <CircleCheck size={12} />
+                Active
+              </Badge>
+            ) : (
+              <Button size="sm" onClick={() => setActiveNetwork(adapterId)}>
+                Set active
+              </Button>
+            )}
+          </footer>
+        </div>{" "}
+      </HoverCardContent>
+    </HoverCard>
   );
 }

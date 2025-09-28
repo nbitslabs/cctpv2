@@ -1,7 +1,7 @@
 "use client";
 import { CctpNetworkAdapterId, findNetworkAdapter } from "@/lib/cctp/networks";
-import { NamespaceTypeMap } from "@reown/appkit-controllers";
 import {
+  NamespaceTypeMap,
   useAppKit,
   useAppKitAccount,
   useDisconnect,

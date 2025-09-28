@@ -14,7 +14,7 @@ function StickyWallets() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="flex items-center gap-2 w-max p-1.5 pl-2 rounded-md bg-foreground/10 border border-foreground/5 shadow backdrop-blur-sm select-none sticky left-1/2 -translate-x-1/2 top-2 z-50">
+    <div className="flex items-center gap-2 w-max p-1.5 pl-2 rounded-md bg-foreground/10 border border-foreground/5 shadow backdrop-blur-sm select-none fixed sm:sticky top-2 z-50 left-1/2 -translate-x-1/2">
       <Image src={favicon} alt="CCTP V2" width={20} height={20} />
       <ConnectedWallet namespace="eip155" adapterId={eip155ChainId} />
       <ConnectedWallet namespace="solana" adapterId={solana.id} />

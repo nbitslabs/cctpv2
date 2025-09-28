@@ -50,6 +50,7 @@
     "react-dom": "^19.1.1",
     "react-github-btn": "^1.4.0",
     "react-hook-form": "^7.63.0",
+    "react-icons": "^5.5.0",
     "react-number-format": "^5.4.4",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",

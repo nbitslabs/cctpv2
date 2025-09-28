@@ -10,12 +10,7 @@ import {
 import Image from "next/image";
 import CopyIconTooltip from "./ui2/CopyIconTooltip";
 import { Button } from "./ui/button";
-import {
-  ArrowLeftRight,
-  CircleCheck,
-  CopyIcon,
-  CreditCard,
-} from "lucide-react";
+import { CircleCheck, CopyIcon, CreditCard } from "lucide-react";
 import { Badge } from "./ui/badge";
 import ExternalLink from "./ui2/ExternalLink";
 import { useConfirm } from "./ui2/PromiseAlertDialog";
@@ -25,6 +20,7 @@ import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 import { TooltipWrap } from "./TooltipWrap";
 import { useState } from "react";
+import { IoSwapHorizontal } from "react-icons/io5";
 
 export default function ConnectedWallet({
   namespace,
@@ -172,7 +168,7 @@ export default function ConnectedWallet({
                   open({ view: "Swap", namespace });
                 }}
               >
-                <ArrowLeftRight />
+                <IoSwapHorizontal />
               </Button>
             </TooltipWrap>
             <TooltipWrap content="Deposit with fiat">

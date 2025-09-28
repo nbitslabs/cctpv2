@@ -9,11 +9,7 @@ import SetSolanaSigner from "@/components/SolanaTransferButton";
 import StickyWallets from "@/components/StickyWallets";
 import SuccessDialog from "@/components/SuccessDialog";
 import { Timer } from "@/components/timer";
-import {
-  TooltipWrap,
-  TooltipWrapInfo,
-  TooltipWrapNumber,
-} from "@/components/TooltipWrap";
+import { TooltipWrap, TooltipWrapNumber } from "@/components/TooltipWrap";
 import TransactionHistory from "@/components/transaction-history";
 import { TransferLog } from "@/components/transfer-log";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -44,7 +40,7 @@ import {
 } from "@reown/appkit/react";
 import type { TransactionSigner } from "@solana/kit";
 import { AnimatePresence, motion } from "framer-motion";
-import { AlertCircle, Loader2, Wallet } from "lucide-react";
+import { AlertCircle, Info, Loader2, Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
 import { toast } from "sonner";
@@ -237,7 +233,7 @@ export default function Home() {
                     )
                   }
                 >
-                  <Wallet />
+                  <Wallet strokeWidth={1.5} />
                 </Button>
               </TooltipWrap>
             </NetworkAdapterSelect>
@@ -325,13 +321,12 @@ export default function Home() {
             <AlertCircle className="size-8" />
             <AlertDescription>
               After burning, if you lose progress or getting{" "}
-              <strong className="text-destructive font-medium">
-                <TooltipWrapInfo
-                  content="Sometimes with Solana, this error means the burn transaction has already been processed."
-                  className="mr-1 size-3"
-                />
-                Error: AlreadyProcessed{" "}
-              </strong>
+              <TooltipWrap content="Sometimes with Solana, this error means the burn transaction has already been processed.">
+                <strong className="text-destructive font-medium inline-flex items-center">
+                  <Info className="mr-1 size-3" />
+                  Error: AlreadyProcessed{" "}
+                </strong>
+              </TooltipWrap>
               , you can use the <strong>Mint Only</strong> option to mint USDC
               on the destination chain. The latest burn transaction is always
               available in the source explorer (

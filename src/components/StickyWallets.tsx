@@ -6,6 +6,8 @@ import favicon from "../app/favicon.ico";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "./ui/button";
+import { FaGithub } from "react-icons/fa";
+import Link from "next/link";
 
 function StickyWallets() {
   const eip155ChainId = useChainId();
@@ -24,6 +26,16 @@ function StickyWallets() {
         }}
       >
         {theme === "dark" ? <Moon /> : <Sun />}
+      </Button>
+      <Button variant="ghost" size="iconSm" asChild>
+        <Link
+          href="https://github.com/nbitslabs/cctpv2"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaGithub />
+          <span className="sr-only">GitHub</span>
+        </Link>
       </Button>
     </div>
   );

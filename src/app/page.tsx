@@ -158,9 +158,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen w-full pb-8 sm:p-8 absolute">
-      <StickyWallets />
-      <Card className="max-w-4xl mx-auto border-0 sm:bg-foreground/3 sm:border pt-10 sm:pt-2">
-        <CardHeader className="items-center">
+      <Card className="max-w-4xl mx-auto border-0 sm:bg-foreground/3 sm:border pt-10 sm:pt-4 relative">
+        <StickyWallets />
+        <CardHeader className="items-center sm:pt-2">
           <CardTitle className="text-center text-xl sm:text-2xl">
             Cross-Chain USDC Transfer
           </CardTitle>

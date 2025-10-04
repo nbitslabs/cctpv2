@@ -14,8 +14,8 @@
 
 ### Low priority
 
-- [ ] UX Improvement: Add the latest USDC out tx
-- [ ] UX Improvement: Handle interrupted flow when burned, but unable to continue
+- [x] UX Improvement: Add the latest USDC out tx
+- [x] UX Improvement: Handle interrupted flow when burned, but unable to continue
 
 ## Testing
 

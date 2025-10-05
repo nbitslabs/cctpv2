@@ -1,26 +1,26 @@
-"use client";
-import { CctpNetworkAdapterId, findNetworkAdapter } from "@/lib/cctp/networks";
+'use client';
+import { CctpNetworkAdapterId, findNetworkAdapter } from '@/lib/cctp/networks';
 import {
   NamespaceTypeMap,
   useAppKit,
   useAppKitAccount,
   useDisconnect,
   useWalletInfo,
-} from "@reown/appkit/react";
-import Image from "next/image";
-import CopyIconTooltip from "./ui2/CopyIconTooltip";
-import { Button } from "./ui/button";
-import { CircleCheck, CopyIcon, CreditCard } from "lucide-react";
-import { Badge } from "./ui/badge";
-import ExternalLink from "./ui2/ExternalLink";
-import { useConfirm } from "./ui2/PromiseAlertDialog";
-import { cn, formatNumber, shortenAddress } from "@/lib/utils";
-import { useNativeBalance } from "@/hooks/useBalance";
-import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
-import { TooltipWrap } from "./TooltipWrap";
-import { useState } from "react";
-import { IoSwapHorizontal } from "react-icons/io5";
+} from '@reown/appkit/react';
+import Image from 'next/image';
+import CopyIconTooltip from './ui2/CopyIconTooltip';
+import { Button } from './ui/button';
+import { CircleCheck, CopyIcon, CreditCard } from 'lucide-react';
+import { Badge } from './ui/badge';
+import ExternalLink from './ui2/ExternalLink';
+import { useConfirm } from './ui2/PromiseAlertDialog';
+import { cn, formatNumber, shortenAddress } from '@/lib/utils';
+import { useNativeBalance } from '@/hooks/useBalance';
+import { useActiveNetwork } from '@/lib/cctp/providers/ActiveNetworkProvider';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/hover-card';
+import { TooltipWrap } from './TooltipWrap';
+import { useState } from 'react';
+import { IoSwapHorizontal } from 'react-icons/io5';
 
 export default function ConnectedWallet({
   namespace,
@@ -43,10 +43,10 @@ export default function ConnectedWallet({
   const handleDisconnect = async () => {
     const result = await confirm({
       title: `Disconnect "${walletInfo?.name}" Wallet`,
-      body: "Are you sure you want to disconnect your wallet?",
-      actionButton: "Disconnect",
-      cancelButton: "Cancel",
-      cancelButtonVariant: "outline",
+      body: 'Are you sure you want to disconnect your wallet?',
+      actionButton: 'Disconnect',
+      cancelButton: 'Cancel',
+      cancelButtonVariant: 'outline',
     });
     if (result) disconnect({ namespace });
   };
@@ -55,11 +55,11 @@ export default function ConnectedWallet({
     return (
       <Button
         size="sm"
-        variant={"outline-solid"}
+        variant={'outline-solid'}
         className="h-[26px]"
-        onClick={() => open({ view: "Account", namespace })}
+        onClick={() => open({ view: 'Account', namespace })}
       >
-        Connect {adapter?.type === "evm" ? "EVM" : "Solana"}
+        Connect {adapter?.type === 'evm' ? 'EVM' : 'Solana'}
       </Button>
     );
   const isActiveAccount = activeAccount.address === accountState.address;
@@ -71,22 +71,22 @@ export default function ConnectedWallet({
       open={isOpen}
       onOpenChange={setIsOpen}
     >
-      <HoverCardTrigger onTouchStart={() => setIsOpen(true)}>
+      <HoverCardTrigger asChild onTouchStart={() => setIsOpen(true)}>
         <div
           className={cn(
-            "flex items-center gap-2 rounded-sm py-1 px-1.5 border border-foreground/10",
-            isActiveAccount ? "bg-primary/30 pr-1 border-primary/40" : ""
+            'flex items-center gap-2 rounded-sm py-1 px-1.5 border border-foreground/10',
+            isActiveAccount ? 'bg-primary/30 pr-1 border-primary/60' : ''
           )}
         >
           <Image
-            src={walletInfo?.icon || "/placeholder.svg"}
-            alt={walletInfo?.name || ""}
+            src={walletInfo?.icon || '/placeholder.svg'}
+            alt={walletInfo?.name || ''}
             className="size-4 rounded-sm"
             width={16}
             height={16}
           />
           <p className="text-xs font-mono text-muted-foreground flex items-center gap-1">
-            {shortenAddress(accountState.address ?? "", 2, "..")}
+            {shortenAddress(accountState.address ?? '', 2, '..')}
             {isActiveAccount && (
               <span className="text-primary text-3xl leading-3 animate-pulse">
                 •
@@ -102,7 +102,7 @@ export default function ConnectedWallet({
               <div className="flex flex-col gap-1.5">
                 <p className="font-semibold flex items-center">
                   <Image
-                    src={walletInfo.icon || "/placeholder.svg"}
+                    src={walletInfo.icon || '/placeholder.svg'}
                     alt={walletInfo.name}
                     className="size-4 rounded-sm inline mr-1.5 sm:hidden"
                     width={16}
@@ -114,7 +114,7 @@ export default function ConnectedWallet({
                   <p className="font-mono text-muted-foreground">
                     {formatNumber(balance.formatted, {
                       maximumFractionDigits: 6,
-                    })}{" "}
+                    })}{' '}
                     {adapter?.nativeCurrency.symbol}
                   </p>
                 )}
@@ -139,9 +139,9 @@ export default function ConnectedWallet({
                   href={`${adapter?.explorer?.url}/address/${accountState.address}`}
                   className="text-primary hover:underline font-mono"
                 >
-                  {shortenAddress(accountState.address ?? "", 3, "..")}
+                  {shortenAddress(accountState.address ?? '', 3, '..')}
                 </ExternalLink>
-                <CopyIconTooltip text={accountState.address ?? ""}>
+                <CopyIconTooltip text={accountState.address ?? ''}>
                   <CopyIcon
                     size={14}
                     className="cursor-pointer text-muted-foreground hover:text-foreground"
@@ -165,7 +165,7 @@ export default function ConnectedWallet({
                 size="iconSm"
                 onClick={async () => {
                   await setActiveNetwork(adapterId);
-                  open({ view: "Swap", namespace });
+                  open({ view: 'Swap', namespace });
                 }}
               >
                 <IoSwapHorizontal />
@@ -177,7 +177,7 @@ export default function ConnectedWallet({
                 size="iconSm"
                 onClick={async () => {
                   await setActiveNetwork(adapterId);
-                  open({ view: "OnRampProviders", namespace });
+                  open({ view: 'OnRampProviders', namespace });
                 }}
               >
                 <CreditCard />
@@ -194,7 +194,7 @@ export default function ConnectedWallet({
               </Button>
             )}
           </footer>
-        </div>{" "}
+        </div>{' '}
       </HoverCardContent>
     </HoverCard>
   );

@@ -1,15 +1,15 @@
-import type { Address, Signature, TransactionSigner } from "@solana/kit";
-import type { Address as EvmAddress } from "viem";
+import type { Address, Signature, TransactionSigner } from '@solana/kit';
+import type { Address as EvmAddress } from 'viem';
 
 export enum CctpV2TransferType {
-  Standard = "standard",
-  Fast = "fast",
+  Standard = 'standard',
+  Fast = 'fast',
 }
 
 type CctpNetworkVersion = { support: boolean };
 
 export type CctpFunctionOpts = {
-  version: "v1" | "v2";
+  version: 'v1' | 'v2';
   solanaSigner?: TransactionSigner;
 };
 
@@ -17,7 +17,7 @@ export interface CctpNetworkAdapter {
   id: number | string;
   name: string;
   domain: number;
-  type: "evm" | "solana";
+  type: 'evm' | 'solana' | 'aptos';
   logoUrl: string;
   nativeCurrency: {
     symbol: string;
@@ -72,4 +72,4 @@ export interface CctpNetworkAdapter {
   };
 }
 
-export type CctpNetworkAdapterId = CctpNetworkAdapter["id"];
+export type CctpNetworkAdapterId = CctpNetworkAdapter['id'];

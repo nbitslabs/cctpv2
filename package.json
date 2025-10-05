@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3002 --turbopack",
+    "dev": "next dev --port 3002",
     "build": "next build",
     "start": "next start --port 3002",
     "lint": "next lint",
@@ -11,6 +11,10 @@
     "generate:codama": "tsx src/lib/solana/tools/codama/generator.ts"
   },
   "dependencies": {
+    "@aptos-labs/js-pro": "^0.1.4",
+    "@aptos-labs/react": "^0.1.4",
+    "@aptos-labs/ts-sdk": "^5.1.0",
+    "@aptos-labs/wallet-adapter-react": "^7.1.0",
     "@hookform/resolvers": "^5.2.2",
     "@number-flow/react": "^0.5.10",
     "@radix-ui/react-alert-dialog": "^1.1.15",

@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { AppKit, createAppKit, ThemeMode } from "@reown/appkit/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createContext, useContext, useEffect, type ReactNode } from "react";
-import { WagmiProvider, type Config } from "wagmi";
+import { SolanaAdapter } from '@reown/appkit-adapter-solana/react';
+import { createAppKit, ThemeMode } from '@reown/appkit/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useTheme } from 'next-themes';
+import { useEffect, type ReactNode } from 'react';
+import { WagmiProvider, type Config } from 'wagmi';
 import {
-  metadata,
-  projectId,
-  wagmiAdapter,
-  networks,
   codex,
   hyperEvm,
-} from "./config";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useTheme } from "next-themes";
-import { SolanaAdapter } from "@reown/appkit-adapter-solana/react";
+  metadata,
+  networks,
+  projectId,
+  wagmiAdapter,
+} from './config';
 
 export const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 3 } },
@@ -40,24 +40,12 @@ function AppkitProvider({ children }: { children: ReactNode }) {
 
   return (
     <WagmiProvider config={wagmiAdapter.wagmiConfig as Config}>
-      <AppkitInstanceContext.Provider value={appkit}>
-        <QueryClientProvider client={queryClient}>
-          {children}
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </AppkitInstanceContext.Provider>
+      <QueryClientProvider client={queryClient}>
+        {children}
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </WagmiProvider>
   );
 }
 
 export default AppkitProvider;
-
-const AppkitInstanceContext = createContext<AppKit | null>(null);
-
-export function useAppkitInstance() {
-  const context = useContext(AppkitInstanceContext);
-  if (!context) {
-    throw new Error("useAppkitInstance must be used within an AppkitProvider");
-  }
-  return context;
-}

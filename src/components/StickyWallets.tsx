@@ -1,13 +1,14 @@
-import { useChainId } from "wagmi";
-import ConnectedWallet from "./ConnectedWallet";
-import { solana } from "@reown/appkit/networks";
-import Image from "next/image";
-import favicon from "../app/favicon.ico";
-import { useTheme } from "next-themes";
-import { Moon, Sun } from "lucide-react";
-import { Button } from "./ui/button";
-import { FaGithub } from "react-icons/fa";
-import Link from "next/link";
+import { useChainId } from 'wagmi';
+import ConnectedWallet from './ConnectedWallet';
+import { solana } from '@reown/appkit/networks';
+import Image from 'next/image';
+import favicon from '../app/favicon.ico';
+import { useTheme } from 'next-themes';
+import { Moon, Sun } from 'lucide-react';
+import { Button } from './ui/button';
+import { FaGithub } from 'react-icons/fa';
+import Link from 'next/link';
+import AptosWalletSelector from '@/lib/aptos/aptos/AptosWalletSelector';
 
 function StickyWallets() {
   const eip155ChainId = useChainId();
@@ -18,14 +19,15 @@ function StickyWallets() {
       <Image src={favicon} alt="CCTP V2" width={20} height={20} />
       <ConnectedWallet namespace="eip155" adapterId={eip155ChainId} />
       <ConnectedWallet namespace="solana" adapterId={solana.id} />
+      <AptosWalletSelector />
       <Button
         variant="ghost"
         size="iconSm"
         onClick={() => {
-          setTheme(theme === "dark" ? "light" : "dark");
+          setTheme(theme === 'dark' ? 'light' : 'dark');
         }}
       >
-        {theme === "dark" ? <Moon /> : <Sun />}
+        {theme === 'dark' ? <Moon /> : <Sun />}
       </Button>
       <Button variant="ghost" size="iconSm" asChild>
         <Link

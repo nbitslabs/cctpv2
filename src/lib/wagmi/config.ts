@@ -5,13 +5,14 @@ import {
   base,
   // celo,
   defineChain,
-  // ink,
+  ink,
   // flowMainnet,
   // hedera,
   linea,
   mainnet,
   // near,
   optimism,
+  plumeMainnet,
   polygon,
   sei,
   solana,
@@ -100,7 +101,8 @@ export const chainsByDomain = {
   '16': sei,
   '18': xdc,
   '19': hyperEvm,
-  // "21": ink,
+  '21': ink,
+  '22': plumeMainnet,
 } satisfies Record<string, AppKitNetwork>;
 type V2SupportedChainId =
   (typeof chainsByDomain)[keyof typeof chainsByDomain]['id'];
@@ -151,13 +153,14 @@ export const usdcAddresses: Record<V2SupportedChainId, string> = {
   // [sui.id]:	"0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
   // [tron.id]: "TEkxiTehnzSmSe2XqrBj4w32RUN966rdz8",
   [unichain.id]: '0x078D782b760474a361dDA0AF3839290b0EF57AD6',
-  [worldchain.id]: '0x79A02482A880bCe3F13E09da970dC34dB4cD24D1',
+  [worldchain.id]: '0x79A02482A880bCE3F13e09Da970dC34db4CD24d1',
   [sei.id]: '0xe15fC38F6D8c56aF07bbCBe3BAf5708A2Bf42392',
   [xdc.id]: '0xfA2958CB79b0491CC627c1557F441eF849Ca8eb1',
   [hyperEvm.id]: '0xb88339CB7199b77E23DB6E890353E22632Ba630f',
   // [xrpl.id]:	"5553444300000000000000000000000000000000.rGm7WCVp9gb4jZHWTEtGUr4dd74z2XuWhE",
   // [zkSyncEra.id]:	"0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4",
-  // [ink.id]: "0x2D270e6886d130D724215A266106e6832161EAEd",
+  [ink.id]: '0x2D270e6886d130D724215A266106e6832161EAEd',
+  [plumeMainnet.id]: '0x222365EF19F7947e5484218551B56bb3965Aa7aF',
 };
 
 export const tokenMessagerV1Addresses = {
@@ -188,7 +191,8 @@ export const tokenMessagerV2Addresses: Record<V2SupportedChainId, string> = {
   [sei.id]: evmTokenMessagerV2Address,
   [xdc.id]: evmTokenMessagerV2Address,
   [hyperEvm.id]: evmTokenMessagerV2Address,
-  // [ink.id]: evmTokenMessagerV2Address,
+  [ink.id]: evmTokenMessagerV2Address,
+  [plumeMainnet.id]: evmTokenMessagerV2Address,
   [solana.id]: 'CCTPV2vPZJS2u2BBsUoscuikbYjnpFmbFsvVuJdgUMQe',
 };
 export type CctpV2SupportedChainId = keyof typeof tokenMessagerV2Addresses;
@@ -222,6 +226,7 @@ export const messageTransmitterV2Addresses: Record<V2SupportedChainId, string> =
     [sei.id]: evmMessageTransmitterV2Address,
     [xdc.id]: evmMessageTransmitterV2Address,
     [hyperEvm.id]: evmMessageTransmitterV2Address,
-    // [ink.id]: evmMessageTransmitterV2Address,
+    [ink.id]: evmMessageTransmitterV2Address,
+    [plumeMainnet.id]: evmMessageTransmitterV2Address,
     [solana.id]: 'CCTPV2Sm4AdWt5296sk4P66VBZ7bEhcARwFaaS9YPbeC',
   };

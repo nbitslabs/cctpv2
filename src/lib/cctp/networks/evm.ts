@@ -12,6 +12,7 @@ import {
   wagmiConfig,
   usdcAddresses,
   hyperEvm,
+  CctpV2SupportedChainId,
 } from '../../wagmi/config';
 import {
   getAccount,
@@ -52,6 +53,8 @@ const {
   '16': _sei,
   '18': _xdc,
   '19': _hyperEvm,
+  '21': _ink,
+  '22': _plume,
 } = chainsByDomain;
 
 // https://developers.circle.com/stablecoins/supported-domains
@@ -175,13 +178,29 @@ const evmChains: Array<
     supportV2: true,
     logoUrl: hyperEvm.assets.imageUrl,
   },
+  {
+    chain: _ink,
+    domain: 21,
+    supportV1: false,
+    supportV2: true,
+    logoUrl:
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADtUlEQVR4AWLACxgRzAKD9wKAzqtiu40Yina2+Y90Xyun+YfCrtzuyjzjFJZlZub2C8qwzKbMFGZmznjMUnVtyzlvLCk+zTkvtkX36rHciL8+ymL3vUjsu8diYy6LZbyc+GMew5h/H2uwFnvsR5tGHDoYXZxYGGX+I48FgRuJCc8kbO4Ta72q2EPstYNbhrYwXhFlwQUvEqQALG8uLmyIi5c3UuJnbUZ0N3MxMijEQDfHmIFUkMIZh5moCMNY//ZXJyuleus8AFfFxKODCdH6KyumJoVRzq6JizkN+YSIHK/bI88syyoSOCI3jWLjseWB+PsuUwDhuc/pIiinBFbHNSYhMoqzrRT2VCcqXSyUG65uCsRQLwWBKBKT40IM9XPR18HFs0spdVMNAeIfo/slhhb8cERUeBGoHeBxMTZcAJygt+2oy8IXYJoSm5fppHVb4BPhPziLUvtQj97OIHNjW0IPYCdABFgEvEaGC7wdt4LNya0nKAloRw/sl9wYgjmX0TlgkRBFzMqF8HYCpnO2hk9ZcWxpML+qLQIs5JZihkPiQJzTUONa51NamRjj80pPKxc3dyS0JnKR2JAxkToxAMcygeljn2NNeAxCzuht48Xc4Ia0BOwFXj63I5tZ4zwMRucgiiwl1tceJkDkPgh8x4+ftVkF+t8yHdIWcsTt3coEhIRy2u8gMIYB5PZwyA33cnFtc4CYL2XPbOGnxiG+0TmBDQIZ/BgZ5ApYCS0yVhBLNFj2AZsQCNsZBOhhvgbIt2vEQgzYRhNAhnImKKRdVv7t7aBhE0SUE2ZMHm8dR814cycN7dDD1W8DSYwpJ7zvqjDUhd9EOYS4LMeB2d5aIn4+DF0WTkTcHu+GxHRmVbw81dMIWU9T8e9s2TGv0u3oABevbqZM3RAxA42AeFBsXlEYsHGuGHFjQWr4nBVHlwWWMuxr7O3rqufDYo8YVeWY+SjHFNhajsNiCkk15pNybG5IenkJCeVw17cmVK23kbCEo2pInHAbPlDhMdqS6cKvTfrJOdkB11QZnctKABjaNh3f0TB6hab0mqUphaimtL8z54TlkhhF42vpymlbDmdTPjE9T1I6tzZuVD9tyx0TOG3P8+bw6cOERgRx0NMr40rNJVGBs1Q77jgUkPJwaJuunmZeydMsW3iaSRN0cPHkQpKoXtV97K2RZ2yRZ2nvbOFCHqfysIe5Byfzw1VQAZJPrEVuUaHm2LDooG6pQ57nqB1Scs9zKZmCjBXG8s/zRbrnuaPF/Ae/uPha7hMjJwAAAABJRU5ErkJggg==',
+  },
+  {
+    chain: _plume,
+    domain: 22,
+    supportV1: false,
+    supportV2: true,
+    logoUrl:
+      'https://media.licdn.com/dms/image/v2/D4D0BAQEqwfg0f2X-4g/company-logo_200_200/company-logo_200_200/0/1732030622776/plume_network_logo?e=2147483647&v=beta&t=A2TASRIEYX_1-UvtRGfJbehsYLZBdmiVcNqzxfmA_Eg',
+  },
 ];
 
 export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
   ({ chain, ...config }) => {
     const chainId = Number(chain.id);
     const usdcAddress = usdcAddresses[
-      chainId as keyof typeof usdcAddresses
+      chainId as CctpV2SupportedChainId
     ] as Address;
 
     const readConfig = { chainId: Number(chain.id) } as const;

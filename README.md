@@ -11,8 +11,9 @@
 - [x] Add Li.fi to support cross-chain swap (to get native tokens quickly)
 - [x] Support Sei
 - [x] Test cross-chain with different wallet address.
-- [ ] Support Ink
-- [ ] Support Plume
+- [x] Support Ink
+- [x] Support Plume
+- [ ] Add estimate for Solana
 - [ ] Supports CCTP V1
 - [ ] Estimated fees: fee on both chains (in native token), and total fees in USDC
 
@@ -40,6 +41,13 @@
 - [x] [XDC Network](https://xdcscan.com/tx/0x571e10241a8384e6f1537b71969c70a89dd99d23882b408e53da647b77848f81) -> [Solana](https://solscan.io/tx/3FNj1nsDFWRThkQ4JVvKrwasdd5V8YJ7aj6aV1ynQYHNJNxdkg5xS4qsJWwFf6XfUEVmyyM2P2NZVic5bdnRSKNy)
 - [x] [Arbitrum One](https://arbiscan.io/tx/0xd0f49e0d13193fb91ee2c9ab5a42c71519dc1b3a84363e213f1b5f2934c51832) -> [Sei](https://seitrace.com/tx/0x3bf6ebe47e0635ede868806a2c94144ab2606d847235552ddf9b7760cf3db277) (ℹ️ destination is not the origin wallet)
 - [x] [Sei](https://seitrace.com/tx/0x6ce19819699db1090b3502eed01244a506b1207fc55a6be8fb440c6e1fa011fc) -> [Linea Mainnet](https://lineascan.build/tx/0x88415f5b49f2f4c213cfd50afbd296bb028fb8880df1688d015f967a59a60e39) (ℹ️ destination is not the origin wallet)
+- [x] [Linea Mainnet](https://lineascan.build/tx/0x80256167ff7193c49009e7ab4af27046a8ea5082f2d285546013fd42d0010631) -> [Ink](https://explorer.inkonchain.com/tx/0xf781960389401cc26defe3fcee4f06c3c938161a9db949fa3cef904b8ceea689)
+- [x] [Ink](https://explorer.inkonchain.com/tx/0x433d5a46efc2944216dba70376e835fcd7d0a99f3b8a9cf52a865a3558bb13b8) -> [Plume](https://explorer.plume.org/tx/0xa8290d1e42c1ee2a4cec703de631ba969c553a5939ccbfb2ce9faa874f0507db)
+- [x] [Plume](https://explorer.plume.org/tx/0xfe23bb1702943114b3ac56def5139aa85475ce57d78f82ff571c01f4040633ca) -> [Polygon](https://polygonscan.com/tx/0x3f3e3f2d36691d73b8c40cabe67e629c23f3fed4f5e01e08d4237cfd5f5664ff)
+- [x] [Polygon](https://polygonscan.com/tx/0x3e21a0f71aa8d3a2ecc2434c7b643ce1f3f2eac4d1190d11a6c9ca026fb1877a) -> [OP Mainnet](https://optimistic.etherscan.io/tx/0x3b7cc5be8087a1334b5245b4b0068a03e9cf5d78cd5e99c5b6ab04d48f145651)
+- [x] [OP Mainnet](https://optimistic.etherscan.io/tx/0x36510afdf1c06fdda0f3b44bafd2772d11a195f94a65eb09b34954ff01a05c12) -> [Sonic](https://sonicscan.org/tx/0xfbc76033021cd8f5223c7a3eaad63577c95e16f71cbce26b7a5c882967231254)
+- [x] [Sonic](https://sonicscan.org/tx/0xf6ed409545f527621bd3d1dd4a80b2c1167bcfc6cc868a763ca174f080bb4098) -> [World Chain](https://worldscan.org/tx/0x99ea0cddf67d6ffd513d0f541f448c73812bbe84293496d4e357a946bc98b80c)
+- [x] [World Chain](https://worldscan.org/tx/0x0de415094bdbc63e3c0c535e23a37bc608b05cee0f7cfc8e43fb4112201ff682) -> [Plume](https://explorer.plume.org/tx/0xefb2f7cdc88d80d9a7fa895607746e9327bad2bee349910cc867c34acb1de0b2)
 
 ## Getting Started
 

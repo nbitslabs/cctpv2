@@ -3,11 +3,13 @@
 import type { WidgetConfig, WidgetDrawer } from '@lifi/widget';
 import { LiFiWidget } from '@lifi/widget';
 import Image from 'next/image';
-import { createContext, useContext, useRef } from 'react';
+import { createContext, Ref, RefObject, useContext, useRef } from 'react';
 import { Button } from '../ui/button';
 import { ClientOnly } from './ClientOnly';
 
-const LifiWidgetContext = createContext<WidgetDrawer | null>(null);
+const LifiWidgetContext = createContext<RefObject<WidgetDrawer | null> | null>(
+  null
+);
 
 export function LifiWidgetProvider({
   children,
@@ -16,12 +18,12 @@ export function LifiWidgetProvider({
 }) {
   const drawerRef = useRef<WidgetDrawer>(null);
   const config = {
-    walletConfig: { autoConnect: true },
+    walletConfig: { autoConnect: true, forceInternalWalletManagement: true },
     variant: 'drawer',
   } as Partial<WidgetConfig>;
 
   return (
-    <LifiWidgetContext.Provider value={drawerRef.current}>
+    <LifiWidgetContext.Provider value={drawerRef}>
       {children}
       <ClientOnly fallback={null}>
         <LiFiWidget ref={drawerRef} config={config} integrator="cctpv2" />
@@ -33,7 +35,7 @@ export function LifiWidgetProvider({
 export function LifiButton() {
   const drawer = useContext(LifiWidgetContext);
   const toggleWidget = () => {
-    drawer?.toggleDrawer();
+    drawer?.current?.toggleDrawer();
   };
   return (
     <Button variant="outline" size="sm" onClick={toggleWidget}>

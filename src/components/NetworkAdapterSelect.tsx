@@ -7,7 +7,7 @@ import {
   networkAdapters,
 } from '@/lib/cctp/networks';
 import { cn } from '@/lib/utils';
-import { Loader2 } from 'lucide-react';
+import { Loader2, RotateCw } from 'lucide-react';
 import Image from 'next/image';
 import { TooltipWrapNumber } from './TooltipWrap';
 import { Input } from './ui/input';
@@ -20,6 +20,8 @@ import {
   SelectValue,
 } from './ui/select';
 import { LifiButton } from './ui2/LifiWidget';
+import { Button } from './ui/button';
+import { useState, useTransition } from 'react';
 
 export interface NetworkAdapterSelectProps {
   chainId: CctpNetworkAdapterId | undefined;
@@ -63,6 +65,7 @@ export default function NetworkAdapterSelect({
 }: NetworkAdapterSelectProps) {
   const { usdcBalance, nativeBalance, nativeCurrency } =
     useNetworkAdapterBalance(chain, address);
+  const [isPending, setIsPending] = useState(false);
 
   return (
     <div className="space-y-2">
@@ -129,6 +132,23 @@ export default function NetworkAdapterSelect({
                   />
                 )}{' '}
                 {nativeCurrency?.symbol}
+                <Button
+                  variant="ghost"
+                  onClick={async () => {
+                    setIsPending(true);
+                    await Promise.all([
+                      usdcBalance.refetch(),
+                      nativeBalance.refetch(),
+                    ]);
+                    setIsPending(false);
+                  }}
+                  className={cn(
+                    '!size-4.5 rounded-sm !p-0.5 ml-1 translate-y-px',
+                    isPending && 'animate-spin'
+                  )}
+                >
+                  <RotateCw className="inline-block !size-3" />
+                </Button>
               </p>
               {!nativeBalance.data?.formatted && <LifiButton />}
               {/* <TransactionHistory

@@ -308,7 +308,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newLocalMinter", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newLocalMinter",
+        "type": "address"
+      }
     ],
     "name": "addLocalMinter",
     "outputs": [],
@@ -318,7 +322,11 @@
   {
     "inputs": [
       { "internalType": "uint32", "name": "domain", "type": "uint32" },
-      { "internalType": "bytes32", "name": "tokenMessenger", "type": "bytes32" }
+      {
+        "internalType": "bytes32",
+        "name": "tokenMessenger",
+        "type": "bytes32"
+      }
     ],
     "name": "addRemoteTokenMessenger",
     "outputs": [],
@@ -349,8 +357,16 @@
         "name": "destinationDomain",
         "type": "uint32"
       },
-      { "internalType": "bytes32", "name": "mintRecipient", "type": "bytes32" },
-      { "internalType": "address", "name": "burnToken", "type": "address" },
+      {
+        "internalType": "bytes32",
+        "name": "mintRecipient",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "burnToken",
+        "type": "address"
+      },
       {
         "internalType": "bytes32",
         "name": "destinationCaller",
@@ -376,8 +392,16 @@
         "name": "destinationDomain",
         "type": "uint32"
       },
-      { "internalType": "bytes32", "name": "mintRecipient", "type": "bytes32" },
-      { "internalType": "address", "name": "burnToken", "type": "address" },
+      {
+        "internalType": "bytes32",
+        "name": "mintRecipient",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "burnToken",
+        "type": "address"
+      },
       {
         "internalType": "bytes32",
         "name": "destinationCaller",
@@ -405,7 +429,11 @@
   },
   {
     "inputs": [
-      { "internalType": "uint32", "name": "remoteDomain", "type": "uint32" },
+      {
+        "internalType": "uint32",
+        "name": "remoteDomain",
+        "type": "uint32"
+      },
       { "internalType": "bytes32", "name": "sender", "type": "bytes32" },
       { "internalType": "uint32", "name": "", "type": "uint32" },
       { "internalType": "bytes", "name": "messageBody", "type": "bytes" }
@@ -417,7 +445,11 @@
   },
   {
     "inputs": [
-      { "internalType": "uint32", "name": "remoteDomain", "type": "uint32" },
+      {
+        "internalType": "uint32",
+        "name": "remoteDomain",
+        "type": "uint32"
+      },
       { "internalType": "bytes32", "name": "sender", "type": "bytes32" },
       {
         "internalType": "uint32",
@@ -434,10 +466,26 @@
   {
     "inputs": [
       { "internalType": "address", "name": "owner_", "type": "address" },
-      { "internalType": "address", "name": "rescuer_", "type": "address" },
-      { "internalType": "address", "name": "feeRecipient_", "type": "address" },
-      { "internalType": "address", "name": "denylister_", "type": "address" },
-      { "internalType": "address", "name": "tokenMinter_", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "rescuer_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "feeRecipient_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "denylister_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenMinter_",
+        "type": "address"
+      },
       {
         "internalType": "uint32[]",
         "name": "remoteDomains_",
@@ -558,7 +606,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_feeRecipient", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_feeRecipient",
+        "type": "address"
+      }
     ],
     "name": "setFeeRecipient",
     "outputs": [],
@@ -585,7 +637,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newDenylister", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newDenylister",
+        "type": "address"
+      }
     ],
     "name": "updateDenylister",
     "outputs": [],
@@ -594,7 +650,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newRescuer", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newRescuer",
+        "type": "address"
+      }
     ],
     "name": "updateRescuer",
     "outputs": [],

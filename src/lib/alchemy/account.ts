@@ -1,31 +1,30 @@
-import axios from "axios";
-import {
-  findNetworkAdapter,
-  type CctpNetworkAdapterId,
-} from "../cctp/networks";
-import type { Alchemy } from "./type";
+import axios from "axios"
+import { findNetworkAdapter, type CctpNetworkAdapterId } from "../cctp/networks"
+import type { Alchemy } from "./type"
 
 export async function getAccountTransactions(
   networkId: CctpNetworkAdapterId,
   address: string
 ) {
-  const network = findNetworkAdapter(networkId);
-  if (network?.type === "solana") return [];
+  const network = findNetworkAdapter(networkId)
+  if (network?.type === "solana") {
+    return []
+  }
 
   const chain = alchemySupportedChains.result.data.find(
     (chain) => chain.networkChainId?.toString() === networkId.toString()
-  );
+  )
   if (!chain) {
-    console.log(`Alchemy does not support ${network?.name} (${networkId})`);
-    return [];
+    console.log(`Alchemy does not support ${network?.name} (${networkId})`)
+    return []
   }
-  const kebabCaseId = chain.kebabCaseId;
+  const kebabCaseId = chain.kebabCaseId
 
-  const url = `https://${kebabCaseId}.g.alchemy.com/v2/kVV691s2Iq_F1omMf9nY1`;
+  const url = `https://${kebabCaseId}.g.alchemy.com/v2/kVV691s2Iq_F1omMf9nY1`
   const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
-  };
+  }
 
   const [toAddressBody, fromAddressBody] = [0, 1].map((i) => ({
     id: 1,
@@ -43,21 +42,23 @@ export async function getAccountTransactions(
         order: "desc",
       },
     ],
-  }));
+  }))
 
   const [toAddressResponse, fromAddressResponse] = await Promise.all([
-    axios.post<Alchemy.AssetTransfersResponse>(url, toAddressBody, { headers }),
+    axios.post<Alchemy.AssetTransfersResponse>(url, toAddressBody, {
+      headers,
+    }),
     axios.post<Alchemy.AssetTransfersResponse>(url, fromAddressBody, {
       headers,
     }),
-  ]);
+  ])
 
   return [
-    ...toAddressResponse.data.result?.transfers,
-    ...fromAddressResponse.data.result?.transfers,
+    ...(toAddressResponse.data.result?.transfers ?? []),
+    ...(fromAddressResponse.data.result?.transfers ?? []),
   ]
     .filter((transfer) => ["USDC", "ETH"].includes(transfer.asset))
-    .toSorted((a, b) => Number(b.blockNum) - Number(a.blockNum));
+    .toSorted((a, b) => Number(b.blockNum) - Number(a.blockNum))
 }
 
 // "https://app-api.alchemy.com/trpc/config.getNetworkConfig"
@@ -3353,4 +3354,4 @@ const alchemySupportedChains: Alchemy.ChainsResponse = {
       },
     ],
   },
-};
+}

@@ -1,35 +1,35 @@
 export namespace Alchemy {
   export interface ChainsResponse {
-    result: { data: Chain[] };
+    result: { data: Chain[] }
   }
 
   export interface Chain {
-    id: string;
-    name: string;
-    chainId: string;
-    kebabCaseId: string;
-    explorerUrl: string;
-    networkChainId?: number | null;
-    availability: "public";
-    publicOverrideFlag: string;
-    sdkEnum: string;
-    faucetUrl: string;
-    bridgeUrl: string;
-    isTestNet: boolean;
-    currency: string;
-    docsUrl: string;
-    blockSpeed: string;
-    websiteUrl: string;
-    githubUrl: string;
-    supportedProducts: (SupportedProduct | string)[];
-    supportedWebhookTypes: number[];
-    supportsMempool: boolean;
-    networkLegacyProtoNumber: number;
+    id: string
+    name: string
+    chainId: string
+    kebabCaseId: string
+    explorerUrl: string
+    networkChainId?: number | null
+    availability: "public"
+    publicOverrideFlag: string
+    sdkEnum: string
+    faucetUrl: string
+    bridgeUrl: string
+    isTestNet: boolean
+    currency: string
+    docsUrl: string
+    blockSpeed: string
+    websiteUrl: string
+    githubUrl: string
+    supportedProducts: (SupportedProduct | string)[]
+    supportedWebhookTypes: number[]
+    supportsMempool: boolean
+    networkLegacyProtoNumber: number
     apiVersionEndpoints?: {
-      v0_8: string;
-      v0_7: string;
-      v0_6: string;
-    };
+      v0_8: string
+      v0_7: string
+      v0_6: string
+    }
   }
 
   export enum SupportedProduct {
@@ -54,23 +54,23 @@ export namespace Alchemy {
   }
 
   export interface AssetTransfersResponse {
-    jsonrpc: string;
-    id: number;
+    jsonrpc: string
+    id: number
     result: {
-      transfers: Transfer[];
-    };
+      transfers: Transfer[]
+    }
   }
 
   export interface Transfer {
-    asset: string;
-    blockNum: string;
-    uniqueId: string;
-    hash: string;
-    from: string;
-    to: string;
-    value: string;
-    erc721TokenId: string;
-    erc1155Metadata: null;
-    tokenId: string;
+    asset: string
+    blockNum: string
+    uniqueId: string
+    hash: string
+    from: string
+    to: string
+    value: string
+    erc721TokenId: string
+    erc1155Metadata: null
+    tokenId: string
   }
 }

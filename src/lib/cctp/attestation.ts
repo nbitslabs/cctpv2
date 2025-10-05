@@ -1,57 +1,57 @@
-import { Address } from "viem";
-import { CctpNetworkAdapter } from "./networks";
-import axios from "axios";
+import type { Address } from "viem"
+import type { CctpNetworkAdapter } from "./networks"
+import axios from "axios"
 
-const apiUrl = "https://iris-api.circle.com/v2";
+const apiUrl = "https://iris-api.circle.com/v2"
 
 export const getAttestationUrl = (
   sourceDomain: CctpNetworkAdapter["domain"],
   burnTx: string
-) => `${apiUrl}/messages/${sourceDomain}?transactionHash=${burnTx}`;
+) => `${apiUrl}/messages/${sourceDomain}?transactionHash=${burnTx}`
 
 export async function getAttestation(
   sourceDomain: CctpNetworkAdapter["domain"],
   burnTx: string
 ): Promise<AttestationMessage> {
-  const response = await axios.get(getAttestationUrl(sourceDomain, burnTx));
-  return response.data?.messages?.[0];
+  const response = await axios.get(getAttestationUrl(sourceDomain, burnTx))
+  return response.data?.messages?.[0]
 }
 
 export type AttestationMessage =
   | AttestationMessageSuccess
   | {
-      status: "error";
-      error: string;
-    };
+      status: "error"
+      error: string
+    }
 export type AttestationMessageSuccess = {
   // Only available after status='complete'
-  attestation: Address;
-  message: Address;
-  eventNonce: Address;
-  cctpVersion: number;
-  status: "complete" | "pending_confirmations";
-  decodedMessage: AttestationDecodedMessage | null;
-};
+  attestation: Address
+  message: Address
+  eventNonce: Address
+  cctpVersion: number
+  status: "complete" | "pending_confirmations"
+  decodedMessage: AttestationDecodedMessage | null
+}
 
-type AttestationDomain = `${number}`;
+type AttestationDomain = `${number}`
 interface AttestationDecodedMessage {
-  sourceDomain: AttestationDomain;
-  destinationDomain: AttestationDomain;
-  nonce: Address;
-  sender: Address;
-  recipient: Address;
-  destinationCaller: Address;
-  minFinalityThreshold: string;
-  finalityThresholdExecuted: string;
-  messageBody: string;
+  sourceDomain: AttestationDomain
+  destinationDomain: AttestationDomain
+  nonce: Address
+  sender: Address
+  recipient: Address
+  destinationCaller: Address
+  minFinalityThreshold: string
+  finalityThresholdExecuted: string
+  messageBody: string
   decodedMessageBody: {
-    burnToken: string;
-    mintRecipient: string;
-    amount: string;
-    messageSender: string;
-    maxFee: string;
-    feeExecuted: string;
-    expirationBlock: string;
-    hookData: null;
-  };
+    burnToken: string
+    mintRecipient: string
+    amount: string
+    messageSender: string
+    maxFee: string
+    feeExecuted: string
+    expirationBlock: string
+    hookData: null
+  }
 }

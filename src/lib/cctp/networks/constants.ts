@@ -1,7 +1,7 @@
-import { CctpFunctionOpts } from "./type";
+import type { CctpFunctionOpts } from "./type"
 
 export const defaultCctpOpts: CctpFunctionOpts = {
   version: "v2",
-} as const;
+} as const
 
-export const USDC_DECIMALS = 6;
+export const USDC_DECIMALS = 6

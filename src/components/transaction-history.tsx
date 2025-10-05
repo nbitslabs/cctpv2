@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import {
   Dialog,
@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogHeader,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialog"
 import {
   Table,
   TableBody,
@@ -16,50 +16,50 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Pagination, PaginationContent, PaginationItem } from "./ui/pagination";
-import { useState } from "react";
-import { Button } from "./ui/button";
+} from "@/components/ui/table"
+import { Pagination, PaginationContent, PaginationItem } from "./ui/pagination"
+import { useState } from "react"
+import { Button } from "./ui/button"
 import {
   ArrowDown,
   ArrowUp,
   ChevronLeft,
   ChevronRight,
   Loader2,
-} from "lucide-react";
-import { cn, formatNumber } from "@/lib/utils";
-import { useAppKitAccount } from "@reown/appkit/react";
-import Image from "next/image";
-import ExternalLink from "./ui2/ExternalLink";
-import CopyIconTooltip from "./ui2/CopyIconTooltip";
-import { useAccountTransactions } from "@/hooks/useAccountTransactions";
-import { CctpNetworkAdapter } from "@/lib/cctp/networks";
+} from "lucide-react"
+import { cn, formatNumber } from "@/lib/utils"
+import { useAppKitAccount } from "@reown/appkit/react"
+import Image from "next/image"
+import ExternalLink from "./ui2/ExternalLink"
+import CopyIconTooltip from "./ui2/CopyIconTooltip"
+import { useAccountTransactions } from "@/hooks/useAccountTransactions"
+import type { CctpNetworkAdapter } from "@/lib/cctp/networks"
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 5
 
 export default function TransactionHistory({
   chainAdapter,
 }: {
-  chainAdapter: CctpNetworkAdapter;
+  chainAdapter: CctpNetworkAdapter
 }) {
-  const { address } = useAppKitAccount();
-  const [currentPage, setCurrentPage] = useState(1);
+  const { address } = useAppKitAccount()
+  const [currentPage, setCurrentPage] = useState(1)
   const { data: transactions, isLoading } = useAccountTransactions(
     chainAdapter.id,
     address
-  );
+  )
 
-  const totalPages = Math.ceil((transactions?.length ?? 0) / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentTransactions = transactions?.slice(startIndex, endIndex);
+  const totalPages = Math.ceil((transactions?.length ?? 0) / ITEMS_PER_PAGE)
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  const endIndex = startIndex + ITEMS_PER_PAGE
+  const currentTransactions = transactions?.slice(startIndex, endIndex)
   const handlePreviousPage = () => {
-    setCurrentPage((prev) => Math.max(prev - 1, 1));
-  };
+    setCurrentPage((prev) => Math.max(prev - 1, 1))
+  }
 
   const handleNextPage = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  };
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+  }
 
   return (
     <Dialog>
@@ -101,7 +101,7 @@ export default function TransactionHistory({
               </TableRow>
             ) : transactions && transactions.length > 0 ? (
               currentTransactions?.map((tx) => {
-                const fromMe = tx.from.toLowerCase() === address?.toLowerCase();
+                const fromMe = tx.from.toLowerCase() === address?.toLowerCase()
                 const youOrLink = (addressToCheck: string) => (
                   <div className="flex items-center gap-1">
                     <ExternalLink
@@ -119,7 +119,7 @@ export default function TransactionHistory({
                     </ExternalLink>
                     <CopyIconTooltip text={addressToCheck} />
                   </div>
-                );
+                )
                 return (
                   <TableRow key={tx.uniqueId}>
                     <TableCell className="font-medium">
@@ -145,7 +145,9 @@ export default function TransactionHistory({
                     <TableCell>{youOrLink(tx.to)}</TableCell>
                     <TableCell className="text-right">
                       <div className="inline-flex justify-end items-center gap-1 pl-2">
-                        {formatNumber(tx.value, { maximumFractionDigits: 4 })}{" "}
+                        {formatNumber(tx.value, {
+                          maximumFractionDigits: 4,
+                        })}{" "}
                         <Image
                           src={`/images/tokens/${tx.asset}.png`}
                           alt={tx.asset}
@@ -155,7 +157,7 @@ export default function TransactionHistory({
                       </div>
                     </TableCell>
                   </TableRow>
-                );
+                )
               })
             ) : (
               <TableRow>
@@ -213,5 +215,5 @@ export default function TransactionHistory({
         )}
       </DialogContent>
     </Dialog>
-  );
+  )
 }

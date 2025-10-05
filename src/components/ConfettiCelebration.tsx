@@ -1,36 +1,37 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { useWindowSize } from "usehooks-ts";
-import Confetti from "react-confetti";
+import { useEffect, useState } from "react"
+import { useWindowSize } from "usehooks-ts"
+import Confetti from "react-confetti"
 
 interface ConfettiCelebrationProps {
-  isCompleted: boolean;
+  isCompleted: boolean
 }
 
 export default function ConfettiCelebration({
   isCompleted,
 }: ConfettiCelebrationProps) {
-  const [showConfetti, setShowConfetti] = useState(false);
-  const { width, height } = useWindowSize();
+  const [showConfetti, setShowConfetti] = useState(false)
+  const { width, height } = useWindowSize()
 
   // Show confetti when transaction is completed
   useEffect(() => {
     if (isCompleted && !showConfetti) {
-      setShowConfetti(true);
-      const timer = setTimeout(() => setShowConfetti(false), 5000);
+      setShowConfetti(true)
+      const timer = setTimeout(() => setShowConfetti(false), 5000)
 
-      return () => clearTimeout(timer);
+      return () => clearTimeout(timer)
     }
-  }, [isCompleted]);
+    // oxlint-disable-next-line exhaustive-deps
+  }, [isCompleted])
 
   if (!showConfetti || width === 0 || height === 0) {
-    return null;
+    return null
   }
 
   return (
     <div className="fixed z-50 inset-0 pointer-events-none">
       <Confetti width={width} height={height} gravity={0.3} />
     </div>
-  );
+  )
 }

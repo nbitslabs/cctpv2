@@ -8,16 +8,7 @@
   "instructions": [
     {
       "name": "initialize",
-      "discriminator": [
-        175,
-        175,
-        109,
-        31,
-        13,
-        152,
-        155,
-        237
-      ],
+      "discriminator": [175, 175, 109, 31, 13, 152, 155, 237],
       "accounts": [
         {
           "name": "payer",
@@ -61,16 +52,7 @@
     },
     {
       "name": "transfer_ownership",
-      "discriminator": [
-        65,
-        177,
-        215,
-        73,
-        53,
-        45,
-        99,
-        47
-      ],
+      "discriminator": [65, 177, 215, 73, 53, 45, 99, 47],
       "accounts": [
         {
           "name": "owner",
@@ -100,16 +82,7 @@
     },
     {
       "name": "accept_ownership",
-      "discriminator": [
-        172,
-        23,
-        43,
-        13,
-        238,
-        213,
-        85,
-        150
-      ],
+      "discriminator": [172, 23, 43, 13, 238, 213, 85, 150],
       "accounts": [
         {
           "name": "pending_owner",
@@ -139,16 +112,7 @@
     },
     {
       "name": "update_pauser",
-      "discriminator": [
-        140,
-        171,
-        211,
-        132,
-        57,
-        201,
-        16,
-        254
-      ],
+      "discriminator": [140, 171, 211, 132, 57, 201, 16, 254],
       "accounts": [
         {
           "name": "owner",
@@ -178,16 +142,7 @@
     },
     {
       "name": "update_attester_manager",
-      "discriminator": [
-        175,
-        245,
-        178,
-        104,
-        85,
-        179,
-        71,
-        16
-      ],
+      "discriminator": [175, 245, 178, 104, 85, 179, 71, 16],
       "accounts": [
         {
           "name": "owner",
@@ -217,16 +172,7 @@
     },
     {
       "name": "pause",
-      "discriminator": [
-        211,
-        22,
-        221,
-        251,
-        74,
-        121,
-        193,
-        47
-      ],
+      "discriminator": [211, 22, 221, 251, 74, 121, 193, 47],
       "accounts": [
         {
           "name": "pauser",
@@ -256,16 +202,7 @@
     },
     {
       "name": "unpause",
-      "discriminator": [
-        169,
-        144,
-        4,
-        38,
-        10,
-        141,
-        188,
-        255
-      ],
+      "discriminator": [169, 144, 4, 38, 10, 141, 188, 255],
       "accounts": [
         {
           "name": "pauser",
@@ -295,16 +232,7 @@
     },
     {
       "name": "set_max_message_body_size",
-      "discriminator": [
-        168,
-        178,
-        8,
-        117,
-        217,
-        167,
-        219,
-        31
-      ],
+      "discriminator": [168, 178, 8, 117, 217, 167, 219, 31],
       "accounts": [
         {
           "name": "owner",
@@ -334,16 +262,7 @@
     },
     {
       "name": "enable_attester",
-      "discriminator": [
-        2,
-        11,
-        193,
-        115,
-        5,
-        148,
-        4,
-        198
-      ],
+      "discriminator": [2, 11, 193, 115, 5, 148, 4, 198],
       "accounts": [
         {
           "name": "payer",
@@ -381,16 +300,7 @@
     },
     {
       "name": "disable_attester",
-      "discriminator": [
-        61,
-        171,
-        131,
-        95,
-        172,
-        15,
-        227,
-        229
-      ],
+      "discriminator": [61, 171, 131, 95, 172, 15, 227, 229],
       "accounts": [
         {
           "name": "payer",
@@ -428,16 +338,7 @@
     },
     {
       "name": "set_signature_threshold",
-      "discriminator": [
-        163,
-        19,
-        154,
-        168,
-        82,
-        209,
-        214,
-        219
-      ],
+      "discriminator": [163, 19, 154, 168, 82, 209, 214, 219],
       "accounts": [
         {
           "name": "attester_manager",
@@ -467,16 +368,7 @@
     },
     {
       "name": "send_message",
-      "discriminator": [
-        57,
-        40,
-        34,
-        178,
-        189,
-        10,
-        65,
-        26
-      ],
+      "discriminator": [57, 40, 34, 178, 189, 10, 65, 26],
       "accounts": [
         {
           "name": "event_rent_payer",
@@ -517,16 +409,7 @@
     },
     {
       "name": "send_message_with_caller",
-      "discriminator": [
-        212,
-        47,
-        34,
-        52,
-        91,
-        32,
-        176,
-        204
-      ],
+      "discriminator": [212, 47, 34, 52, 91, 32, 176, 204],
       "accounts": [
         {
           "name": "event_rent_payer",
@@ -567,16 +450,7 @@
     },
     {
       "name": "replace_message",
-      "discriminator": [
-        189,
-        189,
-        210,
-        163,
-        149,
-        205,
-        69,
-        229
-      ],
+      "discriminator": [189, 189, 210, 163, 149, 205, 69, 229],
       "accounts": [
         {
           "name": "event_rent_payer",
@@ -617,16 +491,7 @@
     },
     {
       "name": "receive_message",
-      "discriminator": [
-        38,
-        144,
-        127,
-        225,
-        31,
-        225,
-        238,
-        25
-      ],
+      "discriminator": [38, 144, 127, 225, 31, 225, 238, 25],
       "accounts": [
         {
           "name": "payer",
@@ -673,22 +538,11 @@
     },
     {
       "name": "reclaim_event_account",
-      "discriminator": [
-        94,
-        198,
-        180,
-        159,
-        131,
-        236,
-        15,
-        174
-      ],
+      "discriminator": [94, 198, 180, 159, 131, 236, 15, 174],
       "accounts": [
         {
           "name": "payee",
-          "docs": [
-            "rent SOL receiver, should match original rent payer"
-          ],
+          "docs": ["rent SOL receiver, should match original rent payer"],
           "writable": true,
           "signer": true
         },
@@ -714,16 +568,7 @@
     },
     {
       "name": "get_nonce_pda",
-      "discriminator": [
-        114,
-        70,
-        229,
-        212,
-        223,
-        50,
-        33,
-        39
-      ],
+      "discriminator": [114, 70, 229, 212, 223, 50, 33, 39],
       "accounts": [
         {
           "name": "message_transmitter"
@@ -743,16 +588,7 @@
     },
     {
       "name": "is_nonce_used",
-      "discriminator": [
-        144,
-        72,
-        107,
-        148,
-        35,
-        218,
-        31,
-        187
-      ],
+      "discriminator": [144, 72, 107, 148, 35, 218, 31, 187],
       "accounts": [
         {
           "name": "used_nonces",
@@ -777,187 +613,61 @@
   "accounts": [
     {
       "name": "MessageSent",
-      "discriminator": [
-        131,
-        100,
-        133,
-        56,
-        166,
-        225,
-        151,
-        60
-      ]
+      "discriminator": [131, 100, 133, 56, 166, 225, 151, 60]
     },
     {
       "name": "MessageTransmitter",
-      "discriminator": [
-        71,
-        40,
-        180,
-        142,
-        19,
-        203,
-        35,
-        252
-      ]
+      "discriminator": [71, 40, 180, 142, 19, 203, 35, 252]
     },
     {
       "name": "UsedNonces",
-      "discriminator": [
-        60,
-        112,
-        18,
-        72,
-        138,
-        181,
-        100,
-        138
-      ]
+      "discriminator": [60, 112, 18, 72, 138, 181, 100, 138]
     }
   ],
   "events": [
     {
       "name": "OwnershipTransferStarted",
-      "discriminator": [
-        183,
-        253,
-        239,
-        246,
-        140,
-        179,
-        133,
-        105
-      ]
+      "discriminator": [183, 253, 239, 246, 140, 179, 133, 105]
     },
     {
       "name": "OwnershipTransferred",
-      "discriminator": [
-        172,
-        61,
-        205,
-        183,
-        250,
-        50,
-        38,
-        98
-      ]
+      "discriminator": [172, 61, 205, 183, 250, 50, 38, 98]
     },
     {
       "name": "PauserChanged",
-      "discriminator": [
-        142,
-        157,
-        158,
-        87,
-        127,
-        8,
-        119,
-        55
-      ]
+      "discriminator": [142, 157, 158, 87, 127, 8, 119, 55]
     },
     {
       "name": "AttesterManagerUpdated",
-      "discriminator": [
-        5,
-        97,
-        191,
-        108,
-        44,
-        189,
-        69,
-        88
-      ]
+      "discriminator": [5, 97, 191, 108, 44, 189, 69, 88]
     },
     {
       "name": "MessageReceived",
-      "discriminator": [
-        231,
-        68,
-        47,
-        77,
-        173,
-        241,
-        157,
-        166
-      ]
+      "discriminator": [231, 68, 47, 77, 173, 241, 157, 166]
     },
     {
       "name": "SignatureThresholdUpdated",
-      "discriminator": [
-        156,
-        99,
-        103,
-        200,
-        15,
-        38,
-        122,
-        189
-      ]
+      "discriminator": [156, 99, 103, 200, 15, 38, 122, 189]
     },
     {
       "name": "AttesterEnabled",
-      "discriminator": [
-        88,
-        57,
-        14,
-        133,
-        5,
-        219,
-        62,
-        190
-      ]
+      "discriminator": [88, 57, 14, 133, 5, 219, 62, 190]
     },
     {
       "name": "AttesterDisabled",
-      "discriminator": [
-        186,
-        136,
-        186,
-        14,
-        229,
-        2,
-        121,
-        211
-      ]
+      "discriminator": [186, 136, 186, 14, 229, 2, 121, 211]
     },
     {
       "name": "MaxMessageBodySizeUpdated",
-      "discriminator": [
-        134,
-        206,
-        151,
-        111,
-        137,
-        11,
-        160,
-        225
-      ]
+      "discriminator": [134, 206, 151, 111, 137, 11, 160, 225]
     },
     {
       "name": "Pause",
-      "discriminator": [
-        194,
-        251,
-        232,
-        196,
-        118,
-        95,
-        111,
-        219
-      ]
+      "discriminator": [194, 251, 232, 196, 118, 95, 111, 219]
     },
     {
       "name": "Unpause",
-      "discriminator": [
-        241,
-        149,
-        104,
-        90,
-        199,
-        136,
-        219,
-        146
-      ]
+      "discriminator": [241, 149, 104, 90, 199, 136, 219, 146]
     }
   ],
   "errors": [
@@ -1432,9 +1142,7 @@
     },
     {
       "name": "MessageTransmitter",
-      "docs": [
-        "Main state of the MessageTransmitter program"
-      ],
+      "docs": ["Main state of the MessageTransmitter program"],
       "type": {
         "kind": "struct",
         "fields": [
@@ -1508,10 +1216,7 @@
           {
             "name": "used_nonces",
             "type": {
-              "array": [
-                "u64",
-                100
-              ]
+              "array": ["u64", 100]
             }
           }
         ]

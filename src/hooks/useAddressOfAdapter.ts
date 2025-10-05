@@ -1,28 +1,30 @@
-import {
+import type {
   CctpNetworkAdapter,
   CctpNetworkAdapterId,
-  findNetworkAdapter,
-} from '@/lib/cctp/networks';
-import { useAppKitAccount } from '@reown/appkit/react';
-import { useEffect } from 'react';
+} from "@/lib/cctp/networks"
+import { findNetworkAdapter } from "@/lib/cctp/networks"
+import { useAppKitAccount } from "@reown/appkit/react"
+import { useEffect } from "react"
 
 export function useAddressOfAdapter(adapter?: CctpNetworkAdapter) {
   const { address } = useAppKitAccount({
-    namespace: adapter?.type === 'evm' ? 'eip155' : 'solana',
-  });
-  return address;
+    namespace: adapter?.type === "evm" ? "eip155" : "solana",
+  })
+  return address
 }
 
 export function useAddressOfAdapterId(adapterId: CctpNetworkAdapterId) {
-  const adapter = findNetworkAdapter(adapterId);
-  const adapterAddress = useAddressOfAdapter(adapter);
+  const adapter = findNetworkAdapter(adapterId)
+  const adapterAddress = useAddressOfAdapter(adapter)
 
   useEffect(() => {
     if (!adapter) {
-      console.warn(`No adapter found for id ${adapterId}`);
+      console.warn(`No adapter found for id ${adapterId}`)
     }
-  }, [adapter, adapterId]);
+  }, [adapter, adapterId])
 
-  if (!adapter) return undefined;
-  return adapterAddress;
+  if (!adapter) {
+    return undefined
+  }
+  return adapterAddress
 }

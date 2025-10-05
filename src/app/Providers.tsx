@@ -1,10 +1,10 @@
-'use client';
+"use client"
 
-import AppkitProvider from '@/lib/wagmi/AppkitProvider';
-import { ActiveNetworkProvider } from '@/lib/cctp/providers/ActiveNetworkProvider';
-import { AlertDialogProvider } from '@/components/ui2/PromiseAlertDialog';
-import { ThemeProvider } from 'next-themes';
-import { LifiWidgetProvider } from '@/components/ui2/LifiWidget';
+import AppkitProvider from "@/lib/wagmi/AppkitProvider"
+import { ActiveNetworkProvider } from "@/lib/cctp/providers/ActiveNetworkProvider"
+import { AlertDialogProvider } from "@/components/ui2/PromiseAlertDialog"
+import { ThemeProvider } from "next-themes"
+import { LifiWidgetProvider } from "@/components/ui2/LifiWidget"
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -17,5 +17,5 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         </ActiveNetworkProvider>
       </AppkitProvider>
     </ThemeProvider>
-  );
+  )
 }

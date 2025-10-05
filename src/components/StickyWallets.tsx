@@ -1,17 +1,17 @@
-import { useChainId } from "wagmi";
-import ConnectedWallet from "./ConnectedWallet";
-import { solana } from "@reown/appkit/networks";
-import Image from "next/image";
-import favicon from "../app/favicon.ico";
-import { useTheme } from "next-themes";
-import { Moon, Sun } from "lucide-react";
-import { Button } from "./ui/button";
-import { FaGithub } from "react-icons/fa";
-import Link from "next/link";
+import { useChainId } from "wagmi"
+import ConnectedWallet from "./ConnectedWallet"
+import { solana } from "@reown/appkit/networks"
+import Image from "next/image"
+import favicon from "../app/favicon.ico"
+import { useTheme } from "next-themes"
+import { Moon, Sun } from "lucide-react"
+import { Button } from "./ui/button"
+import { FaGithub } from "react-icons/fa"
+import Link from "next/link"
 
 function StickyWallets() {
-  const eip155ChainId = useChainId();
-  const { theme, setTheme } = useTheme();
+  const eip155ChainId = useChainId()
+  const { theme, setTheme } = useTheme()
 
   return (
     <div className="flex items-center gap-2 w-max p-1.5 pl-2 rounded-md bg-foreground/10 border border-foreground/5 shadow backdrop-blur-sm select-none fixed sm:sticky top-2 z-50 left-1/2 -translate-x-1/2">
@@ -22,7 +22,7 @@ function StickyWallets() {
         variant="ghost"
         size="iconSm"
         onClick={() => {
-          setTheme(theme === "dark" ? "light" : "dark");
+          setTheme(theme === "dark" ? "light" : "dark")
         }}
       >
         {theme === "dark" ? <Moon /> : <Sun />}
@@ -38,7 +38,7 @@ function StickyWallets() {
         </Link>
       </Button>
     </div>
-  );
+  )
 }
 
-export default StickyWallets;
+export default StickyWallets

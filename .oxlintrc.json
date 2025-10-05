@@ -1,0 +1,31 @@
+{
+  "plugins": [
+    "typescript",
+    "oxc",
+    "import",
+    "node",
+    "promise",
+    "react",
+    "react-perf",
+    "nextjs"
+  ],
+  "rules": {
+    "typescript/no-explicit-any": "error",
+    "eqeqeq": "error",
+    "curly": "error",
+    "typescript/no-unused-vars": "warn",
+    "typescript/no-empty-interface": "off",
+    "typescript/consistent-type-imports": "error",
+    "typescript/require-await": "warn",
+    "react/exhaustive-deps": "error",
+    "react/jsx-no-useless-fragment": "error",
+    "nextjs/no-img-element": "off",
+    "no-console": "off",
+    "no-alert": "warn",
+    "no-else-return": "error"
+  },
+  "ignorePatterns": [
+    "src/lib/solana/tools/codama/generated/**",
+    "src/lib/cctp/generated.ts"
+  ]
+}

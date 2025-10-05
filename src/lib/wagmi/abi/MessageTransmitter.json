@@ -1,7 +1,11 @@
 [
   {
     "inputs": [
-      { "internalType": "uint32", "name": "_localDomain", "type": "uint32" },
+      {
+        "internalType": "uint32",
+        "name": "_localDomain",
+        "type": "uint32"
+      },
       { "internalType": "uint32", "name": "_version", "type": "uint32" }
     ],
     "stateMutability": "nonpayable",
@@ -251,7 +255,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newAttester", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newAttester",
+        "type": "address"
+      }
     ],
     "name": "enableAttester",
     "outputs": [],
@@ -278,7 +286,11 @@
     "inputs": [
       { "internalType": "address", "name": "owner_", "type": "address" },
       { "internalType": "address", "name": "pauser_", "type": "address" },
-      { "internalType": "address", "name": "rescuer_", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "rescuer_",
+        "type": "address"
+      },
       {
         "internalType": "address",
         "name": "attesterManager_",
@@ -409,7 +421,11 @@
         "name": "destinationDomain",
         "type": "uint32"
       },
-      { "internalType": "bytes32", "name": "recipient", "type": "bytes32" },
+      {
+        "internalType": "bytes32",
+        "name": "recipient",
+        "type": "bytes32"
+      },
       {
         "internalType": "bytes32",
         "name": "destinationCaller",
@@ -491,7 +507,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_newPauser", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_newPauser",
+        "type": "address"
+      }
     ],
     "name": "updatePauser",
     "outputs": [],
@@ -500,7 +520,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newRescuer", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newRescuer",
+        "type": "address"
+      }
     ],
     "name": "updateRescuer",
     "outputs": [],

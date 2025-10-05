@@ -1,15 +1,16 @@
-"use client";
+"use client"
 
-import { cn } from "@/lib/utils";
-import { ArrowRight, Code2, Copy, Rocket, Zap } from "lucide-react";
-import { CSSProperties, useState } from "react";
+import { cn } from "@/lib/utils"
+import { ArrowRight, Code2, Copy, Rocket, Zap } from "lucide-react"
+import type { CSSProperties } from "react"
+import { useState } from "react"
 
 export interface CardFlipProps {
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  features?: string[];
-  color?: string;
+  title?: string
+  subtitle?: string
+  description?: string
+  features?: string[]
+  color?: string
 }
 
 export default function CardFlip({
@@ -24,7 +25,7 @@ export default function CardFlip({
   ],
   color = "#ff2e88",
 }: CardFlipProps) {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false)
 
   return (
     <div
@@ -165,8 +166,8 @@ export default function CardFlip({
 
             <div className="space-y-2.5">
               {features.map((feature, index) => {
-                const icons = [Copy, Code2, Rocket, Zap];
-                const IconComponent = icons[index % icons.length];
+                const icons = [Copy, Code2, Rocket, Zap]
+                const IconComponent = icons[index % icons.length]
 
                 return (
                   <div
@@ -185,7 +186,7 @@ export default function CardFlip({
                     </div>
                     <span className="font-medium">{feature}</span>
                   </div>
-                );
+                )
               })}
             </div>
           </div>
@@ -240,5 +241,5 @@ export default function CardFlip({
         }
       `}</style>
     </div>
-  );
+  )
 }

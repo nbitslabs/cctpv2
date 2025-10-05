@@ -1,21 +1,20 @@
-"use client";
-import { cn, formatNumber, type FormatNumberOption } from "@/lib/utils";
-import { Info, type LucideProps } from "lucide-react";
-import type React from "react";
-import NumberFlow from "@number-flow/react";
-import { PropsWithChildren, useState } from "react";
+"use client"
+import { cn, formatNumber, type FormatNumberOption } from "@/lib/utils"
+import { Info, type LucideProps } from "lucide-react"
+import NumberFlow from "@number-flow/react"
+import { type PropsWithChildren, useState } from "react"
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/components/ui/tooltip"
 
 interface TooltipWrapProps {
-  content: React.ReactNode;
-  asChild?: boolean;
-  className?: string;
-  size?: "sm" | "md";
-  alwaysShow?: boolean;
+  content: React.ReactNode
+  asChild?: boolean
+  className?: string
+  size?: "sm" | "md"
+  alwaysShow?: boolean
 }
 
 export function TooltipWrap({
@@ -26,8 +25,10 @@ export function TooltipWrap({
   size = "md",
   alwaysShow = false,
 }: PropsWithChildren<TooltipWrapProps>) {
-  const [open, setOpen] = useState(false);
-  if (!content) return children;
+  const [open, setOpen] = useState(false)
+  if (!content) {
+    return children
+  }
 
   return (
     <Tooltip open={open || alwaysShow} onOpenChange={setOpen}>
@@ -42,7 +43,7 @@ export function TooltipWrap({
         {content}
       </TooltipContent>
     </Tooltip>
-  );
+  )
 }
 
 export function TooltipWrapInfo({
@@ -55,10 +56,10 @@ export function TooltipWrapInfo({
   size,
   ...props
 }: LucideProps & {
-  content: React.ReactNode;
-  tooltipSize?: TooltipWrapProps["size"];
-  tooltipClassName?: string;
-  asChild?: boolean;
+  content: React.ReactNode
+  tooltipSize?: TooltipWrapProps["size"]
+  tooltipClassName?: string
+  asChild?: boolean
 }) {
   return (
     <TooltipWrap
@@ -73,15 +74,15 @@ export function TooltipWrapInfo({
         {...props}
       />
     </TooltipWrap>
-  );
+  )
 }
 
 type TooltipWrapNumberProps = Pick<TooltipWrapProps, "asChild"> & {
-  amount: number | string;
-  prefix?: string;
-  className?: string;
-  format?: FormatNumberOption;
-};
+  amount: number | string
+  prefix?: string
+  className?: string
+  format?: FormatNumberOption
+}
 
 export function TooltipWrapNumber(props: TooltipWrapNumberProps) {
   return (
@@ -97,5 +98,5 @@ export function TooltipWrapNumber(props: TooltipWrapNumberProps) {
         className={cn("inline-block", props.className)}
       />
     </TooltipWrap>
-  );
+  )
 }

@@ -1,69 +1,71 @@
-import { AppKitNetwork } from '@reown/appkit/networks';
-import { CctpNetworkAdapter, CctpV2TransferType } from './type';
+import type { AppKitNetwork } from "@reown/appkit/networks"
+import type { CctpNetworkAdapter } from "./type"
+import { CctpV2TransferType } from "./type"
 import {
   readUsdcAllowance,
   simulateMessageTransmitterReceiveMessage,
   writeMessageTransmitterReceiveMessage,
   writeTokenMessagerDepositForBurn,
   writeUsdcApprove,
-} from '../../wagmi/generated';
+} from "../../wagmi/generated"
+import type { CctpV2SupportedChainId } from "../../wagmi/config"
 import {
   chainsByDomain,
   wagmiConfig,
   usdcAddresses,
   hyperEvm,
-  CctpV2SupportedChainId,
-} from '../../wagmi/config';
+} from "../../wagmi/config"
 import {
   getAccount,
   getPublicClient,
   getWalletClient,
   readContract,
   waitForTransactionReceipt,
-} from 'wagmi/actions';
-import { Address, Chain, erc20Abi, formatUnits, parseUnits } from 'viem';
-import { addChain } from 'viem/actions';
-import { defaultCctpOpts, USDC_DECIMALS } from './constants';
-import { getTokenMessagerAddress, getMessageTransmitterAddress } from './util';
+} from "wagmi/actions"
+import type { Address, Chain } from "viem"
+import { erc20Abi, formatUnits, parseUnits } from "viem"
+import { addChain } from "viem/actions"
+import { defaultCctpOpts, USDC_DECIMALS } from "./constants"
+import { getTokenMessagerAddress, getMessageTransmitterAddress } from "./util"
 
 function getEvmNetworkAdapter(
   network: AppKitNetwork,
-  options: Omit<CctpNetworkAdapter, 'id' | 'name' | 'type'>
+  options: Omit<CctpNetworkAdapter, "id" | "name" | "type">
 ): CctpNetworkAdapter {
   return {
     id: network.id,
     name: network.name,
-    type: 'evm',
+    type: "evm",
     ...options,
-  };
+  }
 }
 
 const {
-  '0': _mainnet,
-  '1': _avalanche,
-  '2': _optimism,
-  '3': _arbitrum,
-  '4': _base,
-  '7': _polygon,
-  '10': _unichain,
-  '11': _linea,
-  '12': _codex,
-  '13': _sonic,
-  '14': _worldchain,
-  '16': _sei,
-  '18': _xdc,
-  '19': _hyperEvm,
-  '21': _ink,
-  '22': _plume,
-} = chainsByDomain;
+  "0": _mainnet,
+  "1": _avalanche,
+  "2": _optimism,
+  "3": _arbitrum,
+  "4": _base,
+  "7": _polygon,
+  "10": _unichain,
+  "11": _linea,
+  "12": _codex,
+  "13": _sonic,
+  "14": _worldchain,
+  "16": _sei,
+  "18": _xdc,
+  "19": _hyperEvm,
+  "21": _ink,
+  "22": _plume,
+} = chainsByDomain
 
 // https://developers.circle.com/stablecoins/supported-domains
 const evmChains: Array<
-  Pick<CctpNetworkAdapter, 'domain'> & {
-    chain: AppKitNetwork;
-    supportV1: boolean;
-    supportV2: boolean;
-    logoUrl: string;
+  Pick<CctpNetworkAdapter, "domain"> & {
+    chain: AppKitNetwork
+    supportV1: boolean
+    supportV2: boolean
+    logoUrl: string
   }
 > = [
   {
@@ -71,7 +73,7 @@ const evmChains: Array<
     domain: 0,
     supportV1: true,
     supportV2: true,
-    logoUrl: 'https://www.cdnlogo.com/logos/e/81/ethereum-eth.svg',
+    logoUrl: "https://www.cdnlogo.com/logos/e/81/ethereum-eth.svg",
   },
   {
     chain: _avalanche,
@@ -79,7 +81,7 @@ const evmChains: Array<
     supportV1: true,
     supportV2: true,
     logoUrl:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCDzBzv0xelHUJFWzZ47s3lAcxBmAMc7uNUg&s',
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCDzBzv0xelHUJFWzZ47s3lAcxBmAMc7uNUg&s",
   },
   {
     chain: _optimism,
@@ -87,14 +89,14 @@ const evmChains: Array<
     supportV1: true,
     supportV2: true,
     logoUrl:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1JMo4wntjsMHtdJoq3VvQfWaAtX8jDW-h1w&s',
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1JMo4wntjsMHtdJoq3VvQfWaAtX8jDW-h1w&s",
   },
   {
     chain: _arbitrum,
     domain: 3,
     supportV1: true,
     supportV2: true,
-    logoUrl: 'https://rpc.info/logos/arbitrum.png',
+    logoUrl: "https://rpc.info/logos/arbitrum.png",
   },
   // noble: 4
   // solana: 5
@@ -104,7 +106,7 @@ const evmChains: Array<
     supportV1: true,
     supportV2: true,
     logoUrl:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNZrouU_9cELxCRIFHcEgezwQIbcFw--3pig&s',
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNZrouU_9cELxCRIFHcEgezwQIbcFw--3pig&s",
   },
   {
     chain: _polygon,
@@ -112,7 +114,7 @@ const evmChains: Array<
     supportV1: true,
     supportV2: false,
     logoUrl:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyudckJZOkhk-RxzyKWJGdewhdzGU6bdSp8w&s',
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyudckJZOkhk-RxzyKWJGdewhdzGU6bdSp8w&s",
   },
   // sui: 8
   // aptos: 9
@@ -122,7 +124,7 @@ const evmChains: Array<
     supportV1: true,
     supportV2: true,
     logoUrl:
-      'https://cdn.prod.website-files.com/633c5e06513fa35f3391a5f9/67609daba55dfb7746d0b732_unichain.png',
+      "https://cdn.prod.website-files.com/633c5e06513fa35f3391a5f9/67609daba55dfb7746d0b732_unichain.png",
   },
   {
     chain: _linea,
@@ -130,14 +132,14 @@ const evmChains: Array<
     supportV1: true,
     supportV2: true,
     logoUrl:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVMeA0U3r5fKNEn9zPeFzSGihbIWpYmBlEYQ&s',
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVMeA0U3r5fKNEn9zPeFzSGihbIWpYmBlEYQ&s",
   },
   {
     chain: _codex,
     domain: 12,
     supportV1: false,
     supportV2: true,
-    logoUrl: 'https://explorer.codex.xyz/assets/configs/network_icon.svg',
+    logoUrl: "https://explorer.codex.xyz/assets/configs/network_icon.svg",
   },
   {
     chain: _sonic,
@@ -145,7 +147,7 @@ const evmChains: Array<
     supportV1: false,
     supportV2: true,
     logoUrl:
-      'https://dailyhodl.com/wp-content/uploads/2024/12/UPSCALED-Sonic-Labs-Industry-Announcement-Featured-Image-Template.jpg?w=200',
+      "https://dailyhodl.com/wp-content/uploads/2024/12/UPSCALED-Sonic-Labs-Industry-Announcement-Featured-Image-Template.jpg?w=200",
   },
   {
     chain: _worldchain,
@@ -153,7 +155,7 @@ const evmChains: Array<
     supportV1: false,
     supportV2: true,
     logoUrl:
-      'https://static1.tokenterminal.com/worldchain/logo.png?logo_hash=786762db10d4891532210e063b6501ac6ad715a9',
+      "https://static1.tokenterminal.com/worldchain/logo.png?logo_hash=786762db10d4891532210e063b6501ac6ad715a9",
   },
   {
     chain: _sei,
@@ -161,7 +163,7 @@ const evmChains: Array<
     supportV1: false,
     supportV2: true,
     logoUrl:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6fwxNLN1-so5tXQr4z_Z-VcgryIoKU2iaFw&s',
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6fwxNLN1-so5tXQr4z_Z-VcgryIoKU2iaFw&s",
   },
   {
     chain: _xdc,
@@ -169,7 +171,7 @@ const evmChains: Array<
     supportV1: false,
     supportV2: true,
     logoUrl:
-      'https://images.prismic.io/xdcf/aCdHeSdWJ-7kSOet_XDCNetworkColorDisplay.png?auto=format,compress',
+      "https://images.prismic.io/xdcf/aCdHeSdWJ-7kSOet_XDCNetworkColorDisplay.png?auto=format,compress",
   },
   {
     chain: _hyperEvm,
@@ -184,7 +186,7 @@ const evmChains: Array<
     supportV1: false,
     supportV2: true,
     logoUrl:
-      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADtUlEQVR4AWLACxgRzAKD9wKAzqtiu40Yina2+Y90Xyun+YfCrtzuyjzjFJZlZub2C8qwzKbMFGZmznjMUnVtyzlvLCk+zTkvtkX36rHciL8+ymL3vUjsu8diYy6LZbyc+GMew5h/H2uwFnvsR5tGHDoYXZxYGGX+I48FgRuJCc8kbO4Ta72q2EPstYNbhrYwXhFlwQUvEqQALG8uLmyIi5c3UuJnbUZ0N3MxMijEQDfHmIFUkMIZh5moCMNY//ZXJyuleus8AFfFxKODCdH6KyumJoVRzq6JizkN+YSIHK/bI88syyoSOCI3jWLjseWB+PsuUwDhuc/pIiinBFbHNSYhMoqzrRT2VCcqXSyUG65uCsRQLwWBKBKT40IM9XPR18HFs0spdVMNAeIfo/slhhb8cERUeBGoHeBxMTZcAJygt+2oy8IXYJoSm5fppHVb4BPhPziLUvtQj97OIHNjW0IPYCdABFgEvEaGC7wdt4LNya0nKAloRw/sl9wYgjmX0TlgkRBFzMqF8HYCpnO2hk9ZcWxpML+qLQIs5JZihkPiQJzTUONa51NamRjj80pPKxc3dyS0JnKR2JAxkToxAMcygeljn2NNeAxCzuht48Xc4Ia0BOwFXj63I5tZ4zwMRucgiiwl1tceJkDkPgh8x4+ftVkF+t8yHdIWcsTt3coEhIRy2u8gMIYB5PZwyA33cnFtc4CYL2XPbOGnxiG+0TmBDQIZ/BgZ5ApYCS0yVhBLNFj2AZsQCNsZBOhhvgbIt2vEQgzYRhNAhnImKKRdVv7t7aBhE0SUE2ZMHm8dR814cycN7dDD1W8DSYwpJ7zvqjDUhd9EOYS4LMeB2d5aIn4+DF0WTkTcHu+GxHRmVbw81dMIWU9T8e9s2TGv0u3oABevbqZM3RAxA42AeFBsXlEYsHGuGHFjQWr4nBVHlwWWMuxr7O3rqufDYo8YVeWY+SjHFNhajsNiCkk15pNybG5IenkJCeVw17cmVK23kbCEo2pInHAbPlDhMdqS6cKvTfrJOdkB11QZnctKABjaNh3f0TB6hab0mqUphaimtL8z54TlkhhF42vpymlbDmdTPjE9T1I6tzZuVD9tyx0TOG3P8+bw6cOERgRx0NMr40rNJVGBs1Q77jgUkPJwaJuunmZeydMsW3iaSRN0cPHkQpKoXtV97K2RZ2yRZ2nvbOFCHqfysIe5Byfzw1VQAZJPrEVuUaHm2LDooG6pQ57nqB1Scs9zKZmCjBXG8s/zRbrnuaPF/Ae/uPha7hMjJwAAAABJRU5ErkJggg==',
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADtUlEQVR4AWLACxgRzAKD9wKAzqtiu40Yina2+Y90Xyun+YfCrtzuyjzjFJZlZub2C8qwzKbMFGZmznjMUnVtyzlvLCk+zTkvtkX36rHciL8+ymL3vUjsu8diYy6LZbyc+GMew5h/H2uwFnvsR5tGHDoYXZxYGGX+I48FgRuJCc8kbO4Ta72q2EPstYNbhrYwXhFlwQUvEqQALG8uLmyIi5c3UuJnbUZ0N3MxMijEQDfHmIFUkMIZh5moCMNY//ZXJyuleus8AFfFxKODCdH6KyumJoVRzq6JizkN+YSIHK/bI88syyoSOCI3jWLjseWB+PsuUwDhuc/pIiinBFbHNSYhMoqzrRT2VCcqXSyUG65uCsRQLwWBKBKT40IM9XPR18HFs0spdVMNAeIfo/slhhb8cERUeBGoHeBxMTZcAJygt+2oy8IXYJoSm5fppHVb4BPhPziLUvtQj97OIHNjW0IPYCdABFgEvEaGC7wdt4LNya0nKAloRw/sl9wYgjmX0TlgkRBFzMqF8HYCpnO2hk9ZcWxpML+qLQIs5JZihkPiQJzTUONa51NamRjj80pPKxc3dyS0JnKR2JAxkToxAMcygeljn2NNeAxCzuht48Xc4Ia0BOwFXj63I5tZ4zwMRucgiiwl1tceJkDkPgh8x4+ftVkF+t8yHdIWcsTt3coEhIRy2u8gMIYB5PZwyA33cnFtc4CYL2XPbOGnxiG+0TmBDQIZ/BgZ5ApYCS0yVhBLNFj2AZsQCNsZBOhhvgbIt2vEQgzYRhNAhnImKKRdVv7t7aBhE0SUE2ZMHm8dR814cycN7dDD1W8DSYwpJ7zvqjDUhd9EOYS4LMeB2d5aIn4+DF0WTkTcHu+GxHRmVbw81dMIWU9T8e9s2TGv0u3oABevbqZM3RAxA42AeFBsXlEYsHGuGHFjQWr4nBVHlwWWMuxr7O3rqufDYo8YVeWY+SjHFNhajsNiCkk15pNybG5IenkJCeVw17cmVK23kbCEo2pInHAbPlDhMdqS6cKvTfrJOdkB11QZnctKABjaNh3f0TB6hab0mqUphaimtL8z54TlkhhF42vpymlbDmdTPjE9T1I6tzZuVD9tyx0TOG3P8+bw6cOERgRx0NMr40rNJVGBs1Q77jgUkPJwaJuunmZeydMsW3iaSRN0cPHkQpKoXtV97K2RZ2yRZ2nvbOFCHqfysIe5Byfzw1VQAZJPrEVuUaHm2LDooG6pQ57nqB1Scs9zKZmCjBXG8s/zRbrnuaPF/Ae/uPha7hMjJwAAAABJRU5ErkJggg==",
   },
   {
     chain: _plume,
@@ -192,55 +194,57 @@ const evmChains: Array<
     supportV1: false,
     supportV2: true,
     logoUrl:
-      'https://media.licdn.com/dms/image/v2/D4D0BAQEqwfg0f2X-4g/company-logo_200_200/company-logo_200_200/0/1732030622776/plume_network_logo?e=2147483647&v=beta&t=A2TASRIEYX_1-UvtRGfJbehsYLZBdmiVcNqzxfmA_Eg',
+      "https://media.licdn.com/dms/image/v2/D4D0BAQEqwfg0f2X-4g/company-logo_200_200/company-logo_200_200/0/1732030622776/plume_network_logo?e=2147483647&v=beta&t=A2TASRIEYX_1-UvtRGfJbehsYLZBdmiVcNqzxfmA_Eg",
   },
-];
+]
 
 export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
   ({ chain, ...config }) => {
-    const chainId = Number(chain.id);
+    const chainId = Number(chain.id)
     const usdcAddress = usdcAddresses[
       chainId as CctpV2SupportedChainId
-    ] as Address;
+    ] as Address
 
-    const readConfig = { chainId: Number(chain.id) } as const;
-    const publicClient = getPublicClient(wagmiConfig, readConfig);
+    const readConfig = { chainId: Number(chain.id) } as const
+    const publicClient = getPublicClient(wagmiConfig, readConfig)
 
     function requestChainIfNeeded<T, D extends unknown[]>(
       func: (...args: D) => Promise<T>
     ) {
       return async (...args: D) => {
         try {
-          return func(...args);
+          return func(...args)
         } catch (error) {
           if (
             (error as Error).message.includes(`Network ${chain.id} not found`)
           ) {
-            const client = await getWalletClient(wagmiConfig);
-            await addChain(client, { chain: chain as Chain });
-            return func(...args);
+            const client = await getWalletClient(wagmiConfig)
+            await addChain(client, { chain: chain as Chain })
+            return func(...args)
           }
-          throw error;
+          throw error
         }
-      };
+      }
     }
 
     const readUsdcBalance = requestChainIfNeeded(async (address) => {
-      if (!publicClient) throw new Error('No public client found');
+      if (!publicClient) {
+        throw new Error("No public client found")
+      }
 
       const balance = await readContract(wagmiConfig, {
         ...readConfig,
         address: usdcAddress,
         abi: erc20Abi,
-        functionName: 'balanceOf',
+        functionName: "balanceOf",
         args: [address as Address],
-      });
-      const raw = formatUnits(balance, USDC_DECIMALS);
+      })
+      const raw = formatUnits(balance, USDC_DECIMALS)
       return {
         raw,
         formatted: Number(raw),
-      };
-    });
+      }
+    })
 
     return getEvmNetworkAdapter(chain, {
       ...config,
@@ -252,16 +256,18 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
       explorer: chain.blockExplorers?.default,
       readUsdcBalance,
       readNativeBalance: requestChainIfNeeded(async (address) => {
-        if (!publicClient) throw new Error('No public client found');
+        if (!publicClient) {
+          throw new Error("No public client found")
+        }
 
         const balance = await publicClient.getBalance({
           address: address as Address,
-        });
-        const raw = formatUnits(balance, chain.nativeCurrency.decimals);
+        })
+        const raw = formatUnits(balance, chain.nativeCurrency.decimals)
         return {
           raw,
           formatted: Number(raw),
-        };
+        }
       }),
 
       async writeTokenMessagerDepositForBurn(
@@ -271,16 +277,14 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
         const tokenMessagerAddress = getTokenMessagerAddress(
           cctpOpts,
           chainId
-        ) as Address;
+        ) as Address
 
         const allowance = await readUsdcAllowance(wagmiConfig, {
           chainId,
           address: usdcAddress,
           args: [address as Address, tokenMessagerAddress],
-        });
-        const formattedAllowance = Number(
-          formatUnits(allowance, USDC_DECIMALS)
-        );
+        })
+        const formattedAllowance = Number(formatUnits(allowance, USDC_DECIMALS))
 
         if (amount > formattedAllowance) {
           const tx = await writeUsdcApprove(wagmiConfig, {
@@ -290,27 +294,31 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
               tokenMessagerAddress,
               parseUnits(amount.toString(), USDC_DECIMALS),
             ],
-          });
-          await waitForTransactionReceipt(wagmiConfig, { hash: tx });
+          })
+          await waitForTransactionReceipt(wagmiConfig, { hash: tx })
         }
 
         let {
           transferType = CctpV2TransferType.Fast,
           maxFee,
           finalityThreshold,
-        } = options;
+        } = options
         const mintRecipient =
-          options.mintRecipient ?? getAccount(wagmiConfig).address;
+          options.mintRecipient ?? getAccount(wagmiConfig).address
 
-        if (!mintRecipient) throw new Error('No mint recipient found');
-        if (!config.supportV2) transferType = CctpV2TransferType.Standard;
+        if (!mintRecipient) {
+          throw new Error("No mint recipient found")
+        }
+        if (!config.supportV2) {
+          transferType = CctpV2TransferType.Standard
+        }
 
-        const rawAmount = parseUnits(amount.toString(), USDC_DECIMALS);
+        const rawAmount = parseUnits(amount.toString(), USDC_DECIMALS)
 
-        maxFee = maxFee ?? rawAmount - 1n;
+        maxFee = maxFee ?? rawAmount - 1n
         finalityThreshold =
           finalityThreshold ??
-          (transferType === CctpV2TransferType.Fast ? 1000 : 2000);
+          (transferType === CctpV2TransferType.Fast ? 1000 : 2000)
 
         const tx = await writeTokenMessagerDepositForBurn(wagmiConfig, {
           chainId,
@@ -320,16 +328,16 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
             destination.domain,
             getMintRecipient(mintRecipient),
             usdcAddress,
-            '0x0000000000000000000000000000000000000000000000000000000000000000',
+            "0x0000000000000000000000000000000000000000000000000000000000000000",
             maxFee,
             finalityThreshold,
           ],
-        });
+        })
         await waitForTransactionReceipt(wagmiConfig, {
           chainId,
           hash: tx,
-        });
-        return tx;
+        })
+        return tx
       },
 
       async simulateMessageTransmitterReceiveMessage(
@@ -340,7 +348,7 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
         const messageTransmitterAddress = getMessageTransmitterAddress(
           cctpOpts,
           chainId
-        ) as Address;
+        ) as Address
         const { result } = await simulateMessageTransmitterReceiveMessage(
           wagmiConfig,
           {
@@ -348,8 +356,8 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
             address: messageTransmitterAddress,
             args: [message as Address, attestation as Address],
           }
-        );
-        return result;
+        )
+        return result
       },
 
       async writeMessageTransmitterReceiveMessage(
@@ -361,21 +369,24 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
         const messageTransmitterAddress = getMessageTransmitterAddress(
           cctpOpts,
           chainId
-        ) as Address;
+        ) as Address
         const tx = await writeMessageTransmitterReceiveMessage(wagmiConfig, {
           chainId,
           address: messageTransmitterAddress,
           args: [message, attestation as Address],
-        });
-        await waitForTransactionReceipt(wagmiConfig, { chainId, hash: tx });
-        return tx;
+        })
+        await waitForTransactionReceipt(wagmiConfig, {
+          chainId,
+          hash: tx,
+        })
+        return tx
       },
-    });
+    })
   }
-);
+)
 
 function getMintRecipient(destinationAddress: string) {
   return `0x${destinationAddress
-    .replace(/^0x/, '')
-    .padStart(64, '0')}` satisfies Address;
+    .replace(/^0x/, "")
+    .padStart(64, "0")}` satisfies Address
 }

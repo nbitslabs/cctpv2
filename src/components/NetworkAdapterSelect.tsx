@@ -1,55 +1,55 @@
-'use client';
+"use client"
 
-import { useNativeBalance, useUsdcBalance } from '@/hooks/useBalance';
+import { useNativeBalance, useUsdcBalance } from "@/hooks/useBalance"
 import {
-  CctpNetworkAdapterId,
   findNetworkAdapter,
   networkAdapters,
-} from '@/lib/cctp/networks';
-import { cn } from '@/lib/utils';
-import { Loader2, RotateCw } from 'lucide-react';
-import Image from 'next/image';
-import { TooltipWrapNumber } from './TooltipWrap';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
+  type CctpNetworkAdapterId,
+} from "@/lib/cctp/networks"
+import { cn } from "@/lib/utils"
+import { Loader2, RotateCw } from "lucide-react"
+import Image from "next/image"
+import { useState } from "react"
+import { TooltipWrapNumber } from "./TooltipWrap"
+import { Button } from "./ui/button"
+import { Input } from "./ui/input"
+import { Label } from "./ui/label"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './ui/select';
-import { LifiButton } from './ui2/LifiWidget';
-import { Button } from './ui/button';
-import { useState, useTransition } from 'react';
+} from "./ui/select"
+import { LifiButton } from "./ui2/LifiWidget"
 
 export interface NetworkAdapterSelectProps {
-  chainId: CctpNetworkAdapterId | undefined;
-  setChainId: (chain: CctpNetworkAdapterId) => void;
-  address: string;
-  setAddress?: (address: string) => void;
-  label: string;
-  exceptAdapterIds?: CctpNetworkAdapterId[];
-  addressReadonly?: boolean;
-  hideAddress?: boolean;
-  children?: React.ReactNode;
+  chainId: CctpNetworkAdapterId | undefined
+  setChainId: (chain: CctpNetworkAdapterId) => void
+  address: string
+  setAddress?: (address: string) => void
+  label: string
+  exceptAdapterIds?: CctpNetworkAdapterId[]
+  addressReadonly?: boolean
+  hideAddress?: boolean
+  children?: React.ReactNode
 }
 
 export function useNetworkAdapterBalance(
   chainId: CctpNetworkAdapterId | undefined,
   address: string | undefined
 ) {
-  const usdcBalance = useUsdcBalance(chainId, address);
-  const nativeBalance = useNativeBalance(chainId, address);
-  const networkAdapter = findNetworkAdapter(chainId);
-  const nativeCurrency = networkAdapter?.nativeCurrency;
+  const usdcBalance = useUsdcBalance(chainId, address)
+  const nativeBalance = useNativeBalance(chainId, address)
+  const networkAdapter = findNetworkAdapter(chainId)
+  const nativeCurrency = networkAdapter?.nativeCurrency
 
   return {
     networkAdapter,
     usdcBalance,
     nativeBalance,
     nativeCurrency,
-  };
+  }
 }
 
 export default function NetworkAdapterSelect({
@@ -64,8 +64,8 @@ export default function NetworkAdapterSelect({
   children,
 }: NetworkAdapterSelectProps) {
   const { usdcBalance, nativeBalance, nativeCurrency } =
-    useNetworkAdapterBalance(chain, address);
-  const [isPending, setIsPending] = useState(false);
+    useNetworkAdapterBalance(chain, address)
+  const [isPending, setIsPending] = useState(false)
 
   return (
     <div className="space-y-2">
@@ -104,8 +104,8 @@ export default function NetworkAdapterSelect({
                 placeholder={`Enter address...`}
                 readOnly={addressReadonly}
                 className={cn(
-                  'text-sm',
-                  addressReadonly && 'bg-primary/5 text-foreground/70'
+                  "text-sm",
+                  addressReadonly && "bg-primary/5 text-foreground/70"
                 )}
               />
               {children}
@@ -121,8 +121,8 @@ export default function NetworkAdapterSelect({
                     amount={usdcBalance.data?.formatted ?? 0}
                     format={{ maximumFractionDigits: 2 }}
                   />
-                )}{' '}
-                USDC •{' '}
+                )}{" "}
+                USDC •{" "}
                 {nativeBalance.isLoading ? (
                   <Loader2 className="animate-spin inline-block size-3" />
                 ) : (
@@ -130,21 +130,21 @@ export default function NetworkAdapterSelect({
                     amount={nativeBalance.data?.formatted ?? 0}
                     format={{ maximumFractionDigits: 4 }}
                   />
-                )}{' '}
+                )}{" "}
                 {nativeCurrency?.symbol}
                 <Button
                   variant="ghost"
                   onClick={async () => {
-                    setIsPending(true);
+                    setIsPending(true)
                     await Promise.all([
                       usdcBalance.refetch(),
                       nativeBalance.refetch(),
-                    ]);
-                    setIsPending(false);
+                    ])
+                    setIsPending(false)
                   }}
                   className={cn(
-                    '!size-4.5 rounded-sm !p-0.5 ml-1 translate-y-px',
-                    isPending && 'animate-spin'
+                    "!size-4.5 rounded-sm !p-0.5 ml-1 translate-y-px",
+                    isPending && "animate-spin"
                   )}
                 >
                   <RotateCw className="inline-block !size-3" />
@@ -161,5 +161,5 @@ export default function NetworkAdapterSelect({
         </>
       )}
     </div>
-  );
+  )
 }

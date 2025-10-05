@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CctpV2TransferType } from "@/lib/cctp/networks";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { CctpV2TransferType } from "@/lib/cctp/networks"
 
 export function TransferTypeSelector({
   value,
   onChange,
 }: {
-  value: CctpV2TransferType;
-  onChange: (value: CctpV2TransferType) => void;
+  value: CctpV2TransferType
+  onChange: (value: CctpV2TransferType) => void
 }) {
   return (
     <Tabs
@@ -22,5 +22,5 @@ export function TransferTypeSelector({
         </TabsTrigger>
       </TabsList>
     </Tabs>
-  );
+  )
 }

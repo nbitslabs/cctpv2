@@ -1,8 +1,8 @@
-"use client";
-import { useCopy } from "@/hooks/useCopy";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { CopyIcon } from "lucide-react";
-import { PopoverProps } from "@radix-ui/react-popover";
+"use client"
+import { useCopy } from "@/hooks/useCopy"
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
+import { CopyIcon } from "lucide-react"
+import type { PopoverProps } from "@radix-ui/react-popover"
 
 export default function CopyIconTooltip({
   text,
@@ -15,11 +15,11 @@ export default function CopyIconTooltip({
   ),
   ...props
 }: {
-  text: string;
-  asChild?: boolean;
-  children?: React.ReactNode;
+  text: string
+  asChild?: boolean
+  children?: React.ReactNode
 } & PopoverProps) {
-  const { copy, copied } = useCopy();
+  const { copy, copied } = useCopy()
 
   return (
     <Popover open={copied}>
@@ -34,5 +34,5 @@ export default function CopyIconTooltip({
         <p>Copied!</p>
       </PopoverContent>
     </Popover>
-  );
+  )
 }

@@ -1,15 +1,14 @@
-import { evmNetworkAdapters } from "./evm";
-import { CctpNetworkAdapterId } from "./type";
-import { solanaNetworkAdapters } from "./solana";
+import { evmNetworkAdapters } from "./evm"
+import type { CctpNetworkAdapterId } from "./type"
+import { solanaNetworkAdapters } from "./solana"
 
-export * from "./type";
+export * from "./type"
 
-export const networkAdapters = [
-  ...evmNetworkAdapters,
-  ...solanaNetworkAdapters,
-];
+export const networkAdapters = [...evmNetworkAdapters, ...solanaNetworkAdapters]
 
 export function findNetworkAdapter(networkId?: CctpNetworkAdapterId) {
-  if (!networkId) return undefined;
-  return networkAdapters.find((n) => n.id.toString() === networkId.toString());
+  if (!networkId) {
+    return undefined
+  }
+  return networkAdapters.find((n) => n.id.toString() === networkId.toString())
 }

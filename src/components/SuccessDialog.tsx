@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import {
   Dialog,
@@ -6,24 +6,24 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { CctpNetworkAdapter } from "@/lib/cctp/networks";
-import { Check, MoveRight } from "lucide-react";
-import Image from "next/image";
-import { TooltipWrapNumber } from "@/components/TooltipWrap";
-import GitHubButton from "react-github-btn";
-import { useState } from "react";
+} from "@/components/ui/dialog"
+import type { CctpNetworkAdapter } from "@/lib/cctp/networks"
+import { Check, MoveRight } from "lucide-react"
+import Image from "next/image"
+import { TooltipWrapNumber } from "@/components/TooltipWrap"
+import GitHubButton from "react-github-btn"
+import { useState } from "react"
 
 interface ChainAddressBalance {
-  networkAdapter: CctpNetworkAdapter;
-  address: string;
-  usdcBalance: number;
+  networkAdapter: CctpNetworkAdapter
+  address: string
+  usdcBalance: number
 }
 
 interface SuccessDialogProps {
-  source: ChainAddressBalance;
-  destination: ChainAddressBalance;
-  amount: string;
+  source: ChainAddressBalance
+  destination: ChainAddressBalance
+  amount: string
 }
 
 export default function SuccessDialog({
@@ -31,7 +31,7 @@ export default function SuccessDialog({
   destination,
   amount,
 }: SuccessDialogProps) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(true)
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -163,5 +163,5 @@ export default function SuccessDialog({
         </div>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

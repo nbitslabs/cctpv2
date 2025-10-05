@@ -1,7 +1,7 @@
-import { useSyncExternalStore, type PropsWithChildren } from 'react';
+import { useSyncExternalStore, type PropsWithChildren } from "react"
 
 function subscribe() {
-  return () => {};
+  return () => {}
 }
 
 /**
@@ -16,11 +16,11 @@ export function useHydrated() {
     subscribe,
     () => true,
     () => false
-  );
+  )
 }
 
 interface ClientOnlyProps extends PropsWithChildren {
-  fallback?: React.ReactNode;
+  fallback?: React.ReactNode
 }
 
 /**
@@ -28,6 +28,6 @@ interface ClientOnlyProps extends PropsWithChildren {
  * fallback component if the JS is not yet loaded.
  */
 export function ClientOnly({ children, fallback = null }: ClientOnlyProps) {
-  const hydrated = useHydrated();
-  return hydrated ? children : fallback;
+  const hydrated = useHydrated()
+  return hydrated ? children : fallback
 }

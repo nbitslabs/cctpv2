@@ -1,14 +1,14 @@
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+import { cn } from "@/lib/utils"
+import Link from "next/link"
 
 export default function ExternalLink({
   href,
   children,
   className,
 }: {
-  href: string;
-  children: React.ReactNode;
-  className?: string;
+  href: string
+  children: React.ReactNode
+  className?: string
 }) {
   return (
     <Link
@@ -22,5 +22,5 @@ export default function ExternalLink({
     >
       {children}
     </Link>
-  );
+  )
 }

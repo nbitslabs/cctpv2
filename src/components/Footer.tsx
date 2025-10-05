@@ -1,4 +1,4 @@
-import ExternalLink from "./ui2/ExternalLink";
+import ExternalLink from "./ui2/ExternalLink"
 
 export default function Footer() {
   return (
@@ -24,5 +24,5 @@ export default function Footer() {
         </span>
       </p>
     </footer>
-  );
+  )
 }

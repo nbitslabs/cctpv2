@@ -1,16 +1,17 @@
-import { solana } from "@reown/appkit/networks";
-import { CctpNetworkAdapter, CctpV2TransferType } from "./type";
-import { usdcAddresses } from "@/lib/wagmi/config";
-import { getATA2 } from "@/lib/solana/utils";
-import { getTokenMessagerAddress } from "./util";
-import { defaultCctpOpts, USDC_DECIMALS } from "./constants";
+import { solana } from "@reown/appkit/networks"
+import type { CctpNetworkAdapter } from "./type"
+import { CctpV2TransferType } from "./type"
+import { usdcAddresses } from "@/lib/wagmi/config"
+import { getATA2 } from "@/lib/solana/utils"
+import { getTokenMessagerAddress } from "./util"
+import { defaultCctpOpts, USDC_DECIMALS } from "./constants"
+import type { DepositForBurnArgs } from "@/lib/solana/tools/codama/generated/token_messenger_minter_v2"
 import {
-  DepositForBurnArgs,
   getDepositForBurnInstructionAsync,
   TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS,
-} from "@/lib/solana/tools/codama/generated/token_messenger_minter_v2";
+} from "@/lib/solana/tools/codama/generated/token_messenger_minter_v2"
+import type { Address, IAccountMeta } from "@solana/kit"
 import {
-  Address,
   address as solAddress,
   generateKeyPairSigner,
   pipe,
@@ -19,49 +20,43 @@ import {
   setTransactionMessageFeePayer,
   appendTransactionMessageInstruction,
   signTransactionMessageWithSigners,
-  IAccountMeta,
   AccountRole,
   createSolanaRpc,
   sendAndConfirmTransactionFactory,
   getSignatureFromTransaction,
   getBase64EncodedWireTransaction,
   createSolanaRpcSubscriptions,
-} from "@solana/kit";
-import {
-  Address as EvmAddress,
-  Hex,
-  hexToBytes,
-  parseUnits,
-  toBytes,
-} from "viem";
-import { evmAddressToSolana } from "@/lib/solana/utils";
+} from "@solana/kit"
+import type { Address as EvmAddress, Hex } from "viem"
+import { hexToBytes, parseUnits, toBytes } from "viem"
+import { evmAddressToSolana } from "@/lib/solana/utils"
 import {
   getDepositForBurnPdasV2,
   getDepositForBurnPdasV2MessageTransmitter,
   getReceiveMessagePdasV2,
-} from "@/lib/solana/v2/utilsV2";
+} from "@/lib/solana/v2/utilsV2"
 import {
   getReceiveMessageInstructionAsync,
   getReclaimEventAccountInstruction,
   MESSAGE_TRANSMITTER_V2_PROGRAM_ADDRESS,
-} from "@/lib/solana/tools/codama/generated/message_transmitter_v2";
-import { TOKEN_PROGRAM_ADDRESS } from "@solana-program/token";
+} from "@/lib/solana/tools/codama/generated/message_transmitter_v2"
+import { TOKEN_PROGRAM_ADDRESS } from "@solana-program/token"
 
 function lamportsToSol(lamports: bigint) {
-  return Number(lamports) / Number(10 ** 9);
+  return Number(lamports) / Number(10 ** 9)
 }
 
 const rpcPath =
-  "wispy-icy-liquid.solana-mainnet.quiknode.pro/1b10c09ce4cbf223215490fc24ad0fb398e470a4/";
+  "wispy-icy-liquid.solana-mainnet.quiknode.pro/1b10c09ce4cbf223215490fc24ad0fb398e470a4/"
 
-const rpc = createSolanaRpc(`https://${rpcPath}`);
+const rpc = createSolanaRpc(`https://${rpcPath}`)
 const sendAndConfirmTransaction = sendAndConfirmTransactionFactory({
   rpc,
   rpcSubscriptions: createSolanaRpcSubscriptions(`wss://${rpcPath}`),
-});
+})
 
-const solanaChainId = solana.id;
-const solanaUsdcAddress = solAddress(usdcAddresses[solanaChainId]);
+const solanaChainId = solana.id
+const solanaUsdcAddress = solAddress(usdcAddresses[solanaChainId])
 export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
   {
     id: solanaChainId,
@@ -78,20 +73,20 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
     async readNativeBalance(address: string) {
       const { value: lamports } = await rpc
         .getBalance(solAddress(address))
-        .send();
+        .send()
 
-      const formatted = lamportsToSol(lamports);
-      return { raw: formatted.toString(), formatted };
+      const formatted = lamportsToSol(lamports)
+      return { raw: formatted.toString(), formatted }
     },
 
     async readUsdcBalance(address: string) {
-      const tokenAccount = await getATA2(solanaUsdcAddress, address);
+      const tokenAccount = await getATA2(solanaUsdcAddress, address)
       const { value: tokenAccountInfo } = await rpc
         .getTokenAccountBalance(solAddress(tokenAccount.toString()))
-        .send();
-      const raw = tokenAccountInfo.uiAmountString;
+        .send()
+      const raw = tokenAccountInfo.uiAmountString
 
-      return { raw, formatted: Number(raw) };
+      return { raw, formatted: Number(raw) }
     },
 
     async writeTokenMessagerDepositForBurn(
@@ -101,36 +96,38 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
       const tokenMessagerAddress = getTokenMessagerAddress(
         cctpOpts,
         solanaChainId
-      ) as Address;
-      const transferType = options.transferType ?? CctpV2TransferType.Fast;
-      let { maxFee, finalityThreshold } = options;
+      ) as Address
+      const transferType = options.transferType ?? CctpV2TransferType.Fast
+      let { maxFee, finalityThreshold } = options
 
-      const { solanaSigner } = cctpOpts || {};
-      if (!solanaSigner) throw new Error("Solana signer is required");
+      const { solanaSigner } = cctpOpts || {}
+      if (!solanaSigner) {
+        throw new Error("Solana signer is required")
+      }
 
-      const rawAmount = parseUnits(amount.toString(), USDC_DECIMALS);
+      const rawAmount = parseUnits(amount.toString(), USDC_DECIMALS)
 
-      maxFee = maxFee ?? rawAmount - 1n;
+      maxFee = maxFee ?? rawAmount - 1n
       finalityThreshold =
         finalityThreshold ??
-        (transferType === CctpV2TransferType.Fast ? 1000 : 2000);
+        (transferType === CctpV2TransferType.Fast ? 1000 : 2000)
 
-      const myAddress = solAddress(address);
+      const myAddress = solAddress(address)
 
       const mintRecipientAddress = (
         destination.type === "evm"
           ? evmAddressToSolana(mintRecipient as EvmAddress)
           : mintRecipient
-      ) as Address;
+      ) as Address
 
       const destTokenMessagerAddress = getTokenMessagerAddress(
         cctpOpts,
         destination.id
-      );
+      )
       const destinationTokenMessagerAddress =
         destination.type === "evm"
           ? evmAddressToSolana(destTokenMessagerAddress as EvmAddress)
-          : destTokenMessagerAddress;
+          : destTokenMessagerAddress
 
       const args: DepositForBurnArgs = {
         burnToken: solanaUsdcAddress,
@@ -143,14 +140,14 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
         maxFee,
         minFinalityThreshold: finalityThreshold,
         hookData: new Uint8Array(),
-      };
-      const userTokenAccount = await getATA2(solanaUsdcAddress, myAddress);
+      }
+      const userTokenAccount = await getATA2(solanaUsdcAddress, myAddress)
 
       const pdas = await getDepositForBurnPdasV2(
         solanaUsdcAddress,
         destination.domain
-      );
-      const messageSentEventAccount = await generateKeyPairSigner();
+      )
+      const messageSentEventAccount = await generateKeyPairSigner()
       const instruction = await getDepositForBurnInstructionAsync({
         params: args,
         owner: solanaSigner,
@@ -163,31 +160,34 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
         remoteTokenMessenger: pdas.remoteTokenMessengerKey,
         tokenMinter: pdas.tokenMinterAccount,
         program: tokenMessagerAddress,
-      });
-      const { value: blockhash } = await rpc.getLatestBlockhash().send();
+      })
+      const { value: blockhash } = await rpc.getLatestBlockhash().send()
 
       const txMessage = pipe(
         createTransactionMessage({ version: 0 }),
         (m) => setTransactionMessageLifetimeUsingBlockhash(blockhash, m),
         (m) => setTransactionMessageFeePayer(solanaSigner.address, m),
         (m) => appendTransactionMessageInstruction(instruction, m)
-      );
-      const signedTx = await signTransactionMessageWithSigners(txMessage);
-      const appendedTx = { ...signedTx, lifetimeConstraint: blockhash };
-      await sendAndConfirmTransaction(appendedTx, { commitment: "confirmed" });
+      )
+      const signedTx = await signTransactionMessageWithSigners(txMessage)
+      const appendedTx = { ...signedTx, lifetimeConstraint: blockhash }
+      await sendAndConfirmTransaction(appendedTx, {
+        commitment: "confirmed",
+      })
       const simulation = await rpc
         .simulateTransaction(getBase64EncodedWireTransaction(signedTx), {
           encoding: "base64",
         })
-        .send();
-      if (simulation.value?.err)
-        throw new Error(simulation.value.err.toString());
-      return getSignatureFromTransaction(signedTx);
+        .send()
+      if (simulation.value?.err) {
+        throw new Error(simulation.value.err.toString())
+      }
+      return getSignatureFromTransaction(signedTx)
     },
 
     async simulateMessageTransmitterReceiveMessage() {
       // TODO: Implement simulation logic if possible
-      return true;
+      return true
     },
 
     async writeMessageTransmitterReceiveMessage(
@@ -196,13 +196,15 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
       source,
       cctpOpts = defaultCctpOpts
     ) {
-      const { solanaSigner } = cctpOpts || {};
-      if (!solanaSigner) throw new Error("Solana signer is required");
+      const { solanaSigner } = cctpOpts || {}
+      if (!solanaSigner) {
+        throw new Error("Solana signer is required")
+      }
 
       const userTokenAccount = await getATA2(
         solanaUsdcAddress,
         solanaSigner.address
-      );
+      )
 
       const pdas = await getReceiveMessagePdasV2(
         solanaUsdcAddress,
@@ -210,18 +212,33 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
         source.domain.toString(),
         decodeEventNonceFromMessageV2(message),
         rpc
-      );
+      )
 
       // Add remaining accounts to process further instructions triggered by this instruction
       const remainingAccounts: IAccountMeta[] = [
-        { address: pdas.tokenMessengerAccount, role: AccountRole.READONLY },
-        { address: pdas.remoteTokenMessengerKey, role: AccountRole.READONLY },
-        { address: pdas.tokenMinterAccount, role: AccountRole.WRITABLE },
+        {
+          address: pdas.tokenMessengerAccount,
+          role: AccountRole.READONLY,
+        },
+        {
+          address: pdas.remoteTokenMessengerKey,
+          role: AccountRole.READONLY,
+        },
+        {
+          address: pdas.tokenMinterAccount,
+          role: AccountRole.WRITABLE,
+        },
         { address: pdas.localToken, role: AccountRole.WRITABLE },
         { address: pdas.tokenPair, role: AccountRole.READONLY },
-        { role: AccountRole.WRITABLE, address: pdas.feeRecipientTokenAccount },
+        {
+          role: AccountRole.WRITABLE,
+          address: pdas.feeRecipientTokenAccount,
+        },
         { role: AccountRole.WRITABLE, address: userTokenAccount },
-        { role: AccountRole.WRITABLE, address: pdas.custodyTokenAccount },
+        {
+          role: AccountRole.WRITABLE,
+          address: pdas.custodyTokenAccount,
+        },
         { role: AccountRole.READONLY, address: TOKEN_PROGRAM_ADDRESS },
         {
           role: AccountRole.READONLY,
@@ -231,7 +248,7 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
           role: AccountRole.READONLY,
           address: TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS,
         },
-      ];
+      ]
 
       const instruction = await getReceiveMessageInstructionAsync({
         caller: solanaSigner,
@@ -244,14 +261,14 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
           attestation: hexToBytes(attestation as Hex),
           message: hexToBytes(message),
         },
-      });
+      })
 
       const instructionWithRemainingAccounts = {
         ...instruction,
         accounts: [...instruction.accounts, ...remainingAccounts],
-      };
+      }
 
-      const { value: blockhash } = await rpc.getLatestBlockhash().send();
+      const { value: blockhash } = await rpc.getLatestBlockhash().send()
       const txMessage = pipe(
         createTransactionMessage({ version: 0 }),
         (m) => setTransactionMessageLifetimeUsingBlockhash(blockhash, m),
@@ -261,18 +278,21 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
             instructionWithRemainingAccounts,
             m
           )
-      );
-      const signedTx = await signTransactionMessageWithSigners(txMessage);
-      const appendedTx = { ...signedTx, lifetimeConstraint: blockhash };
+      )
+      const signedTx = await signTransactionMessageWithSigners(txMessage)
+      const appendedTx = { ...signedTx, lifetimeConstraint: blockhash }
       const simulation = await rpc
         .simulateTransaction(getBase64EncodedWireTransaction(appendedTx), {
           encoding: "base64",
         })
-        .send();
-      if (simulation.value?.err)
-        throw new Error(simulation.value.err.toString());
-      await sendAndConfirmTransaction(appendedTx, { commitment: "confirmed" });
-      return getSignatureFromTransaction(signedTx);
+        .send()
+      if (simulation.value?.err) {
+        throw new Error(simulation.value.err.toString())
+      }
+      await sendAndConfirmTransaction(appendedTx, {
+        commitment: "confirmed",
+      })
+      return getSignatureFromTransaction(signedTx)
     },
 
     hooks: {
@@ -280,11 +300,13 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
         { sentEventAccount, message, attestation },
         cctpOpts
       ) {
-        const { solanaSigner } = cctpOpts || {};
-        if (!solanaSigner) throw new Error("Solana signer is required");
+        const { solanaSigner } = cctpOpts || {}
+        if (!solanaSigner) {
+          throw new Error("Solana signer is required")
+        }
 
         const messageTransmitterAccount =
-          await getDepositForBurnPdasV2MessageTransmitter();
+          await getDepositForBurnPdasV2MessageTransmitter()
         const reclaimInstruction = getReclaimEventAccountInstruction({
           messageSentEventData: sentEventAccount,
           messageTransmitter: messageTransmitterAccount,
@@ -293,31 +315,33 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
             attestation: toBytes(attestation),
             destinationMessage: toBytes(message),
           },
-        });
+        })
 
-        const { value: blockhash } = await rpc.getLatestBlockhash().send();
+        const { value: blockhash } = await rpc.getLatestBlockhash().send()
         const txMessage = pipe(
           createTransactionMessage({ version: 0 }),
           (m) => setTransactionMessageLifetimeUsingBlockhash(blockhash, m),
           (m) => setTransactionMessageFeePayer(solanaSigner.address, m),
           (m) => appendTransactionMessageInstruction(reclaimInstruction, m)
-        );
-        const signedTx = await signTransactionMessageWithSigners(txMessage);
-        await sendAndConfirmTransaction(signedTx, { commitment: "confirmed" });
+        )
+        const signedTx = await signTransactionMessageWithSigners(txMessage)
+        await sendAndConfirmTransaction(signedTx, {
+          commitment: "confirmed",
+        })
 
-        return getSignatureFromTransaction(signedTx);
+        return getSignatureFromTransaction(signedTx)
       },
     },
   },
-];
+]
 
 const decodeEventNonceFromMessageV2 = (messageHex: EvmAddress) => {
-  const nonceIndex = 12;
-  const nonceBytesLength = 32;
-  const message = hexToBytes(messageHex);
+  const nonceIndex = 12
+  const nonceBytesLength = 32
+  const message = hexToBytes(messageHex)
   const eventNonceBytes = message.subarray(
     nonceIndex,
     nonceIndex + nonceBytesLength
-  );
-  return Buffer.from(eventNonceBytes);
-};
+  )
+  return Buffer.from(eventNonceBytes)
+}

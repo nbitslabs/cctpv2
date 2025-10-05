@@ -129,7 +129,7 @@ export function getAccountMetaFactory(
     account: ResolvedAccount
   ): IAccountMeta | IAccountSignerMeta | undefined => {
     if (!account.value) {
-      if (optionalAccountStrategy === 'omitted') return;
+      if (optionalAccountStrategy === 'omitted') {return;}
       return Object.freeze({
         address: programAddress,
         role: AccountRole.READONLY,

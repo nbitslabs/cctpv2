@@ -1,25 +1,25 @@
-"use client";
+"use client"
 
-import { Logs } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { Logs } from "lucide-react"
+import { useEffect, useRef } from "react"
 
 export function TransferLog({ logs }: { logs: React.ReactNode[] }) {
-  const logsEndRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const logsEndRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (logsEndRef.current && containerRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
-      const isNearBottom = scrollHeight - (scrollTop + clientHeight) < 100;
+      const { scrollTop, scrollHeight, clientHeight } = containerRef.current
+      const isNearBottom = scrollHeight - (scrollTop + clientHeight) < 100
 
       if (isNearBottom) {
         logsEndRef.current.scrollIntoView({
           behavior: "smooth",
           block: "nearest",
-        });
+        })
       }
     }
-  }, [logs]);
+  }, [logs])
 
   return (
     <div
@@ -38,5 +38,5 @@ export function TransferLog({ logs }: { logs: React.ReactNode[] }) {
         <div ref={logsEndRef} />
       </ul>
     </div>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useSolanaSigner } from "@/hooks/useSolanaSigner";
-import type { TransactionSigner } from "@solana/kit";
-import { UiWalletAccount } from "@wallet-standard/react";
-import { useEffect } from "react";
+import { useSolanaSigner } from '@/hooks/useSolanaSigner';
+import type { TransactionSigner } from '@solana/kit';
+import { UiWalletAccount } from '@wallet-standard/react';
+import { useEffect } from 'react';
 
 // This component is to prevent using `useSolanaSigner` while solana wallet is not active
 export default function SetSolanaSigner({
@@ -16,6 +16,8 @@ export default function SetSolanaSigner({
   const solanaSigner = useSolanaSigner(solanaAccount);
 
   useEffect(() => {
+    console.log('Set solana signer', solanaAccount);
+
     setSolanaSigner(solanaSigner);
   }, []);
 

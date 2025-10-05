@@ -1,50 +1,50 @@
-"use client";
-import ConfettiCelebration from "@/components/ConfettiCelebration";
-import Footer from "@/components/Footer";
+'use client';
+import ConfettiCelebration from '@/components/ConfettiCelebration';
+import Footer from '@/components/Footer';
 import NetworkAdapterSelect, {
   useNetworkAdapterBalance,
-} from "@/components/NetworkAdapterSelect";
-import { ProgressSteps } from "@/components/progress-step";
-import SetSolanaSigner from "@/components/SolanaTransferButton";
-import StickyWallets from "@/components/StickyWallets";
-import SuccessDialog from "@/components/SuccessDialog";
-import { Timer } from "@/components/timer";
-import { TooltipWrap, TooltipWrapNumber } from "@/components/TooltipWrap";
-import TransactionHistory from "@/components/transaction-history";
-import { TransferLog } from "@/components/transfer-log";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ExternalLink from "@/components/ui2/ExternalLink";
-import { useAddressOfAdapterId } from "@/hooks/useAddressOfAdapter";
+} from '@/components/NetworkAdapterSelect';
+import { ProgressSteps } from '@/components/progress-step';
+import SetSolanaSigner from '@/components/SolanaTransferButton';
+import StickyWallets from '@/components/StickyWallets';
+import SuccessDialog from '@/components/SuccessDialog';
+import { Timer } from '@/components/timer';
+import { TooltipWrap, TooltipWrapNumber } from '@/components/TooltipWrap';
+import TransactionHistory from '@/components/transaction-history';
+import { TransferLog } from '@/components/transfer-log';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import ExternalLink from '@/components/ui2/ExternalLink';
+import { useAddressOfAdapterId } from '@/hooks/useAddressOfAdapter';
 import {
   RequiredExecuteTransferParams,
   TransferStep,
   useCrossChainTransfer,
-} from "@/hooks/useCrossChainTransfer";
-import { useSolanaAccount } from "@/hooks/useSolanaSigner";
-import { CctpNetworkAdapterId, CctpV2TransferType } from "@/lib/cctp/networks";
-import { formatDestinationAddress } from "@/lib/cctp/networks/util";
-import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider";
-import { cn } from "@/lib/utils";
-import { wagmiConfig } from "@/lib/wagmi/config";
-import { solana } from "@reown/appkit/networks";
+} from '@/hooks/useCrossChainTransfer';
+import { useSolanaAccount } from '@/hooks/useSolanaSigner';
+import { CctpNetworkAdapterId, CctpV2TransferType } from '@/lib/cctp/networks';
+import { formatDestinationAddress } from '@/lib/cctp/networks/util';
+import { useActiveNetwork } from '@/lib/cctp/providers/ActiveNetworkProvider';
+import { cn } from '@/lib/utils';
+import { wagmiConfig } from '@/lib/wagmi/config';
+import { solana } from '@reown/appkit/networks';
 import {
   useAppKit,
   useAppKitAccount,
   useAppKitNetwork,
-} from "@reown/appkit/react";
-import type { TransactionSigner } from "@solana/kit";
-import { AnimatePresence, motion } from "framer-motion";
-import { AlertCircle, Info, Loader2, Wallet } from "lucide-react";
-import { useEffect, useState } from "react";
-import { NumericFormat } from "react-number-format";
-import { toast } from "sonner";
-import { getAccount } from "wagmi/actions";
+} from '@reown/appkit/react';
+import type { TransactionSigner } from '@solana/kit';
+import { AnimatePresence, motion } from 'framer-motion';
+import { AlertCircle, Info, Loader2, Wallet } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { NumericFormat } from 'react-number-format';
+import { toast } from 'sonner';
+import { getAccount } from 'wagmi/actions';
 
 export default function Home() {
   const { open } = useAppKit();
@@ -52,21 +52,22 @@ export default function Home() {
   const solanaAccount = useSolanaAccount();
   const { currentStep, logs, error, transferAmount, executeTransfer, reset } =
     useCrossChainTransfer();
-  const isCompleted = currentStep === "completed";
+  const isCompleted = currentStep === 'completed';
   const { activeNetwork, setActiveNetwork } = useActiveNetwork();
   const { chainId } = useAppKitNetwork();
-  const solanaAccountState = useAppKitAccount({ namespace: "solana" });
+  const solanaAccountState = useAppKitAccount({ namespace: 'solana' });
 
-  const [method, setMethod] = useState<"mintOnly" | "transfer">("transfer");
-  const isMintOnly = method === "mintOnly";
-  const [amount, setAmount] = useState("");
+  const [method, setMethod] = useState<'mintOnly' | 'transfer'>('transfer');
+  const isMintOnly = method === 'mintOnly';
+  const [amount, setAmount] = useState('');
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [isTransferring, setIsTransferring] = useState(false);
   const [showFinalTime, setShowFinalTime] = useState(false);
   const [transferType] = useState<CctpV2TransferType>(CctpV2TransferType.Fast);
-  const [burnTxHash, setBurnTxHash] = useState("");
+  const [burnTxHash, setBurnTxHash] = useState('');
   const [understand, setUnderstand] = useState(false);
   const [solanaSigner, setSolanaSigner] = useState<TransactionSigner>();
+  const [isCustomDestAddress, setIsCustomDestAddress] = useState(false);
 
   const [sourceChain, setSourceChain] = useState<CctpNetworkAdapterId>(
     chainId ?? activeNetwork.id
@@ -79,7 +80,7 @@ export default function Home() {
     networkAdapter: sourceAdapter,
   } = useNetworkAdapterBalance(sourceChain, sourceAddress);
 
-  const [destAddress, setDestAddress] = useState("");
+  const [destAddress, setDestAddress] = useState('');
   const [destChain, setDestChain] = useState<CctpNetworkAdapterId>();
   const {
     nativeBalance: destNativeBalance,
@@ -97,9 +98,9 @@ export default function Home() {
 
   const handleStartTransfer = async () => {
     if (!isConnected) return open();
-    if (!sourceAdapter) return toast.error("Please select a source chain");
-    if (!destAdapter) return toast.error("Please select a destination chain");
-    if (!destAddress) return toast.error("Please enter a destination address");
+    if (!sourceAdapter) return toast.error('Please select a source chain');
+    if (!destAdapter) return toast.error('Please select a destination chain');
+    if (!destAddress) return toast.error('Please enter a destination address');
 
     const requiredParams: RequiredExecuteTransferParams = {
       sourceChainId: sourceChain,
@@ -112,11 +113,11 @@ export default function Home() {
     };
 
     if (isMintOnly) {
-      if (!burnTxHash) return toast.error("Please enter a burn tx hash");
+      if (!burnTxHash) return toast.error('Please enter a burn tx hash');
     } else {
-      if (!amount) return toast.error("Please enter an amount");
+      if (!amount) return toast.error('Please enter an amount');
       if (Number(amount) > Number(sourceUsdcBalance.data?.formatted))
-        return toast.error("Insufficient balance");
+        return toast.error('Insufficient balance');
     }
 
     setIsTransferring(true);
@@ -147,14 +148,23 @@ export default function Home() {
 
   useEffect(() => {
     if (destChain === sourceChain) {
-      toast.warning("Destination chain must ≠ source chain", {
-        description: "Please select a different destination chain to continue",
+      toast.warning('Destination chain must ≠ source chain', {
+        description: 'Please select a different destination chain to continue',
       });
       setDestChain(undefined);
     }
     if (sourceChain && activeNetwork.id !== sourceChain)
       setActiveNetwork(sourceChain);
   }, [sourceChain]);
+
+  useEffect(() => {
+    if (isCustomDestAddress) return;
+    setDestAddress(
+      (destAdapter?.type === 'solana'
+        ? solanaAccountState?.address
+        : getAccount(wagmiConfig).address) ?? ''
+    );
+  }, [destAdapter, isCustomDestAddress]);
 
   return (
     <div className="min-h-screen w-full pb-8 sm:p-8 absolute">
@@ -171,17 +181,17 @@ export default function Home() {
               <Label>Transfer Method</Label>
               <Tabs
                 value={method}
-                onValueChange={(v) => setMethod(v as "mintOnly" | "transfer")}
+                onValueChange={(v) => setMethod(v as 'mintOnly' | 'transfer')}
               >
                 <TabsList className="grid w-fit grid-cols-2">
-                  <TabsTrigger value={"transfer"}>Transfer</TabsTrigger>
-                  <TabsTrigger value={"mintOnly"}>Mint Only</TabsTrigger>
+                  <TabsTrigger value={'transfer'}>Transfer</TabsTrigger>
+                  <TabsTrigger value={'mintOnly'}>Mint Only</TabsTrigger>
                 </TabsList>
               </Tabs>
               <p className="text-sm text-muted-foreground">
-                {method === "mintOnly"
-                  ? "Provides a burn transaction hash to mint on the destination chain"
-                  : "Transfer and mint from the origin to the destination"}
+                {method === 'mintOnly'
+                  ? 'Provides a burn transaction hash to mint on the destination chain'
+                  : 'Transfer and mint from the origin to the destination'}
               </p>
             </div>
             {/* {!isMintOnly && (
@@ -204,7 +214,8 @@ export default function Home() {
               label="Source Chain"
               chainId={sourceChain}
               setChainId={setSourceChain}
-              address={sourceAddress ?? ""}
+              address={sourceAddress ?? ''}
+              addressReadonly
             />
 
             <NetworkAdapterSelect
@@ -212,26 +223,35 @@ export default function Home() {
               chainId={destChain}
               setChainId={(chainId) => {
                 if (chainId === solana.id && !solanaAccountState.isConnected) {
-                  open({ namespace: "solana" });
+                  open({ namespace: 'solana' });
                 }
                 setDestChain(chainId);
               }}
               address={destAddress}
               setAddress={setDestAddress}
               exceptAdapterIds={[sourceChain]}
+              addressReadonly={!isCustomDestAddress}
             >
-              <TooltipWrap content="Use connected wallet" asChild>
+              <TooltipWrap
+                content={
+                  isCustomDestAddress
+                    ? 'Use connected address'
+                    : 'Use a different address'
+                }
+                asChild
+              >
                 <Button
-                  variant={"outline"}
-                  size={"icon"}
+                  variant={'outline'}
+                  size={'icon'}
                   className="shrink-0"
-                  onClick={() =>
-                    setDestAddress(
-                      (destAdapter?.type === "solana"
-                        ? solanaAccountState?.address
-                        : getAccount(wagmiConfig).address) ?? ""
-                    )
-                  }
+                  onClick={() => {
+                    if (isCustomDestAddress) {
+                      setIsCustomDestAddress(false);
+                    } else {
+                      setIsCustomDestAddress(true);
+                      setDestAddress('');
+                    }
+                  }}
                 >
                   <Wallet strokeWidth={1.5} />
                 </Button>
@@ -241,13 +261,13 @@ export default function Home() {
 
           <div
             className={cn(
-              "space-y-2 text-center sm:w-1/2 sm:mx-auto",
-              isMintOnly && "sm:w-full"
+              'space-y-2 text-center sm:w-1/2 sm:mx-auto',
+              isMintOnly && 'sm:w-full'
             )}
           >
             {isMintOnly ? (
               <>
-                {" "}
+                {' '}
                 <Label>
                   Burn Transaction Hash
                   {sourceAdapter && (
@@ -262,7 +282,7 @@ export default function Home() {
                 />
                 {burnTxHash && (
                   <p className="text-sm text-muted-foreground">
-                    Check your burn transaction on{" "}
+                    Check your burn transaction on{' '}
                     <ExternalLink
                       href={`${sourceAdapter?.explorer?.url}/tx/${burnTxHash}`}
                       className="font-bold"
@@ -278,8 +298,8 @@ export default function Home() {
               <>
                 <Label>Amount (USDC)</Label>
                 <NumericFormat
-                  id={"input-amount"}
-                  name={"input-amount"}
+                  id={'input-amount'}
+                  name={'input-amount'}
                   placeholder="Enter amount"
                   value={amount}
                   onValueChange={(values) => setAmount(values.value)}
@@ -295,16 +315,16 @@ export default function Home() {
                       <>
                         <TooltipWrapNumber
                           amount={sourceUsdcBalance.data?.formatted ?? 0}
-                        />{" "}
+                        />{' '}
                         USDC
                       </>
-                    )}{" "}
+                    )}{' '}
                     available
                     <Button
-                      variant={"ghost"}
-                      size={"sm"}
+                      variant={'ghost'}
+                      size={'sm'}
                       onClick={() =>
-                        setAmount(sourceUsdcBalance.data?.raw ?? "0")
+                        setAmount(sourceUsdcBalance.data?.raw ?? '0')
                       }
                       className="ml-1"
                     >
@@ -320,11 +340,11 @@ export default function Home() {
           <Alert variant="warning">
             <AlertCircle className="size-8" />
             <AlertDescription>
-              After burning, if you lose progress or getting{" "}
+              After burning, if you lose progress or getting{' '}
               <TooltipWrap content="Sometimes with Solana, this error means the burn transaction has already been processed.">
                 <strong className="text-destructive font-medium inline-flex items-center">
                   <Info className="mr-1 size-3" />
-                  Error: AlreadyProcessed{" "}
+                  Error: AlreadyProcessed{' '}
                 </strong>
               </TooltipWrap>
               , you can use the <strong>Mint Only</strong> option to mint USDC
@@ -355,7 +375,7 @@ export default function Home() {
                 className="border-primary/50"
                 checked={understand}
                 onCheckedChange={(checked) =>
-                  setUnderstand(checked === "indeterminate" ? false : checked)
+                  setUnderstand(checked === 'indeterminate' ? false : checked)
                 }
               />
               <span>
@@ -374,7 +394,7 @@ export default function Home() {
               className="border-primary/50"
               checked={understand}
               onCheckedChange={(checked) =>
-                setUnderstand(checked === "indeterminate" ? false : checked)
+                setUnderstand(checked === 'indeterminate' ? false : checked)
               }
             />
             I have read all the warnings and understand the risks.
@@ -387,8 +407,8 @@ export default function Home() {
                 onClick={handleStartTransfer}
                 disabled={
                   isTransferring ||
-                  currentStep === "completed" ||
-                  currentStep === "error" ||
+                  currentStep === 'completed' ||
+                  currentStep === 'error' ||
                   !understand
                 }
               >
@@ -398,7 +418,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                    transition={{ duration: 0.2, ease: 'easeInOut' }}
                   >
                     {buttonLabel[currentStep]}
                   </motion.span>
@@ -406,7 +426,7 @@ export default function Home() {
               </Button>
             )}
 
-            {(currentStep === "completed" || currentStep === "error") && (
+            {(currentStep === 'completed' || currentStep === 'error') && (
               <Button variant="outline" onClick={handleReset}>
                 Reset
               </Button>
@@ -419,10 +439,10 @@ export default function Home() {
                 <span>
                   {Math.floor(elapsedSeconds / 60)
                     .toString()
-                    .padStart(2, "0")}
+                    .padStart(2, '0')}
                 </span>
                 :
-                <span>{(elapsedSeconds % 60).toString().padStart(2, "0")}</span>
+                <span>{(elapsedSeconds % 60).toString().padStart(2, '0')}</span>
               </div>
             ) : (
               <Timer
@@ -452,7 +472,7 @@ export default function Home() {
         <SuccessDialog
           source={{
             networkAdapter: sourceAdapter,
-            address: sourceAddress ?? "",
+            address: sourceAddress ?? '',
             usdcBalance: sourceUsdcBalance.data?.formatted ?? 0,
           }}
           destination={{
@@ -469,11 +489,11 @@ export default function Home() {
 }
 
 const buttonLabel: Record<TransferStep, string> = {
-  idle: "Start Transfer",
-  approving: "Approving...",
-  burning: "Burning...",
-  "waiting-attestation": "Waiting for Attestation...",
-  minting: "Minting...",
-  completed: "Transfer Completed 🎉",
-  error: "Error ❌",
+  idle: 'Start Transfer',
+  approving: 'Approving...',
+  burning: 'Burning...',
+  'waiting-attestation': 'Waiting for Attestation...',
+  minting: 'Minting...',
+  completed: 'Transfer Completed 🎉',
+  error: 'Error ❌',
 };

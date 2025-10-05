@@ -1,24 +1,25 @@
-"use client";
+'use client';
 
-import { Label } from "./ui/label";
+import { useNativeBalance, useUsdcBalance } from '@/hooks/useBalance';
+import {
+  CctpNetworkAdapterId,
+  findNetworkAdapter,
+  networkAdapters,
+} from '@/lib/cctp/networks';
+import { cn } from '@/lib/utils';
+import { Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { TooltipWrapNumber } from './TooltipWrap';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
-import { Input } from "./ui/input";
-import { Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import {
-  CctpNetworkAdapterId,
-  findNetworkAdapter,
-  networkAdapters,
-} from "@/lib/cctp/networks";
-import { useNativeBalance, useUsdcBalance } from "@/hooks/useBalance";
-import { TooltipWrapNumber } from "./TooltipWrap";
-import Image from "next/image";
+} from './ui/select';
+import { LifiButton } from './ui2/LifiWidget';
 
 export interface NetworkAdapterSelectProps {
   chainId: CctpNetworkAdapterId | undefined;
@@ -27,6 +28,7 @@ export interface NetworkAdapterSelectProps {
   setAddress?: (address: string) => void;
   label: string;
   exceptAdapterIds?: CctpNetworkAdapterId[];
+  addressReadonly?: boolean;
   children?: React.ReactNode;
 }
 
@@ -54,6 +56,7 @@ export default function NetworkAdapterSelect({
   setAddress,
   label,
   exceptAdapterIds,
+  addressReadonly,
   children,
 }: NetworkAdapterSelectProps) {
   const { usdcBalance, nativeBalance, nativeCurrency } =
@@ -92,17 +95,17 @@ export default function NetworkAdapterSelect({
             value={address}
             onChange={(e) => setAddress?.(e.target.value)}
             placeholder={`Enter address...`}
-            readOnly={!setAddress}
+            readOnly={addressReadonly}
             className={cn(
-              "text-sm",
-              !setAddress && "bg-primary/5 text-foreground/70"
+              'text-sm',
+              addressReadonly && 'bg-primary/5 text-foreground/70'
             )}
           />
           {children}
         </div>
       </div>
       {address && (
-        <>
+        <div className="flex items-center gap-2">
           <p className="text-sm text-muted-foreground">
             {usdcBalance.isLoading ? (
               <Loader2 className="animate-spin inline-block size-3" />
@@ -111,8 +114,8 @@ export default function NetworkAdapterSelect({
                 amount={usdcBalance.data?.formatted ?? 0}
                 format={{ maximumFractionDigits: 2 }}
               />
-            )}{" "}
-            USDC •{" "}
+            )}{' '}
+            USDC •{' '}
             {nativeBalance.isLoading ? (
               <Loader2 className="animate-spin inline-block size-3" />
             ) : (
@@ -120,15 +123,16 @@ export default function NetworkAdapterSelect({
                 amount={nativeBalance.data?.formatted ?? 0}
                 format={{ maximumFractionDigits: 4 }}
               />
-            )}{" "}
+            )}{' '}
             {nativeCurrency?.symbol}
           </p>
+          {!nativeBalance.data?.formatted && <LifiButton />}
           {/* <TransactionHistory
             transactions={transfers.data}
             isLoading={transfers.isLoading}
             explorerUrl={networkAdapter?.explorer?.url ?? ""}
           /> */}
-        </>
+        </div>
       )}
     </div>
   );

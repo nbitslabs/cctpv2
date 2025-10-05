@@ -110,6 +110,7 @@ export default function Home() {
         destination: destAdapter.type,
       }),
       solanaSigner,
+      isSendingToSelf: !isCustomDestAddress,
     };
 
     if (isMintOnly) {
@@ -166,8 +167,17 @@ export default function Home() {
     );
   }, [destAdapter, isCustomDestAddress]);
 
+  // Reset scroll position on page load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    setUnderstand(isMintOnly);
+  }, [isMintOnly]);
+
   return (
-    <div className="min-h-screen w-full pb-8 sm:p-8 absolute">
+    <div className="min-h-screen w-full pb-8 sm:p-8">
       <Card className="max-w-4xl mx-auto border-0 sm:bg-foreground/3 sm:border pt-10 sm:pt-4 relative">
         <StickyWallets />
         <CardHeader className="items-center sm:pt-2">
@@ -216,6 +226,7 @@ export default function Home() {
               setChainId={setSourceChain}
               address={sourceAddress ?? ''}
               addressReadonly
+              hideAddress={isMintOnly}
             />
 
             <NetworkAdapterSelect
@@ -231,6 +242,7 @@ export default function Home() {
               setAddress={setDestAddress}
               exceptAdapterIds={[sourceChain]}
               addressReadonly={!isCustomDestAddress}
+              hideAddress={isMintOnly}
             >
               <TooltipWrap
                 content={
@@ -337,35 +349,38 @@ export default function Home() {
           </div>
           {error && <div className="text-destructive text-center">{error}</div>}
 
-          <Alert variant="warning">
-            <AlertCircle className="size-8" />
-            <AlertDescription>
-              After burning, if you lose progress or getting{' '}
-              <TooltipWrap content="Sometimes with Solana, this error means the burn transaction has already been processed.">
-                <strong className="text-destructive font-medium inline-flex items-center">
-                  <Info className="mr-1 size-3" />
-                  Error: AlreadyProcessed{' '}
-                </strong>
-              </TooltipWrap>
-              , you can use the <strong>Mint Only</strong> option to mint USDC
-              on the destination chain. The latest burn transaction is always
-              available in the source explorer (
-              <ExternalLink
-                href={`${sourceAdapter?.explorer?.url}/tx/${burnTxHash}`}
-              >
-                {sourceAdapter?.explorer?.name}
-              </ExternalLink>
-              ).
-              {hasZeroNativeBalanceOnDestination && (
-                <li className="text-destructive">
-                  You need some <strong>{destNativeCurrency?.symbol}</strong> on
-                  the <strong>{destAdapter?.name}</strong> to receive the USDC.
-                </li>
-              )}
-            </AlertDescription>
-          </Alert>
+          {!isMintOnly && (
+            <Alert variant="warning">
+              <AlertCircle className="size-8" />
+              <AlertDescription>
+                After burning, if you lose progress or getting{' '}
+                <TooltipWrap content="Sometimes with Solana, this error means the burn transaction has already been processed.">
+                  <strong className="text-destructive font-medium inline-flex items-center">
+                    <Info className="mr-1 size-3" />
+                    Error: AlreadyProcessed{' '}
+                  </strong>
+                </TooltipWrap>
+                , you can use the <strong>Mint Only</strong> option to mint USDC
+                on the destination chain. The latest burn transaction is always
+                available in the source explorer (
+                <ExternalLink
+                  href={`${sourceAdapter?.explorer?.url}/tx/${burnTxHash}`}
+                >
+                  {sourceAdapter?.explorer?.name}
+                </ExternalLink>
+                ).
+                {hasZeroNativeBalanceOnDestination && (
+                  <li className="text-destructive">
+                    You need some <strong>{destNativeCurrency?.symbol}</strong>{' '}
+                    on the <strong>{destAdapter?.name}</strong> to receive the
+                    USDC.
+                  </li>
+                )}
+              </AlertDescription>
+            </Alert>
+          )}
 
-          {hasZeroNativeBalanceOnSource && (
+          {!isMintOnly && hasZeroNativeBalanceOnSource && (
             <Label
               htmlFor="source-zero-balance"
               className="flex items-center justify-center gap-2"
@@ -385,20 +400,22 @@ export default function Home() {
               </span>
             </Label>
           )}
-          <Label
-            htmlFor="understand"
-            className="flex items-center justify-center gap-2"
-          >
-            <Checkbox
-              id="understand"
-              className="border-primary/50"
-              checked={understand}
-              onCheckedChange={(checked) =>
-                setUnderstand(checked === 'indeterminate' ? false : checked)
-              }
-            />
-            I have read all the warnings and understand the risks.
-          </Label>
+          {!isMintOnly && (
+            <Label
+              htmlFor="understand"
+              className="flex items-center justify-center gap-2"
+            >
+              <Checkbox
+                id="understand"
+                className="border-primary/50"
+                checked={understand}
+                onCheckedChange={(checked) =>
+                  setUnderstand(checked === 'indeterminate' ? false : checked)
+                }
+              />
+              I have read all the warnings and understand the risks.
+            </Label>
+          )}
           <div className="flex justify-center gap-4">
             {!isConnected ? (
               <Button onClick={() => open()}>Connect Wallet</Button>

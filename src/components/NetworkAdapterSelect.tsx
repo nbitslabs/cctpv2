@@ -29,6 +29,7 @@ export interface NetworkAdapterSelectProps {
   label: string;
   exceptAdapterIds?: CctpNetworkAdapterId[];
   addressReadonly?: boolean;
+  hideAddress?: boolean;
   children?: React.ReactNode;
 }
 
@@ -57,6 +58,7 @@ export default function NetworkAdapterSelect({
   label,
   exceptAdapterIds,
   addressReadonly,
+  hideAddress,
   children,
 }: NetworkAdapterSelectProps) {
   const { usdcBalance, nativeBalance, nativeCurrency } =
@@ -88,51 +90,55 @@ export default function NetworkAdapterSelect({
             ))}
         </SelectContent>
       </Select>
-      <div>
-        <Label>Address</Label>
-        <div className="flex items-center gap-2">
-          <Input
-            value={address}
-            onChange={(e) => setAddress?.(e.target.value)}
-            placeholder={`Enter address...`}
-            readOnly={addressReadonly}
-            className={cn(
-              'text-sm',
-              addressReadonly && 'bg-primary/5 text-foreground/70'
-            )}
-          />
-          {children}
-        </div>
-      </div>
-      {address && (
-        <div className="flex items-center gap-2">
-          <p className="text-sm text-muted-foreground">
-            {usdcBalance.isLoading ? (
-              <Loader2 className="animate-spin inline-block size-3" />
-            ) : (
-              <TooltipWrapNumber
-                amount={usdcBalance.data?.formatted ?? 0}
-                format={{ maximumFractionDigits: 2 }}
+      {!hideAddress && (
+        <>
+          <div>
+            <Label>Address</Label>
+            <div className="flex items-center gap-2">
+              <Input
+                value={address}
+                onChange={(e) => setAddress?.(e.target.value)}
+                placeholder={`Enter address...`}
+                readOnly={addressReadonly}
+                className={cn(
+                  'text-sm',
+                  addressReadonly && 'bg-primary/5 text-foreground/70'
+                )}
               />
-            )}{' '}
-            USDC •{' '}
-            {nativeBalance.isLoading ? (
-              <Loader2 className="animate-spin inline-block size-3" />
-            ) : (
-              <TooltipWrapNumber
-                amount={nativeBalance.data?.formatted ?? 0}
-                format={{ maximumFractionDigits: 4 }}
-              />
-            )}{' '}
-            {nativeCurrency?.symbol}
-          </p>
-          {!nativeBalance.data?.formatted && <LifiButton />}
-          {/* <TransactionHistory
+              {children}
+            </div>
+          </div>
+          {address && (
+            <div className="flex items-center gap-2">
+              <p className="text-sm text-muted-foreground">
+                {usdcBalance.isLoading ? (
+                  <Loader2 className="animate-spin inline-block size-3" />
+                ) : (
+                  <TooltipWrapNumber
+                    amount={usdcBalance.data?.formatted ?? 0}
+                    format={{ maximumFractionDigits: 2 }}
+                  />
+                )}{' '}
+                USDC •{' '}
+                {nativeBalance.isLoading ? (
+                  <Loader2 className="animate-spin inline-block size-3" />
+                ) : (
+                  <TooltipWrapNumber
+                    amount={nativeBalance.data?.formatted ?? 0}
+                    format={{ maximumFractionDigits: 4 }}
+                  />
+                )}{' '}
+                {nativeCurrency?.symbol}
+              </p>
+              {!nativeBalance.data?.formatted && <LifiButton />}
+              {/* <TransactionHistory
             transactions={transfers.data}
             isLoading={transfers.isLoading}
             explorerUrl={networkAdapter?.explorer?.url ?? ""}
           /> */}
-        </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

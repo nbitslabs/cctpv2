@@ -57,7 +57,7 @@ export default function ConnectedWallet({
         size="sm"
         variant={'outline-solid'}
         className="h-[26px]"
-        onClick={() => open({ view: 'Account', namespace })}
+        onClick={() => open({ view: 'Connect', namespace })}
       >
         Connect {adapter?.type === 'evm' ? 'EVM' : 'Solana'}
       </Button>

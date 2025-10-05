@@ -39,6 +39,7 @@
 - [x] [Solana](https://solscan.io/tx/2LNqjhz67tKfg2oajTx7q3T2HvJHyFSyE7r62fMPBGzjUewQ32zhe2AD7fEArgedhD6gtuarW9zU2VMXLcr75E6r) -> [Unichain](https://uniscan.xyz/tx/0x88315ec25cdc0e10624e72e4132b79bf0ada4f957d2fad838b4cd44a14a4baea)
 - [x] [XDC Network](https://xdcscan.com/tx/0x571e10241a8384e6f1537b71969c70a89dd99d23882b408e53da647b77848f81) -> [Solana](https://solscan.io/tx/3FNj1nsDFWRThkQ4JVvKrwasdd5V8YJ7aj6aV1ynQYHNJNxdkg5xS4qsJWwFf6XfUEVmyyM2P2NZVic5bdnRSKNy)
 - [x] [Arbitrum One](https://arbiscan.io/tx/0xd0f49e0d13193fb91ee2c9ab5a42c71519dc1b3a84363e213f1b5f2934c51832) -> [Sei](https://seitrace.com/tx/0x3bf6ebe47e0635ede868806a2c94144ab2606d847235552ddf9b7760cf3db277) (ℹ️ destination is not the origin wallet)
+- [x] [Sei](https://seitrace.com/tx/0x6ce19819699db1090b3502eed01244a506b1207fc55a6be8fb440c6e1fa011fc) -> [Linea Mainnet](https://lineascan.build/tx/0x88415f5b49f2f4c213cfd50afbd296bb028fb8880df1688d015f967a59a60e39) (ℹ️ destination is not the origin wallet)
 
 ## Getting Started
 

@@ -269,5 +269,5 @@ export type RequiredExecuteTransferParams = {
   destinationChainId: CctpNetworkAdapterId;
   mintRecipient: string;
   solanaSigner?: TransactionSigner;
-  isSendingToSelf?: boolean;
+  isSendingToSelf: boolean;
 };

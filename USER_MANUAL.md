@@ -24,7 +24,7 @@ The **Transfer** method performs a complete cross-chain transfer in one flow:
 
 - First-time transfers between chains
 - When you want a seamless end-to-end experience
-- When you have access wallets on both source and destination chains
+- When you have access to wallets on both source and destination chains
 
 ### 2. Mint Only Method
 
@@ -35,7 +35,7 @@ The **Mint Only** method allows you to mint USDC using an existing burn transact
 - Recovering from interrupted transfers
 - When you have a burn transaction but need to mint on a different wallet
 - Handling "AlreadyProcessed" errors on Solana
-- Cross-wallet transfers (burn with one wallet, mint with other-owned wallet)
+- Cross-wallet transfers (burn with one wallet, mint with another-owned wallet)
 
 ## Step-by-Step Transfer Guide
 
@@ -43,9 +43,11 @@ The **Mint Only** method allows you to mint USDC using an existing burn transact
 
 1. **Wallet Connection**: Connect your wallet that supports the source network
 2. **USDC Balance**: Ensure you have sufficient USDC on the source chain
-3. **Gas/Native Tokens**: Have native tokens for transaction fees on both source and destination chains. If you want to bridge your existing assets to get native tokens on source/destination, you can leverage our LiFi integrated widget for doing so easily by clicking "Fund with Lifi".
+3. **Gas/Native Tokens**: Have native tokens for transaction fees on both source and destination chains. If you want to bridge your existing assets to get native tokens on source/destination, you can leverage our LiFi integrated widget for doing so easily by clicking "Fund with LiFi".
+<img width="446" height="192" alt="Screenshot 2025-10-06 at 12 36 06 PM" src="https://github.com/user-attachments/assets/0efe40c5-d7cd-4e65-b8d8-29b299e85761" />
+
 4. **Destination Wallet**: For cross-wallet transfers, ensure you have the destination address ready
-5. If you transfer USDC from one to another of your owned accounts, please connect both wallets for seamless experience. Additionally, if the trade involves non-EVM (Solana), you can connect it via the top sticky toolbar, we highly recommend you to reconnect via "Connect Solana" even your EVM wallet provider supports Solana (Metamask, Phantom, OKX, ...)
+5. If you transfer USDC from one of your owned accounts, please connect both wallets for a seamless experience. Additionally, if the trade involves non-EVM (Solana), you can connect it via the top sticky toolbar. We highly recommend reconnecting via "Connect Solana" even if your EVM wallet provider supports Solana (Metamask, Phantom, OKX, ...)
 
 ### Full Transfer Process
 

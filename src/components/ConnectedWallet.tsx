@@ -17,7 +17,7 @@ import { CircleCheck, CopyIcon, CreditCard } from "lucide-react"
 import { Badge } from "./ui/badge"
 import ExternalLink from "./ui2/ExternalLink"
 import { useConfirm } from "./ui2/PromiseAlertDialog"
-import { cn, formatNumber, shortenAddress } from "@/lib/utils"
+import { cn, delay, formatNumber, shortenAddress } from "@/lib/utils"
 import { useNativeBalance } from "@/hooks/useBalance"
 import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card"
@@ -25,6 +25,7 @@ import { TooltipWrap } from "./TooltipWrap"
 import { useState } from "react"
 import { IoSwapHorizontal } from "react-icons/io5"
 
+type SupportedViews = "Swap" | "OnRampProviders"
 export default function ConnectedWallet({
   namespace,
   adapterId,
@@ -42,6 +43,7 @@ export default function ConnectedWallet({
   const confirm = useConfirm()
   const { data: balance } = useNativeBalance(adapterId, accountState.address)
   const [isOpen, setIsOpen] = useState(false)
+  const [fakeLoading, setFakeLoading] = useState<SupportedViews>()
 
   const handleDisconnect = async () => {
     const result = await confirm({
@@ -54,6 +56,14 @@ export default function ConnectedWallet({
     if (result) {
       disconnect({ namespace })
     }
+  }
+
+  const openDialog = async (view: SupportedViews) => {
+    setFakeLoading(view)
+    await setActiveNetwork(adapterId)
+    open({ view, namespace })
+    await delay(500)
+    setFakeLoading(undefined)
   }
 
   if (!accountState.isConnected) {
@@ -169,10 +179,9 @@ export default function ConnectedWallet({
               <Button
                 variant="ghost"
                 size="iconSm"
-                onClick={async () => {
-                  await setActiveNetwork(adapterId)
-                  open({ view: "Swap", namespace })
-                }}
+                disabled={!!fakeLoading}
+                onClick={() => openDialog("Swap")}
+                loading={fakeLoading === "Swap"}
               >
                 <IoSwapHorizontal />
               </Button>
@@ -181,10 +190,9 @@ export default function ConnectedWallet({
               <Button
                 variant="ghost"
                 size="iconSm"
-                onClick={async () => {
-                  await setActiveNetwork(adapterId)
-                  open({ view: "OnRampProviders", namespace })
-                }}
+                onClick={() => openDialog("OnRampProviders")}
+                disabled={!!fakeLoading}
+                loading={fakeLoading === "OnRampProviders"}
               >
                 <CreditCard />
               </Button>

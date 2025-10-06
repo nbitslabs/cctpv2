@@ -1,8 +1,37 @@
 import ExternalLink from "./ui2/ExternalLink"
+import { FaGithub } from "react-icons/fa"
+import { IoDocumentTextOutline } from "react-icons/io5"
+
+const links = [
+  {
+    href: "https://github.com/nbitslabs/cctpv2",
+    label: "GitHub",
+    icon: FaGithub,
+  },
+  {
+    href: "https://github.com/nbitslabs/cctpv2/blob/main/USER_MANUAL.md",
+    label: "Documentation",
+    icon: IoDocumentTextOutline,
+  },
+]
 
 export default function Footer() {
   return (
     <footer className="text-center text-sm text-muted-foreground mt-4 px-2">
+      <ul className="flex justify-center items-center gap-4 mb-2">
+        {links.map(({ href, label, icon: Icon }) => (
+          <li key={href}>
+            <ExternalLink
+              href={href}
+              className="flex items-center gap-1 text-foreground/70 hover:text-foreground hover:no-underline"
+            >
+              <Icon />
+              {label}
+            </ExternalLink>
+          </li>
+        ))}
+      </ul>
+
       <p>
         Funded by{" "}
         <ExternalLink

@@ -1,5 +1,9 @@
 # CCTP V2
 
+## User Manual
+
+For detailed instructions on using CCTP V2, please refer to the [User Manual](./USER_MANUAL.md).
+
 ## TODO
 
 - [x] Supports Mint only (provides Burn tx hash)

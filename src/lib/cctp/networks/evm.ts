@@ -9,12 +9,7 @@ import {
   writeUsdcApprove,
 } from "../../wagmi/generated"
 import type { CctpV2SupportedChainId } from "../../wagmi/config"
-import {
-  chainsByDomain,
-  wagmiConfig,
-  usdcAddresses,
-  hyperEvm,
-} from "../../wagmi/config"
+import { chainsByDomain, wagmiConfig, usdcAddresses } from "../../wagmi/config"
 import {
   getAccount,
   getPublicClient,
@@ -27,6 +22,23 @@ import { erc20Abi, formatUnits, parseUnits } from "viem"
 import { addChain } from "viem/actions"
 import { defaultCctpOpts, USDC_DECIMALS } from "./constants"
 import { getTokenMessagerAddress, getMessageTransmitterAddress } from "./util"
+import { StaticImageData } from "next/image"
+import ethWebp from "../../../../public/images/chains/ethereum.webp"
+import avalancheWebp from "../../../../public/images/chains/avalanche.webp"
+import optimismWebp from "../../../../public/images/chains/optimism.webp"
+import polygonWebp from "../../../../public/images/chains/polygon.webp"
+import arbitrumWebp from "../../../../public/images/chains/arbitrum.webp"
+import baseWebp from "../../../../public/images/chains/base.webp"
+import unichainWebp from "../../../../public/images/chains/unichain.webp"
+import lineaWebp from "../../../../public/images/chains/linea.webp"
+import codexWebp from "../../../../public/images/chains/codex.webp"
+import seiWebp from "../../../../public/images/chains/sei.webp"
+import xdcWebp from "../../../../public/images/chains/xdc.webp"
+import hyperEvmWebp from "../../../../public/images/chains/hyperevm.webp"
+import plumeWebp from "../../../../public/images/chains/plume.webp"
+import sonicWebp from "../../../../public/images/chains/sonic.webp"
+import worldchainWebp from "../../../../public/images/chains/worldchain.webp"
+import inkWebp from "../../../../public/images/chains/ink.webp"
 
 function getEvmNetworkAdapter(
   network: AppKitNetwork,
@@ -65,7 +77,7 @@ const evmChains: Array<
     chain: AppKitNetwork
     supportV1: boolean
     supportV2: boolean
-    logoUrl: string
+    logoUrl: StaticImageData
   }
 > = [
   {
@@ -73,30 +85,28 @@ const evmChains: Array<
     domain: 0,
     supportV1: true,
     supportV2: true,
-    logoUrl: "https://www.cdnlogo.com/logos/e/81/ethereum-eth.svg",
+    logoUrl: ethWebp,
   },
   {
     chain: _avalanche,
     domain: 1,
     supportV1: true,
     supportV2: true,
-    logoUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCDzBzv0xelHUJFWzZ47s3lAcxBmAMc7uNUg&s",
+    logoUrl: avalancheWebp,
   },
   {
     chain: _optimism,
     domain: 2,
     supportV1: true,
     supportV2: true,
-    logoUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1JMo4wntjsMHtdJoq3VvQfWaAtX8jDW-h1w&s",
+    logoUrl: optimismWebp,
   },
   {
     chain: _arbitrum,
     domain: 3,
     supportV1: true,
     supportV2: true,
-    logoUrl: "https://rpc.info/logos/arbitrum.png",
+    logoUrl: arbitrumWebp,
   },
   // noble: 4
   // solana: 5
@@ -105,16 +115,14 @@ const evmChains: Array<
     domain: 6,
     supportV1: true,
     supportV2: true,
-    logoUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNZrouU_9cELxCRIFHcEgezwQIbcFw--3pig&s",
+    logoUrl: baseWebp,
   },
   {
     chain: _polygon,
     domain: 7,
     supportV1: true,
     supportV2: false,
-    logoUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyudckJZOkhk-RxzyKWJGdewhdzGU6bdSp8w&s",
+    logoUrl: polygonWebp,
   },
   // sui: 8
   // aptos: 9
@@ -123,78 +131,70 @@ const evmChains: Array<
     domain: 10,
     supportV1: true,
     supportV2: true,
-    logoUrl:
-      "https://cdn.prod.website-files.com/633c5e06513fa35f3391a5f9/67609daba55dfb7746d0b732_unichain.png",
+    logoUrl: unichainWebp,
   },
   {
     chain: _linea,
     domain: 11,
     supportV1: true,
     supportV2: true,
-    logoUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVMeA0U3r5fKNEn9zPeFzSGihbIWpYmBlEYQ&s",
+    logoUrl: lineaWebp,
   },
   {
     chain: _codex,
     domain: 12,
     supportV1: false,
     supportV2: true,
-    logoUrl: "https://explorer.codex.xyz/assets/configs/network_icon.svg",
+    logoUrl: codexWebp,
   },
   {
     chain: _sonic,
     domain: 13,
     supportV1: false,
     supportV2: true,
-    logoUrl:
-      "https://dailyhodl.com/wp-content/uploads/2024/12/UPSCALED-Sonic-Labs-Industry-Announcement-Featured-Image-Template.jpg?w=200",
+    logoUrl: sonicWebp,
   },
   {
     chain: _worldchain,
     domain: 14,
     supportV1: false,
     supportV2: true,
-    logoUrl:
-      "https://static1.tokenterminal.com/worldchain/logo.png?logo_hash=786762db10d4891532210e063b6501ac6ad715a9",
+    logoUrl: worldchainWebp,
   },
   {
     chain: _sei,
     domain: 16,
     supportV1: false,
     supportV2: true,
-    logoUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6fwxNLN1-so5tXQr4z_Z-VcgryIoKU2iaFw&s",
+    logoUrl: seiWebp,
   },
   {
     chain: _xdc,
     domain: 18,
     supportV1: false,
     supportV2: true,
-    logoUrl:
-      "https://images.prismic.io/xdcf/aCdHeSdWJ-7kSOet_XDCNetworkColorDisplay.png?auto=format,compress",
+    logoUrl: xdcWebp,
   },
   {
     chain: _hyperEvm,
     domain: 19,
     supportV1: false,
     supportV2: true,
-    logoUrl: hyperEvm.assets.imageUrl,
+    logoUrl: hyperEvmWebp,
   },
   {
     chain: _ink,
     domain: 21,
     supportV1: false,
     supportV2: true,
-    logoUrl:
-      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADtUlEQVR4AWLACxgRzAKD9wKAzqtiu40Yina2+Y90Xyun+YfCrtzuyjzjFJZlZub2C8qwzKbMFGZmznjMUnVtyzlvLCk+zTkvtkX36rHciL8+ymL3vUjsu8diYy6LZbyc+GMew5h/H2uwFnvsR5tGHDoYXZxYGGX+I48FgRuJCc8kbO4Ta72q2EPstYNbhrYwXhFlwQUvEqQALG8uLmyIi5c3UuJnbUZ0N3MxMijEQDfHmIFUkMIZh5moCMNY//ZXJyuleus8AFfFxKODCdH6KyumJoVRzq6JizkN+YSIHK/bI88syyoSOCI3jWLjseWB+PsuUwDhuc/pIiinBFbHNSYhMoqzrRT2VCcqXSyUG65uCsRQLwWBKBKT40IM9XPR18HFs0spdVMNAeIfo/slhhb8cERUeBGoHeBxMTZcAJygt+2oy8IXYJoSm5fppHVb4BPhPziLUvtQj97OIHNjW0IPYCdABFgEvEaGC7wdt4LNya0nKAloRw/sl9wYgjmX0TlgkRBFzMqF8HYCpnO2hk9ZcWxpML+qLQIs5JZihkPiQJzTUONa51NamRjj80pPKxc3dyS0JnKR2JAxkToxAMcygeljn2NNeAxCzuht48Xc4Ia0BOwFXj63I5tZ4zwMRucgiiwl1tceJkDkPgh8x4+ftVkF+t8yHdIWcsTt3coEhIRy2u8gMIYB5PZwyA33cnFtc4CYL2XPbOGnxiG+0TmBDQIZ/BgZ5ApYCS0yVhBLNFj2AZsQCNsZBOhhvgbIt2vEQgzYRhNAhnImKKRdVv7t7aBhE0SUE2ZMHm8dR814cycN7dDD1W8DSYwpJ7zvqjDUhd9EOYS4LMeB2d5aIn4+DF0WTkTcHu+GxHRmVbw81dMIWU9T8e9s2TGv0u3oABevbqZM3RAxA42AeFBsXlEYsHGuGHFjQWr4nBVHlwWWMuxr7O3rqufDYo8YVeWY+SjHFNhajsNiCkk15pNybG5IenkJCeVw17cmVK23kbCEo2pInHAbPlDhMdqS6cKvTfrJOdkB11QZnctKABjaNh3f0TB6hab0mqUphaimtL8z54TlkhhF42vpymlbDmdTPjE9T1I6tzZuVD9tyx0TOG3P8+bw6cOERgRx0NMr40rNJVGBs1Q77jgUkPJwaJuunmZeydMsW3iaSRN0cPHkQpKoXtV97K2RZ2yRZ2nvbOFCHqfysIe5Byfzw1VQAZJPrEVuUaHm2LDooG6pQ57nqB1Scs9zKZmCjBXG8s/zRbrnuaPF/Ae/uPha7hMjJwAAAABJRU5ErkJggg==",
+    logoUrl: inkWebp,
   },
   {
     chain: _plume,
     domain: 22,
     supportV1: false,
     supportV2: true,
-    logoUrl:
-      "https://media.licdn.com/dms/image/v2/D4D0BAQEqwfg0f2X-4g/company-logo_200_200/company-logo_200_200/0/1732030622776/plume_network_logo?e=2147483647&v=beta&t=A2TASRIEYX_1-UvtRGfJbehsYLZBdmiVcNqzxfmA_Eg",
+    logoUrl: plumeWebp,
   },
 ]
 

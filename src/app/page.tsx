@@ -22,9 +22,9 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ExternalLink from "@/components/ui2/ExternalLink"
 import { useAddressOfAdapterId } from "@/hooks/useAddressOfAdapter"
 import {
+  useCrossChainTransfer,
   type RequiredExecuteTransferParams,
   type TransferStep,
-  useCrossChainTransfer,
 } from "@/hooks/useCrossChainTransfer"
 import { useSolanaAccount } from "@/hooks/useSolanaSigner"
 import {
@@ -499,14 +499,12 @@ export default function Home() {
         </CardContent>
       </Card>
       <Footer />
-
       {solanaAccount && (
         <SetSolanaSigner
           setSolanaSigner={setSolanaSigner}
           solanaAccount={solanaAccount}
         />
       )}
-
       {/* Success Dialog */}
       {isCompleted && sourceAdapter && destAdapter && (
         <SuccessDialog

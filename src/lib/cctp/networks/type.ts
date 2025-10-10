@@ -1,4 +1,5 @@
 import type { Address, Signature, TransactionSigner } from "@solana/kit"
+import type { StaticImageData } from "next/image"
 import type { Address as EvmAddress } from "viem"
 
 export enum CctpV2TransferType {
@@ -18,7 +19,7 @@ export interface CctpNetworkAdapter {
   name: string
   domain: number
   type: "evm" | "solana"
-  logoUrl: string
+  logoUrl: StaticImageData
   nativeCurrency: {
     symbol: string
     decimals: number

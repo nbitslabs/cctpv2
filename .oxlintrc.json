@@ -15,7 +15,6 @@
     "curly": "error",
     "typescript/no-unused-vars": "warn",
     "typescript/no-empty-interface": "off",
-    "typescript/consistent-type-imports": "error",
     "typescript/require-await": "warn",
     "react/exhaustive-deps": "error",
     "react/jsx-no-useless-fragment": "error",

@@ -41,6 +41,7 @@ import {
   MESSAGE_TRANSMITTER_V2_PROGRAM_ADDRESS,
 } from "@/lib/solana/tools/codama/generated/message_transmitter_v2"
 import { TOKEN_PROGRAM_ADDRESS } from "@solana-program/token"
+import solanaWebp from "../../../../public/images/chains/solana.webp"
 
 function lamportsToSol(lamports: bigint) {
   return Number(lamports) / Number(10 ** 9)
@@ -63,7 +64,7 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
     name: solana.name,
     domain: 5,
     type: "solana",
-    logoUrl: "https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png",
+    logoUrl: solanaWebp,
     nativeCurrency: solana.nativeCurrency,
     explorer: solana.blockExplorers.default,
     v1: { support: true },

@@ -13,6 +13,7 @@ import Image from "next/image"
 import { TooltipWrapNumber } from "@/components/TooltipWrap"
 import GitHubButton from "react-github-btn"
 import { useState } from "react"
+import usdcPng from "../../public/images/tokens/usdc.png"
 
 interface ChainAddressBalance {
   networkAdapter: CctpNetworkAdapter
@@ -73,12 +74,7 @@ export default function SuccessDialog({
               <div className="text-center">
                 <p className="text-xs text-muted-foreground">Current Balance</p>
                 <div className="flex items-center gap-1 justify-center">
-                  <Image
-                    src="/images/tokens/usdc.png"
-                    alt="USDC"
-                    width={16}
-                    height={16}
-                  />
+                  <Image src={usdcPng} alt="USDC" className="size-4" />
                   <strong>
                     <TooltipWrapNumber amount={source.usdcBalance} />
                   </strong>
@@ -89,12 +85,7 @@ export default function SuccessDialog({
             {/* Arrow with Amount */}
             <div className="flex flex-col items-center space-y-0 mx-4">
               <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-amber-">
-                <Image
-                  src="/images/tokens/usdc.png"
-                  alt="USDC"
-                  width={24}
-                  height={24}
-                />
+                <Image src={usdcPng} alt="USDC" className="size-4" />
                 <strong>{amount}</strong>
               </div>
               <MoveRight className="text-primary size-8" />
@@ -117,12 +108,7 @@ export default function SuccessDialog({
               <div className="text-center">
                 <p className="text-xs text-muted-foreground">Current Balance</p>
                 <div className="flex items-center gap-2 justify-center">
-                  <Image
-                    src="/images/tokens/usdc.png"
-                    alt="USDC"
-                    width={16}
-                    height={16}
-                  />
+                  <Image src={usdcPng} alt="USDC" className="size-4" />
                   <strong>
                     <TooltipWrapNumber amount={destination.usdcBalance} />
                   </strong>

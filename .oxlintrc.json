@@ -11,17 +11,12 @@
   ],
   "rules": {
     "typescript/no-explicit-any": "error",
-    "eqeqeq": "error",
-    "curly": "error",
     "typescript/no-unused-vars": "warn",
-    "typescript/no-empty-interface": "off",
     "typescript/require-await": "warn",
     "react/exhaustive-deps": "error",
     "react/jsx-no-useless-fragment": "error",
     "nextjs/no-img-element": "off",
-    "no-console": "off",
-    "no-alert": "warn",
-    "no-else-return": "error"
+    "no-console": "warn",
   },
   "ignorePatterns": [
     "src/lib/solana/tools/codama/generated/**",

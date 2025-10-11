@@ -77,6 +77,7 @@ export default function NetworkAdapterSelect({
         <SelectContent>
           {networkAdapters
             .filter((chain) => !exceptAdapterIds?.includes(chain.id))
+            .toSorted((a, b) => a.name.localeCompare(b.name))
             .map((chain) => (
               <SelectItem key={chain.id} value={String(chain.id)}>
                 <div className="flex items-center gap-2">

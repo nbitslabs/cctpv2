@@ -50,8 +50,9 @@ export interface CctpNetworkAdapter {
     cctpOpts?: CctpFunctionOpts
   ) => Promise<string>
   simulateMessageTransmitterReceiveMessage: (
-    message: string,
+    message: EvmAddress,
     attestation: string,
+    source: CctpNetworkAdapter,
     cctpOpts?: CctpFunctionOpts
   ) => Promise<boolean>
   writeMessageTransmitterReceiveMessage: (

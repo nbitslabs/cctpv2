@@ -1,5 +1,4 @@
 "use client"
-import ConfettiCelebration from "@/components/ConfettiCelebration"
 import Footer from "@/components/Footer"
 import NetworkAdapterSelect, {
   useNetworkAdapterBalance,
@@ -521,7 +520,6 @@ export default function Home() {
           amount={transferAmount}
         />
       )}
-      <ConfettiCelebration isCompleted={isCompleted} />
     </div>
   )
 }

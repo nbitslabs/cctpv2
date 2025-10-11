@@ -162,6 +162,7 @@ export function useCrossChainTransfer() {
         await destNetwork.simulateMessageTransmitterReceiveMessage(
           attestation.message,
           attestation.attestation,
+          sourceNetwork,
           { version: "v2", solanaSigner: params.solanaSigner }
         )
       if (!simulationResult) {

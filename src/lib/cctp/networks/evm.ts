@@ -343,6 +343,7 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
       async simulateMessageTransmitterReceiveMessage(
         message,
         attestation,
+        _,
         cctpOpts = defaultCctpOpts
       ) {
         const messageTransmitterAddress = getMessageTransmitterAddress(

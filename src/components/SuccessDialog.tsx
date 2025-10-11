@@ -1,5 +1,6 @@
 "use client"
 
+import confetti from "canvas-confetti"
 import {
   Dialog,
   DialogContent,
@@ -12,7 +13,7 @@ import { Check, MoveRight } from "lucide-react"
 import Image from "next/image"
 import { TooltipWrapNumber } from "@/components/TooltipWrap"
 import GitHubButton from "react-github-btn"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import usdcPng from "../../public/images/tokens/usdc.png"
 
 interface ChainAddressBalance {
@@ -33,6 +34,10 @@ export default function SuccessDialog({
   amount,
 }: SuccessDialogProps) {
   const [open, setOpen] = useState(true)
+
+  useEffect(() => {
+    if (open) tadaEffect()
+  }, [open])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -150,4 +155,33 @@ export default function SuccessDialog({
       </DialogContent>
     </Dialog>
   )
+}
+
+export function tadaEffect() {
+  const end = Date.now() + 2.5 * 1000 // 3 seconds
+  const colors = ["#ff9142", "#f96d30"]
+  const frame = () => {
+    if (Date.now() > end) return
+
+    confetti({
+      particleCount: 2,
+      angle: 60,
+      spread: 55,
+      startVelocity: 60,
+      origin: { x: 0, y: 0.5 },
+      colors,
+    })
+    confetti({
+      particleCount: 2,
+      angle: 120,
+      spread: 55,
+      startVelocity: 60,
+      origin: { x: 1, y: 0.5 },
+      colors,
+    })
+
+    requestAnimationFrame(frame)
+  }
+
+  frame()
 }

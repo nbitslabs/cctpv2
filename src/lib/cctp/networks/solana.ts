@@ -10,7 +10,7 @@ import {
   getDepositForBurnInstructionAsync,
   TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS,
 } from "@/lib/solana/tools/codama/generated/token_messenger_minter_v2"
-import type { Address, IAccountMeta } from "@solana/kit"
+import type { Address, IAccountMeta, TransactionSigner } from "@solana/kit"
 import {
   address as solAddress,
   generateKeyPairSigner,
@@ -186,9 +186,29 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
       return getSignatureFromTransaction(signedTx)
     },
 
-    async simulateMessageTransmitterReceiveMessage() {
-      // TODO: Implement simulation logic if possible
-      return true
+    async simulateMessageTransmitterReceiveMessage(
+      message,
+      attestation,
+      source,
+      cctpOpts = defaultCctpOpts
+    ) {
+      const { solanaSigner } = cctpOpts || {}
+      if (!solanaSigner) {
+        throw new Error("Solana signer is required")
+      }
+
+      const { appendedTx } = await getReceiveMessageTxParams(
+        solanaSigner,
+        message,
+        attestation,
+        source
+      )
+      const simulation = await rpc
+        .simulateTransaction(getBase64EncodedWireTransaction(appendedTx), {
+          encoding: "base64",
+        })
+        .send()
+      return simulation.value.err === null
     },
 
     async writeMessageTransmitterReceiveMessage(
@@ -202,97 +222,13 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
         throw new Error("Solana signer is required")
       }
 
-      const userTokenAccount = await getATA2(
-        solanaUsdcAddress,
-        solanaSigner.address
+      const { appendedTx, signedTx } = await getReceiveMessageTxParams(
+        solanaSigner,
+        message,
+        attestation,
+        source
       )
-
-      const pdas = await getReceiveMessagePdasV2(
-        solanaUsdcAddress,
-        evmAddressToSolana(source.usdcAddress as EvmAddress),
-        source.domain.toString(),
-        decodeEventNonceFromMessageV2(message),
-        rpc
-      )
-
-      // Add remaining accounts to process further instructions triggered by this instruction
-      const remainingAccounts: IAccountMeta[] = [
-        {
-          address: pdas.tokenMessengerAccount,
-          role: AccountRole.READONLY,
-        },
-        {
-          address: pdas.remoteTokenMessengerKey,
-          role: AccountRole.READONLY,
-        },
-        {
-          address: pdas.tokenMinterAccount,
-          role: AccountRole.WRITABLE,
-        },
-        { address: pdas.localToken, role: AccountRole.WRITABLE },
-        { address: pdas.tokenPair, role: AccountRole.READONLY },
-        {
-          role: AccountRole.WRITABLE,
-          address: pdas.feeRecipientTokenAccount,
-        },
-        { role: AccountRole.WRITABLE, address: userTokenAccount },
-        {
-          role: AccountRole.WRITABLE,
-          address: pdas.custodyTokenAccount,
-        },
-        { role: AccountRole.READONLY, address: TOKEN_PROGRAM_ADDRESS },
-        {
-          role: AccountRole.READONLY,
-          address: pdas.tokenMessengerEventAuthority,
-        },
-        {
-          role: AccountRole.READONLY,
-          address: TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS,
-        },
-      ]
-
-      const instruction = await getReceiveMessageInstructionAsync({
-        caller: solanaSigner,
-        payer: solanaSigner,
-        messageTransmitter: pdas.messageTransmitterAccount,
-        usedNonce: pdas.usedNonce,
-        receiver: TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS,
-        program: MESSAGE_TRANSMITTER_V2_PROGRAM_ADDRESS,
-        params: {
-          attestation: hexToBytes(attestation as Hex),
-          message: hexToBytes(message),
-        },
-      })
-
-      const instructionWithRemainingAccounts = {
-        ...instruction,
-        accounts: [...instruction.accounts, ...remainingAccounts],
-      }
-
-      const { value: blockhash } = await rpc.getLatestBlockhash().send()
-      const txMessage = pipe(
-        createTransactionMessage({ version: 0 }),
-        (m) => setTransactionMessageLifetimeUsingBlockhash(blockhash, m),
-        (m) => setTransactionMessageFeePayer(solanaSigner.address, m),
-        (m) =>
-          appendTransactionMessageInstruction(
-            instructionWithRemainingAccounts,
-            m
-          )
-      )
-      const signedTx = await signTransactionMessageWithSigners(txMessage)
-      const appendedTx = { ...signedTx, lifetimeConstraint: blockhash }
-      const simulation = await rpc
-        .simulateTransaction(getBase64EncodedWireTransaction(appendedTx), {
-          encoding: "base64",
-        })
-        .send()
-      if (simulation.value?.err) {
-        throw new Error(simulation.value.err.toString())
-      }
-      await sendAndConfirmTransaction(appendedTx, {
-        commitment: "confirmed",
-      })
+      await sendAndConfirmTransaction(appendedTx, { commitment: "confirmed" })
       return getSignatureFromTransaction(signedTx)
     },
 
@@ -335,6 +271,78 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
     },
   },
 ]
+
+async function getReceiveMessageTxParams(
+  solanaSigner: TransactionSigner,
+  message: EvmAddress,
+  attestation: string,
+  source: { domain: number; usdcAddress: string }
+) {
+  const userTokenAccount = await getATA2(
+    solanaUsdcAddress,
+    solanaSigner.address
+  )
+
+  const pdas = await getReceiveMessagePdasV2(
+    solanaUsdcAddress,
+    evmAddressToSolana(source.usdcAddress as EvmAddress),
+    source.domain.toString(),
+    decodeEventNonceFromMessageV2(message),
+    rpc
+  )
+
+  // Add remaining accounts to process further instructions triggered by this instruction
+  const remainingAccounts: IAccountMeta[] = [
+    { role: AccountRole.READONLY, address: pdas.tokenMessengerAccount },
+    { role: AccountRole.READONLY, address: pdas.remoteTokenMessengerKey },
+    { role: AccountRole.WRITABLE, address: pdas.tokenMinterAccount },
+    { role: AccountRole.WRITABLE, address: pdas.localToken },
+    { role: AccountRole.READONLY, address: pdas.tokenPair },
+    { role: AccountRole.WRITABLE, address: pdas.feeRecipientTokenAccount },
+    { role: AccountRole.WRITABLE, address: userTokenAccount },
+    { role: AccountRole.WRITABLE, address: pdas.custodyTokenAccount },
+    { role: AccountRole.READONLY, address: TOKEN_PROGRAM_ADDRESS },
+    {
+      role: AccountRole.READONLY,
+      address: pdas.tokenMessengerEventAuthority,
+    },
+    {
+      role: AccountRole.READONLY,
+      address: TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS,
+    },
+  ]
+
+  const instruction = await getReceiveMessageInstructionAsync({
+    caller: solanaSigner,
+    payer: solanaSigner,
+    messageTransmitter: pdas.messageTransmitterAccount,
+    usedNonce: pdas.usedNonce,
+    receiver: TOKEN_MESSENGER_MINTER_V2_PROGRAM_ADDRESS,
+    program: MESSAGE_TRANSMITTER_V2_PROGRAM_ADDRESS,
+    params: {
+      attestation: hexToBytes(attestation as Hex),
+      message: hexToBytes(message),
+    },
+  })
+
+  const instructionWithRemainingAccounts = {
+    ...instruction,
+    accounts: [...instruction.accounts, ...remainingAccounts],
+  }
+
+  const { value: blockhash } = await rpc.getLatestBlockhash().send()
+  const txMessage = pipe(
+    createTransactionMessage({ version: 0 }),
+    (m) => setTransactionMessageLifetimeUsingBlockhash(blockhash, m),
+    (m) => setTransactionMessageFeePayer(solanaSigner.address, m),
+    (m) =>
+      appendTransactionMessageInstruction(instructionWithRemainingAccounts, m)
+  )
+  const signedTx = await signTransactionMessageWithSigners(txMessage)
+  const appendedTx = { ...signedTx, lifetimeConstraint: blockhash }
+
+  return { signedTx, appendedTx }
+}
 
 const decodeEventNonceFromMessageV2 = (messageHex: EvmAddress) => {
   const nonceIndex = 12

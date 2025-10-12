@@ -125,11 +125,7 @@ export function useFeeEstimates({
   const source = sourceQuery.data
   const destination = destinationQuery.data
 
-  const totalUsd = [source?.usdValue, destination?.usdValue].every(
-    (value) => typeof value === "number"
-  )
-    ? (source?.usdValue ?? 0) + (destination?.usdValue ?? 0)
-    : undefined
+  const totalUsd = (source?.usdValue ?? 0) + (destination?.usdValue ?? 0)
 
   return {
     source,

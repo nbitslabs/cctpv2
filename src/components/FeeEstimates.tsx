@@ -65,10 +65,12 @@ export function FeeEstimates({
             Estimated Network Fees
             <CollapsibleTrigger className="inline-flex items-center gap-1 cursor-pointer">
               <span className="font-normal text-foreground shrink-0">
-                {typeof totalUsd === "number" ? (
+                {isLoading ? (
+                  <Loader className="animate-spin size-4" />
+                ) : typeof totalUsd === "number" ? (
                   `≈ ${format3Decimal(totalUsd)} USDC`
                 ) : (
-                  <Loader className="animate-spin size-4" />
+                  "—"
                 )}
               </span>
               <ChevronDown className="size-4 transition-transform data-[state=open]:rotate-180" />

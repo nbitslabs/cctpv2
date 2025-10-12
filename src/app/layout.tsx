@@ -1,20 +1,20 @@
-import type { Metadata } from "next"
-import { Funnel_Display, Funnel_Sans } from "next/font/google"
-import "./globals.css"
 import { Toaster } from "@/components/ui/sonner"
-import Providers from "./Providers"
-import { deployedUrl } from "@/lib/constants"
 import { networkAdapters } from "@/lib/cctp/networks"
+import { deployedUrl } from "@/lib/constants"
+import type { Metadata } from "next"
+import { Inter, Rye } from "next/font/google"
+import "./globals.css"
+import Providers from "./Providers"
 
-const funnelSans = Funnel_Sans({
+const funnelSans = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 })
-const funnelDisplay = Funnel_Display({
+const funnelDisplay = Rye({
   variable: "--font-serif",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400"],
 })
 
 export const metadata: Metadata = {
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
     <html lang="en">
       <body
-        className={`${funnelSans.variable} ${funnelDisplay.variable} antialiased`}
+        className={`${funnelSans.variable} ${funnelDisplay.variable} antialiased font-sans`}
       >
         <Providers>{children}</Providers>
         <Toaster

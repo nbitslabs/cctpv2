@@ -1,6 +1,5 @@
+import { FaBook, FaBug, FaGithub } from "react-icons/fa"
 import ExternalLink from "./ui2/ExternalLink"
-import { FaGithub, FaBug } from "react-icons/fa"
-import { IoDocumentTextOutline } from "react-icons/io5"
 
 const links = [
   {
@@ -11,7 +10,7 @@ const links = [
   {
     href: "https://github.com/nbitslabs/cctpv2/blob/main/USER_MANUAL.md",
     label: "Documentation",
-    icon: IoDocumentTextOutline,
+    icon: FaBook,
   },
   {
     href: "https://github.com/nbitslabs/cctpv2/issues/new?template=transfer-issue.yml",

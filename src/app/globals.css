@@ -45,7 +45,7 @@
   --destructive: oklch(0.6122 0.2082 22.241);
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.9296 0.037 38.6868);
-  --input: oklch(0.9296 0.037 38.6868);
+  --input: oklch(82.924% 0.05435 359.076);
   --ring: oklch(0.7357 0.1641 34.7091);
   --chart-1: oklch(0.7357 0.1641 34.7091);
   --chart-2: oklch(0.8278 0.1131 57.9984);
@@ -191,6 +191,6 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground selection:bg-primary/30;
   }
 }

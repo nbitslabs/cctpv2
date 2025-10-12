@@ -32,7 +32,7 @@ export function TransferLog({ logs }: { logs: React.ReactNode[] }) {
         ) : (
           <li className="text-center py-8 flex flex-col items-center gap-1">
             <Logs className="size-8" />
-            Your transaction logs will appear here.
+            Transaction logs will appear here
           </li>
         )}
         <div ref={logsEndRef} />

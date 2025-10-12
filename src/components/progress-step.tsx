@@ -31,7 +31,10 @@ export function ProgressSteps({ currentStep }: { currentStep: string }) {
         {steps.map((step, index) => {
           const state = getStepState(index)
           return (
-            <div key={step.name} className="flex flex-col items-center w-1/4">
+            <div
+              key={step.name}
+              className="flex flex-col items-center w-1/4 font-serif"
+            >
               <div
                 className={cn(
                   "w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300",
@@ -45,7 +48,7 @@ export function ProgressSteps({ currentStep }: { currentStep: string }) {
               </div>
               <div
                 className={cn(
-                  "mt-2 text-sm text-center",
+                  "mt-1 text-xs text-center",
                   state === "pending" && "text-muted-foreground",
                   state === "active" && "text-blue-500",
                   ["completed", "done"].includes(state) && "text-green-500"

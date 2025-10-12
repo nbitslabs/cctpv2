@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ExternalLink from "@/components/ui2/ExternalLink"
+import { FeeEstimates } from "@/components/FeeEstimates"
 import { useAddressOfAdapterId } from "@/hooks/useAddressOfAdapter"
 import {
   useCrossChainTransfer,
@@ -42,7 +43,7 @@ import {
 } from "@reown/appkit/react"
 import type { TransactionSigner } from "@solana/kit"
 import { AnimatePresence, motion } from "framer-motion"
-import { AlertCircle, Info, Loader2, Wallet } from "lucide-react"
+import { AlertCircle, Info, Loader, Wallet } from "lucide-react"
 import { useEffect, useState } from "react"
 import { NumericFormat } from "react-number-format"
 import { toast } from "sonner"
@@ -197,17 +198,17 @@ export default function Home() {
 
   return (
     <div className="min-h-screen w-full pb-8 sm:p-8">
-      <Card className="max-w-4xl mx-auto border-0 sm:bg-foreground/3 sm:border pt-10 sm:pt-4 relative">
+      <Card className="max-w-4xl mx-auto border-0 bg-foreground/3 sm:border pt-10 sm:pt-4 relative">
         <StickyWallets />
         <CardHeader className="items-center sm:pt-2">
-          <CardTitle className="text-center text-xl sm:text-2xl">
+          <CardTitle className="text-center font-serif text-xl sm:text-2xl">
             Cross-Chain USDC Transfer
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-col gap-4 sm:flex-row sm:*:w-1/2">
             <div className="flex flex-col gap-2">
-              <Label>Transfer Method</Label>
+              <Label className="font-serif">Transfer Method</Label>
               <Tabs
                 value={method}
                 onValueChange={(v) => setMethod(v as "mintOnly" | "transfer")}
@@ -299,7 +300,7 @@ export default function Home() {
             {isMintOnly ? (
               <>
                 {" "}
-                <Label>
+                <Label className="font-serif">
                   Burn Transaction Hash
                   {sourceAdapter && (
                     <TransactionHistory chainAdapter={sourceAdapter} />
@@ -328,7 +329,7 @@ export default function Home() {
               </>
             ) : (
               <>
-                <Label>Amount (USDC)</Label>
+                <Label className="font-serif">Amount in USDC</Label>
                 <NumericFormat
                   id={"input-amount"}
                   name={"input-amount"}
@@ -342,7 +343,7 @@ export default function Home() {
                 {isConnected && (
                   <p className="text-sm text-muted-foreground">
                     {sourceUsdcBalance.isLoading ? (
-                      <Loader2 className="animate-spin inline-block size-3" />
+                      <Loader className="animate-spin inline-block size-3" />
                     ) : (
                       <>
                         <TooltipWrapNumber
@@ -367,13 +368,18 @@ export default function Home() {
               </>
             )}
           </div>
+          <FeeEstimates
+            source={sourceChain}
+            destination={destChain}
+            showSource={!isMintOnly}
+          />
           {error && <div className="text-destructive text-center">{error}</div>}
 
           {!isMintOnly && (
             <Alert variant="warning">
-              <AlertCircle className="size-8" />
+              <AlertCircle className="!size-4.5 stroke-3" />
               <AlertDescription>
-                <h4 className="font-semibold text-base -mt-0.5 mb-2">
+                <h4 className="font-semibold font-serif mb-2 mt-px tracking-wide">
                   Essentials
                 </h4>
                 <ul className="list-disc">
@@ -395,10 +401,10 @@ export default function Home() {
                   <li>
                     After burning, if you lose progress or getting{" "}
                     <TooltipWrap content="It happens sometimes with Solana, this error means the burn transaction has already been processed.">
-                      <strong className="text-destructive font-medium inline-flex items-center">
+                      <span className="text-destructive inline-flex items-center text-[13px] translate-y-px">
                         <Info className="mr-1 size-3" />
                         Error: AlreadyProcessed{" "}
-                      </strong>
+                      </span>
                     </TooltipWrap>
                     , you can use the <strong>Mint Only</strong> option to mint
                     USDC on the destination chain. The latest burn transaction
@@ -471,6 +477,7 @@ export default function Home() {
                   currentStep === "error" ||
                   !understand
                 }
+                className="font-serif"
               >
                 <AnimatePresence mode="wait">
                   <motion.span
@@ -490,7 +497,11 @@ export default function Home() {
             )}
 
             {(currentStep === "completed" || currentStep === "error") && (
-              <Button variant="outline" onClick={handleReset}>
+              <Button
+                variant="outline"
+                onClick={handleReset}
+                className="font-serif"
+              >
                 Reset
               </Button>
             )}

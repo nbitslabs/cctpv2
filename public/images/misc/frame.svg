@@ -1,0 +1,51 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Greek key corner pattern -->
+    <g id="corner">
+      <rect x="0" y="0" width="50" height="50" fill="none" stroke="#2c2c2c" stroke-width="2"/>
+      <rect x="5" y="5" width="40" height="40" fill="none" stroke="#2c2c2c" stroke-width="2"/>
+      
+      <!-- Inner Greek key -->
+      <path d="M 15,15 L 35,15 L 35,20 L 20,20 L 20,30 L 30,30 L 30,35 L 15,35 Z" 
+            fill="none" stroke="#2c2c2c" stroke-width="2"/>
+      
+      <!-- Additional detail lines -->
+      <line x1="10" y1="10" x2="40" y2="10" stroke="#2c2c2c" stroke-width="1"/>
+      <line x1="10" y1="10" x2="10" y2="40" stroke="#2c2c2c" stroke-width="1"/>
+      <line x1="40" y1="10" x2="40" y2="40" stroke="#2c2c2c" stroke-width="1"/>
+      <line x1="10" y1="40" x2="40" y2="40" stroke="#2c2c2c" stroke-width="1"/>
+    </g>
+  </defs>
+  
+  
+  <!-- Triple border lines -->
+  <rect x="40" y="40" width="720" height="520" fill="none" stroke="#2c2c2c" stroke-width="2"/>
+  <rect x="50" y="50" width="700" height="500" fill="none" stroke="#2c2c2c" stroke-width="2"/>
+  <rect x="55" y="55" width="690" height="490" fill="none" stroke="#2c2c2c" stroke-width="1"/>
+  
+  <!-- Corner ornaments - Top Left -->
+  <use href="#corner" x="40" y="40"/>
+  
+  <!-- Corner ornaments - Top Right -->
+  <g transform="translate(760, 40) scale(-1, 1)">
+    <use href="#corner"/>
+  </g>
+  
+  <!-- Corner ornaments - Bottom Left -->
+  <g transform="translate(40, 560) scale(1, -1)">
+    <use href="#corner"/>
+  </g>
+  
+  <!-- Corner ornaments - Bottom Right -->
+  <g transform="translate(760, 560) scale(-1, -1)">
+    <use href="#corner"/>
+  </g>
+  
+  <!-- Vertical detail lines on sides -->
+  <line x1="45" y1="95" x2="45" y2="505" stroke="#2c2c2c" stroke-width="1"/>
+  <line x1="755" y1="95" x2="755" y2="505" stroke="#2c2c2c" stroke-width="1"/>
+  
+  <!-- Horizontal detail lines on top and bottom -->
+  <line x1="95" y1="45" x2="705" y2="45" stroke="#2c2c2c" stroke-width="1"/>
+  <line x1="95" y1="555" x2="705" y2="555" stroke="#2c2c2c" stroke-width="1"/>
+</svg>

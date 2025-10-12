@@ -8,7 +8,7 @@ import {
 } from "@/lib/cctp/networks"
 import { cn } from "@/lib/utils"
 import { ChainNamespace, solana } from "@reown/appkit/networks"
-import { Loader2, RotateCw } from "lucide-react"
+import { Loader, RotateCw } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 import { TooltipWrapNumber } from "./TooltipWrap"
@@ -72,7 +72,7 @@ export default function NetworkAdapterSelect({
 
   return (
     <div className="space-y-2">
-      <Label>{label}</Label>
+      <Label className="font-serif">{label}</Label>
       <Select value={chain?.toString()} onValueChange={setChainId}>
         <SelectTrigger>
           <SelectValue placeholder="Select destination chain" />
@@ -100,7 +100,7 @@ export default function NetworkAdapterSelect({
       {!hideAddress && (
         <>
           <div>
-            <Label>Address</Label>
+            <Label className="font-serif">Address</Label>
             <div className="flex items-center gap-2">
               <Input
                 value={address}
@@ -119,7 +119,7 @@ export default function NetworkAdapterSelect({
             <div className="flex items-center gap-2">
               <p className="text-sm text-muted-foreground">
                 {usdcBalance.isLoading ? (
-                  <Loader2 className="animate-spin inline-block size-3" />
+                  <Loader className="animate-spin inline-block size-3" />
                 ) : (
                   <TooltipWrapNumber
                     amount={usdcBalance.data?.formatted ?? 0}
@@ -128,7 +128,7 @@ export default function NetworkAdapterSelect({
                 )}{" "}
                 USDC •{" "}
                 {nativeBalance.isLoading ? (
-                  <Loader2 className="animate-spin inline-block size-3" />
+                  <Loader className="animate-spin inline-block size-3" />
                 ) : (
                   <TooltipWrapNumber
                     amount={nativeBalance.data?.formatted ?? 0}

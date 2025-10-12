@@ -14,10 +14,8 @@ export async function getAccountTransactions(
   const chain = alchemySupportedChains.result.data.find(
     (chain) => chain.networkChainId?.toString() === networkId.toString()
   )
-  if (!chain) {
-    console.log(`Alchemy does not support ${network?.name} (${networkId})`)
-    return []
-  }
+  if (!chain) return []
+
   const kebabCaseId = chain.kebabCaseId
 
   const url = `https://${kebabCaseId}.g.alchemy.com/v2/kVV691s2Iq_F1omMf9nY1`

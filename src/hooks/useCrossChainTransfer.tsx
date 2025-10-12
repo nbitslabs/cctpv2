@@ -86,8 +86,8 @@ export function useCrossChainTransfer() {
         if (!destination) {
           throw new Error("Destination network not found")
         }
-
         await setActiveNetwork(sourceChainId)
+
         burnTx = await sourceNetwork.writeTokenMessagerDepositForBurn(
           {
             address,

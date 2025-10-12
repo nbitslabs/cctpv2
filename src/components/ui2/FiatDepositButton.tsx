@@ -20,7 +20,7 @@ export default function FiatDepositButton({
     <TooltipWrap content={texts.tooltip.fiat}>
       <Button
         variant="outline"
-        size="sm"
+        size={children ? "sm" : "iconSm"}
         onClick={() => openDialog("OnRampProviders", namespace)}
         disabled={!!fakeLoading}
         loading={fakeLoading === "OnRampProviders"}

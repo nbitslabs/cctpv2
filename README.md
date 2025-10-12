@@ -12,7 +12,7 @@ For detailed instructions on using CCTP V2, please refer to the [User Manual](./
 - [x] Add Li.fi to support cross-chain swap (to get native tokens quickly)
 - [x] Test cross-chain with different wallet address.
 - [x] Add estimate for Solana
-- [ ] Estimated fees: fee on both chains (in native token), and total fees in USDC
+- [x] Estimated fees: fee on both chains (in native token), and total fees in USDC
 
 ### Low priority
 

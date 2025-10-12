@@ -1,15 +1,8 @@
 import type { AppKitNetwork } from "@reown/appkit/networks"
-import type { CctpNetworkAdapter } from "./type"
-import { CctpV2TransferType } from "./type"
-import {
-  readUsdcAllowance,
-  simulateMessageTransmitterReceiveMessage,
-  writeMessageTransmitterReceiveMessage,
-  writeTokenMessagerDepositForBurn,
-  writeUsdcApprove,
-} from "../../wagmi/generated"
-import type { CctpV2SupportedChainId } from "../../wagmi/config"
-import { chainsByDomain, wagmiConfig, usdcAddresses } from "../../wagmi/config"
+import { StaticImageData } from "next/image"
+import type { Address, Chain } from "viem"
+import { erc20Abi, formatUnits, parseUnits } from "viem"
+import { addChain } from "viem/actions"
 import {
   getAccount,
   getPublicClient,
@@ -17,28 +10,35 @@ import {
   readContract,
   waitForTransactionReceipt,
 } from "wagmi/actions"
-import type { Address, Chain } from "viem"
-import { erc20Abi, formatUnits, parseUnits } from "viem"
-import { addChain } from "viem/actions"
-import { defaultCctpOpts, USDC_DECIMALS } from "./constants"
-import { getTokenMessagerAddress, getMessageTransmitterAddress } from "./util"
-import { StaticImageData } from "next/image"
-import ethWebp from "../../../../public/images/chains/ethereum.webp"
-import avalancheWebp from "../../../../public/images/chains/avalanche.webp"
-import optimismWebp from "../../../../public/images/chains/optimism.webp"
-import polygonWebp from "../../../../public/images/chains/polygon.webp"
 import arbitrumWebp from "../../../../public/images/chains/arbitrum.webp"
+import avalancheWebp from "../../../../public/images/chains/avalanche.webp"
 import baseWebp from "../../../../public/images/chains/base.webp"
-import unichainWebp from "../../../../public/images/chains/unichain.webp"
-import lineaWebp from "../../../../public/images/chains/linea.webp"
 import codexWebp from "../../../../public/images/chains/codex.webp"
-import seiWebp from "../../../../public/images/chains/sei.webp"
-import xdcWebp from "../../../../public/images/chains/xdc.webp"
+import ethWebp from "../../../../public/images/chains/ethereum.webp"
 import hyperEvmWebp from "../../../../public/images/chains/hyperevm.webp"
-import plumeWebp from "../../../../public/images/chains/plume.webp"
-import sonicWebp from "../../../../public/images/chains/sonic.webp"
-import worldchainWebp from "../../../../public/images/chains/worldchain.webp"
 import inkWebp from "../../../../public/images/chains/ink.webp"
+import lineaWebp from "../../../../public/images/chains/linea.webp"
+import optimismWebp from "../../../../public/images/chains/optimism.webp"
+import plumeWebp from "../../../../public/images/chains/plume.webp"
+import polygonWebp from "../../../../public/images/chains/polygon.webp"
+import seiWebp from "../../../../public/images/chains/sei.webp"
+import sonicWebp from "../../../../public/images/chains/sonic.webp"
+import unichainWebp from "../../../../public/images/chains/unichain.webp"
+import worldchainWebp from "../../../../public/images/chains/worldchain.webp"
+import xdcWebp from "../../../../public/images/chains/xdc.webp"
+import type { CctpV2SupportedChainId } from "../../wagmi/config"
+import { chainsByDomain, usdcAddresses, wagmiConfig } from "../../wagmi/config"
+import {
+  readUsdcAllowance,
+  simulateMessageTransmitterReceiveMessage,
+  writeMessageTransmitterReceiveMessage,
+  writeTokenMessagerDepositForBurn,
+  writeUsdcApprove,
+} from "../../wagmi/generated"
+import { defaultCctpOpts, USDC_DECIMALS } from "./constants"
+import type { CctpNetworkAdapter } from "./type"
+import { CctpV2TransferType } from "./type"
+import { getMessageTransmitterAddress, getTokenMessagerAddress } from "./util"
 
 function getEvmNetworkAdapter(
   network: AppKitNetwork,
@@ -311,8 +311,7 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
         finalityThreshold =
           finalityThreshold ??
           (transferType === CctpV2TransferType.Fast ? 1000 : 2000)
-
-        const tx = await writeTokenMessagerDepositForBurn(wagmiConfig, {
+        const hash = await writeTokenMessagerDepositForBurn(wagmiConfig, {
           chainId,
           address: tokenMessagerAddress,
           args: [
@@ -325,11 +324,8 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
             finalityThreshold,
           ],
         })
-        await waitForTransactionReceipt(wagmiConfig, {
-          chainId,
-          hash: tx,
-        })
-        return tx
+        await waitForTransactionReceipt(wagmiConfig, { chainId, hash })
+        return hash
       },
 
       async simulateMessageTransmitterReceiveMessage(

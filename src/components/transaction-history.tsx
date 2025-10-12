@@ -25,7 +25,7 @@ import {
   ArrowUp,
   ChevronLeft,
   ChevronRight,
-  Loader2,
+  Loader,
 } from "lucide-react"
 import { cn, formatNumber } from "@/lib/utils"
 import { useAppKitAccount } from "@reown/appkit/react"
@@ -95,7 +95,7 @@ export default function TransactionHistory({
               <TableRow>
                 <TableCell colSpan={4} className="text-center">
                   <div className="flex justify-center items-center h-20">
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Loader className="h-4 w-4 animate-spin" />
                   </div>
                 </TableCell>
               </TableRow>

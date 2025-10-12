@@ -241,7 +241,7 @@ export default function Home() {
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <NetworkAdapterSelect
-              label="Source Chain"
+              label="Source"
               chainId={sourceChain}
               setChainId={setSourceChain}
               address={sourceAddress ?? ""}
@@ -250,7 +250,7 @@ export default function Home() {
             />
 
             <NetworkAdapterSelect
-              label="Destination Chain"
+              label="Destination"
               chainId={destChain}
               setChainId={(chainId) => {
                 if (chainId === solana.id && !solanaAccountState.isConnected) {

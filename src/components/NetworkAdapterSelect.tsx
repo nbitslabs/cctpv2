@@ -72,7 +72,7 @@ export default function NetworkAdapterSelect({
 
   return (
     <div className="space-y-2">
-      <Label className="font-serif">{label}</Label>
+      <Label className="font-serif">{label} Chain</Label>
       <Select value={chain?.toString()} onValueChange={setChainId}>
         <SelectTrigger>
           <SelectValue placeholder="Select destination chain" />
@@ -100,7 +100,7 @@ export default function NetworkAdapterSelect({
       {!hideAddress && (
         <>
           <div>
-            <Label className="font-serif">Address</Label>
+            <Label className="font-serif">{label} Address</Label>
             <div className="flex items-center gap-2">
               <Input
                 value={address}

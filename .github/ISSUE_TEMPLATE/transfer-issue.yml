@@ -1,0 +1,81 @@
+name: Transfer Issue
+description: Report a transfer problem or suggest an improvement
+title: "[Transfer Issue]: "
+labels: ["transfer"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a transfer issue! Please fill out the form below with as much detail as possible.
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Type
+      description: What type of issue are you reporting?
+      options:
+        - Bug
+        - Improvement
+    validations:
+      required: true
+
+  - type: input
+    id: from-chain
+    attributes:
+      label: From Chain
+      description: Which chain are you transferring from?
+      placeholder: e.g., Ethereum, Arbitrum, Solana
+    validations:
+      required: true
+
+  - type: input
+    id: to-chain
+    attributes:
+      label: To Chain
+      description: Which chain are you transferring to?
+      placeholder: e.g., Base, Polygon, Avalanche
+    validations:
+      required: true
+
+  - type: input
+    id: transaction-hash
+    attributes:
+      label: Transaction Hash
+      description: The transaction hash of the transfer (if applicable)
+      placeholder: "0x... or solscan transaction ID"
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Please paste any relevant console logs, error messages, or screenshots
+      placeholder: Paste logs here...
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: |
+        Provide any additional context about the issue:
+        - Amount transferred
+        - Wallet type used
+        - Browser and version
+        - Steps to reproduce (for bugs)
+        - Expected vs actual behavior
+      placeholder: Tell us more...
+    validations:
+      required: false
+
+  - type: textarea
+    id: inquiry
+    attributes:
+      label: Inquiry
+      description: What specific question or concern do you have about this transfer?
+      placeholder: What would you like to know or what help do you need?
+    validations:
+      required: true

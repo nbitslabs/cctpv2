@@ -4,21 +4,6 @@
 
 For detailed instructions on using CCTP V2, please refer to the [User Manual](./USER_MANUAL.md).
 
-## TODO
-
-- [x] History of Trades
-- [x] Support Solana
-- [x] Support all EVMs
-- [x] Add Li.fi to support cross-chain swap (to get native tokens quickly)
-- [x] Test cross-chain with different wallet address.
-- [x] Add estimate for Solana
-- [x] Estimated fees: fee on both chains (in native token), and total fees in USDC
-
-### Low priority
-
-- [x] UX Improvement: Add the latest USDC out tx
-- [x] UX Improvement: Handle interrupted flow when burned, but unable to continue
-
 ## Testing
 
 - [x] [Ethereum](https://etherscan.io/tx/0x5e50464610d278bca8a964dfda03044748742604bff8d440a5270eb738a36aee) -> [Arbitrum One](https://arbiscan.io/tx/0x525bb17796a80c097df764064ce0059ec3e68f10792958a2527a623083cfc711)
@@ -46,6 +31,81 @@ For detailed instructions on using CCTP V2, please refer to the [User Manual](./
 - [x] [Sonic](https://sonicscan.org/tx/0xf6ed409545f527621bd3d1dd4a80b2c1167bcfc6cc868a763ca174f080bb4098) -> [World Chain](https://worldscan.org/tx/0x99ea0cddf67d6ffd513d0f541f448c73812bbe84293496d4e357a946bc98b80c)
 - [x] [World Chain](https://worldscan.org/tx/0x0de415094bdbc63e3c0c535e23a37bc608b05cee0f7cfc8e43fb4112201ff682) -> [Plume](https://explorer.plume.org/tx/0xefb2f7cdc88d80d9a7fa895607746e9327bad2bee349910cc867c34acb1de0b2)
 
+## CCTP V2 Features
+
+> Disclaimer: This section was generated using research conducted by Claude. The information provided should be regarded as preliminary and subject to independent verification. [Claude thread](https://claude.ai/share/9e29598e-340b-4bbd-a401-66d604973b3d)
+
+### **CCTP V1 vs CCTP V2 vs Li.Fi - Comprehensive Comparison**
+
+| **Category**                  | **CCTP V1**                                                                                                                                                                                                                                       | **CCTP V2**                                                                                                                                                                                                                                                                                                                             | **Li.Fi (Traditional Bridge Aggregator)**                                                                                                                                                                                                                                                                             |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Chain Support**             | **11 Mainnets:**<br>• Aptos<br>• Arbitrum<br>• Avalanche<br>• Base<br>• Ethereum<br>• Noble<br>• OP Mainnet<br>• Polygon PoS<br>• Solana<br>• Sui<br>• Unichain<br><br>[View Docs](https://developers.circle.com/cctp/cctp-supported-blockchains) | **13 Mainnets:**<br>• Arbitrum<br>• Avalanche<br>• Base<br>• Codex<br>• Ethereum<br>• Linea<br>• OP Mainnet<br>• Polygon PoS<br>• Sei<br>• Solana<br>• Sonic<br>• Unichain<br>• World Chain<br>• BNB Smart Chain (USYC only)<br><br>[View Docs](https://developers.circle.com/cctp/cctp-supported-blockchains)                          | **25+ Chains:**<br>All major EVM & non-EVM chains including:<br>• All Ethereum L2s<br>• Solana, Aptos, Sui<br>• Cosmos ecosystem<br>• And many more<br><br>**Aggregates 15+ bridges:**<br>• Stargate<br>• Across<br>• Hop<br>• Connext<br>• And more<br><br>[Explore Li.Fi](https://li.fi/)                           |
+| **Fees**                      | **$0 Protocol Fees**<br>• Only gas costs<br>• No LP fees<br>• No bridge fees<br><br>💰 **Cheapest option**                                                                                                                                        | Inherit from CCTP V1                                                                                                                                                                                                                                                                                                                    | **Variable Fees:**<br>• Underlying bridge fees<br>• DEX swap fees<br>• LP fees<br>• Potential Li.Fi protocol fee<br><br>💸 **Can be 0.05% - 0.3%+ of transfer**                                                                                                                                                       |
+| **Liquidity**                 | **♾️ Unlimited**<br>• Burn & mint mechanism<br>• No pools required<br>• Can handle transfers of any size<br>• No liquidity fragmentation<br><br>[Learn More](https://www.circle.com/en/cross-chain-transfer-protocol)                             | Inherit from CCTP V1                                                                                                                                                                                                                                                                                                                    | **⚠️ Pool-Dependent**<br>• Limited by LP deposits<br>• Large transfers ($50M+) may be impractical<br>• Requires splitting transactions<br>• Liquidity varies by route<br><br>[Bridge Comparison](https://li.fi/knowledge-hub/circles-cross-chain-transfer-protocol-cctp-a-deep-dive/)                                 |
+| **Slippage**                  | **0% Slippage**<br>• Guaranteed 1:1 transfer<br>• No price impact<br>• Perfect for large amounts                                                                                                                                                  | Inherit from CCTP V1                                                                                                                                                                                                                                                                                                                    | **Variable Slippage**<br>• Depends on pool depth<br>• 0.01% - 5%+ possible<br>• Higher on large transfers<br>• Route optimization helps                                                                                                                                                                               |
+| **Security Model**            | **✅ Minimal Trust**<br>• Circle attestation only<br>• Same trust as holding USDC<br>• No third-party bridges<br>• No wrapped tokens<br>• Eliminates bridge exploit risk<br><br>**Trust:** Circle only                                            | Inherit from CCTP V1                                                                                                                                                                                                                                                                                                                    | **⚠️ Multiple Trust Assumptions**<br>• Varies by selected route<br>• Bridge validator sets<br>• LP contracts<br>• Wrapped token risks<br>• Historical bridge hacks<br><br>**Trust:** Multiple parties<br><br>[Security Analysis](https://li.fi/knowledge-hub/circles-cross-chain-transfer-protocol-cctp-a-deep-dive/) |
+| **Settlement Speed**          | **⏱️ 10-20 minutes**<br>• Constrained by source chain finality<br>• ~15 min from Ethereum<br>• ~12 min from Avalanche<br>• ~2 min from Polygon<br><br>**Method:** Standard Transfer only                                                          | **⚡ Seconds (Fast Transfer)**<br>• 3-10 seconds typical<br>• Faster-than-finality<br>• Uses Fast Transfer Allowance<br>• Works from Ethereum L2s<br><br>**Also supports:**<br>• Standard Transfer (same as V1)<br><br>[Read Whitepaper](https://github.com/circlefin/evm-cctp-contracts/blob/master/whitepaper/CCTPV2_White_Paper.pdf) | **⏱️ Variable (1-20 min)**<br>• Fast routes: 1-3 min<br>• Standard: 5-15 min<br>• Depends on bridge type<br>• Optimistic bridges slower<br>• Lock & mint faster<br><br>**Smart routing** finds fastest available                                                                                                      |
+| **Asset Support**             | **USDC Only**<br>• Native USDC transfers<br>• No wrapped versions<br>• Single use case focused                                                                                                                                                    | **USDC + USYC**<br>• Native USDC transfers<br>• USYC (Circle's yield-bearing stablecoin)<br>• No wrapped versions<br>• Stablecoin focused                                                                                                                                                                                               | **100+ Tokens**<br>• ETH, BTC, stablecoins<br>• Any ERC-20<br>• NFTs (on some routes)<br>• Multi-asset support<br><br>[Supported Tokens](https://docs.li.fi/)                                                                                                                                                         |
+| **Composability**             | **❌ Basic**<br>• Simple transfers only<br>• No post-transfer actions<br>• Manual integration needed                                                                                                                                              | **✅ Advanced (Hooks)**<br>• Atomic post-transfer execution<br>• Automated actions on destination<br>• Smart contract composability<br>• No added trust assumptions<br><br>**Examples:**<br>• Bridge + stake<br>• Bridge + swap<br>• Bridge + deposit to protocol<br><br>[Hooks Documentation](https://developers.circle.com/cctp)      | **✅ Moderate**<br>• Smart routing<br>• Multi-hop swaps<br>• Some composability via integrations<br>• Less programmable than V2 Hooks                                                                                                                                                                                 |
+| **Capital Efficiency**        | **⭐⭐⭐⭐⭐**<br>• No capital locked<br>• No LP requirements<br>• Maximum efficiency<br>• Instant minting capacity                                                                                                                               | Inherit from CCTP V1                                                                                                                                                                                                                                                                                                                    | **⭐⭐⭐**<br>• Billions locked in pools<br>• LP capital requirements<br>• Inefficient for ecosystem<br>• Yield farming needed                                                                                                                                                                                        |
+| **Operational Risk**          | **Circle Dependency**<br>• Attestation service uptime critical<br>• Circle operational issues = delays<br>• Single point of coordination<br><br>**Track Record:** Reliable since Apr 2023                                                         | <br>• Inherit from CCTP V1<br>• New system (less proven)<br><br>**Status:** Recently launched 2025                                                                                                                                                                                                                                      | **Distributed Risk**<br>• Multiple bridge dependencies<br>• If one bridge fails, others available<br>• More resilient to single failures<br>• But inherits all bridge risks                                                                                                                                           |
+| **Volume Capacity**           | **Large Transfers:**<br>✅ $1M+: Excellent<br>✅ $10M+: Excellent<br>✅ $50M+: Excellent<br>✅ $100M+: Excellent                                                                                                                                  | Inherit from CCTP V1                                                                                                                                                                                                                                                                                                                    | **Large Transfers:**<br>✅ $1M+: Good<br>⚠️ $10M+: May need splits<br>❌ $50M+: Difficult/impractical<br>❌ $100M+: Nearly impossible<br><br>[Case Study](https://li.fi/knowledge-hub/circles-cross-chain-transfer-protocol-cctp-a-deep-dive/)                                                                        |
+| **Integration Complexity**    | **Moderate**<br>• Direct smart contract calls<br>• Circle SDK available<br>• Good documentation<br><br>[Integration Guide](https://developers.circle.com/cctp)                                                                                    | **⚠️ Moderate-High**<br>• New separate contracts<br>• NOT backward compatible with V1<br>• Must migrate from V1<br>• Hooks add complexity<br>• Good documentation<br><br>[V2 Migration Guide](https://developers.circle.com/cctp)                                                                                                       | **Easy**<br>• Single API integration<br>• Access all bridges<br>• Automatic route optimization<br>• Great developer experience<br><br>[API Docs](https://docs.li.fi/)                                                                                                                                                 |
+| **Transaction Cost Examples** | WIP                                                                                                                                                                                                                                               | Cheap, depends on native fees                                                                                                                                                                                                                                                                                                           | Generally cheap for small amount, slippage consideration                                                                                                                                                                                                                                                              |
+| **Best Use Cases**            | ✅ USDC transfers on supported chains<br>✅ When V2 not available<br>✅ Cost-sensitive users<br>✅ Large institutional transfers<br>✅ When speed isn't critical                                                                                  | ✅ USDC transfers (fastest)<br>✅ Ethereum L2 → L2<br>✅ DeFi composability needs<br>✅ Large institutional transfers<br>✅ Time-sensitive transfers<br>✅ Smart contract automation                                                                                                                                                    | ✅ Non-USDC tokens<br>✅ Unsupported CCTP chains<br>✅ When flexibility needed<br>✅ Multi-hop swaps<br>✅ Best route discovery<br>✅ NFT bridging                                                                                                                                                                    |
+| **Limitations**               | ❌ USDC only<br>❌ Slower than V2<br>❌ Limited chains<br>❌ No composability<br>❌ 15+ min from Ethereum                                                                                                                                         | ❌ USDC/USYC only<br>❌ Fewer chains than V1<br>❌ Newer (less proven)<br>❌ Not backward compatible<br>❌ Circle dependency                                                                                                                                                                                                            | ❌ Higher fees<br>❌ Slippage on large transfers<br>❌ Multiple trust assumptions<br>❌ Liquidity constraints<br>❌ Bridge exploit risks                                                                                                                                                                              |
+| **Adoption & Volume**         | **Historical Performance:**<br>• 2M+ transfers<br>• $37B+ volume since Apr 2023<br>• 11 chains supported<br>• Proven track record<br><br>[Statistics](https://www.circle.com/blog/cctp-v2-the-future-of-cross-chain)                              | **Current Status:**<br>• Recently launched (2025)<br>• 3 initial chains<br>• Expanding throughout 2025<br>• Early adoption phase<br><br>**Partners:**<br>• LI.FI, Socket, Wormhole<br>• Mayan, Interport<br><br>[Launch Announcement](https://www.circle.com/blog/cctp-v2-the-future-of-cross-chain)                                    | **Market Position:**<br>• Leading aggregator<br>• Enterprise-grade SLAs<br>• Billions in TVL routed<br>• 100+ integrations<br>• Mature ecosystem<br><br>[Platform](https://li.fi/)                                                                                                                                    |
+
+## **🎯 Decision Framework**
+
+```
+Choose CCTP V2 if:
+├─ Transferring USDC/USYC
+├─ Speed is critical (need seconds)
+├─ Chain supported (Ethereum, Base, Avalanche, Arbitrum, etc.)
+├─ Large amounts ($1M+)
+└─ Need DeFi composability (Hooks)
+
+Choose CCTP V1 if:
+├─ Transferring USDC
+├─ Chain NOT supported by V2 (Aptos, Sui, Noble)
+├─ V2 not critical
+└─ Lower operational risk preference (more proven)
+
+Choose Li.Fi if:
+├─ Non-USDC tokens needed
+├─ Chain not on CCTP
+├─ Need multi-asset swaps
+├─ Want best-route optimization
+└─ Flexibility over pure optimization
+```
+
+---
+
+## **📚 Key Resources**
+
+- **CCTP Documentation:** [developers.circle.com/cctp](https://developers.circle.com/cctp)
+- **CCTP V2 Whitepaper:** [GitHub](https://github.com/circlefin/evm-cctp-contracts/blob/master/whitepaper/CCTPV2_White_Paper.pdf)
+- **CCTP V2 Launch Blog:** [Circle Blog](https://www.circle.com/blog/cctp-v2-the-future-of-cross-chain)
+- **Li.Fi Platform:** [li.fi](https://li.fi/)
+- **Li.Fi CCTP Analysis:** [Knowledge Hub](https://li.fi/knowledge-hub/circles-cross-chain-transfer-protocol-cctp-a-deep-dive/)
+- **Supported Blockchains:** [CCTP Chains](https://developers.circle.com/cctp/cctp-supported-blockchains)
+
+## TODO
+
+- [x] History of Trades
+- [x] Support Solana
+- [x] Support all EVMs
+- [x] Add Li.fi to support cross-chain swap (to get native tokens quickly)
+- [x] Test cross-chain with different wallet address.
+- [x] Add estimate for Solana
+- [x] Estimated fees: fee on both chains (in native token), and total fees in USDC
+- [ ] Support standard/fast transfer of CCTP V2 with using GET /v2/burn/USDC/fees API. [message ref](https://developers.circle.com/cctp/technical-guide#message-body), [fee ref](https://developers.circle.com/cctp/technical-guide#cctp-v2-fees), [Standard Transfer Fee Switch](https://developers.circle.com/cctp/technical-guide#standard-transfer-fee-switch)
+- [ ] Support `hookData` transfer of CCTP V2 [ref](https://developers.circle.com/cctp/technical-guide#cctp-v2-hooks)
+- [ ] Show expiration block and time if possible [ref](https://developers.circle.com/cctp/technical-guide#message-body)
+- [ ] Update estimated fee for Mint Only when receive the message, ask to consider if USDC amount < receiving fee [ref](https://developers.circle.com/cctp/technical-guide#message-body)
+- [ ] Support [reattest](https://developers.circle.com/api-reference/cctp/all/reattest-message) transfer of CCTP V2
+
 ## Getting Started
 
 First, run the development server:
@@ -54,4 +114,4 @@ First, run the development server:
 pnpm dev
 ```
 
-The sample app will be running at [http://localhost:3000](http://localhost:3000).
+The sample app will be running at [http://localhost:3002/cctpv2](http://localhost:3002/cctpv2).

@@ -159,7 +159,7 @@ export default function SuccessDialog({
 
 export function tadaEffect() {
   const end = Date.now() + 2.5 * 1000 // 3 seconds
-  const colors = ["#ff9142", "#f96d30"]
+  const colors = ["#ff9142", "#ff61a3", "#00d2ff", "#00ff94"]
   const frame = () => {
     if (Date.now() > end) return
 

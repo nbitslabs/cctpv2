@@ -85,8 +85,8 @@ export function FeeEstimates({
           <CollapsibleContent>
             {isLoading ? (
               <div className="space-y-1">
-                <div className="h-10 w-full rounded-md bg-muted/50 animate-pulse" />
-                <div className="h-10 w-full rounded-md bg-muted/50 animate-pulse" />
+                <div className="h-10 w-full rounded-md bg-foreground/10 animate-pulse" />
+                <div className="h-10 w-full rounded-md bg-foreground/10 animate-pulse" />
               </div>
             ) : (
               <div className="space-y-1">

@@ -14,7 +14,7 @@ const links = [
     icon: IoDocumentTextOutline,
   },
   {
-    href: "https://github.com/nbitslabs/cctpv2/issues/new",
+    href: "https://github.com/nbitslabs/cctpv2/issues/new?template=transfer-issue.yml",
     label: "Report Bug",
     icon: FaBug,
   },

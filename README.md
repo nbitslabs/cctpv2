@@ -17,7 +17,7 @@ For detailed instructions on using CCTP V2, please refer to the [User Manual](./
 - [x] Test cross-chain with different wallet address.
 - [x] Support Ink
 - [x] Support Plume
-- [ ] Add estimate for Solana
+- [x] Add estimate for Solana
 - [ ] Supports CCTP V1
 - [ ] Estimated fees: fee on both chains (in native token), and total fees in USDC
 

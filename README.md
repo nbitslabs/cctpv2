@@ -6,19 +6,12 @@ For detailed instructions on using CCTP V2, please refer to the [User Manual](./
 
 ## TODO
 
-- [x] Supports Mint only (provides Burn tx hash)
 - [x] History of Trades
 - [x] Support Solana
-- [x] Support Codex
-- [x] Support HyperEVM
-- [x] Support XDC Network
+- [x] Support all EVMs
 - [x] Add Li.fi to support cross-chain swap (to get native tokens quickly)
-- [x] Support Sei
 - [x] Test cross-chain with different wallet address.
-- [x] Support Ink
-- [x] Support Plume
 - [x] Add estimate for Solana
-- [ ] Supports CCTP V1
 - [ ] Estimated fees: fee on both chains (in native token), and total fees in USDC
 
 ### Low priority
@@ -58,13 +51,7 @@ For detailed instructions on using CCTP V2, please refer to the [User Manual](./
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
 The sample app will be running at [http://localhost:3000](http://localhost:3000).

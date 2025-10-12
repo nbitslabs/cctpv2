@@ -316,6 +316,7 @@ export default function Home() {
                     Check your burn transaction on{" "}
                     <ExternalLink
                       href={`${sourceAdapter?.explorer?.url}/tx/${burnTxHash}`}
+                      withIcon
                       className="font-bold"
                     >
                       {sourceAdapter?.explorer?.name}
@@ -372,29 +373,52 @@ export default function Home() {
             <Alert variant="warning">
               <AlertCircle className="size-8" />
               <AlertDescription>
-                After burning, if you lose progress or getting{" "}
-                <TooltipWrap content="Sometimes with Solana, this error means the burn transaction has already been processed.">
-                  <strong className="text-destructive font-medium inline-flex items-center">
-                    <Info className="mr-1 size-3" />
-                    Error: AlreadyProcessed{" "}
-                  </strong>
-                </TooltipWrap>
-                , you can use the <strong>Mint Only</strong> option to mint USDC
-                on the destination chain. The latest burn transaction is always
-                available in the source explorer (
-                <ExternalLink
-                  href={`${sourceAdapter?.explorer?.url}/tx/${burnTxHash}`}
-                >
-                  {sourceAdapter?.explorer?.name}
-                </ExternalLink>
-                ).
-                {hasZeroNativeBalanceOnDestination && (
-                  <li className="text-destructive">
-                    You need some <strong>{destNativeCurrency?.symbol}</strong>{" "}
-                    on the <strong>{destAdapter?.name}</strong> to receive the
-                    USDC.
+                <h4 className="font-semibold text-base -mt-0.5 mb-2">
+                  Essentials
+                </h4>
+                <ul className="list-disc">
+                  <li>
+                    <ExternalLink
+                      href="https://developers.circle.com/cctp"
+                      withIcon
+                    >
+                      How CCTP V2 Works
+                    </ExternalLink>{" "}
+                    and{" "}
+                    <ExternalLink
+                      href="https://developers.circle.com/cctp/cctp-faq"
+                      withIcon
+                    >
+                      FAQ
+                    </ExternalLink>{" "}
                   </li>
-                )}
+                  <li>
+                    After burning, if you lose progress or getting{" "}
+                    <TooltipWrap content="It happens sometimes with Solana, this error means the burn transaction has already been processed.">
+                      <strong className="text-destructive font-medium inline-flex items-center">
+                        <Info className="mr-1 size-3" />
+                        Error: AlreadyProcessed{" "}
+                      </strong>
+                    </TooltipWrap>
+                    , you can use the <strong>Mint Only</strong> option to mint
+                    USDC on the destination chain. The latest burn transaction
+                    is always available in the source explorer (
+                    <ExternalLink
+                      href={`${sourceAdapter?.explorer?.url}/tx/${burnTxHash}`}
+                      withIcon
+                    >
+                      {sourceAdapter?.explorer?.name}
+                    </ExternalLink>
+                    ).
+                  </li>
+                  {hasZeroNativeBalanceOnDestination && (
+                    <li className="text-destructive">
+                      You need some{" "}
+                      <strong>{destNativeCurrency?.symbol}</strong> on the{" "}
+                      <strong>{destAdapter?.name}</strong> to receive the USDC.
+                    </li>
+                  )}
+                </ul>
               </AlertDescription>
             </Alert>
           )}

@@ -228,9 +228,7 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
     }
 
     const readUsdcBalance = requestChainIfNeeded(async (address) => {
-      if (!publicClient) {
-        throw new Error("No public client found")
-      }
+      if (!publicClient) throw new Error("No public client found")
 
       const balance = await readContract(wagmiConfig, {
         ...readConfig,
@@ -240,10 +238,7 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
         args: [address as Address],
       })
       const raw = formatUnits(balance, USDC_DECIMALS)
-      return {
-        raw,
-        formatted: Number(raw),
-      }
+      return { raw, formatted: Number(raw) }
     })
 
     return getEvmNetworkAdapter(chain, {
@@ -256,9 +251,7 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
       explorer: chain.blockExplorers?.default,
       readUsdcBalance,
       readNativeBalance: requestChainIfNeeded(async (address) => {
-        if (!publicClient) {
-          throw new Error("No public client found")
-        }
+        if (!publicClient) throw new Error("No public client found")
 
         const balance = await publicClient.getBalance({
           address: address as Address,
@@ -306,9 +299,8 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
         const mintRecipient =
           options.mintRecipient ?? getAccount(wagmiConfig).address
 
-        if (!mintRecipient) {
-          throw new Error("No mint recipient found")
-        }
+        if (!mintRecipient) throw new Error("No mint recipient found")
+
         if (!config.supportV2) {
           transferType = CctpV2TransferType.Standard
         }

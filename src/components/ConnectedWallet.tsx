@@ -1,31 +1,33 @@
 "use client"
+import { useNativeBalance } from "@/hooks/useBalance"
 import {
   findNetworkAdapter,
   type CctpNetworkAdapterId,
 } from "@/lib/cctp/networks"
+import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider"
+import { cn, formatNumber, shortenAddress } from "@/lib/utils"
 import {
-  type NamespaceTypeMap,
   useAppKit,
   useAppKitAccount,
   useDisconnect,
   useWalletInfo,
+  type NamespaceTypeMap,
 } from "@reown/appkit/react"
+import { CircleCheck, CopyIcon } from "lucide-react"
 import Image from "next/image"
-import CopyIconTooltip from "./ui2/CopyIconTooltip"
-import { Button } from "./ui/button"
-import { CircleCheck, CopyIcon, CreditCard } from "lucide-react"
-import { Badge } from "./ui/badge"
-import ExternalLink from "./ui2/ExternalLink"
-import { useConfirm } from "./ui2/PromiseAlertDialog"
-import { cn, delay, formatNumber, shortenAddress } from "@/lib/utils"
-import { useNativeBalance } from "@/hooks/useBalance"
-import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider"
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card"
-import { TooltipWrap } from "./TooltipWrap"
 import { useState } from "react"
 import { IoSwapHorizontal } from "react-icons/io5"
+import { TooltipWrap } from "./TooltipWrap"
+import { Badge } from "./ui/badge"
+import { Button } from "./ui/button"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card"
+import CopyIconTooltip from "./ui2/CopyIconTooltip"
+import ExternalLink from "./ui2/ExternalLink"
+import FiatDepositButton, {
+  useOpenAppkitDialogWithLoading,
+} from "./ui2/FiatDepositButton"
+import { useConfirm } from "./ui2/PromiseAlertDialog"
 
-type SupportedViews = "Swap" | "OnRampProviders"
 export default function ConnectedWallet({
   namespace,
   adapterId,
@@ -33,7 +35,6 @@ export default function ConnectedWallet({
   namespace: keyof NamespaceTypeMap
   adapterId: CctpNetworkAdapterId
 }) {
-  const { open } = useAppKit()
   const { setActiveNetwork } = useActiveNetwork()
   const activeAccount = useAppKitAccount()
   const accountState = useAppKitAccount({ namespace })
@@ -43,7 +44,8 @@ export default function ConnectedWallet({
   const confirm = useConfirm()
   const { data: balance } = useNativeBalance(adapterId, accountState.address)
   const [isOpen, setIsOpen] = useState(false)
-  const [fakeLoading, setFakeLoading] = useState<SupportedViews>()
+  const { fakeLoading, openDialog } = useOpenAppkitDialogWithLoading()
+  const { open } = useAppKit()
 
   const handleDisconnect = async () => {
     const result = await confirm({
@@ -56,14 +58,6 @@ export default function ConnectedWallet({
     if (result) {
       disconnect({ namespace })
     }
-  }
-
-  const openDialog = async (view: SupportedViews) => {
-    setFakeLoading(view)
-    await setActiveNetwork(adapterId)
-    open({ view, namespace })
-    await delay(500)
-    setFakeLoading(undefined)
   }
 
   if (!accountState.isConnected) {
@@ -180,23 +174,13 @@ export default function ConnectedWallet({
                 variant="ghost"
                 size="iconSm"
                 disabled={!!fakeLoading}
-                onClick={() => openDialog("Swap")}
+                onClick={() => openDialog("Swap", namespace)}
                 loading={fakeLoading === "Swap"}
               >
                 <IoSwapHorizontal />
               </Button>
             </TooltipWrap>
-            <TooltipWrap content="Deposit with fiat">
-              <Button
-                variant="ghost"
-                size="iconSm"
-                onClick={() => openDialog("OnRampProviders")}
-                disabled={!!fakeLoading}
-                loading={fakeLoading === "OnRampProviders"}
-              >
-                <CreditCard />
-              </Button>
-            </TooltipWrap>
+            <FiatDepositButton namespace={namespace} />
             {isActiveAccount ? (
               <Badge variant="secondary">
                 <CircleCheck size={12} />

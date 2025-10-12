@@ -104,7 +104,7 @@ export function useCrossChainTransfer() {
             Burn transaction:{" "}
             <ExternalLink
               href={`${sourceNetwork.explorer?.url}/tx/${burnTx}`}
-              className=" font-mono text-sm"
+              className="font-mono text-sm"
             >
               {shortenAddress(burnTx, 6)}
             </ExternalLink>
@@ -195,8 +195,6 @@ export function useCrossChainTransfer() {
 
       setCurrentStep("completed")
     } catch (error) {
-      console.log(error)
-
       setCurrentStep("error")
       addLog(
         <>

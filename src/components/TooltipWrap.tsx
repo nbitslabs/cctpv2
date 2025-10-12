@@ -34,11 +34,7 @@ export function TooltipWrap({
     <Tooltip open={open || alwaysShow} onOpenChange={setOpen}>
       <TooltipTrigger asChild={asChild}>{children}</TooltipTrigger>
       <TooltipContent
-        className={cn(
-          "max-w-xs w-fit",
-          size === "sm" && "px-2 py-1",
-          className
-        )}
+        className={cn("max-w-xs", size === "sm" && "px-2 py-1.5", className)}
       >
         {content}
       </TooltipContent>

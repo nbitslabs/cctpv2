@@ -7,6 +7,7 @@ import {
   type CctpNetworkAdapterId,
 } from "@/lib/cctp/networks"
 import { cn } from "@/lib/utils"
+import { ChainNamespace, solana } from "@reown/appkit/networks"
 import { Loader2, RotateCw } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
@@ -21,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select"
+import FiatDepositButton from "./ui2/FiatDepositButton"
 import { LifiButton } from "./ui2/LifiWidget"
 
 export interface NetworkAdapterSelectProps {
@@ -66,6 +68,7 @@ export default function NetworkAdapterSelect({
   const { usdcBalance, nativeBalance, nativeCurrency } =
     useNetworkAdapterBalance(chain, address)
   const [isPending, setIsPending] = useState(false)
+  const namespace: ChainNamespace = chain === solana.id ? "solana" : "eip155"
 
   return (
     <div className="space-y-2">
@@ -133,25 +136,34 @@ export default function NetworkAdapterSelect({
                   />
                 )}{" "}
                 {nativeCurrency?.symbol}
-                <Button
-                  variant="ghost"
-                  onClick={async () => {
-                    setIsPending(true)
-                    await Promise.all([
-                      usdcBalance.refetch(),
-                      nativeBalance.refetch(),
-                    ])
-                    setIsPending(false)
-                  }}
-                  className={cn(
-                    "!size-4.5 rounded-sm !p-0.5 ml-1 translate-y-px",
-                    isPending && "animate-spin"
-                  )}
-                >
-                  <RotateCw className="inline-block !size-3" />
-                </Button>
+                {!nativeBalance.isLoading && (
+                  <Button
+                    variant="ghost"
+                    onClick={async () => {
+                      setIsPending(true)
+                      await Promise.all([
+                        usdcBalance.refetch(),
+                        nativeBalance.refetch(),
+                      ])
+                      setIsPending(false)
+                    }}
+                    className={cn(
+                      "!size-4.5 rounded-sm !p-0.5 ml-1 translate-y-px",
+                      isPending && "animate-spin"
+                    )}
+                  >
+                    <RotateCw className="inline-block !size-3" />
+                  </Button>
+                )}
               </p>
-              {!nativeBalance.data?.formatted && <LifiButton />}
+              {!nativeBalance.isLoading && !nativeBalance.data?.formatted && (
+                <>
+                  <LifiButton />
+                  <FiatDepositButton namespace={namespace}>
+                    Fiat
+                  </FiatDepositButton>
+                </>
+              )}
               {/* <TransactionHistory
             transactions={transfers.data}
             isLoading={transfers.isLoading}

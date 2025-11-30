@@ -25,7 +25,7 @@ export default function ExternalLink({
     >
       {children}
       {withIcon && (
-        <ArrowUpRight className="inline size-3.5 ml-0.5 -mt-px group-hover:translate-x-[2px] group-hover:translate-y-[-2px] transition-transform" />
+        <ArrowUpRight className="inline size-3.5 ml-0.5 -mt-px group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
       )}
     </Link>
   )

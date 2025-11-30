@@ -17,6 +17,7 @@ const coingeckoIdBySymbol: Record<string, string> = {
   PLUME: "plume",
   WLD: "worldcoin",
   S: "sonic-3",
+  MON: "monad",
 }
 
 function getPriceCacheKey(id: string) {

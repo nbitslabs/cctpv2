@@ -30,6 +30,8 @@ For detailed instructions on using CCTP V2, please refer to the [User Manual](./
 - [x] [OP Mainnet](https://optimistic.etherscan.io/tx/0x36510afdf1c06fdda0f3b44bafd2772d11a195f94a65eb09b34954ff01a05c12) -> [Sonic](https://sonicscan.org/tx/0xfbc76033021cd8f5223c7a3eaad63577c95e16f71cbce26b7a5c882967231254)
 - [x] [Sonic](https://sonicscan.org/tx/0xf6ed409545f527621bd3d1dd4a80b2c1167bcfc6cc868a763ca174f080bb4098) -> [World Chain](https://worldscan.org/tx/0x99ea0cddf67d6ffd513d0f541f448c73812bbe84293496d4e357a946bc98b80c)
 - [x] [World Chain](https://worldscan.org/tx/0x0de415094bdbc63e3c0c535e23a37bc608b05cee0f7cfc8e43fb4112201ff682) -> [Plume](https://explorer.plume.org/tx/0xefb2f7cdc88d80d9a7fa895607746e9327bad2bee349910cc867c34acb1de0b2)
+- [x] [Codex](https://explorer.codex.xyz/tx/0x464d76ca619337cbba8b8027439aad77f497692b8b6a938bdecbb5c97e711ebd) -> [Monad](https://monadvision.com/tx/0x655a4f4256cabcf135fabec71b4f94771a28e3011db758bcc968541e7d4a85de)
+- [x] [Monad](https://monadvision.com/tx/0x20a3a0de0046bef45be27d79bec9c9c6d6784ece7a73ee417da2acdd9229e7bb) -> [Base](https://basescan.org/tx/0x1953a2b33197d955e138416e6ce4abd71c40780fd4abd9b828edbe2ab8aaa642)
 
 ## CCTP V2 Features
 

@@ -25,7 +25,9 @@ import seiWebp from "../../../../public/images/chains/sei.webp"
 import sonicWebp from "../../../../public/images/chains/sonic.webp"
 import unichainWebp from "../../../../public/images/chains/unichain.webp"
 import worldchainWebp from "../../../../public/images/chains/worldchain.webp"
+import monadWebp from "../../../../public/images/chains/monad.webp"
 import xdcWebp from "../../../../public/images/chains/xdc.webp"
+
 import type { CctpV2SupportedChainId } from "../../wagmi/config"
 import { chainsByDomain, usdcAddresses, wagmiConfig } from "../../wagmi/config"
 import {
@@ -64,6 +66,7 @@ const {
   "12": _codex,
   "13": _sonic,
   "14": _worldchain,
+  "15": _monad,
   "16": _sei,
   "18": _xdc,
   "19": _hyperEvm,
@@ -160,6 +163,13 @@ const evmChains: Array<
     supportV1: false,
     supportV2: true,
     logoUrl: worldchainWebp,
+  },
+  {
+    chain: _monad,
+    domain: 15,
+    supportV1: false,
+    supportV2: true,
+    logoUrl: monadWebp,
   },
   {
     chain: _sei,

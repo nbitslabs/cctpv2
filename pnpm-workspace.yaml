@@ -3,3 +3,5 @@ onlyBuiltDependencies:
   - bufferutil
   - keccak
   - utf-8-validate
+packages:
+  - /

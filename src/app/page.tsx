@@ -46,9 +46,7 @@ export default function Home() {
   const [isTransferring, setIsTransferring] = useState(false)
   const [showFinalTime, setShowFinalTime] = useState(false)
   const [transferType] = useState<CctpV2TransferType>(CctpV2TransferType.Fast)
-  const [burnTxHash, setBurnTxHash] = useState(
-    "0xc9897afaeae1f0cdcd664934c837d6c7fe8f5f0b6fdef44adb9c0cb7091037c5"
-  )
+  const [burnTxHash, setBurnTxHash] = useState("")
   const [understand, setUnderstand] = useState(false)
   const [isCustomDestAddress, setIsCustomDestAddress] = useState(false)
 
@@ -60,7 +58,7 @@ export default function Home() {
     useNetworkAdapterBalance(sourceChain, sourceAddress)
 
   const [customDestAddress, setCustomDestAddress] = useState("")
-  const [destChain, setDestChain] = useState<Blockchain>(Blockchain.Solana)
+  const [destChain, setDestChain] = useState<Blockchain>()
   const destAddress = useAddressOfAdapterId(destChain)
   const { balance: destBalance, blockchain: destAdapter } =
     useNetworkAdapterBalance(destChain, customDestAddress)

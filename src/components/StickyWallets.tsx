@@ -1,13 +1,12 @@
-import { findBlockchain } from "@/hooks/bridgeKit"
 import { Blockchain } from "@circle-fin/bridge-kit"
-import ConnectedWallet from "./ConnectedWallet"
-import Image from "next/image"
-import favicon from "../app/favicon.ico"
-import { useTheme } from "next-themes"
 import { Moon, Sun } from "lucide-react"
-import { Button } from "./ui/button"
-import { FaGithub } from "react-icons/fa"
+import { useTheme } from "next-themes"
+import Image from "next/image"
 import Link from "next/link"
+import { FaGithub } from "react-icons/fa"
+import favicon from "../app/favicon.ico"
+import ConnectedWallet from "./ConnectedWallet"
+import { Button } from "./ui/button"
 
 function StickyWallets() {
   const { theme, setTheme } = useTheme()

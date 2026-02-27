@@ -142,8 +142,6 @@ export function useCrossChainTransfer(params: RequiredExecuteTransferParams) {
           method,
           values,
         }) => {
-          console.log("Action", method, values)
-
           const txHash = values.txHash || ""
           if (values.state === "noop") return
           switch (method) {

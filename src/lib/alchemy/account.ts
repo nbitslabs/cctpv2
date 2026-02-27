@@ -1,7 +1,7 @@
 import { findBlockchain } from "@/hooks/bridgeKit"
 import { Blockchain, EVMChainDefinition } from "@circle-fin/bridge-kit"
 import axios from "axios"
-import type { Alchemy } from "./type"
+import type { AlchemyChainsResponse, AssetTransfersResponse } from "./type"
 
 export async function getAccountTransactions(
   blockchainId: Blockchain,
@@ -46,10 +46,10 @@ export async function getAccountTransactions(
   }))
 
   const [toAddressResponse, fromAddressResponse] = await Promise.all([
-    axios.post<Alchemy.AssetTransfersResponse>(url, toAddressBody, {
+    axios.post<AssetTransfersResponse>(url, toAddressBody, {
       headers,
     }),
-    axios.post<Alchemy.AssetTransfersResponse>(url, fromAddressBody, {
+    axios.post<AssetTransfersResponse>(url, fromAddressBody, {
       headers,
     }),
   ])
@@ -63,7 +63,7 @@ export async function getAccountTransactions(
 }
 
 // "https://app-api.alchemy.com/trpc/config.getNetworkConfig"
-const alchemySupportedChains: Alchemy.ChainsResponse = {
+const alchemySupportedChains: AlchemyChainsResponse = {
   result: {
     data: [
       {

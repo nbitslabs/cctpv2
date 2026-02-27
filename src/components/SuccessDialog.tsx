@@ -1,6 +1,6 @@
 "use client"
 
-import confetti from "canvas-confetti"
+import { TooltipWrapNumber } from "@/components/TooltipWrap"
 import {
   Dialog,
   DialogContent,
@@ -8,16 +8,17 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import type { CctpNetworkAdapter } from "@/lib/cctp/networks"
+import { getChainImageUrl } from "@/lib/utils"
+import { ChainDefinition } from "@circle-fin/bridge-kit"
+import confetti from "canvas-confetti"
 import { Check, MoveRight } from "lucide-react"
 import Image from "next/image"
-import { TooltipWrapNumber } from "@/components/TooltipWrap"
-import GitHubButton from "react-github-btn"
 import { useEffect, useState } from "react"
+import GitHubButton from "react-github-btn"
 import usdcPng from "../../public/images/tokens/usdc.png"
 
 interface ChainAddressBalance {
-  networkAdapter: CctpNetworkAdapter
+  networkAdapter: ChainDefinition
   address: string
   usdcBalance: number
 }
@@ -45,11 +46,11 @@ export default function SuccessDialog({
         onOpenAutoFocus={(e) => e.preventDefault()}
         className="overflow-hidden border-none p-4 sm:p-6"
       >
-        <DialogHeader className="text-center flex flex-col items-center gap-2 relative pt-2">
-          <div className="dark:bg-green-600 bg-white rounded-full p-1.5 flex items-center justify-center">
-            <Check className="size-7 dark:text-background text-green-600 stroke-3" />
+        <DialogHeader className="relative flex flex-col items-center gap-2 pt-2 text-center">
+          <div className="flex items-center justify-center rounded-full bg-white p-1.5 dark:bg-green-600">
+            <Check className="dark:text-background size-7 stroke-3 text-green-600" />
           </div>
-          <DialogTitle className="mx-auto font-bold dark:text-green-600 text-white">
+          <DialogTitle className="mx-auto font-bold text-white dark:text-green-600">
             Transfer Success!
           </DialogTitle>
           <DialogDescription className="sr-only">
@@ -57,28 +58,28 @@ export default function SuccessDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="dark:bg-primary/30 bg-green-600 absolute top-0 left-0 w-full h-40 z-[-1]" />
+        <div className="dark:bg-primary/30 absolute top-0 left-0 z-[-1] h-40 w-full bg-green-600" />
 
-        <div className="space-y-4 relative">
+        <div className="relative space-y-4">
           {/* Transfer Flow Visualization */}
-          <div className="flex items-center justify-between bg-background border dark:bg-white dark:shadow-lg dark:border-none rounded-lg p-4 pb-6">
+          <div className="bg-background flex items-center justify-between rounded-lg border p-4 pb-6 dark:border-none dark:bg-white dark:shadow-lg">
             {/* Source Chain */}
-            <div className="flex flex-col items-center space-y-2 flex-1">
+            <div className="flex flex-1 flex-col items-center space-y-2">
               <div className="relative flex flex-col items-center gap-0.5">
-                <p className="text-xs text-muted-foreground">
+                <p className="text-muted-foreground text-xs">
                   {source.networkAdapter.name}
                 </p>
                 <Image
-                  src={source.networkAdapter.logoUrl}
+                  src={getChainImageUrl(source.networkAdapter.chain)}
                   alt={source.networkAdapter.name}
                   width={48}
                   height={48}
-                  className="rounded-full mt-1"
+                  className="mt-1 rounded-full"
                 />
               </div>
               <div className="text-center">
-                <p className="text-xs text-muted-foreground">Current Balance</p>
-                <div className="flex items-center gap-1 justify-center">
+                <p className="text-muted-foreground text-xs">Current Balance</p>
+                <div className="flex items-center justify-center gap-1">
                   <Image src={usdcPng} alt="USDC" className="size-4" />
                   <strong>
                     <TooltipWrapNumber amount={source.usdcBalance} />
@@ -88,8 +89,8 @@ export default function SuccessDialog({
             </div>
 
             {/* Arrow with Amount */}
-            <div className="flex flex-col items-center space-y-0 mx-4">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-amber-">
+            <div className="mx-4 flex flex-col items-center space-y-0">
+              <div className="border-amber- flex items-center gap-2 rounded-full border px-4 py-2">
                 <Image src={usdcPng} alt="USDC" className="size-4" />
                 <strong>{amount}</strong>
               </div>
@@ -97,22 +98,22 @@ export default function SuccessDialog({
             </div>
 
             {/* Destination Chain */}
-            <div className="flex flex-col items-center space-y-2 flex-1">
+            <div className="flex flex-1 flex-col items-center space-y-2">
               <div className="relative flex flex-col items-center gap-0.5">
-                <p className="text-xs text-muted-foreground">
+                <p className="text-muted-foreground text-xs">
                   {destination.networkAdapter.name}
                 </p>
                 <Image
-                  src={destination.networkAdapter.logoUrl}
+                  src={getChainImageUrl(destination.networkAdapter.chain)}
                   alt={destination.networkAdapter.name}
                   width={48}
                   height={48}
-                  className="rounded-full mt-1"
+                  className="mt-1 rounded-full"
                 />
               </div>
               <div className="text-center">
-                <p className="text-xs text-muted-foreground">Current Balance</p>
-                <div className="flex items-center gap-2 justify-center">
+                <p className="text-muted-foreground text-xs">Current Balance</p>
+                <div className="flex items-center justify-center gap-2">
                   <Image src={usdcPng} alt="USDC" className="size-4" />
                   <strong>
                     <TooltipWrapNumber amount={destination.usdcBalance} />
@@ -125,14 +126,14 @@ export default function SuccessDialog({
           {/* Total Cost */}
           <div className="text-center">
             <p className="text-base font-semibold">Total Cost</p>
-            <p className="text-lg font-bold text-primary">✈️ Coming Soon</p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-primary text-lg font-bold">✈️ Coming Soon</p>
+            <p className="text-muted-foreground text-sm">
               Cost tracking and analytics will be available in future updates
             </p>
           </div>
 
           {/* Call to Action */}
-          <div className="p-4 bg-gradient-to-br dark:from-blue-50 dark:to-purple-50 from-blue-400/40 to-purple-600/20 rounded flex gap-3">
+          <div className="flex gap-3 rounded bg-linear-to-br from-blue-400/40 to-purple-600/20 p-4 dark:from-blue-50 dark:to-purple-50">
             <div className="space-y-1">
               <h3 className="font-semibold">Support Our Project! 🌟 </h3>
               <p className="text-muted-foreground mx-auto text-xs">

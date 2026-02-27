@@ -4,8 +4,8 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogTitle,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import {
@@ -17,9 +17,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Pagination, PaginationContent, PaginationItem } from "./ui/pagination"
-import { useState } from "react"
-import { Button } from "./ui/button"
+import { useAccountTransactions } from "@/hooks/useAccountTransactions"
+import { cn, formatNumber } from "@/lib/utils"
+import { ChainDefinition } from "@circle-fin/bridge-kit"
+import { useAppKitAccount } from "@reown/appkit/react"
 import {
   ArrowDown,
   ArrowUp,
@@ -27,25 +28,24 @@ import {
   ChevronRight,
   Loader,
 } from "lucide-react"
-import { cn, formatNumber } from "@/lib/utils"
-import { useAppKitAccount } from "@reown/appkit/react"
 import Image from "next/image"
-import ExternalLink from "./ui2/ExternalLink"
+import { useState } from "react"
+import { Button } from "./ui/button"
+import { Pagination, PaginationContent, PaginationItem } from "./ui/pagination"
 import CopyIconTooltip from "./ui2/CopyIconTooltip"
-import { useAccountTransactions } from "@/hooks/useAccountTransactions"
-import type { CctpNetworkAdapter } from "@/lib/cctp/networks"
+import ExternalLink from "./ui2/ExternalLink"
 
 const ITEMS_PER_PAGE = 5
 
 export default function TransactionHistory({
   chainAdapter,
 }: {
-  chainAdapter: CctpNetworkAdapter
+  chainAdapter: ChainDefinition
 }) {
   const { address } = useAppKitAccount()
   const [currentPage, setCurrentPage] = useState(1)
   const { data: transactions, isLoading } = useAccountTransactions(
-    chainAdapter.id,
+    chainAdapter.chain,
     address
   )
 
@@ -76,7 +76,7 @@ export default function TransactionHistory({
             <strong>{chainAdapter.name}</strong>.
           </DialogDescription>
         </DialogHeader>
-        <Table className="rounded-md overflow-hidden mt-2">
+        <Table className="mt-2 overflow-hidden rounded-md">
           {transactions && transactions.length > 0 && (
             <TableCaption className="my-1 text-xs">
               *Only USDC, ETH transactions are shown.
@@ -94,7 +94,7 @@ export default function TransactionHistory({
             {isLoading ? (
               <TableRow>
                 <TableCell colSpan={4} className="text-center">
-                  <div className="flex justify-center items-center h-20">
+                  <div className="flex h-20 items-center justify-center">
                     <Loader className="h-4 w-4 animate-spin" />
                   </div>
                 </TableCell>
@@ -105,7 +105,10 @@ export default function TransactionHistory({
                 const youOrLink = (addressToCheck: string) => (
                   <div className="flex items-center gap-1">
                     <ExternalLink
-                      href={`${chainAdapter.explorer?.url}/address/${addressToCheck}`}
+                      href={chainAdapter.explorerUrl.replace(
+                        "tx/{hash}",
+                        `address/${addressToCheck}`
+                      )}
                       className="hover:underline"
                     >
                       {addressToCheck.toLowerCase() ===
@@ -125,9 +128,12 @@ export default function TransactionHistory({
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-1">
                         <ExternalLink
-                          href={`${chainAdapter.explorer?.url}/tx/${tx.hash}`}
+                          href={chainAdapter.explorerUrl.replace(
+                            "{hash}",
+                            tx.hash
+                          )}
                           className={cn(
-                            "hover:underline flex items-center gap-1",
+                            "flex items-center gap-1 hover:underline",
                             fromMe ? "text-red-600/70" : "text-green-600"
                           )}
                         >
@@ -144,7 +150,7 @@ export default function TransactionHistory({
                     <TableCell>{youOrLink(tx.from)}</TableCell>
                     <TableCell>{youOrLink(tx.to)}</TableCell>
                     <TableCell className="text-right">
-                      <div className="inline-flex justify-end items-center gap-1 pl-2">
+                      <div className="inline-flex items-center justify-end gap-1 pl-2">
                         {formatNumber(tx.value, {
                           maximumFractionDigits: 4,
                         })}{" "}
@@ -165,13 +171,13 @@ export default function TransactionHistory({
                   <p className="text-muted-foreground mb-2">
                     No transactions found.
                   </p>
-                  <p className="text-xs text-muted-foreground mx-auto max-w-sm">
+                  <p className="text-muted-foreground mx-auto max-w-sm text-xs">
                     Can&apos;t find the transaction? You can view the most
                     recent transaction in the source explorer{" "}
                     <ExternalLink
-                      href={`${chainAdapter.explorer?.url}/address/${address}`}
+                      href={`${chainAdapter.explorerUrl}/address/${address}`}
                     >
-                      {chainAdapter.explorer?.name}
+                      here
                     </ExternalLink>
                     .
                   </p>
@@ -182,9 +188,9 @@ export default function TransactionHistory({
         </Table>
         {transactions && transactions.length > 0 && (
           <Pagination>
-            <PaginationContent className="text-sm w-full bg-foreground/5 rounded-b">
+            <PaginationContent className="bg-foreground/5 w-full rounded-b text-sm">
               <PaginationItem>
-                <span className="p-1 pb-2 text-muted-foreground">
+                <span className="text-muted-foreground p-1 pb-2">
                   Page <strong className="text-primary">{currentPage}</strong>{" "}
                   of {totalPages}
                 </span>

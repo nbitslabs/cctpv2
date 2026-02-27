@@ -1,30 +1,20 @@
-import type {
-  CctpNetworkAdapter,
-  CctpNetworkAdapterId,
-} from "@/lib/cctp/networks"
-import { findNetworkAdapter } from "@/lib/cctp/networks"
+import { Blockchain } from "@circle-fin/bridge-kit"
 import { useAppKitAccount } from "@reown/appkit/react"
 import { useEffect } from "react"
+import { findBlockchain } from "./bridgeKit"
 
-export function useAddressOfAdapter(adapter?: CctpNetworkAdapter) {
+export function useAddressOfAdapterId(adapterId: Blockchain) {
+  const blockchain = findBlockchain(adapterId)
   const { address } = useAppKitAccount({
-    namespace: adapter?.type === "evm" ? "eip155" : "solana",
+    namespace: blockchain?.type === "solana" ? "solana" : "eip155",
   })
-  return address
-}
-
-export function useAddressOfAdapterId(adapterId: CctpNetworkAdapterId) {
-  const adapter = findNetworkAdapter(adapterId)
-  const adapterAddress = useAddressOfAdapter(adapter)
 
   useEffect(() => {
-    if (!adapter) {
+    if (!blockchain) {
       console.warn(`No adapter found for id ${adapterId}`)
     }
-  }, [adapter, adapterId])
+  }, [blockchain, adapterId])
 
-  if (!adapter) {
-    return undefined
-  }
-  return adapterAddress
+  if (!blockchain) return undefined
+  return address
 }

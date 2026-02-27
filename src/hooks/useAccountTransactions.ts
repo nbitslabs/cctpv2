@@ -1,16 +1,15 @@
 import { getAccountTransactions } from "@/lib/alchemy/account"
-import type { CctpNetworkAdapterId } from "@/lib/cctp/networks"
-import { solana } from "@reown/appkit/networks"
+import { Blockchain } from "@circle-fin/bridge-kit"
 import { useQuery } from "@tanstack/react-query"
 
 export function useAccountTransactions(
-  networkAdapterId: CctpNetworkAdapterId | undefined,
+  blockchainId: Blockchain | undefined,
   address: string | undefined
 ) {
   return useQuery({
-    queryKey: ["transfers", networkAdapterId, address],
-    queryFn: () => getAccountTransactions(networkAdapterId!, address!),
+    queryKey: ["transfers", blockchainId, address],
+    queryFn: () => getAccountTransactions(blockchainId!, address!),
     enabled:
-      (!!address && !!networkAdapterId) || networkAdapterId !== solana.id,
+      (!!address && !!blockchainId) || blockchainId !== Blockchain.Solana,
   })
 }

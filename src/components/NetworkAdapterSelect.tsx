@@ -1,16 +1,18 @@
 "use client"
-
-import { useNativeBalance, useUsdcBalance } from "@/hooks/useBalance"
 import {
-  findNetworkAdapter,
-  networkAdapters,
-  type CctpNetworkAdapterId,
-} from "@/lib/cctp/networks"
-import { cn } from "@/lib/utils"
-import { ChainNamespace, solana } from "@reown/appkit/networks"
+  findBlockchain,
+  useBridgeKitAdapterByBlockchainId,
+} from "@/hooks/bridgeKit"
+import { cctpBridgeKit } from "@/hooks/useCrossChainTransfer"
+import { USDC_DECIMALS } from "@/lib/cctp/networks/constants"
+import { cn, getChainImageUrl } from "@/lib/utils"
+import { Blockchain, EVMChainDefinition } from "@circle-fin/bridge-kit"
+import { ChainNamespace } from "@reown/appkit/networks"
+import { useQuery } from "@tanstack/react-query"
 import { Loader, RotateCw } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
+import { formatUnits } from "viem"
 import { TooltipWrapNumber } from "./TooltipWrap"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
@@ -26,36 +28,62 @@ import FiatDepositButton from "./ui2/FiatDepositButton"
 import { LifiButton } from "./ui2/LifiWidget"
 
 export interface NetworkAdapterSelectProps {
-  chainId: CctpNetworkAdapterId | undefined
-  setChainId: (chain: CctpNetworkAdapterId) => void
+  chainId: Blockchain | undefined
+  setChainId: (chain: Blockchain) => void
   address: string
   setAddress?: (address: string) => void
   label: string
-  exceptAdapterIds?: CctpNetworkAdapterId[]
+  exceptAdapterIds?: Blockchain[]
   addressReadonly?: boolean
   hideAddress?: boolean
   children?: React.ReactNode
 }
 
 export function useNetworkAdapterBalance(
-  chainId: CctpNetworkAdapterId | undefined,
+  chainId: Blockchain | undefined,
   address: string | undefined
 ) {
-  const usdcBalance = useUsdcBalance(chainId, address)
-  const nativeBalance = useNativeBalance(chainId, address)
-  const networkAdapter = findNetworkAdapter(chainId)
-  const nativeCurrency = networkAdapter?.nativeCurrency
+  const blockchain = findBlockchain(chainId)
+  const adapter = useBridgeKitAdapterByBlockchainId(chainId)
+  const balance = useQuery({
+    queryKey: ["balance", chainId, address],
+    queryFn: async () => {
+      if (!adapter || !address)
+        throw new Error("Adapter or address not available")
+      if (!chainId || !blockchain) throw new Error("Chain ID not available")
 
-  return {
-    networkAdapter,
-    usdcBalance,
-    nativeBalance,
-    nativeCurrency,
-  }
+      const usdcBalancePromise = await adapter
+        .prepareAction(
+          "usdc.balanceOf",
+          { walletAddress: address },
+          { chain: chainId }
+        )
+        .then((a) => a.execute())
+      const nativeBalancePromise = adapter.readNativeBalance(
+        address,
+        blockchain as EVMChainDefinition
+      )
+
+      const [usdcRaw, nativeRaw] = await Promise.all([
+        usdcBalancePromise,
+        nativeBalancePromise,
+      ])
+
+      const usdc = Number(formatUnits(BigInt(usdcRaw), USDC_DECIMALS))
+      const native = Number(
+        formatUnits(nativeRaw, blockchain.nativeCurrency.decimals)
+      )
+
+      return { native, usdc }
+    },
+    enabled: !!adapter && !!address && !!chainId,
+  })
+
+  return { blockchain, balance }
 }
 
 export default function NetworkAdapterSelect({
-  chainId: chain,
+  chainId,
   setChainId,
   address,
   setAddress,
@@ -65,33 +93,34 @@ export default function NetworkAdapterSelect({
   hideAddress,
   children,
 }: NetworkAdapterSelectProps) {
-  const { usdcBalance, nativeBalance, nativeCurrency } =
-    useNetworkAdapterBalance(chain, address)
+  const { blockchain, balance } = useNetworkAdapterBalance(chainId, address)
   const [isPending, setIsPending] = useState(false)
-  const namespace: ChainNamespace = chain === solana.id ? "solana" : "eip155"
+  const namespace: ChainNamespace =
+    chainId === Blockchain.Solana ? "solana" : "eip155"
+  const supportedChains = cctpBridgeKit.getSupportedChains({ isTestnet: false })
 
   return (
     <div className="space-y-2">
       <Label className="font-serif">{label} Chain</Label>
-      <Select value={chain?.toString()} onValueChange={setChainId}>
+      <Select value={chainId?.toString()} onValueChange={setChainId}>
         <SelectTrigger>
           <SelectValue placeholder="Select destination chain" />
         </SelectTrigger>
         <SelectContent>
-          {networkAdapters
-            .filter((chain) => !exceptAdapterIds?.includes(chain.id))
+          {supportedChains
+            .filter(({ chain }) => !exceptAdapterIds?.includes(chain))
             .toSorted((a, b) => a.name.localeCompare(b.name))
-            .map((chain) => (
-              <SelectItem key={chain.id} value={String(chain.id)}>
+            .map(({ chain }) => (
+              <SelectItem key={chain} value={String(chain)}>
                 <div className="flex items-center gap-2">
                   <Image
-                    src={chain.logoUrl}
-                    alt={chain.name}
+                    src={getChainImageUrl(chain)}
+                    alt={chain}
                     className="size-6 rounded-full"
                     width={24}
                     height={24}
                   />
-                  {chain.name}
+                  {chain}
                 </div>
               </SelectItem>
             ))}
@@ -117,46 +146,43 @@ export default function NetworkAdapterSelect({
           </div>
           {address && (
             <div className="flex items-center gap-2">
-              <p className="text-sm text-muted-foreground">
-                {usdcBalance.isLoading ? (
-                  <Loader className="animate-spin inline-block size-3" />
+              <p className="text-muted-foreground text-sm">
+                {balance.isLoading ? (
+                  <Loader className="inline-block size-3 animate-spin" />
                 ) : (
                   <TooltipWrapNumber
-                    amount={usdcBalance.data?.formatted ?? 0}
+                    amount={balance.data?.usdc ?? 0}
                     format={{ maximumFractionDigits: 2 }}
                   />
                 )}{" "}
                 USDC •{" "}
-                {nativeBalance.isLoading ? (
-                  <Loader className="animate-spin inline-block size-3" />
+                {balance.isLoading ? (
+                  <Loader className="inline-block size-3 animate-spin" />
                 ) : (
                   <TooltipWrapNumber
-                    amount={nativeBalance.data?.formatted ?? 0}
+                    amount={(!!balance.data && balance.data.native) || 0}
                     format={{ maximumFractionDigits: 4 }}
                   />
                 )}{" "}
-                {nativeCurrency?.symbol}
-                {!nativeBalance.isLoading && (
+                {blockchain?.nativeCurrency.symbol}
+                {!balance.isLoading && (
                   <Button
                     variant="ghost"
                     onClick={async () => {
                       setIsPending(true)
-                      await Promise.all([
-                        usdcBalance.refetch(),
-                        nativeBalance.refetch(),
-                      ])
+                      await balance.refetch()
                       setIsPending(false)
                     }}
                     className={cn(
-                      "!size-4.5 rounded-sm !p-0.5 ml-1 translate-y-px",
+                      "ml-1 size-4.5! translate-y-px rounded-sm p-0.5!",
                       isPending && "animate-spin"
                     )}
                   >
-                    <RotateCw className="inline-block !size-3" />
+                    <RotateCw className="inline-block size-3!" />
                   </Button>
                 )}
               </p>
-              {!nativeBalance.isLoading && !nativeBalance.data?.formatted && (
+              {!balance.isLoading && !balance.data?.native && (
                 <>
                   <LifiButton />
                   <FiatDepositButton namespace={namespace}>

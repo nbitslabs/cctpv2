@@ -1,7 +1,0 @@
-onlyBuiltDependencies:
-  - bigint-buffer
-  - bufferutil
-  - keccak
-  - utf-8-validate
-packages:
-  - /

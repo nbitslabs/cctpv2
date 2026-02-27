@@ -1,10 +1,10 @@
 "use client"
+import { FeeEstimates } from "@/components/FeeEstimates"
 import Footer from "@/components/Footer"
 import NetworkAdapterSelect, {
   useNetworkAdapterBalance,
 } from "@/components/NetworkAdapterSelect"
 import { ProgressSteps } from "@/components/progress-step"
-import SetSolanaSigner from "@/components/SolanaTransferButton"
 import StickyWallets from "@/components/StickyWallets"
 import SuccessDialog from "@/components/SuccessDialog"
 import { Timer } from "@/components/timer"
@@ -19,45 +19,24 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ExternalLink from "@/components/ui2/ExternalLink"
-import { FeeEstimates } from "@/components/FeeEstimates"
 import { useAddressOfAdapterId } from "@/hooks/useAddressOfAdapter"
 import {
   useCrossChainTransfer,
-  type RequiredExecuteTransferParams,
   type TransferStep,
 } from "@/hooks/useCrossChainTransfer"
-import { useSolanaAccount } from "@/hooks/useSolanaSigner"
-import {
-  CctpV2TransferType,
-  type CctpNetworkAdapterId,
-} from "@/lib/cctp/networks"
-import { formatDestinationAddress } from "@/lib/cctp/networks/util"
-import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider"
+import { CctpV2TransferType } from "@/lib/cctp/networks"
 import { cn } from "@/lib/utils"
-import { wagmiConfig } from "@/lib/wagmi/config"
-import { solana } from "@reown/appkit/networks"
-import {
-  useAppKit,
-  useAppKitAccount,
-  useAppKitNetwork,
-} from "@reown/appkit/react"
-import type { TransactionSigner } from "@solana/kit"
+import { Blockchain } from "@circle-fin/bridge-kit"
+import { useAppKit, useAppKitAccount } from "@reown/appkit/react"
 import { AnimatePresence, motion } from "framer-motion"
 import { AlertCircle, Info, Loader, Wallet } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { NumericFormat } from "react-number-format"
 import { toast } from "sonner"
-import { getAccount } from "wagmi/actions"
 
 export default function Home() {
   const { open } = useAppKit()
   const { isConnected } = useAppKitAccount()
-  const solanaAccount = useSolanaAccount()
-  const { currentStep, logs, error, transferAmount, executeTransfer, reset } =
-    useCrossChainTransfer()
-  const isCompleted = currentStep === "completed"
-  const { activeNetwork, setActiveNetwork } = useActiveNetwork()
-  const { chainId } = useAppKitNetwork()
   const solanaAccountState = useAppKitAccount({ namespace: "solana" })
 
   const [method, setMethod] = useState<"mintOnly" | "transfer">("transfer")
@@ -67,62 +46,63 @@ export default function Home() {
   const [isTransferring, setIsTransferring] = useState(false)
   const [showFinalTime, setShowFinalTime] = useState(false)
   const [transferType] = useState<CctpV2TransferType>(CctpV2TransferType.Fast)
-  const [burnTxHash, setBurnTxHash] = useState("")
+  const [burnTxHash, setBurnTxHash] = useState(
+    "0xc9897afaeae1f0cdcd664934c837d6c7fe8f5f0b6fdef44adb9c0cb7091037c5"
+  )
   const [understand, setUnderstand] = useState(false)
-  const [solanaSigner, setSolanaSigner] = useState<TransactionSigner>()
   const [isCustomDestAddress, setIsCustomDestAddress] = useState(false)
 
-  const [sourceChain, setSourceChain] = useState<CctpNetworkAdapterId>(
-    chainId ?? activeNetwork.id
+  const [sourceChain, setSourceChain] = useState<Blockchain>(
+    Blockchain.Ethereum
   )
   const sourceAddress = useAddressOfAdapterId(sourceChain)
-  const {
-    usdcBalance: sourceUsdcBalance,
-    nativeBalance: sourceNativeBalance,
-    nativeCurrency: sourceNativeCurrency,
-    networkAdapter: sourceAdapter,
-  } = useNetworkAdapterBalance(sourceChain, sourceAddress)
+  const { balance: sourceBalance, blockchain: sourceAdapter } =
+    useNetworkAdapterBalance(sourceChain, sourceAddress)
 
-  const [destAddress, setDestAddress] = useState("")
-  const [destChain, setDestChain] = useState<CctpNetworkAdapterId>()
-  const {
-    nativeBalance: destNativeBalance,
-    usdcBalance: destUsdcBalance,
-    nativeCurrency: destNativeCurrency,
-    networkAdapter: destAdapter,
-  } = useNetworkAdapterBalance(destChain, destAddress)
+  const [customDestAddress, setCustomDestAddress] = useState("")
+  const [destChain, setDestChain] = useState<Blockchain>(Blockchain.Solana)
+  const destAddress = useAddressOfAdapterId(destChain)
+  const { balance: destBalance, blockchain: destAdapter } =
+    useNetworkAdapterBalance(destChain, customDestAddress)
+  // const { data: mintRecipient } = useQuery({
+  //   queryKey: ["mint-recipient", sourceAdapter?.type, destAdapter?.type],
+  //   queryFn: () =>
+  //     formatDestinationAddress(destAddress, {
+  //       source: sourceAdapter!.type,
+  //       destination: destAdapter!.type,
+  //     }),
+  //   enabled: !!sourceAdapter && !!destAdapter && !!destAddress,
+  // })
 
+  const requiredParams = useMemo(
+    () => ({
+      sourceChainId: sourceChain,
+      destinationChainId: destChain,
+      mintRecipient: customDestAddress,
+      isSendingToSelf: !isCustomDestAddress,
+      amount,
+    }),
+    [sourceChain, destChain, customDestAddress, isCustomDestAddress, amount]
+  )
+  const { currentStep, logs, error, transferAmount, executeTransfer, reset } =
+    useCrossChainTransfer(requiredParams)
+  const isCompleted = currentStep === "completed"
   const hasZeroNativeBalanceOnSource =
-    !sourceNativeBalance.isLoading && !sourceNativeBalance.data?.formatted
+    !sourceBalance.isLoading && !sourceBalance.data?.native
   const hasZeroNativeBalanceOnDestination =
-    destChain &&
-    !destNativeBalance.isLoading &&
-    !destNativeBalance.data?.formatted
+    destChain && !destBalance.isLoading && !destBalance.data?.native
 
   const handleStartTransfer = async () => {
-    if (!isConnected) {
-      return open()
-    }
+    if (!isConnected) return open()
     if (!sourceAdapter) {
       return toast.error("Please select a source chain")
     }
     if (!destAdapter) {
       return toast.error("Please select a destination chain")
     }
-    if (!destAddress) {
-      return toast.error("Please enter a destination address")
-    }
-
-    const requiredParams: RequiredExecuteTransferParams = {
-      sourceChainId: sourceChain,
-      destinationChainId: destAdapter.id,
-      mintRecipient: await formatDestinationAddress(destAddress, {
-        source: sourceAdapter.type,
-        destination: destAdapter.type,
-      }),
-      solanaSigner,
-      isSendingToSelf: !isCustomDestAddress,
-    }
+    // if (!destAddress) {
+    //   return toast.error("Please enter a destination address")
+    // }
 
     if (isMintOnly) {
       if (!burnTxHash) {
@@ -132,7 +112,7 @@ export default function Home() {
       if (!amount) {
         return toast.error("Please enter an amount")
       }
-      if (Number(amount) > Number(sourceUsdcBalance.data?.formatted)) {
+      if (Number(amount) > Number(sourceBalance.data?.usdc)) {
         return toast.error("Insufficient balance")
       }
     }
@@ -140,17 +120,11 @@ export default function Home() {
     setIsTransferring(true)
     setShowFinalTime(false)
     setElapsedSeconds(0)
-
     await executeTransfer({
       ...requiredParams,
       ...(isMintOnly ? { burnTxHash } : { amount, transferType }),
     })
-    ;[
-      sourceUsdcBalance,
-      destUsdcBalance,
-      sourceNativeBalance,
-      destNativeBalance,
-    ].map((balance) => balance.refetch())
+    ;[sourceBalance, destBalance].map((balance) => balance.refetch())
     setIsTransferring(false)
     setShowFinalTime(true)
   }
@@ -169,23 +143,13 @@ export default function Home() {
       })
       setDestChain(undefined)
     }
-    if (sourceChain && activeNetwork.id !== sourceChain) {
-      setActiveNetwork(sourceChain)
-    }
-    // oxlint-disable-next-line exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sourceChain])
 
   useEffect(() => {
-    if (isCustomDestAddress) {
-      return
-    }
-    setDestAddress(
-      (destAdapter?.type === "solana"
-        ? solanaAccountState?.address
-        : getAccount(wagmiConfig).address) ?? ""
-    )
-    // oxlint-disable-next-line exhaustive-deps
-  }, [destAdapter, isCustomDestAddress])
+    if (isCustomDestAddress) return
+    setCustomDestAddress(destAddress ?? "")
+  }, [destAddress, isCustomDestAddress])
 
   // Reset scroll position on page load
   useEffect(() => {
@@ -198,7 +162,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen w-full pb-8 sm:p-8">
-      <Card className="max-w-4xl mx-auto border-0 bg-foreground/3 sm:border pt-10 sm:pt-4 relative">
+      <Card className="bg-foreground/3 relative mx-auto max-w-4xl border-0 pt-10 sm:border sm:pt-4">
         <StickyWallets />
         <CardHeader className="items-center sm:pt-2">
           <CardTitle className="text-center font-serif text-xl sm:text-2xl">
@@ -218,7 +182,7 @@ export default function Home() {
                   <TabsTrigger value={"mintOnly"}>Mint Only</TabsTrigger>
                 </TabsList>
               </Tabs>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 {method === "mintOnly"
                   ? "Provides a burn transaction hash to mint on the destination chain"
                   : "Transfer and mint from the origin to the destination"}
@@ -239,7 +203,7 @@ export default function Home() {
               </div>
             )} */}
           </div>
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid gap-4 sm:grid-cols-2">
             <NetworkAdapterSelect
               label="Source"
               chainId={sourceChain}
@@ -253,13 +217,16 @@ export default function Home() {
               label="Destination"
               chainId={destChain}
               setChainId={(chainId) => {
-                if (chainId === solana.id && !solanaAccountState.isConnected) {
+                if (
+                  chainId === Blockchain.Solana &&
+                  !solanaAccountState.isConnected
+                ) {
                   open({ namespace: "solana" })
                 }
                 setDestChain(chainId)
               }}
-              address={destAddress}
-              setAddress={setDestAddress}
+              address={customDestAddress}
+              setAddress={setCustomDestAddress}
               exceptAdapterIds={[sourceChain]}
               addressReadonly={!isCustomDestAddress}
               hideAddress={isMintOnly}
@@ -281,7 +248,7 @@ export default function Home() {
                       setIsCustomDestAddress(false)
                     } else {
                       setIsCustomDestAddress(true)
-                      setDestAddress("")
+                      setCustomDestAddress("")
                     }
                   }}
                 >
@@ -293,7 +260,7 @@ export default function Home() {
 
           <div
             className={cn(
-              "space-y-2 text-center sm:w-1/2 sm:mx-auto",
+              "space-y-2 text-center sm:mx-auto sm:w-1/2",
               isMintOnly && "sm:w-full"
             )}
           >
@@ -310,17 +277,22 @@ export default function Home() {
                   value={burnTxHash}
                   onChange={(e) => setBurnTxHash(e.target.value)}
                   placeholder="0x..."
-                  className="text-xl font-bold text-center h-12"
+                  className="h-12 text-center text-xl font-bold"
                 />
                 {burnTxHash && (
-                  <p className="text-sm text-muted-foreground">
-                    Check your burn transaction on{" "}
+                  <p className="text-muted-foreground text-sm">
+                    Check your burn transaction{" "}
                     <ExternalLink
-                      href={`${sourceAdapter?.explorer?.url}/tx/${burnTxHash}`}
+                      href={
+                        sourceAdapter?.explorerUrl.replace(
+                          "{txHash}",
+                          burnTxHash
+                        ) ?? ""
+                      }
                       withIcon
                       className="font-bold"
                     >
-                      {sourceAdapter?.explorer?.name}
+                      here
                     </ExternalLink>
                     . This will be used to mint the USDC on the destination
                     chain.
@@ -336,18 +308,18 @@ export default function Home() {
                   placeholder="Enter amount"
                   value={amount}
                   onValueChange={(values) => setAmount(values.value)}
-                  className="appearance-none border border-input rounded-md bg-transparent font-bold text-center text-xl outline-none w-full autofill:shadow-[inset_0_0_0px_1000px_rgb(245,245,245)] h-10 transition-colors placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
+                  className="border-input placeholder:text-muted-foreground focus-visible:ring-ring h-10 w-full appearance-none rounded-md border bg-transparent text-center text-xl font-bold transition-colors outline-none autofill:shadow-[inset_0_0_0px_1000px_var(--background)] focus-visible:ring-1 focus-visible:outline-hidden"
                   thousandSeparator=","
                   allowNegative={false}
                 />
                 {isConnected && (
-                  <p className="text-sm text-muted-foreground">
-                    {sourceUsdcBalance.isLoading ? (
-                      <Loader className="animate-spin inline-block size-3" />
+                  <p className="text-muted-foreground text-sm">
+                    {sourceBalance.isLoading ? (
+                      <Loader className="inline-block size-3 animate-spin" />
                     ) : (
                       <>
                         <TooltipWrapNumber
-                          amount={sourceUsdcBalance.data?.formatted ?? 0}
+                          amount={sourceBalance.data?.native ?? 0}
                         />{" "}
                         USDC
                       </>
@@ -357,7 +329,7 @@ export default function Home() {
                       variant={"ghost"}
                       size={"sm"}
                       onClick={() =>
-                        setAmount(sourceUsdcBalance.data?.raw ?? "0")
+                        setAmount(sourceBalance.data?.native.toString() ?? "")
                       }
                       className="ml-1"
                     >
@@ -368,18 +340,14 @@ export default function Home() {
               </>
             )}
           </div>
-          <FeeEstimates
-            source={sourceChain}
-            destination={destChain}
-            showSource={!isMintOnly}
-          />
+          <FeeEstimates {...requiredParams} showSource={!isMintOnly} />
           {error && <div className="text-destructive text-center">{error}</div>}
 
           {!isMintOnly && (
             <Alert variant="warning">
-              <AlertCircle className="!size-4.5 stroke-3" />
+              <AlertCircle className="size-4.5! stroke-3" />
               <AlertDescription>
-                <h4 className="font-semibold font-serif mb-2 mt-px tracking-wide">
+                <h4 className="mt-px mb-2 font-serif font-semibold tracking-wide">
                   Essentials
                 </h4>
                 <ul className="list-disc">
@@ -401,7 +369,7 @@ export default function Home() {
                   <li>
                     After burning, if you lose progress or getting{" "}
                     <TooltipWrap content="It happens sometimes with Solana, this error means the burn transaction has already been processed.">
-                      <span className="text-destructive inline-flex items-center text-[13px] translate-y-px">
+                      <span className="text-destructive inline-flex translate-y-px items-center text-[13px]">
                         <Info className="mr-1 size-3" />
                         Error: AlreadyProcessed{" "}
                       </span>
@@ -410,18 +378,28 @@ export default function Home() {
                     USDC on the destination chain. The latest burn transaction
                     is always available in the source explorer (
                     <ExternalLink
-                      href={`${sourceAdapter?.explorer?.url}/tx/${burnTxHash}`}
+                      href={
+                        sourceAdapter?.explorerUrl.replace(
+                          "tx/{hash}",
+                          burnTxHash
+                            ? `tx/${burnTxHash}`
+                            : isConnected
+                              ? `address/${sourceAddress}`
+                              : ""
+                        ) ?? ""
+                      }
                       withIcon
                     >
-                      {sourceAdapter?.explorer?.name}
+                      here
                     </ExternalLink>
                     ).
                   </li>
                   {hasZeroNativeBalanceOnDestination && (
                     <li className="text-destructive">
                       You need some{" "}
-                      <strong>{destNativeCurrency?.symbol}</strong> on the{" "}
-                      <strong>{destAdapter?.name}</strong> to receive the USDC.
+                      <strong>{destAdapter?.nativeCurrency.symbol}</strong> on
+                      the <strong>{destAdapter?.name}</strong> to receive the
+                      USDC.
                     </li>
                   )}
                 </ul>
@@ -443,8 +421,9 @@ export default function Home() {
                 }
               />
               <span>
-                You need some <strong>{sourceNativeCurrency?.symbol}</strong> on
-                the <strong>{sourceAdapter?.name}</strong> to pay for the burn
+                You need some{" "}
+                <strong>{sourceAdapter?.nativeCurrency.symbol}</strong> on the{" "}
+                <strong>{sourceAdapter?.name}</strong> to pay for the burn
                 action.
               </span>
             </Label>
@@ -509,7 +488,7 @@ export default function Home() {
 
           <div className="text-center">
             {showFinalTime ? (
-              <div className="text-2xl font-mono">
+              <div className="font-mono text-2xl">
                 <span>
                   {Math.floor(elapsedSeconds / 60)
                     .toString()
@@ -533,24 +512,18 @@ export default function Home() {
         </CardContent>
       </Card>
       <Footer />
-      {solanaAccount && (
-        <SetSolanaSigner
-          setSolanaSigner={setSolanaSigner}
-          solanaAccount={solanaAccount}
-        />
-      )}
       {/* Success Dialog */}
       {isCompleted && sourceAdapter && destAdapter && (
         <SuccessDialog
           source={{
             networkAdapter: sourceAdapter,
             address: sourceAddress ?? "",
-            usdcBalance: sourceUsdcBalance.data?.formatted ?? 0,
+            usdcBalance: sourceBalance.data?.usdc ?? 0,
           }}
           destination={{
             networkAdapter: destAdapter,
-            address: destAddress,
-            usdcBalance: destUsdcBalance.data?.formatted ?? 0,
+            address: customDestAddress,
+            usdcBalance: destBalance.data?.usdc ?? 0,
           }}
           amount={transferAmount}
         />

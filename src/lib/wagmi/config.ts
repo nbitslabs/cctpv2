@@ -22,6 +22,7 @@ import {
   unichain,
   worldchain,
   xdc,
+  hyperEvm,
   type AppKitNetwork,
 } from "@reown/appkit/networks"
 import { deployedUrl } from "../constants"
@@ -47,37 +48,6 @@ export const codex = defineChain({
   assets: {
     imageId: "https://explorer.codex.xyz/assets/configs/network_icon.svg",
     imageUrl: "https://explorer.codex.xyz/assets/configs/network_icon.svg",
-  },
-  testnet: false,
-})
-
-export const hyperEvm = defineChain({
-  id: 999,
-  chainNamespace: "eip155",
-  caipNetworkId: "eip155:999",
-  name: "HyperEVM",
-  nativeCurrency: {
-    decimals: 18,
-    name: "HYPE",
-    symbol: "HYPE",
-  },
-  rpcUrls: {
-    default: {
-      http: ["https://hyperliquid.drpc.org"],
-      webSocket: ["wss://hyperliquid.drpc.org"],
-    },
-  },
-  blockExplorers: {
-    default: {
-      name: "Hyperliquid Explorer",
-      url: "https://www.hyperscan.com/",
-    },
-  },
-  assets: {
-    imageId:
-      "https://storage.googleapis.com/zapper-fi-assets/networks/hyperevm-icon.png",
-    imageUrl:
-      "https://storage.googleapis.com/zapper-fi-assets/networks/hyperevm-icon.png",
   },
   testnet: false,
 })
@@ -127,6 +97,7 @@ export const wagmiAdapter = new WagmiAdapter({
   ssr: true,
   projectId,
   networks,
+  customRpcUrls: {},
 })
 
 export const wagmiConfig = wagmiAdapter.wagmiConfig

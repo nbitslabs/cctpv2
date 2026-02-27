@@ -75,3 +75,8 @@ export function intervalAsyncWithTimeout(
 
 export const delay = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms))
+
+export function getChainImageUrl(chainName: string) {
+  const formattedName = chainName.toLowerCase()
+  return `/cctpv2/images/chains/${formattedName}.webp`
+}

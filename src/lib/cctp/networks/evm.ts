@@ -24,7 +24,7 @@ import polygonWebp from "../../../../public/images/chains/polygon.webp"
 import seiWebp from "../../../../public/images/chains/sei.webp"
 import sonicWebp from "../../../../public/images/chains/sonic.webp"
 import unichainWebp from "../../../../public/images/chains/unichain.webp"
-import worldchainWebp from "../../../../public/images/chains/worldchain.webp"
+import worldchainWebp from "../../../../public/images/chains/world_chain.webp"
 import monadWebp from "../../../../public/images/chains/monad.webp"
 import xdcWebp from "../../../../public/images/chains/xdc.webp"
 
@@ -41,6 +41,7 @@ import { defaultCctpOpts, USDC_DECIMALS } from "./constants"
 import type { CctpNetworkAdapter } from "./type"
 import { CctpV2TransferType } from "./type"
 import { getMessageTransmitterAddress, getTokenMessagerAddress } from "./util"
+import { BridgeChainIdentifier } from "@circle-fin/bridge-kit"
 
 function getEvmNetworkAdapter(
   network: AppKitNetwork,
@@ -73,6 +74,26 @@ const {
   "21": _ink,
   "22": _plume,
 } = chainsByDomain
+
+export const domainToBridgeChainKey: Record<number, BridgeChainIdentifier> = {
+  "0": "Ethereum",
+  "1": "Avalanche",
+  "2": "Optimism",
+  "3": "Arbitrum",
+  "4": "Base",
+  "7": "Polygon",
+  "10": "Unichain",
+  "11": "Linea",
+  "12": "Codex",
+  "13": "Sonic",
+  "14": "World_Chain",
+  "15": "Monad",
+  "16": "Sei",
+  "18": "XDC",
+  "19": "HyperEVM",
+  "21": "Ink",
+  "22": "Plume",
+}
 
 // https://developers.circle.com/stablecoins/supported-domains
 const evmChains: Array<
@@ -208,6 +229,15 @@ const evmChains: Array<
   },
 ]
 
+/**
+ * @deprecated Use `createViemAdapterFromProvider` from `@circle-fin/adapter-viem-v2` instead.
+ * These self-made EVM adapters have been replaced by the official Circle Finance adapter.
+ *
+ * Migration path:
+ * 1. Use `useBridgeKitEvmAdapter()` from bridgeKit.ts to get the EVM adapter
+ * 2. Replace direct adapter method calls with BridgeKit action handler methods
+ * 3. See /hooks/bridgeKit.ts for examples
+ */
 export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
   ({ chain, ...config }) => {
     const chainId = Number(chain.id)
@@ -255,6 +285,7 @@ export const evmNetworkAdapters: CctpNetworkAdapter[] = evmChains.map(
       ...config,
       usdcAddress,
       nativeCurrency: chain.nativeCurrency,
+      bridgeChainKey: domainToBridgeChainKey[config.domain],
       v1: { support: config.supportV1 },
       v2: { support: config.supportV2 },
 

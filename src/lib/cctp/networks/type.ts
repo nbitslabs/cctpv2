@@ -1,3 +1,4 @@
+import { BridgeChainIdentifier } from "@circle-fin/bridge-kit"
 import type { Address, Signature, TransactionSigner } from "@solana/kit"
 import type { StaticImageData } from "next/image"
 import type { Address as EvmAddress } from "viem"
@@ -14,9 +15,14 @@ export type CctpFunctionOpts = {
   solanaSigner?: TransactionSigner
 }
 
+/**
+ * @deprecated Use `Blockchain` from `@circle-fin/bridge-kit` instead.
+ * The self-made adapters have been replaced by the official Circle Finance adapter implementations.
+ */
 export interface CctpNetworkAdapter {
   id: number | string
   name: string
+  bridgeChainKey: BridgeChainIdentifier
   domain: number
   type: "evm" | "solana"
   logoUrl: StaticImageData
@@ -74,4 +80,8 @@ export interface CctpNetworkAdapter {
   }
 }
 
+/**
+ * @deprecated Use `Blockchain` from `@circle-fin/bridge-kit` instead.
+ * The self-made adapter IDs have been replaced by the official Circle Finance adapter implementations.
+ */
 export type CctpNetworkAdapterId = CctpNetworkAdapter["id"]

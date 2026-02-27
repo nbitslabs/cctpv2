@@ -17,7 +17,7 @@ import {
 import { usdcAddresses } from "@/lib/wagmi/config"
 import { solana } from "@reown/appkit/networks"
 import { TOKEN_PROGRAM_ADDRESS } from "@solana-program/token"
-import type { Address, IAccountMeta, TransactionSigner } from "@solana/kit"
+import type { Address, AccountMeta, TransactionSigner } from "@solana/kit"
 import {
   AccountRole,
   appendTransactionMessageInstruction,
@@ -47,7 +47,7 @@ function lamportsToSol(lamports: bigint) {
 }
 
 const rpcPath =
-  "wispy-icy-liquid.solana-mainnet.quiknode.pro/1b10c09ce4cbf223215490fc24ad0fb398e470a4/"
+  "neat-wild-pond.solana-mainnet.quiknode.pro/56ce8148e58e5370116318d540437e1aba23fa70/"
 
 const rpc = createSolanaRpc(`https://${rpcPath}`)
 const sendAndConfirmTransaction = sendAndConfirmTransactionFactory({
@@ -57,6 +57,16 @@ const sendAndConfirmTransaction = sendAndConfirmTransactionFactory({
 
 const solanaChainId = solana.id
 const solanaUsdcAddress = solAddress(usdcAddresses[solanaChainId])
+
+/**
+ * @deprecated Use `createSolanaAdapterFromProvider` from `@circle-fin/adapter-solana` instead.
+ * These self-made Solana adapters have been replaced by the official Circle Finance adapter.
+ *
+ * Migration path:
+ * 1. Use `useBridgeKitSolanaAdapter()` from bridgeKit.ts to get the Solana adapter
+ * 2. Replace direct adapter method calls with BridgeKit action handler methods
+ * 3. See /hooks/bridgeKit.ts for examples
+ */
 export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
   {
     id: solanaChainId,
@@ -69,6 +79,7 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
     v1: { support: true },
     v2: { support: true },
     usdcAddress: solanaUsdcAddress,
+    bridgeChainKey: "Solana",
 
     async readNativeBalance(address: string) {
       const { value: lamports } = await rpc
@@ -207,6 +218,7 @@ export const solanaNetworkAdapters: CctpNetworkAdapter[] = [
           encoding: "base64",
         })
         .send()
+
       return simulation.value.err === null
     },
 
@@ -291,7 +303,7 @@ async function getReceiveMessageTxParams(
   )
 
   // Add remaining accounts to process further instructions triggered by this instruction
-  const remainingAccounts: IAccountMeta[] = [
+  const remainingAccounts: AccountMeta[] = [
     { role: AccountRole.READONLY, address: pdas.tokenMessengerAccount },
     { role: AccountRole.READONLY, address: pdas.remoteTokenMessengerKey },
     { role: AccountRole.WRITABLE, address: pdas.tokenMinterAccount },

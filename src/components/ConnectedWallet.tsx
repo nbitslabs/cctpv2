@@ -1,11 +1,8 @@
 "use client"
-import { useNativeBalance } from "@/hooks/useBalance"
-import {
-  findNetworkAdapter,
-  type CctpNetworkAdapterId,
-} from "@/lib/cctp/networks"
-import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider"
-import { cn, formatNumber, shortenAddress } from "@/lib/utils"
+import { findBlockchain } from "@/hooks/bridgeKit"
+import { getExplorerUrl } from "@/lib/cctp/networks/utils-new"
+import { cn, formatNumber, getChainImageUrl, shortenAddress } from "@/lib/utils"
+import { Blockchain } from "@circle-fin/bridge-kit"
 import {
   useAppKit,
   useAppKitAccount,
@@ -13,12 +10,12 @@ import {
   useWalletInfo,
   type NamespaceTypeMap,
 } from "@reown/appkit/react"
-import { CircleCheck, CopyIcon } from "lucide-react"
+import { CopyIcon } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 import { IoSwapHorizontal } from "react-icons/io5"
+import { useNetworkAdapterBalance } from "./NetworkAdapterSelect"
 import { TooltipWrap } from "./TooltipWrap"
-import { Badge } from "./ui/badge"
 import { Button } from "./ui/button"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card"
 import CopyIconTooltip from "./ui2/CopyIconTooltip"
@@ -33,19 +30,19 @@ export default function ConnectedWallet({
   adapterId,
 }: {
   namespace: keyof NamespaceTypeMap
-  adapterId: CctpNetworkAdapterId
+  adapterId: Blockchain
 }) {
-  const { setActiveNetwork } = useActiveNetwork()
   const activeAccount = useAppKitAccount()
   const accountState = useAppKitAccount({ namespace })
   const { walletInfo } = useWalletInfo(namespace)
-  const adapter = findNetworkAdapter(adapterId)
+  const blockchain = findBlockchain(adapterId)
   const { disconnect } = useDisconnect()
   const confirm = useConfirm()
-  const { data: balance } = useNativeBalance(adapterId, accountState.address)
+  const { balance } = useNetworkAdapterBalance(adapterId, accountState.address)
   const [isOpen, setIsOpen] = useState(false)
   const { fakeLoading, openDialog } = useOpenAppkitDialogWithLoading()
   const { open } = useAppKit()
+  const explorerUrl = getExplorerUrl(blockchain)
 
   const handleDisconnect = async () => {
     const result = await confirm({
@@ -68,7 +65,7 @@ export default function ConnectedWallet({
         className="h-[26px]"
         onClick={() => open({ view: "Connect", namespace })}
       >
-        Connect {adapter?.type === "evm" ? "EVM" : "Solana"}
+        Connect {blockchain?.type === "evm" ? "EVM" : "Solana"}
       </Button>
     )
   }
@@ -84,8 +81,8 @@ export default function ConnectedWallet({
       <HoverCardTrigger asChild onTouchStart={() => setIsOpen(true)}>
         <div
           className={cn(
-            "flex items-center gap-2 rounded-sm py-1 px-1.5 border border-foreground/10",
-            isActiveAccount ? "bg-primary/30 pr-1 border-primary/40" : ""
+            "border-foreground/10 flex items-center gap-2 rounded-sm border px-1.5 py-1",
+            isActiveAccount ? "bg-primary/30 border-primary/40 pr-1" : ""
           )}
         >
           <img
@@ -95,10 +92,10 @@ export default function ConnectedWallet({
             width={16}
             height={16}
           />
-          <p className="text-xs font-mono text-muted-foreground flex items-center gap-1">
+          <p className="text-muted-foreground flex items-center gap-1 font-mono text-xs">
             {shortenAddress(accountState.address ?? "", 2, "..")}
             {isActiveAccount && (
-              <span className="text-primary text-3xl leading-3 animate-pulse">
+              <span className="text-primary animate-pulse text-3xl leading-3">
                 •
               </span>
             )}
@@ -107,25 +104,25 @@ export default function ConnectedWallet({
       </HoverCardTrigger>
       <HoverCardContent>
         <div>
-          <div className="flex justify-between items-start gap-2 text-xs">
+          <div className="flex items-start justify-between gap-2 text-xs">
             {walletInfo && (
               <div className="flex flex-col gap-1.5">
-                <p className="font-semibold flex items-center">
+                <p className="flex items-center font-semibold">
                   <Image
                     src={walletInfo.icon || "/placeholder.svg"}
                     alt={walletInfo.name}
-                    className="size-4 rounded-sm inline mr-1.5 sm:hidden"
+                    className="mr-1.5 inline size-4 rounded-sm sm:hidden"
                     width={16}
                     height={16}
                   />
                   {walletInfo.name}
                 </p>
                 {balance && (
-                  <p className="font-mono text-muted-foreground">
-                    {formatNumber(balance.formatted, {
+                  <p className="text-muted-foreground font-mono">
+                    {formatNumber(balance.data?.native, {
                       maximumFractionDigits: 6,
                     })}{" "}
-                    {adapter?.nativeCurrency.symbol}
+                    {blockchain?.nativeCurrency.symbol}
                   </p>
                 )}
               </div>
@@ -133,12 +130,12 @@ export default function ConnectedWallet({
 
             <div className="flex flex-col gap-1.5">
               <div className="ml-auto flex items-center gap-1 font-medium">
-                {adapter?.name}
-                {adapter?.logoUrl && (
+                {blockchain?.name}
+                {blockchain && (
                   <Image
-                    src={adapter.logoUrl}
-                    alt={adapter.name}
-                    className="size-4 rounded-sm inline"
+                    src={getChainImageUrl(blockchain.chain)}
+                    alt={blockchain.name}
+                    className="inline size-4 rounded-sm"
                     width={16}
                     height={16}
                   />
@@ -146,21 +143,21 @@ export default function ConnectedWallet({
               </div>
               <div className="flex items-center gap-2">
                 <ExternalLink
-                  href={`${adapter?.explorer?.url}/address/${accountState.address}`}
-                  className="text-primary hover:underline font-mono"
+                  href={`${explorerUrl}/address/${accountState.address}`}
+                  className="text-primary font-mono hover:underline"
                 >
                   {shortenAddress(accountState.address ?? "", 3, "..")}
                 </ExternalLink>
                 <CopyIconTooltip text={accountState.address ?? ""}>
                   <CopyIcon
                     size={14}
-                    className="cursor-pointer text-muted-foreground hover:text-foreground"
+                    className="text-muted-foreground hover:text-foreground cursor-pointer"
                   />
                 </CopyIconTooltip>
               </div>
             </div>
           </div>
-          <footer className="flex items-center gap-1 mt-2 border-t pt-2">
+          <footer className="mt-2 flex items-center gap-1 border-t pt-2">
             <Button
               variant="destructive-outline"
               size="sm"
@@ -181,16 +178,6 @@ export default function ConnectedWallet({
               </Button>
             </TooltipWrap>
             <FiatDepositButton namespace={namespace} />
-            {isActiveAccount ? (
-              <Badge variant="secondary">
-                <CircleCheck size={12} />
-                Active
-              </Badge>
-            ) : (
-              <Button size="sm" onClick={() => setActiveNetwork(adapterId)}>
-                Set active
-              </Button>
-            )}
           </footer>
         </div>{" "}
       </HoverCardContent>

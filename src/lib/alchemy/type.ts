@@ -5,31 +5,8 @@ export namespace Alchemy {
 
   export interface Chain {
     id: string
-    name: string
-    chainId: string
     kebabCaseId: string
-    explorerUrl: string
     networkChainId?: number | null
-    availability: "public"
-    publicOverrideFlag: string
-    sdkEnum: string
-    faucetUrl: string
-    bridgeUrl: string
-    isTestNet: boolean
-    currency: string
-    docsUrl: string
-    blockSpeed: string
-    websiteUrl: string
-    githubUrl: string
-    supportedProducts: (SupportedProduct | string)[]
-    supportedWebhookTypes: number[]
-    supportsMempool: boolean
-    networkLegacyProtoNumber: number
-    apiVersionEndpoints?: {
-      v0_8: string
-      v0_7: string
-      v0_6: string
-    }
   }
 
   export enum SupportedProduct {

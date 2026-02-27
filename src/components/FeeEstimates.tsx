@@ -5,68 +5,39 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import {
-  type CctpNetworkAdapterId,
-  findNetworkAdapter,
-} from "@/lib/cctp/networks"
+import { findBlockchain } from "@/hooks/bridgeKit"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-import { formatNumber } from "@/lib/utils"
-import { useFeeEstimates } from "@/hooks/useFeeEstimates"
+import { formatNumber, getChainImageUrl } from "@/lib/utils"
+import { useFeeEstimatesV2 } from "@/hooks/useFeeEstimatesV2"
+import { Blockchain } from "@circle-fin/bridge-kit"
 import Image from "next/image"
 import { ChevronDown, Loader } from "lucide-react"
+import { RequiredExecuteTransferParams } from "@/hooks/useCrossChainTransfer"
 
 const format3Decimal = (value: number) =>
   formatNumber(value, { maximumFractionDigits: 3, minimumFractionDigits: 3 })
 
 export function FeeEstimates({
-  source,
-  destination,
   showSource,
-}: {
-  source?: CctpNetworkAdapterId
-  destination?: CctpNetworkAdapterId
-  showSource: boolean
-}) {
-  const {
-    source: sourceFee,
-    destination: destinationFee,
-    totalUsd,
-    isLoading,
-  } = useFeeEstimates({
-    sourceChainId: source,
-    destinationChainId: destination,
-    includeSource: showSource,
-    includeDestination: Boolean(destination),
-  })
-
-  if (!showSource && !destination) {
-    return null
-  }
-
-  const renderSecondary = (fee?: { usdValue?: number }) => {
-    if (!fee) {
-      return "Estimation unavailable"
-    }
-    if (typeof fee.usdValue === "number") {
-      return `≈ ${format3Decimal(fee.usdValue)} USDC`
-    }
-    return "USDC conversion unavailable"
-  }
+  ...params
+}: RequiredExecuteTransferParams & { showSource: boolean }) {
+  const { data, isLoading } = useFeeEstimatesV2(params)
+  const totalUsd = "0"
 
   return (
     <Collapsible>
       <Card className="bg-foreground/5 border-dashed shadow-none">
         <CardHeader className="pt-5 pb-1">
-          <CardTitle className="text-sm font-semibold font-serif tracking-wide flex justify-between items-center">
+          <CardTitle className="flex items-center justify-between font-serif text-sm font-semibold tracking-wide">
             Estimated Network Fees
-            <CollapsibleTrigger className="inline-flex items-center gap-1 cursor-pointer">
-              <span className="font-normal text-foreground shrink-0">
+            <CollapsibleTrigger className="inline-flex cursor-pointer items-center gap-1">
+              <span className="text-foreground shrink-0 font-normal">
                 {isLoading ? (
-                  <Loader className="animate-spin size-4" />
+                  <Loader className="size-4 animate-spin" />
                 ) : typeof totalUsd === "number" ? (
                   `≈ ${format3Decimal(totalUsd)} USDC`
                 ) : (
@@ -85,14 +56,14 @@ export function FeeEstimates({
           <CollapsibleContent>
             {isLoading ? (
               <div className="space-y-1">
-                <div className="h-10 w-full rounded-md bg-foreground/10 animate-pulse" />
-                <div className="h-10 w-full rounded-md bg-foreground/10 animate-pulse" />
+                <div className="bg-foreground/10 h-10 w-full animate-pulse rounded-md" />
+                <div className="bg-foreground/10 h-10 w-full animate-pulse rounded-md" />
               </div>
             ) : (
               <div className="space-y-1">
-                {showSource && source && (
+                {/* {showSource  && (
                   <FeeRow
-                    adapterId={source}
+                    adapterId={params.sourceChainId}
                     label="Source chain"
                     value={sourceFee?.nativeFormatted ?? "—"}
                     secondary={renderSecondary(sourceFee)}
@@ -105,7 +76,49 @@ export function FeeEstimates({
                     value={destinationFee?.nativeFormatted ?? "—"}
                     secondary={renderSecondary(destinationFee)}
                   />
-                )}
+                )} */}
+
+                <br />
+                <strong>Fees</strong>
+                <ul>
+                  {data?.fees.map((fee) => (
+                    <li key={fee.type}>
+                      Type: {fee.type}
+                      <br />
+                      Token: {fee.token}
+                      <br />
+                      Amount: {fee.amount}
+                    </li>
+                  )) ?? (
+                    <li className="text-muted-foreground text-sm">
+                      No fee estimates available
+                    </li>
+                  )}
+                </ul>
+
+                <br />
+                <strong>Gas Fees</strong>
+                <ul>
+                  {data?.gasFees.map((fee, i) => (
+                    <li key={i}>
+                      Blockchain: {fee.blockchain}
+                      <br />
+                      Fee: {fee.fees?.fee}
+                      <br />
+                      Gas Price: {fee.fees?.gasPrice}
+                      <br />
+                      Gas: {fee.fees?.gas}
+                      <br />
+                      Fee Name: {fee.name}
+                      <br />
+                      Token: {fee.token}
+                    </li>
+                  )) ?? (
+                    <li className="text-muted-foreground text-sm">
+                      No fee estimates available
+                    </li>
+                  )}
+                </ul>
               </div>
             )}
           </CollapsibleContent>
@@ -121,30 +134,32 @@ function FeeRow({
   value,
   secondary,
 }: {
-  adapterId: CctpNetworkAdapterId
+  adapterId: Blockchain
   label: string
   value: string
   secondary?: string
 }) {
-  const adapter = findNetworkAdapter(adapterId)
-  if (!adapter) return null
+  const blockchain = findBlockchain(adapterId)
+  if (!blockchain) return null
   return (
     <div className="flex items-center justify-between gap-2 py-2">
       <div className="flex items-center gap-2">
         <Image
-          src={adapter.logoUrl}
-          alt={adapter.name}
-          className="size-7 rounded-full border border-border/40"
+          src={getChainImageUrl(blockchain.chain)}
+          alt={blockchain.name}
+          className="border-border/40 size-7 rounded-full border"
         />
         <div className="flex flex-col">
-          <span className="text-sm font-medium leading-none">{label}</span>
-          <span className="text-xs text-muted-foreground">{adapter.name}</span>
+          <span className="text-sm leading-none font-medium">{label}</span>
+          <span className="text-muted-foreground text-xs">
+            {blockchain.name}
+          </span>
         </div>
       </div>
       <div className="text-right text-sm">
         <div className="font-medium">{value}</div>
         {secondary && (
-          <div className="text-xs text-muted-foreground">{secondary}</div>
+          <div className="text-muted-foreground text-xs">{secondary}</div>
         )}
       </div>
     </div>

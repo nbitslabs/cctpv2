@@ -1,18 +1,6 @@
-trailingComma: "es5"
+trailingComma: 'es5'
 tabWidth: 2
 semi: false
+singleQuote: false
 plugins:
-  - "@prettier/plugin-oxc"
-overrides:
-  - files:
-      - "**/*.{js,mjs,cjs,jsx}"
-    options:
-      plugins:
-        - "@prettier/plugin-oxc"
-      parser: oxc
-  - files:
-      - "**/*.{ts,mts,cts,tsx}"
-    options:
-      plugins:
-        - "@prettier/plugin-oxc"
-      parser: oxc-ts
+  - 'prettier-plugin-tailwindcss'

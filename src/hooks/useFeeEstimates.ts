@@ -1,10 +1,13 @@
-import {
-  type CctpNetworkAdapter,
-  findNetworkAdapter,
-} from "@/lib/cctp/networks"
+import { findBlockchain } from "@/hooks/bridgeKit"
 import { getNativeTokenUsdPrice } from "@/lib/pricing/native"
 import { formatNumber } from "@/lib/utils"
 import { wagmiConfig } from "@/lib/wagmi/config"
+import {
+  Blockchain,
+  ChainDefinition,
+  EVMChainDefinition,
+  NonEVMChainDefinition,
+} from "@circle-fin/bridge-kit"
 import { useQuery } from "@tanstack/react-query"
 import { formatUnits } from "viem"
 import { estimateFeesPerGas } from "wagmi/actions"
@@ -38,8 +41,8 @@ type FeeEstimateResult = {
 }
 
 type Params = {
-  sourceChainId?: CctpNetworkAdapter["id"]
-  destinationChainId?: CctpNetworkAdapter["id"]
+  sourceChainId?: Blockchain
+  destinationChainId?: Blockchain
   includeSource?: boolean
   includeDestination?: boolean
 }
@@ -47,8 +50,8 @@ type Params = {
 const formatNative = (value: number, symbol: string) =>
   `${formatNumber(value, { maximumFractionDigits: 6 })} ${symbol}`
 
-async function estimateEvmFee(adapter: CctpNetworkAdapter, type: FeeType) {
-  const chainId = Number(adapter.id)
+async function estimateEvmFee(blockchain: EVMChainDefinition, type: FeeType) {
+  const chainId = blockchain.chainId
   if (!Number.isFinite(chainId)) {
     return undefined
   }
@@ -60,38 +63,47 @@ async function estimateEvmFee(adapter: CctpNetworkAdapter, type: FeeType) {
   const gasPrice = await estimateFeesPerGas(wagmiConfig, { chainId })
   if (!gasPrice) return undefined
 
-  const fee = gasPrice.maxFeePerGas * gasUnits
-  const nativeValue = Number(formatUnits(fee, adapter.nativeCurrency.decimals))
-  const price = await getNativeTokenUsdPrice(adapter.nativeCurrency.symbol)
+  const nativeValue = Number(
+    formatUnits(
+      gasPrice.maxFeePerGas * gasUnits,
+      blockchain.nativeCurrency.decimals
+    )
+  )
+  const symbol = blockchain?.nativeCurrency.symbol
+  const price = await getNativeTokenUsdPrice(symbol)
   const usdValue = price ? nativeValue * price : undefined
 
   return {
-    nativeFormatted: formatNative(nativeValue, adapter.nativeCurrency.symbol),
+    nativeFormatted: formatNative(nativeValue, symbol),
     nativeValue,
     usdValue,
-    symbol: adapter.nativeCurrency.symbol,
+    symbol,
   } satisfies FeeEstimate
 }
 
-async function estimateSolanaFee(adapter: CctpNetworkAdapter, type: FeeType) {
+async function estimateSolanaFee(
+  blockchain: NonEVMChainDefinition,
+  type: FeeType
+) {
   const lamports =
     type === "deposit"
       ? DEFAULT_SOLANA_DEPOSIT_LAMPORTS
       : DEFAULT_SOLANA_RECEIVE_LAMPORTS
   const nativeValue = Number(lamports) / SOLANA_LAMPORTS_PER_SOL
-  const price = await getNativeTokenUsdPrice(adapter.nativeCurrency.symbol)
+  const symbol = blockchain.nativeCurrency.symbol
+  const price = await getNativeTokenUsdPrice(symbol)
   const usdValue = price ? nativeValue * price : undefined
   return {
-    nativeFormatted: formatNative(nativeValue, adapter.nativeCurrency.symbol),
+    nativeFormatted: formatNative(nativeValue, symbol),
     nativeValue,
     usdValue,
-    symbol: adapter.nativeCurrency.symbol,
+    symbol,
   } satisfies FeeEstimate
 }
 
-async function estimateFee(adapter: CctpNetworkAdapter, type: FeeType) {
-  if (adapter.type === "evm") return estimateEvmFee(adapter, type)
-  if (adapter.type === "solana") return estimateSolanaFee(adapter, type)
+async function estimateFee(blockchain: ChainDefinition, type: FeeType) {
+  if (blockchain.type === "evm") return estimateEvmFee(blockchain, type)
+  if (blockchain.type === "solana") return estimateSolanaFee(blockchain, type)
   return undefined
 }
 
@@ -101,24 +113,24 @@ export function useFeeEstimates({
   includeSource = true,
   includeDestination = true,
 }: Params): FeeEstimateResult {
-  const sourceAdapter = includeSource
-    ? findNetworkAdapter(sourceChainId)
+  const sourceBlockchain = includeSource
+    ? findBlockchain(sourceChainId)
     : undefined
-  const destinationAdapter = includeDestination
-    ? findNetworkAdapter(destinationChainId)
+  const destinationBlockchain = includeDestination
+    ? findBlockchain(destinationChainId)
     : undefined
 
   const sourceQuery = useQuery({
-    queryKey: ["fee-estimate", sourceAdapter?.id, "deposit"],
-    queryFn: () => estimateFee(sourceAdapter!, "deposit"),
-    enabled: !!sourceAdapter,
+    queryKey: ["fee-estimate", sourceBlockchain?.chain, "deposit"],
+    queryFn: () => estimateFee(sourceBlockchain!, "deposit"),
+    enabled: !!sourceBlockchain,
     staleTime: 60_000,
   })
 
   const destinationQuery = useQuery({
-    queryKey: ["fee-estimate", destinationAdapter?.id, "receive"],
-    queryFn: () => estimateFee(destinationAdapter!, "receive"),
-    enabled: !!destinationAdapter,
+    queryKey: ["fee-estimate", destinationBlockchain?.chain, "receive"],
+    queryFn: () => estimateFee(destinationBlockchain!, "receive"),
+    enabled: !!destinationBlockchain,
     staleTime: 60_000,
   })
 

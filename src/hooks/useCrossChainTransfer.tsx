@@ -2,28 +2,34 @@
 
 import CopyIconTooltip from "@/components/ui2/CopyIconTooltip"
 import ExternalLink from "@/components/ui2/ExternalLink"
-import {
-  type AttestationMessage,
-  type AttestationMessageSuccess,
-  getAttestation,
-  getAttestationUrl,
-} from "@/lib/cctp/attestation"
-import {
-  type CctpNetworkAdapter,
-  type CctpNetworkAdapterId,
-  type CctpV2TransferType,
-  findNetworkAdapter,
-} from "@/lib/cctp/networks"
+import { getAttestation } from "@/lib/cctp/attestation"
+import { type CctpV2TransferType } from "@/lib/cctp/networks"
 import { USDC_DECIMALS } from "@/lib/cctp/networks/constants"
-import { useActiveNetwork } from "@/lib/cctp/providers/ActiveNetworkProvider"
-import { delay, shortenAddress } from "@/lib/utils"
+import { shortenAddress } from "@/lib/utils"
+import { SolanaAdapter } from "@circle-fin/adapter-solana"
+import { ViemAdapter } from "@circle-fin/adapter-viem-v2"
+import {
+  ActionHandler,
+  Blockchain,
+  BridgeKit,
+  BridgeParams,
+  ChainDefinition,
+  getErrorMessage,
+} from "@circle-fin/bridge-kit"
+import type { Provider as SolanaProvider } from "@reown/appkit-adapter-solana/react"
 import { useAppKitAccount } from "@reown/appkit/react"
-import type { TransactionSigner } from "@solana/kit"
-import { AlertCircle, CheckCircle, Info } from "lucide-react"
-import { useState } from "react"
+import { AlertCircle, CheckCircle } from "lucide-react"
+import { useMemo, useState } from "react"
 import { toast } from "sonner"
-import { formatUnits } from "viem"
-import { useCopy } from "./useCopy"
+import { formatUnits, Hash } from "viem"
+import {
+  findBlockchain,
+  useBridgeKitEvmAdapter,
+  useBridgeKitSolanaAdapter,
+} from "./bridgeKit"
+import { alchemySolanaRpcUrl } from "@/lib/constants"
+
+export const cctpBridgeKit = new BridgeKit()
 
 export type TransferStep =
   | "idle"
@@ -34,14 +40,13 @@ export type TransferStep =
   | "completed"
   | "error"
 
-export function useCrossChainTransfer() {
+export function useCrossChainTransfer(params: RequiredExecuteTransferParams) {
   const [currentStep, setCurrentStep] = useState<TransferStep>("idle")
   const [transferAmount, setTransferAmount] = useState<string>("")
   const [logs, setLogs] = useState<React.ReactNode[]>([])
   const [error, setError] = useState<string | null>(null)
-  const { setActiveNetwork } = useActiveNetwork()
-  const { address } = useAppKitAccount()
-  const { copy } = useCopy()
+  const bridgeKitParams = useBridgeKitParams(params)
+  const solanaAccountState = useAppKitAccount({ namespace: "solana" })
 
   const addLog = (message: React.ReactNode) =>
     setLogs((prev) => [
@@ -51,6 +56,27 @@ export function useCrossChainTransfer() {
       </li>,
     ])
 
+  const setMinting = () => {
+    addLog("Initiating mint...")
+    setCurrentStep("minting")
+  }
+
+  const setMinted = (txHash: string, explorerUrl?: string) => {
+    addLog(
+      <>
+        <CheckCircle className="size-4 text-green-600" />
+        Mint Tx:{" "}
+        {explorerUrl && (
+          <ExternalLink href={explorerUrl || ""} className="text-sm">
+            {shortenAddress(txHash, 6)}
+          </ExternalLink>
+        )}
+        <CopyIconTooltip text={txHash} />
+      </>
+    )
+    setCurrentStep("completed")
+  }
+
   const executeTransfer = async (
     params: RequiredExecuteTransferParams &
       (
@@ -58,160 +84,165 @@ export function useCrossChainTransfer() {
         | { burnTxHash: string }
       )
   ) => {
-    if (!address) {
-      throw new Error("No account found")
-    }
-    const { sourceChainId, destinationChainId, mintRecipient } = params
-    const sourceNetwork = findNetworkAdapter(sourceChainId)
-    if (!sourceNetwork) {
-      throw new Error("Source network not found")
-    }
-
-    const destNetwork = findNetworkAdapter(destinationChainId)
-    if (!destNetwork) {
-      throw new Error("Destination network not found")
-    }
-
     try {
-      let burnTx: string
+      if (!bridgeKitParams) throw new Error("Bridge parameters not ready")
+
       if ("burnTxHash" in params) {
-        burnTx = params.burnTxHash
-      } else {
-        const { amount, transferType } = params
-        const numericAmount = Number(amount)
-
-        addLog(`Initiating deposit for burn ${amount} USDC...`)
-        setCurrentStep("burning")
-        const destination = findNetworkAdapter(destinationChainId)
-        if (!destination) {
-          throw new Error("Destination network not found")
-        }
-        await setActiveNetwork(sourceChainId)
-
-        burnTx = await sourceNetwork.writeTokenMessagerDepositForBurn(
-          {
-            address,
-            amount: numericAmount,
-            destination,
-            transferType,
-            mintRecipient,
-          },
-          { version: "v2", solanaSigner: params.solanaSigner }
+        const burnTx = params.burnTxHash
+        const sourceChain = findBlockchain(params.sourceChainId)
+        if (!sourceChain?.cctp) throw new Error("Source network not found")
+        const attestationMessage = await getAttestation(
+          sourceChain.cctp.domain,
+          burnTx
         )
-        addLog(
-          <>
-            <CheckCircle className="size-4 text-green-600" />
-            Burn transaction:{" "}
-            <ExternalLink
-              href={`${sourceNetwork.explorer?.url}/tx/${burnTx}`}
-              className="font-mono text-sm"
-            >
-              {shortenAddress(burnTx, 6)}
-            </ExternalLink>
-            <CopyIconTooltip text={burnTx} />
-          </>
-        )
-      }
+        if (attestationMessage.status !== "complete")
+          throw new Error("Attestation not complete yet")
 
-      setCurrentStep("waiting-attestation")
-      addLog("Waiting for attestation...")
-      const { url, result: attestation } = await retrieveAttestation(
-        burnTx,
-        sourceNetwork.domain
-      )
-      addLog(
-        <>
-          <CheckCircle className="size-4 text-green-600" />
-          Attestation received.{" "}
-          <ExternalLink href={url} className=" text-sm">
-            {shortenAddress(attestation.attestation, 8)}
-          </ExternalLink>
-          <CopyIconTooltip text={attestation.attestation} />
-        </>
-      )
+        const fromChain = findBlockchain(bridgeKitParams.from.chain.chain)
+        const toChain = findBlockchain(bridgeKitParams.to.chain.chain)
+        if (!fromChain || !toChain)
+          throw new Error("Required chains not supported by BridgeKit")
 
-      const formattedAmount = attestation.decodedMessage
-        ? formatUnits(
-            BigInt(attestation.decodedMessage.decodedMessageBody.amount),
-            USDC_DECIMALS
+        if (!solanaAccountState.address)
+          throw new Error("Solana account not connected")
+        const overridedIfSolana =
+          toChain.chain === "Solana"
+            ? ({
+                ...toChain,
+                rpcEndpoints: [alchemySolanaRpcUrl],
+              } satisfies ChainDefinition)
+            : toChain
+
+        setMinting()
+        const action =
+          await bridgeKitParams.to.adapter.actionRegistry.executeAction(
+            "cctp.v2.receiveMessage",
+            {
+              attestation: attestationMessage.attestation,
+              message: attestationMessage.message,
+              eventNonce: attestationMessage.eventNonce,
+              mintRecipient: attestationMessage.decodedMessage?.recipient,
+              fromChain: fromChain as never,
+              toChain: overridedIfSolana as never,
+            },
+            {
+              chain: overridedIfSolana as never,
+              address: solanaAccountState.address,
+            }
           )
-        : "0"
-      setTransferAmount(formattedAmount)
-
-      if (!params.isSendingToSelf) {
-        setCurrentStep("minting")
-        await copy(burnTx)
-        toast.success(
-          "Burn transaction hash copied to clipboard. You can now switch to your destination wallet to mint the tokens."
+        const txHash = await action?.execute()
+        await bridgeKitParams.to.adapter.waitForTransaction(
+          txHash as Hash,
+          {},
+          toChain as never
         )
-        addLog(
-          <>
-            <Info className="size-4 text-blue-500 shrink-0" />
-            Please disconnect and reconnect to your destination wallet, then
-            select "Mint Only" option to mint {formattedAmount} USDC.
-          </>
-        )
-        return
+        setMinted(txHash, toChain.explorerUrl.replace("{txHash}", txHash))
+      } else {
+        const handler: ActionHandler<typeof cctpBridgeKit> = ({
+          method,
+          values,
+        }) => {
+          console.log("Action", method, values)
+
+          const txHash = values.txHash || ""
+          if (values.state === "noop") return
+          switch (method) {
+            case "burn": {
+              if (values.state === "pending") {
+                addLog(`Initiating deposit for burn ${params.amount} USDC...`)
+                setCurrentStep("burning")
+              }
+              if (values.state === "success") {
+                addLog(
+                  <>
+                    <CheckCircle className="size-4 text-green-600" />
+                    Burn transaction:{" "}
+                    {values.explorerUrl && (
+                      <ExternalLink
+                        href={values.explorerUrl}
+                        className="font-mono text-sm"
+                      >
+                        {shortenAddress(txHash, 6)}
+                      </ExternalLink>
+                    )}
+                    <CopyIconTooltip text={txHash} />
+                  </>
+                )
+              }
+              if (values.state === "error") {
+                addLog(
+                  <>
+                    <AlertCircle className="size-4 text-red-500" />
+                    Burn transaction error: {values.error}
+                  </>
+                )
+                setCurrentStep("error")
+              }
+              break
+            }
+            case "fetchAttestation": {
+              if (values.state === "pending") {
+                setCurrentStep("waiting-attestation")
+                addLog("Waiting for attestation...")
+              }
+              if (values.state === "success") {
+                const { attestation, decodedMessage } = values.data
+                addLog(
+                  <>
+                    <CheckCircle className="size-4 text-green-600" />
+                    Attestation received.{" "}
+                    {/* <ExternalLink href={url} className="text-sm">
+                  {shortenAddress(attestation.attestation, 8)}
+                </ExternalLink> */}
+                    {shortenAddress(attestation, 8)}
+                    <CopyIconTooltip text={attestation} />
+                  </>
+                )
+                const formattedAmount = formatUnits(
+                  BigInt(decodedMessage.decodedMessageBody.amount),
+                  USDC_DECIMALS
+                )
+                setTransferAmount(formattedAmount)
+              }
+              if (values.state === "error") {
+                addLog(
+                  <>
+                    <AlertCircle className="size-4 text-red-500" />
+                    Attestation error: {values.error}
+                  </>
+                )
+                setCurrentStep("error")
+              }
+
+              break
+            }
+            case "mint": {
+              if (values.state === "pending") {
+                setMinting()
+              }
+              if (values.state === "success") {
+                setMinted(txHash, values.explorerUrl)
+              }
+              if (values.state === "error") {
+                addLog(
+                  <>
+                    <AlertCircle className="size-4 text-red-500" />
+                    Mint error: {values.error}
+                  </>
+                )
+                setCurrentStep("error")
+              }
+              break
+            }
+          }
+        }
+        cctpBridgeKit.on("*", handler)
+        await cctpBridgeKit.bridge(bridgeKitParams)
+        cctpBridgeKit.off("*", handler)
       }
-
-      // Switch network before request "receiveMessage" transaction
-      await setActiveNetwork(destinationChainId)
-
-      setCurrentStep("minting")
-      const simulationResult =
-        await destNetwork.simulateMessageTransmitterReceiveMessage(
-          attestation.message,
-          attestation.attestation,
-          sourceNetwork,
-          { version: "v2", solanaSigner: params.solanaSigner }
-        )
-      if (!simulationResult) {
-        throw new Error("Simulation failed")
-      }
-      addLog("Waiting for mint...")
-      if (!sourceNetwork) {
-        throw new Error("Source adapter not found")
-      }
-      const mintTx = await destNetwork.writeMessageTransmitterReceiveMessage(
-        attestation.message,
-        attestation.attestation,
-        sourceNetwork,
-        { version: "v2", solanaSigner: params.solanaSigner }
-      )
-
-      addLog(
-        <>
-          <CheckCircle className="size-4 text-green-600" />
-          Mint Tx:{" "}
-          <ExternalLink
-            href={`${destNetwork.explorer?.url}/tx/${mintTx}`}
-            className="text-sm"
-          >
-            {shortenAddress(mintTx, 6)}
-          </ExternalLink>
-          <CopyIconTooltip text={mintTx} />
-        </>
-      )
-
-      setCurrentStep("completed")
     } catch (error) {
-      setCurrentStep("error")
-      addLog(
-        <>
-          <AlertCircle className="size-4 text-red-500" />
-          Error: {error instanceof Error ? error.message : "Unknown error"}
-        </>
-      )
-
-      await delay(500)
-      if (
-        error instanceof Error &&
-        error.message === "Solana signer is required"
-      ) {
-        toast.error(
-          'Please manually set your Solana wallet "Active", refresh the page and retry.'
-        )
-      }
+      toast.error(`Error: ${getErrorMessage(error)}`)
+    } finally {
     }
   }
 
@@ -232,56 +263,60 @@ export function useCrossChainTransfer() {
   }
 }
 
-const retrieveAttestation = async (
-  transactionHash: string,
-  sourceChainDomain: CctpNetworkAdapter["domain"]
-) => {
-  return new Promise<{ url: string; result: AttestationMessageSuccess }>(
-    // oxlint-disable-next-line no-async-promise-executor
-    async (resolve, reject) => {
-      async function resolveWhenComplete(cleanup?: () => void) {
-        const response = await getAttestation(
-          sourceChainDomain,
-          transactionHash
-        ).catch(
-          (e) =>
-            ({
-              status: "error",
-              error: e.message,
-            }) satisfies AttestationMessage
-        )
-        if (response.status === "complete") {
-          cleanup?.()
-          resolve({
-            url: getAttestationUrl(sourceChainDomain, transactionHash),
-            result: response,
-          })
-        }
-      }
-
-      await resolveWhenComplete()
-      const interval = setInterval(async () => {
-        resolveWhenComplete(() => {
-          clearInterval(interval)
-          clearTimeout(timeout)
-        })
-      }, 5000)
-
-      const timeout = setTimeout(
-        () => {
-          clearInterval(interval)
-          reject(new Error("Timeout waiting for attestation"))
-        },
-        5 * 60 * 1000
-      )
-    }
-  )
+export type RequiredExecuteTransferParams = {
+  sourceChainId: Blockchain
+  destinationChainId?: Blockchain
+  mintRecipient?: string
+  isSendingToSelf: boolean
+  amount?: string
 }
 
-export type RequiredExecuteTransferParams = {
-  sourceChainId: CctpNetworkAdapterId
-  destinationChainId: CctpNetworkAdapterId
-  mintRecipient: string
-  solanaSigner?: TransactionSigner
-  isSendingToSelf: boolean
+declare global {
+  interface Window {
+    solana?: SolanaProvider
+  }
+}
+
+export function useBridgeKitParams(params: RequiredExecuteTransferParams) {
+  const { sourceChainId, destinationChainId, mintRecipient, amount } = params
+  const { data: evmAdapter } = useBridgeKitEvmAdapter()
+  const { data: solanaAdapter } = useBridgeKitSolanaAdapter()
+
+  const bridgeParams = useMemo(() => {
+    const sourceNetwork = findBlockchain(sourceChainId)
+    if (!sourceNetwork) return null
+
+    const destNetwork = findBlockchain(destinationChainId)
+    if (!destNetwork) return null
+    if (!evmAdapter) return null
+
+    let fromAd: ViemAdapter | SolanaAdapter = evmAdapter
+    if (sourceNetwork.type === "solana") {
+      if (!solanaAdapter) return null
+      fromAd = solanaAdapter
+    }
+    let toAd: ViemAdapter | SolanaAdapter = evmAdapter
+    if (destNetwork.type === "solana") {
+      if (!solanaAdapter) return null
+      toAd = solanaAdapter
+    }
+
+    return {
+      from: { adapter: fromAd, chain: sourceNetwork },
+      to: {
+        adapter: toAd,
+        chain: destNetwork,
+        recipientAddress: mintRecipient,
+      },
+      amount: amount!,
+    } satisfies BridgeParams
+  }, [
+    amount,
+    destinationChainId,
+    evmAdapter,
+    mintRecipient,
+    solanaAdapter,
+    sourceChainId,
+  ])
+  return bridgeParams
 }

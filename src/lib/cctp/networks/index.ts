@@ -1,10 +1,9 @@
 import { evmNetworkAdapters } from "./evm"
-import { solanaNetworkAdapters } from "./solana"
 import type { CctpNetworkAdapterId } from "./type"
 
 export * from "./type"
 
-export const networkAdapters = [...evmNetworkAdapters, ...solanaNetworkAdapters]
+export const networkAdapters = [...evmNetworkAdapters]
 
 /**
  * @deprecated Use `findBlockchain` from `@circle-fin/bridge-kit` instead

@@ -1,5 +1,4 @@
 import { BridgeChainIdentifier } from "@circle-fin/bridge-kit"
-import type { Address, Signature, TransactionSigner } from "@solana/kit"
 import type { StaticImageData } from "next/image"
 import type { Address as EvmAddress } from "viem"
 
@@ -12,7 +11,6 @@ type CctpNetworkVersion = { support: boolean }
 
 export type CctpFunctionOpts = {
   version: "v1" | "v2"
-  solanaSigner?: TransactionSigner
 }
 
 /**
@@ -67,17 +65,6 @@ export interface CctpNetworkAdapter {
     source: CctpNetworkAdapter,
     cctpOpts?: CctpFunctionOpts
   ) => Promise<string>
-
-  hooks?: {
-    solanaClaimEventAccount: (
-      params: {
-        sentEventAccount: Address
-        message: string
-        attestation: string
-      },
-      cctpOpts: CctpFunctionOpts
-    ) => Promise<Signature>
-  }
 }
 
 /**

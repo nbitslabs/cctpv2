@@ -1,6 +1,5 @@
 "use client"
 import { findBlockchain } from "@/hooks/bridgeKit"
-import { getExplorerUrl } from "@/lib/cctp/networks/utils-new"
 import { cn, formatNumber, getChainImageUrl, shortenAddress } from "@/lib/utils"
 import { Blockchain } from "@circle-fin/bridge-kit"
 import {
@@ -42,7 +41,7 @@ export default function ConnectedWallet({
   const [isOpen, setIsOpen] = useState(false)
   const { fakeLoading, openDialog } = useOpenAppkitDialogWithLoading()
   const { open } = useAppKit()
-  const explorerUrl = getExplorerUrl(blockchain)
+  const explorerUrl = blockchain?.explorerUrl
 
   const handleDisconnect = async () => {
     const result = await confirm({
@@ -62,7 +61,7 @@ export default function ConnectedWallet({
       <Button
         size="sm"
         variant={"outline-solid"}
-        className="h-[26px]"
+        className="h-6.5"
         onClick={() => open({ view: "Connect", namespace })}
       >
         Connect {blockchain?.type === "evm" ? "EVM" : "Solana"}
@@ -141,20 +140,27 @@ export default function ConnectedWallet({
                   />
                 )}
               </div>
-              <div className="flex items-center gap-2">
-                <ExternalLink
-                  href={`${explorerUrl}/address/${accountState.address}`}
-                  className="text-primary font-mono hover:underline"
-                >
-                  {shortenAddress(accountState.address ?? "", 3, "..")}
-                </ExternalLink>
-                <CopyIconTooltip text={accountState.address ?? ""}>
-                  <CopyIcon
-                    size={14}
-                    className="text-muted-foreground hover:text-foreground cursor-pointer"
-                  />
-                </CopyIconTooltip>
-              </div>
+              {accountState.address && (
+                <div className="flex items-center gap-2">
+                  <ExternalLink
+                    href={
+                      explorerUrl?.replace(
+                        "tx/{hash}",
+                        "address/".concat(accountState.address)
+                      ) ?? ""
+                    }
+                    className="text-primary font-mono hover:underline"
+                  >
+                    {shortenAddress(accountState.address, 3, "..")}
+                  </ExternalLink>
+                  <CopyIconTooltip text={accountState.address}>
+                    <CopyIcon
+                      size={14}
+                      className="text-muted-foreground hover:text-foreground cursor-pointer"
+                    />
+                  </CopyIconTooltip>
+                </div>
+              )}
             </div>
           </div>
           <footer className="mt-2 flex items-center gap-1 border-t pt-2">

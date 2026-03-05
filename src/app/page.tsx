@@ -29,7 +29,7 @@ import { cn } from "@/lib/utils"
 import { Blockchain } from "@circle-fin/bridge-kit"
 import { useAppKit, useAppKitAccount } from "@reown/appkit/react"
 import { AnimatePresence, motion } from "framer-motion"
-import { AlertCircle, Info, Loader, Wallet } from "lucide-react"
+import { AlertCircle, Loader, Wallet } from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
 import { NumericFormat } from "react-number-format"
 import { toast } from "sonner"
@@ -363,34 +363,6 @@ export default function Home() {
                     >
                       FAQ
                     </ExternalLink>{" "}
-                  </li>
-                  <li>
-                    After burning, if you lose progress or getting{" "}
-                    <TooltipWrap content="It happens sometimes with Solana, this error means the burn transaction has already been processed.">
-                      <span className="text-destructive inline-flex translate-y-px items-center text-[13px]">
-                        <Info className="mr-1 size-3" />
-                        Error: AlreadyProcessed{" "}
-                      </span>
-                    </TooltipWrap>
-                    , you can use the <strong>Mint Only</strong> option to mint
-                    USDC on the destination chain. The latest burn transaction
-                    is always available in the source explorer (
-                    <ExternalLink
-                      href={
-                        sourceAdapter?.explorerUrl.replace(
-                          "tx/{hash}",
-                          burnTxHash
-                            ? `tx/${burnTxHash}`
-                            : isConnected
-                              ? `address/${sourceAddress}`
-                              : ""
-                        ) ?? ""
-                      }
-                      withIcon
-                    >
-                      here
-                    </ExternalLink>
-                    ).
                   </li>
                   {hasZeroNativeBalanceOnDestination && (
                     <li className="text-destructive">

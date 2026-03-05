@@ -10,19 +10,22 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
+import { Badge } from "@/components/ui/badge"
 import { findBlockchain } from "@/hooks/bridgeKit"
 import { RequiredExecuteTransferParams } from "@/hooks/useCrossChainTransfer"
 import { useFeeEstimatesV2 } from "@/hooks/useFeeEstimatesV2"
 import { formatNumber, getChainImageUrl } from "@/lib/utils"
 import { Blockchain } from "@circle-fin/bridge-kit"
-import { ChevronDown, Loader } from "lucide-react"
+import { ChevronDown, Loader, DollarSign, Zap } from "lucide-react"
 import Image from "next/image"
+import { TooltipWrapNumber } from "./TooltipWrap"
+import { Skeleton } from "./ui/skeleton"
 
 const format3Decimal = (value: number) =>
   formatNumber(value, { maximumFractionDigits: 3, minimumFractionDigits: 3 })
 
 export function FeeEstimates({
-  showSource,
+  showSource: _showSource,
   ...params
 }: RequiredExecuteTransferParams & { showSource: boolean }) {
   const { data, isLoading } = useFeeEstimatesV2(params)
@@ -52,73 +55,51 @@ export function FeeEstimates({
             confirmation.
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-2 p-5 pt-0">
+        <CardContent className="p-5 pt-0">
           <CollapsibleContent>
             {isLoading ? (
-              <div className="space-y-1">
-                <div className="bg-foreground/10 h-10 w-full animate-pulse rounded-md" />
-                <div className="bg-foreground/10 h-10 w-full animate-pulse rounded-md" />
+              <div className="mt-2 grid grid-cols-3 gap-3">
+                <Skeleton className="h-12" />
+                <Skeleton className="h-12" />
+                <Skeleton className="h-12" />
               </div>
             ) : (
-              <div className="space-y-1">
-                {/* {showSource  && (
-                  <FeeRow
-                    adapterId={params.sourceChainId}
-                    label="Source chain"
-                    value={sourceFee?.nativeFormatted ?? "—"}
-                    secondary={renderSecondary(sourceFee)}
-                  />
+              <div className="space-y-6">
+                {/* Fees Section */}
+                {data?.fees && data.fees.length > 0 && (
+                  <div>
+                    <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold">
+                      <DollarSign className="size-4 text-green-600" />
+                      Network Fees
+                    </h3>
+                    <div className="space-y-2">
+                      {data.fees.map((fee) => (
+                        <FeeItem key={fee.type} fee={fee} />
+                      ))}
+                    </div>
+                  </div>
                 )}
-                {destination && (
-                  <FeeRow
-                    adapterId={destination}
-                    label="Destination chain"
-                    value={destinationFee?.nativeFormatted ?? "—"}
-                    secondary={renderSecondary(destinationFee)}
-                  />
-                )} */}
 
-                <br />
-                <strong>Fees</strong>
-                <ul>
-                  {data?.fees.map((fee) => (
-                    <li key={fee.type}>
-                      Type: {fee.type}
-                      <br />
-                      Token: {fee.token}
-                      <br />
-                      Amount: {fee.amount}
-                    </li>
-                  )) ?? (
-                    <li className="text-muted-foreground text-sm">
-                      No fee estimates available
-                    </li>
-                  )}
-                </ul>
+                {/* Gas Fees Section */}
+                {data?.gasFees && data.gasFees.length > 0 && (
+                  <div className="border-t pt-6">
+                    <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold">
+                      <Zap className="size-4 text-amber-600" />
+                      Gas Fees
+                    </h3>
+                    <ul className="grid grid-cols-3 gap-3">
+                      {data.gasFees.map((fee, i) => (
+                        <GasFeeItem key={i} gasFee={fee} />
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
-                <br />
-                <strong>Gas Fees</strong>
-                <ul>
-                  {data?.gasFees.map((fee, i) => (
-                    <li key={i}>
-                      Blockchain: {fee.blockchain}
-                      <br />
-                      Fee: {fee.fees?.fee}
-                      <br />
-                      Gas Price: {fee.fees?.gasPrice}
-                      <br />
-                      Gas: {fee.fees?.gas}
-                      <br />
-                      Fee Name: {fee.name}
-                      <br />
-                      Token: {fee.token}
-                    </li>
-                  )) ?? (
-                    <li className="text-muted-foreground text-sm">
-                      No fee estimates available
-                    </li>
-                  )}
-                </ul>
+                {!data?.fees && !data?.gasFees && (
+                  <div className="text-muted-foreground py-4 text-center text-sm">
+                    No fee estimates available
+                  </div>
+                )}
               </div>
             )}
           </CollapsibleContent>
@@ -128,40 +109,64 @@ export function FeeEstimates({
   )
 }
 
-function FeeRow({
-  adapterId,
-  label,
-  value,
-  secondary,
-}: {
-  adapterId: Blockchain
-  label: string
-  value: string
-  secondary?: string
-}) {
-  const blockchain = findBlockchain(adapterId)
-  if (!blockchain) return null
+interface Fee {
+  type: string
+  token: string
+  amount: string | null
+}
+
+interface GasFee {
+  blockchain: Blockchain
+  name: string
+  token: string
+  fees?: {
+    fee?: string | bigint | number
+    gasPrice?: string | bigint | number
+    gas?: string | bigint | number
+  } | null
+}
+
+function FeeItem({ fee }: { fee: Fee }) {
   return (
-    <div className="flex items-center justify-between gap-2 py-2">
-      <div className="flex items-center gap-2">
+    <div className="bg-muted/30 border-border/50 rounded-lg border p-3">
+      <div className="mb-2 flex items-start justify-between gap-3">
+        <div>
+          <p className="text-sm font-medium capitalize">{fee.type}</p>
+          <p className="text-muted-foreground text-xs">{fee.token}</p>
+        </div>
+        <Badge variant="outline" className="shrink-0">
+          {fee.amount ?? "—"}
+        </Badge>
+      </div>
+    </div>
+  )
+}
+
+function GasFeeItem({ gasFee }: { gasFee: GasFee }) {
+  const blockchain = findBlockchain(gasFee.blockchain)
+
+  return (
+    <li className="bg-muted/30 border-border/50 mb-3 flex flex-col items-center gap-2 rounded-lg border p-3">
+      {blockchain && (
         <Image
           src={getChainImageUrl(blockchain.chain)}
           alt={blockchain.name}
-          className="border-border/40 size-7 rounded-full border"
+          width={20}
+          height={20}
+          className="border-border/40 size-5 rounded-full border"
         />
-        <div className="flex flex-col">
-          <span className="text-sm leading-none font-medium">{label}</span>
-          <span className="text-muted-foreground text-xs">
-            {blockchain.name}
-          </span>
+      )}
+      <p className="text-muted-foreground flex-1 text-xs">
+        {gasFee.name} transaction on{" "}
+        <span className="text-foreground font-medium">
+          {blockchain?.name || gasFee.blockchain}
+        </span>
+      </p>
+      {gasFee.fees && (
+        <div className="space-y-1 text-xs">
+          <TooltipWrapNumber amount={Number(gasFee.fees.fee)} /> {gasFee.token}
         </div>
-      </div>
-      <div className="text-right text-sm">
-        <div className="font-medium">{value}</div>
-        {secondary && (
-          <div className="text-muted-foreground text-xs">{secondary}</div>
-        )}
-      </div>
-    </div>
+      )}
+    </li>
   )
 }

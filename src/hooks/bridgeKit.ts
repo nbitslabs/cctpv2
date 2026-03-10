@@ -49,7 +49,7 @@ export function useBridgeKitSolanaAdapter() {
         }),
       })
     },
-    enabled: window?.solana !== undefined,
+    enabled: typeof window !== "undefined" && window.solana !== undefined,
   })
 }
 

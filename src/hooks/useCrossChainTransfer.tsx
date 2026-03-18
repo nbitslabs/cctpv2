@@ -3,8 +3,7 @@
 import CopyIconTooltip from "@/components/ui2/CopyIconTooltip"
 import ExternalLink from "@/components/ui2/ExternalLink"
 import { getAttestation } from "@/lib/cctp/attestation"
-import { type CctpV2TransferType } from "@/lib/cctp/networks"
-import { USDC_DECIMALS } from "@/lib/cctp/networks/constants"
+import { alchemySolanaRpcUrl, USDC_DECIMALS } from "@/lib/constants"
 import { shortenAddress } from "@/lib/utils"
 import { SolanaAdapter } from "@circle-fin/adapter-solana"
 import { ViemAdapter } from "@circle-fin/adapter-viem-v2"
@@ -15,6 +14,7 @@ import {
   BridgeParams,
   ChainDefinition,
   getErrorMessage,
+  TransferSpeed,
 } from "@circle-fin/bridge-kit"
 import type { Provider as SolanaProvider } from "@reown/appkit-adapter-solana/react"
 import { useAppKitAccount } from "@reown/appkit/react"
@@ -27,7 +27,6 @@ import {
   useBridgeKitEvmAdapter,
   useBridgeKitSolanaAdapter,
 } from "./bridgeKit"
-import { alchemySolanaRpcUrl } from "@/lib/constants"
 
 export const cctpBridgeKit = new BridgeKit()
 
@@ -77,23 +76,16 @@ export function useCrossChainTransfer(params: RequiredExecuteTransferParams) {
     setCurrentStep("completed")
   }
 
-  const executeTransfer = async (
-    params: RequiredExecuteTransferParams &
-      (
-        | { amount: string; transferType: CctpV2TransferType }
-        | { burnTxHash: string }
-      )
-  ) => {
+  const executeTransfer = async (props: { burnTxHash?: string }) => {
     try {
       if (!bridgeKitParams) throw new Error("Bridge parameters not ready")
 
-      if ("burnTxHash" in params) {
-        const burnTx = params.burnTxHash
+      if ("burnTxHash" in props && props.burnTxHash) {
         const sourceChain = findBlockchain(params.sourceChainId)
         if (!sourceChain?.cctp) throw new Error("Source network not found")
         const attestationMessage = await getAttestation(
           sourceChain.cctp.domain,
-          burnTx
+          props.burnTxHash
         )
         if (attestationMessage.status !== "complete")
           throw new Error("Attestation not complete yet")
@@ -267,6 +259,7 @@ export type RequiredExecuteTransferParams = {
   mintRecipient?: string
   isSendingToSelf: boolean
   amount?: string
+  transferType?: TransferSpeed
 }
 
 declare global {
@@ -307,6 +300,7 @@ export function useBridgeKitParams(params: RequiredExecuteTransferParams) {
         recipientAddress: mintRecipient,
       },
       amount: amount!,
+      config: {},
     } satisfies BridgeParams
   }, [
     amount,

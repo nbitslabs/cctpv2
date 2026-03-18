@@ -11,6 +11,7 @@ import { Timer } from "@/components/timer"
 import { TooltipWrap, TooltipWrapNumber } from "@/components/TooltipWrap"
 import TransactionHistory from "@/components/transaction-history"
 import { TransferLog } from "@/components/transfer-log"
+import { TransferTypeSelector } from "@/components/transfer-type"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -21,12 +22,12 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ExternalLink from "@/components/ui2/ExternalLink"
 import { useAddressOfAdapterId } from "@/hooks/useAddressOfAdapter"
 import {
+  RequiredExecuteTransferParams,
   useCrossChainTransfer,
   type TransferStep,
 } from "@/hooks/useCrossChainTransfer"
-import { CctpV2TransferType } from "@/lib/cctp/networks"
 import { cn } from "@/lib/utils"
-import { Blockchain } from "@circle-fin/bridge-kit"
+import { Blockchain, TransferSpeed } from "@circle-fin/bridge-kit"
 import { useAppKit, useAppKitAccount } from "@reown/appkit/react"
 import { AnimatePresence, motion } from "framer-motion"
 import { AlertCircle, Loader, Wallet } from "lucide-react"
@@ -45,7 +46,9 @@ export default function Home() {
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
   const [isTransferring, setIsTransferring] = useState(false)
   const [showFinalTime, setShowFinalTime] = useState(false)
-  const [transferType] = useState<CctpV2TransferType>(CctpV2TransferType.Fast)
+  const [transferType, setTransferType] = useState<TransferSpeed>(
+    TransferSpeed.FAST
+  )
   const [burnTxHash, setBurnTxHash] = useState("")
   const [understand, setUnderstand] = useState(false)
   const [isCustomDestAddress, setIsCustomDestAddress] = useState(false)
@@ -62,25 +65,25 @@ export default function Home() {
   const destAddress = useAddressOfAdapterId(destChain)
   const { balance: destBalance, blockchain: destAdapter } =
     useNetworkAdapterBalance(destChain, customDestAddress)
-  // const { data: mintRecipient } = useQuery({
-  //   queryKey: ["mint-recipient", sourceAdapter?.type, destAdapter?.type],
-  //   queryFn: () =>
-  //     formatDestinationAddress(destAddress, {
-  //       source: sourceAdapter!.type,
-  //       destination: destAdapter!.type,
-  //     }),
-  //   enabled: !!sourceAdapter && !!destAdapter && !!destAddress,
-  // })
 
   const requiredParams = useMemo(
-    () => ({
-      sourceChainId: sourceChain,
-      destinationChainId: destChain,
-      mintRecipient: customDestAddress,
-      isSendingToSelf: !isCustomDestAddress,
+    () =>
+      ({
+        sourceChainId: sourceChain,
+        destinationChainId: destChain,
+        mintRecipient: customDestAddress,
+        isSendingToSelf: !isCustomDestAddress,
+        amount,
+        transferType,
+      }) satisfies RequiredExecuteTransferParams,
+    [
+      sourceChain,
+      destChain,
+      customDestAddress,
+      isCustomDestAddress,
       amount,
-    }),
-    [sourceChain, destChain, customDestAddress, isCustomDestAddress, amount]
+      transferType,
+    ]
   )
   const { currentStep, logs, error, transferAmount, executeTransfer, reset } =
     useCrossChainTransfer(requiredParams)
@@ -98,9 +101,6 @@ export default function Home() {
     if (!destAdapter) {
       return toast.error("Please select a destination chain")
     }
-    // if (!destAddress) {
-    //   return toast.error("Please enter a destination address")
-    // }
 
     if (isMintOnly) {
       if (!burnTxHash) {
@@ -118,10 +118,7 @@ export default function Home() {
     setIsTransferring(true)
     setShowFinalTime(false)
     setElapsedSeconds(0)
-    await executeTransfer({
-      ...requiredParams,
-      ...(isMintOnly ? { burnTxHash } : { amount, transferType }),
-    })
+    await executeTransfer({ burnTxHash: isMintOnly ? burnTxHash : undefined })
     ;[sourceBalance, destBalance].map((balance) => balance.refetch())
     setIsTransferring(false)
     setShowFinalTime(true)
@@ -150,13 +147,9 @@ export default function Home() {
   }, [destAddress, isCustomDestAddress])
 
   // Reset scroll position on page load
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+  useEffect(() => window.scrollTo(0, 0), [])
 
-  useEffect(() => {
-    setUnderstand(isMintOnly)
-  }, [isMintOnly])
+  useEffect(() => setUnderstand(isMintOnly), [isMintOnly])
 
   return (
     <div className="min-h-screen w-full pb-8 sm:p-8">
@@ -186,20 +179,20 @@ export default function Home() {
                   : "Transfer and mint from the origin to the destination"}
               </p>
             </div>
-            {/* {!isMintOnly && (
+            {!isMintOnly && (
               <div className="flex flex-col gap-2">
                 <Label>Transfer Type</Label>
                 <TransferTypeSelector
                   value={transferType}
                   onChange={setTransferType}
                 />
-                <p className="text-sm text-muted-foreground">
-                  {transferType === CctpV2TransferType.Fast
+                <p className="text-muted-foreground text-sm">
+                  {transferType === "FAST"
                     ? "Faster transfers with lower finality threshold (1000 blocks)"
                     : "Standard transfers with higher finality (2000 blocks)"}
                 </p>
               </div>
-            )} */}
+            )}
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <NetworkAdapterSelect

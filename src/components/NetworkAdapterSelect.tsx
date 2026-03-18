@@ -4,7 +4,7 @@ import {
   useBridgeKitAdapterByBlockchainId,
 } from "@/hooks/bridgeKit"
 import { cctpBridgeKit } from "@/hooks/useCrossChainTransfer"
-import { USDC_DECIMALS } from "@/lib/cctp/networks/constants"
+import { USDC_DECIMALS } from "@/lib/constants"
 import { cn, getChainImageUrl } from "@/lib/utils"
 import { Blockchain, EVMChainDefinition } from "@circle-fin/bridge-kit"
 import { ChainNamespace } from "@reown/appkit/networks"

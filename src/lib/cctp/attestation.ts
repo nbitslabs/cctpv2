@@ -1,16 +1,16 @@
 import type { Address } from "viem"
-import type { CctpNetworkAdapter } from "./networks"
 import axios from "axios"
+import type { CCTPConfig } from "@circle-fin/bridge-kit"
 
 const apiUrl = "https://iris-api.circle.com/v2"
 
 export const getAttestationUrl = (
-  sourceDomain: CctpNetworkAdapter["domain"],
+  sourceDomain: CCTPConfig["domain"],
   burnTx: string
 ) => `${apiUrl}/messages/${sourceDomain}?transactionHash=${burnTx}`
 
 export async function getAttestation(
-  sourceDomain: CctpNetworkAdapter["domain"],
+  sourceDomain: CCTPConfig["domain"],
   burnTx: string
 ): Promise<AttestationMessage> {
   const response = await axios.get(getAttestationUrl(sourceDomain, burnTx))

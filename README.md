@@ -32,6 +32,7 @@ For detailed instructions on using CCTP V2, please refer to the [User Manual](./
 - [x] [World Chain](https://worldscan.org/tx/0x0de415094bdbc63e3c0c535e23a37bc608b05cee0f7cfc8e43fb4112201ff682) -> [Plume](https://explorer.plume.org/tx/0xefb2f7cdc88d80d9a7fa895607746e9327bad2bee349910cc867c34acb1de0b2)
 - [x] [Codex](https://explorer.codex.xyz/tx/0x464d76ca619337cbba8b8027439aad77f497692b8b6a938bdecbb5c97e711ebd) -> [Monad](https://monadvision.com/tx/0x655a4f4256cabcf135fabec71b4f94771a28e3011db758bcc968541e7d4a85de)
 - [x] [Monad](https://monadvision.com/tx/0x20a3a0de0046bef45be27d79bec9c9c6d6784ece7a73ee417da2acdd9229e7bb) -> [Base](https://basescan.org/tx/0x1953a2b33197d955e138416e6ce4abd71c40780fd4abd9b828edbe2ab8aaa642)
+- [x] Transfer using Standard/Slow mode (no fees) [Base](0xa861f94679d9c4ebd40a37d7645186637fb502b1fbb08b75dc3cdf68d028ac0c) -> [Ethereum](0x2c3540a254c836936ef2d8d851bcd4f5434a266518d58d174b9d52fb6e3c54a6)
 
 ## CCTP V2 Features
 

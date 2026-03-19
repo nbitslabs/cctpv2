@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge"
 import {
   Card,
   CardContent,
@@ -10,26 +11,37 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-import { Badge } from "@/components/ui/badge"
 import { findBlockchain } from "@/hooks/bridgeKit"
 import { RequiredExecuteTransferParams } from "@/hooks/useCrossChainTransfer"
 import { useFeeEstimatesV2 } from "@/hooks/useFeeEstimatesV2"
-import { formatNumber, getChainImageUrl } from "@/lib/utils"
-import { Blockchain } from "@circle-fin/bridge-kit"
-import { ChevronDown, Loader, DollarSign, Zap } from "lucide-react"
+import { cn, formatNumber, getChainImageUrl } from "@/lib/utils"
+import { ChevronDown, DollarSign, Loader, Zap } from "lucide-react"
 import Image from "next/image"
+import { useMemo } from "react"
 import { TooltipWrapNumber } from "./TooltipWrap"
 import { Skeleton } from "./ui/skeleton"
 
 const format3Decimal = (value: number) =>
   formatNumber(value, { maximumFractionDigits: 3, minimumFractionDigits: 3 })
 
+type FeeEstimatesV2Result = NonNullable<
+  ReturnType<typeof useFeeEstimatesV2>["data"]
+>
+
 export function FeeEstimates({
   showSource: _showSource,
   ...params
 }: RequiredExecuteTransferParams & { showSource: boolean }) {
   const { data, isLoading } = useFeeEstimatesV2(params)
-  const totalUsd = "0"
+
+  const totalUsd = useMemo(() => {
+    if (!data) return null
+    const feeUsd =
+      data.fees?.reduce((sum, fee) => sum + (Number(fee.amount) ?? 0), 0) ?? 0
+    const gasUsd =
+      data.gasFees?.reduce((sum, fee) => sum + (fee.usdFee ?? 0), 0) ?? 0
+    return feeUsd + gasUsd
+  }, [data])
 
   return (
     <Collapsible>
@@ -67,22 +79,32 @@ export function FeeEstimates({
               <div className="space-y-6">
                 {/* Fees Section */}
                 {data?.fees && data.fees.length > 0 && (
-                  <div>
+                  <div
+                    className={cn(
+                      data.fees.length === 1 && "flex justify-between"
+                    )}
+                  >
                     <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold">
                       <DollarSign className="size-4 text-green-600" />
                       Network Fees
                     </h3>
                     <div className="space-y-2">
-                      {data.fees.map((fee) => (
-                        <FeeItem key={fee.type} fee={fee} />
-                      ))}
+                      {data.fees.length > 1 ? (
+                        data.fees.map((fee) => (
+                          <FeeItem key={fee.type} fee={fee} />
+                        ))
+                      ) : (
+                        <span className="text-muted-foreground text-xs">
+                          {data.fees[0].amount} {data.fees[0].token}
+                        </span>
+                      )}
                     </div>
                   </div>
                 )}
 
                 {/* Gas Fees Section */}
                 {data?.gasFees && data.gasFees.length > 0 && (
-                  <div className="border-t pt-6">
+                  <div className="border-foreground/10 border-t pt-6">
                     <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold">
                       <Zap className="size-4 text-amber-600" />
                       Gas Fees
@@ -109,26 +131,9 @@ export function FeeEstimates({
   )
 }
 
-interface Fee {
-  type: string
-  token: string
-  amount: string | null
-}
-
-interface GasFee {
-  blockchain: Blockchain
-  name: string
-  token: string
-  fees?: {
-    fee?: string | bigint | number
-    gasPrice?: string | bigint | number
-    gas?: string | bigint | number
-  } | null
-}
-
-function FeeItem({ fee }: { fee: Fee }) {
+function FeeItem({ fee }: { fee: FeeEstimatesV2Result["fees"][number] }) {
   return (
-    <div className="bg-muted/30 border-border/50 rounded-lg border p-3">
+    <div className="bg-foreground/30 border-border/50 rounded-lg border p-3">
       <div className="mb-2 flex items-start justify-between gap-3">
         <div>
           <p className="text-sm font-medium capitalize">{fee.type}</p>
@@ -142,11 +147,15 @@ function FeeItem({ fee }: { fee: Fee }) {
   )
 }
 
-function GasFeeItem({ gasFee }: { gasFee: GasFee }) {
+function GasFeeItem({
+  gasFee,
+}: {
+  gasFee: FeeEstimatesV2Result["gasFees"][number]
+}) {
   const blockchain = findBlockchain(gasFee.blockchain)
 
   return (
-    <li className="bg-muted/30 border-border/50 mb-3 flex flex-col items-center gap-2 rounded-lg border p-3">
+    <li className="bg-muted mb-3 flex flex-col items-center gap-2 rounded-lg border p-3">
       {blockchain && (
         <Image
           src={getChainImageUrl(blockchain.chain)}
@@ -164,7 +173,12 @@ function GasFeeItem({ gasFee }: { gasFee: GasFee }) {
       </p>
       {gasFee.fees && (
         <div className="space-y-1 text-xs">
-          <TooltipWrapNumber amount={Number(gasFee.fees.fee)} /> {gasFee.token}
+          <TooltipWrapNumber amount={Number(gasFee.fees.fee)} /> {gasFee.token}{" "}
+          (
+          {gasFee.usdFee < 0.01
+            ? "< $0.01"
+            : "~ $".concat(format3Decimal(gasFee.usdFee))}
+          )
         </div>
       )}
     </li>

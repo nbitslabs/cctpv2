@@ -86,7 +86,7 @@ export function FeeEstimates({
                   >
                     <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold">
                       <DollarSign className="size-4 text-green-600" />
-                      Network Fees
+                      Service Fees (may include CCTP relayer fees, etc.)
                     </h3>
                     <div className="space-y-2">
                       {data.fees.length > 1 ? (

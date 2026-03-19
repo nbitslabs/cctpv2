@@ -269,7 +269,13 @@ declare global {
 }
 
 export function useBridgeKitParams(params: RequiredExecuteTransferParams) {
-  const { sourceChainId, destinationChainId, mintRecipient, amount } = params
+  const {
+    sourceChainId,
+    destinationChainId,
+    mintRecipient,
+    amount,
+    transferType,
+  } = params
   const { data: evmAdapter } = useBridgeKitEvmAdapter()
   const { data: solanaAdapter } = useBridgeKitSolanaAdapter()
 
@@ -300,7 +306,7 @@ export function useBridgeKitParams(params: RequiredExecuteTransferParams) {
         recipientAddress: mintRecipient,
       },
       amount: amount!,
-      config: {},
+      config: { transferSpeed: transferType },
     } satisfies BridgeParams
   }, [
     amount,
@@ -309,6 +315,7 @@ export function useBridgeKitParams(params: RequiredExecuteTransferParams) {
     mintRecipient,
     solanaAdapter,
     sourceChainId,
+    transferType,
   ])
   return bridgeParams
 }

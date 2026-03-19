@@ -187,18 +187,10 @@ export default function Home() {
               </p>
             </div>
             {!isMintOnly && (
-              <div className="flex flex-col gap-2">
-                <Label>Transfer Type</Label>
-                <TransferTypeSelector
-                  value={transferType}
-                  onChange={setTransferType}
-                />
-                <p className="text-muted-foreground text-sm">
-                  {transferType === "FAST"
-                    ? "Completes within ~2m, with ~0.1% of the transfer amount"
-                    : "Completes within ~20m, free of charge"}
-                </p>
-              </div>
+              <TransferTypeSelector
+                value={transferType}
+                onChange={setTransferType}
+              />
             )}
           </div>
           <div className="grid gap-4 sm:grid-cols-2">

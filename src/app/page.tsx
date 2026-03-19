@@ -195,8 +195,8 @@ export default function Home() {
                 />
                 <p className="text-muted-foreground text-sm">
                   {transferType === "FAST"
-                    ? "Faster transfers with lower finality threshold (1000 blocks)"
-                    : "Standard transfers with higher finality (2000 blocks)"}
+                    ? "Completes within ~2m, with ~0.1% of the transfer amount"
+                    : "Completes within ~20m, free of charge"}
                 </p>
               </div>
             )}

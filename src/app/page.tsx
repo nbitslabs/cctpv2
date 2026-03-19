@@ -8,7 +8,11 @@ import { ProgressSteps } from "@/components/progress-step"
 import StickyWallets from "@/components/StickyWallets"
 import SuccessDialog from "@/components/SuccessDialog"
 import { Timer } from "@/components/timer"
-import { TooltipWrap, TooltipWrapNumber } from "@/components/TooltipWrap"
+import {
+  TooltipWrap,
+  TooltipWrapInfo,
+  TooltipWrapNumber,
+} from "@/components/TooltipWrap"
 import TransactionHistory from "@/components/transaction-history"
 import { TransferLog } from "@/components/transfer-log"
 import { TransferTypeSelector } from "@/components/transfer-type"
@@ -21,8 +25,8 @@ import { Label } from "@/components/ui/label"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ExternalLink from "@/components/ui2/ExternalLink"
 import { useAddressOfAdapterId } from "@/hooks/useAddressOfAdapter"
+import { RequiredExecuteTransferParams } from "@/hooks/useBridgeKitParams"
 import {
-  RequiredExecuteTransferParams,
   useCrossChainTransfer,
   type TransferStep,
 } from "@/hooks/useCrossChainTransfer"
@@ -43,6 +47,7 @@ export default function Home() {
   const [method, setMethod] = useState<"mintOnly" | "transfer">("transfer")
   const isMintOnly = method === "mintOnly"
   const [amount, setAmount] = useState("")
+  const [usingForwarder, setUsingForwarder] = useState(false)
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
   const [isTransferring, setIsTransferring] = useState(false)
   const [showFinalTime, setShowFinalTime] = useState(false)
@@ -75,6 +80,7 @@ export default function Home() {
         isSendingToSelf: !isCustomDestAddress,
         amount,
         transferType,
+        useForwarder: usingForwarder,
       }) satisfies RequiredExecuteTransferParams,
     [
       sourceChain,
@@ -83,6 +89,7 @@ export default function Home() {
       isCustomDestAddress,
       amount,
       transferType,
+      usingForwarder,
     ]
   )
   const { currentStep, logs, error, transferAmount, executeTransfer, reset } =
@@ -203,7 +210,6 @@ export default function Home() {
               addressReadonly
               hideAddress={isMintOnly}
             />
-
             <NetworkAdapterSelect
               label="Destination"
               chainId={destChain}
@@ -310,7 +316,7 @@ export default function Home() {
                     ) : (
                       <>
                         <TooltipWrapNumber
-                          amount={sourceBalance.data?.native ?? 0}
+                          amount={sourceBalance.data?.usdc ?? 0}
                         />{" "}
                         USDC
                       </>
@@ -320,7 +326,7 @@ export default function Home() {
                       variant={"ghost"}
                       size={"sm"}
                       onClick={() =>
-                        setAmount(sourceBalance.data?.native.toString() ?? "")
+                        setAmount(sourceBalance.data?.usdc.toString() ?? "")
                       }
                       className="ml-1"
                     >
@@ -328,6 +334,26 @@ export default function Home() {
                     </Button>
                   </p>
                 )}
+                <Label
+                  htmlFor="using-forwarder"
+                  className="flex items-center justify-center gap-2"
+                >
+                  <Checkbox
+                    id="using-forwarder"
+                    className="border-primary/50"
+                    checked={usingForwarder}
+                    onCheckedChange={(checked) =>
+                      setUsingForwarder(
+                        checked === "indeterminate" ? false : checked
+                      )
+                    }
+                  />
+                  Use Forwarder{" "}
+                  <TooltipWrapInfo
+                    content="Recommended for new users, requires no native
+                token on destination chain"
+                  />
+                </Label>
               </>
             )}
           </div>

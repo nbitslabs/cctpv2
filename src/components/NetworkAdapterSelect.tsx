@@ -100,7 +100,7 @@ export default function NetworkAdapterSelect({
   const supportedChains = cctpBridgeKit.getSupportedChains({ isTestnet: false })
 
   return (
-    <div className="space-y-2">
+    <div className="grow space-y-2">
       <Label className="font-serif">{label} Chain</Label>
       <Select value={chainId?.toString()} onValueChange={setChainId}>
         <SelectTrigger>

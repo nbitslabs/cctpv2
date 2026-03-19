@@ -12,7 +12,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { findBlockchain } from "@/hooks/bridgeKit"
-import { RequiredExecuteTransferParams } from "@/hooks/useCrossChainTransfer"
+import { RequiredExecuteTransferParams } from "@/hooks/useBridgeKitParams"
 import { useFeeEstimatesV2 } from "@/hooks/useFeeEstimatesV2"
 import { cn, formatNumber, getChainImageUrl } from "@/lib/utils"
 import { ChevronDown, DollarSign, Loader, Zap } from "lucide-react"
@@ -32,7 +32,7 @@ export function FeeEstimates({
   showSource: _showSource,
   ...params
 }: RequiredExecuteTransferParams & { showSource: boolean }) {
-  const { data, isLoading } = useFeeEstimatesV2(params)
+  const { data, isLoading, error } = useFeeEstimatesV2(params)
 
   const totalUsd = useMemo(() => {
     if (!data) return null
@@ -74,6 +74,10 @@ export function FeeEstimates({
                 <Skeleton className="h-12" />
                 <Skeleton className="h-12" />
                 <Skeleton className="h-12" />
+              </div>
+            ) : error ? (
+              <div className="text-destructive bg-destructive/10 mt-2 rounded p-3 text-sm">
+                {error.message || "Failed to load fee estimates"}
               </div>
             ) : (
               <div className="space-y-6">

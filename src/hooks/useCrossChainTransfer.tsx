@@ -5,28 +5,22 @@ import ExternalLink from "@/components/ui2/ExternalLink"
 import { getAttestation } from "@/lib/cctp/attestation"
 import { alchemySolanaRpcUrl, USDC_DECIMALS } from "@/lib/constants"
 import { shortenAddress } from "@/lib/utils"
-import { SolanaAdapter } from "@circle-fin/adapter-solana"
-import { ViemAdapter } from "@circle-fin/adapter-viem-v2"
 import {
   ActionHandler,
-  Blockchain,
   BridgeKit,
-  BridgeParams,
   ChainDefinition,
   getErrorMessage,
-  TransferSpeed,
 } from "@circle-fin/bridge-kit"
-import type { Provider as SolanaProvider } from "@reown/appkit-adapter-solana/react"
 import { useAppKitAccount } from "@reown/appkit/react"
 import { AlertCircle, CheckCircle } from "lucide-react"
-import { useMemo, useState } from "react"
+import { useState } from "react"
 import { toast } from "sonner"
 import { formatUnits, Hash } from "viem"
+import { findBlockchain } from "./bridgeKit"
 import {
-  findBlockchain,
-  useBridgeKitEvmAdapter,
-  useBridgeKitSolanaAdapter,
-} from "./bridgeKit"
+  RequiredExecuteTransferParams,
+  useBridgeKitParams,
+} from "./useBridgeKitParams"
 
 export const cctpBridgeKit = new BridgeKit()
 
@@ -251,71 +245,4 @@ export function useCrossChainTransfer(params: RequiredExecuteTransferParams) {
     executeTransfer,
     reset,
   }
-}
-
-export type RequiredExecuteTransferParams = {
-  sourceChainId: Blockchain
-  destinationChainId?: Blockchain
-  mintRecipient?: string
-  isSendingToSelf: boolean
-  amount?: string
-  transferType?: TransferSpeed
-}
-
-declare global {
-  interface Window {
-    solana?: SolanaProvider
-  }
-}
-
-export function useBridgeKitParams(params: RequiredExecuteTransferParams) {
-  const {
-    sourceChainId,
-    destinationChainId,
-    mintRecipient,
-    amount,
-    transferType,
-  } = params
-  const { data: evmAdapter } = useBridgeKitEvmAdapter()
-  const { data: solanaAdapter } = useBridgeKitSolanaAdapter()
-
-  const bridgeParams = useMemo(() => {
-    const sourceNetwork = findBlockchain(sourceChainId)
-    if (!sourceNetwork) return null
-
-    const destNetwork = findBlockchain(destinationChainId)
-    if (!destNetwork) return null
-    if (!evmAdapter) return null
-
-    let fromAd: ViemAdapter | SolanaAdapter = evmAdapter
-    if (sourceNetwork.type === "solana") {
-      if (!solanaAdapter) return null
-      fromAd = solanaAdapter
-    }
-    let toAd: ViemAdapter | SolanaAdapter = evmAdapter
-    if (destNetwork.type === "solana") {
-      if (!solanaAdapter) return null
-      toAd = solanaAdapter
-    }
-
-    return {
-      from: { adapter: fromAd, chain: sourceNetwork },
-      to: {
-        adapter: toAd,
-        chain: destNetwork,
-        recipientAddress: mintRecipient,
-      },
-      amount: amount!,
-      config: { transferSpeed: transferType },
-    } satisfies BridgeParams
-  }, [
-    amount,
-    destinationChainId,
-    evmAdapter,
-    mintRecipient,
-    solanaAdapter,
-    sourceChainId,
-    transferType,
-  ])
-  return bridgeParams
 }

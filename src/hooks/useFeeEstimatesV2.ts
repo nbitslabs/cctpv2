@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query"
 import {
-  cctpBridgeKit,
   RequiredExecuteTransferParams,
   useBridgeKitParams,
-} from "./useCrossChainTransfer"
+} from "./useBridgeKitParams"
 import { keyBy, uniq } from "lodash-es"
 import { getNativeTokenUsdPrice } from "@/lib/pricing/native"
+import { cctpBridgeKit } from "./bridgeKit"
 
 export function useFeeEstimatesV2(params: RequiredExecuteTransferParams) {
   const bridgeKitParams = useBridgeKitParams(params)
